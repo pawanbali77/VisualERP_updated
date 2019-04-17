@@ -1,0 +1,1477 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Welcome to Visual ERP</title>
+<script type='text/javascript' src='jquery-1.2.3.min.js'></script>
+<script type='text/javascript' src='menu.js'></script>
+
+<script language="javascript" type="text/javascript">
+
+    function getOffset(el) { // return element top, left, width, height
+        var _x = 0;
+        var _y = 0;
+        var _w = el.offsetWidth | 0;
+        var _h = el.offsetHeight | 0;
+        while (el && !isNaN(el.offsetLeft) && !isNaN(el.offsetTop)) {
+            _x += el.offsetLeft - el.scrollLeft;
+            _y += el.offsetTop - el.scrollTop;
+            el = el.offsetParent;
+        }
+        return { top: _y, left: _x, width: _w, height: _h };
+    }
+
+    function connect(div1, div2, color, thickness) { // draw a line connecting elements
+        var off1 = getOffset(div1);
+        var off2 = getOffset(div2);
+        // bottom right
+        var x1 = off1.left + off1.width;
+        var y1 = off1.top + off1.height;
+        // top right
+        var x2 = off2.left + off2.width;
+        var y2 = off2.top;
+        // distance
+        var length = Math.sqrt(((x2 - x1) * (x2 - x1)) + ((y2 - y1) * (y2 - y1)));
+        // center
+        var cx = ((x1 + x2) / 2) - (length / 2);
+        var cy = ((y1 + y2) / 2) - (thickness / 2);
+        // angle
+        var angle = Math.atan2((y1 - y2), (x1 - x2)) * (180 / Math.PI);
+        // make hr
+        var htmlLine = "<div style='padding:0px; margin:0px; height:" + thickness + "px; background-color:" + color + "; line-height:1px; position:absolute; left:" + cx + "px; top:" + cy + "px; width:" + length + "px; -moz-transform:rotate(" + angle + "deg); -webkit-transform:rotate(" + angle + "deg); -o-transform:rotate(" + angle + "deg); -ms-transform:rotate(" + angle + "deg); transform:rotate(" + angle + "deg);' />";
+        //
+        // alert(htmlLine);
+        document.body.innerHTML += htmlLine;
+    }
+</script>
+<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+</head>
+<body>
+<div class="main_container">
+<div class="header">
+<div class="Logo"><a href="#"><img src="images/logo.png" /></a></div>
+<div class="header_right">
+<ul>
+<li><a href="#" class="process_manager">Process View</a></li>
+<li><a href="#" class=" enterprize_manager">Enterprise Manager</a></li>
+</ul>
+</div>
+</div>
+
+<div class="mid_container">
+
+<div class="side_bar"><img src="images/side_bar.png" /></div>
+<div class="right_container">
+
+<div class="right_container_top TopMarg">
+<h1>Enterprise Manager</h1>
+
+<div class="right_nav">
+<ul>
+<li><a href="#"><img src="images/arrow_down.png" /></a></li>
+<li><a href="#"><img src="images/arrow_top.png" /></a></li>
+<li><a href="#"><img src="images/zoom-in.png" /></a></li>
+<li><a href="#"><img src="images/zoom-out.png" /></a></li>
+</ul>
+</div>
+</div>
+
+<div class="filter_strip Top2Marg">
+<ul id="nav">
+  
+    <li class="bdr_none"><a href="#" class="col_grey">BPMN icon</a>
+      <ul>
+            <li><a href="#"><span class="NaviMidIcon1"></span>Process</a> </li>
+            <li><a href="#"><span class="NaviMidIcon2"></span>Customer Supplier</a></li>
+            <li><a href="#"><span class="NaviMidIcon3"></span>Inventory</a></li>
+            <li><a href="#"><span class="NaviMidIcon4"></span>External Shipment</a></li>
+            <li><a href="#"><span class="NaviMidIcon5"></span>Push</a></li>
+            <li><a href="#"><span class="NaviMidIcon6"></span>Shipment Arrow</a></li>
+            <li><a href="#"><span class="NaviMidIcon7"></span>Go See Production</a></li>
+            <li><a href="#"><span class="NaviMidIcon8"></span>Electronic Information</a></li>
+            <li><a href="#"><span class="NaviMidIcon9"></span>Production Control</a></li>
+            <li><a href="#"><span class="NaviMidIcon10"></span>Data Table</a></li>
+            <li><a href="#"><span class="NaviMidIcon11"></span>Timeline Segment</a></li>
+            <li><a href="#"><span class="NaviMidIcon12"></span>Timeline total</a></li>
+            <li><a href="#"><span class="NaviMidIcon13"></span>Supermarket</a></li>
+            <li><a href="#"><span class="NaviMidIcon14"></span>Safety Stock</a></li>
+            <li><a href="#"><span class="NaviMidIcon15"></span>Signal Kanban</a></li>
+            <li><a href="#"><span class="NaviMidIcon16"></span>Withdrawal kanban</a></li>
+            <li><a href="#"><span class="NaviMidIcon17"></span>Withdrawal Batch</a></li>
+            <li><a href="#"><span class="NaviMidIcon18"></span>Production Kanban</a></li>
+            <li><a href="#"><span class="NaviMidIcon19"></span>Batch Kanban</a></li>
+            <li><a href="#"><span class="NaviMidIcon20"></span>Kanban Post</a></li>
+            <li><a href="#"><span class="NaviMidIcon21"></span>FIFO Lane</a></li>
+            <li><a href="#"><span class="NaviMidIcon22"></span>Kaizen Burst</a></li>
+            <li><a href="#"><span class="NaviMidIcon23"></span>Pull Arrow 1</a></li>
+            <li><a href="#"><span class="NaviMidIcon24"></span>Pull Arrow 2</a></li>
+            <li><a href="#"><span class="NaviMidIcon25"></span>Pull Arrow 3</a></li>
+            <li><a href="#"><span class="NaviMidIcon26"></span>Physical Pull</a></li>
+            <li><a href="#"><span class="NaviMidIcon27"></span>Sequenced Pull Ball</a></li>
+            <li class="last"><a href="#"><span class="NaviMidIcon28"></span>Load Leveling</a></li>
+      </ul>
+    </li>
+</ul>
+
+</div>
+
+
+
+<!--<table class="block_1" cellpadding="0" cellspacing="0">
+<tr class="block_1_top">
+<th class="business" style="border-top:1px solid #CCCCCC;" align="left"><a class="block_arrow" href="#"></a>Business:</th>
+<th class="XYZ" style="border-top:1px solid #CCCCCC;" align="left"><a class="block_arrow" href="#"></a>XYZ</th>
+<th class="digit" style="border-top:1px solid #CCCCCC;" align="left"><a class="block_arrow" href="#"></a>1000</th>
+</tr>
+
+<tr class="field_row bg_white">
+<td class="field_1" align="left">Business Unit:</td>
+<td class="field_2" align="left">Pumps</td>
+<td class="field_3" align="left">2400</td>
+</tr>
+
+<tr class="field_row ">
+<td class="field_1" align="left">Product Family:</td>
+<td class="field_2" align="left">Centrifugal Pumps</td>
+<td class="field_3" align="left">3253</td>
+</tr>
+
+<tr class="field_row bg_white">
+<td class="field_1" align="left">Product Line:</td>
+<td class="field_2" align="left">ADT-432</td>
+<td class="field_3" align="left">5438</td>
+</tr>
+
+</table>-->
+
+<div class="bottom_container TopMargin115">
+
+
+
+
+<div class="Clear"></div>
+<div class="block_2 margin_top">
+
+
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+  <td>
+  <div class="BlueStrip"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td align="center" valign="middle" height="313">S a l e s</td>
+  </tr>
+</table>
+</div>
+  
+  </td>
+    <td><table class="activity_block" cellpadding="0" cellspacing="0">
+<tr class="activity_block_top">
+<td class="th_fieldsi left"><a href="#" class="">Attributes</a></td>
+<td class="th_fieldsi"><a href="#">Inputs</a></td>
+<td class="th_fieldsi"><a href="#">BOM</a></td>
+<td class="th_fieldsi"><a href="#">TFG</a></td>
+<td class="th_fieldsi right last"><a href="#" class="">Machine</a></li>
+</tr>
+
+<tr>
+<td colspan="5" class="activity_txt">Activity 1</td>
+</tr>
+
+
+<td colspan="5">
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+
+
+   
+ 
+
+<tr class="block_1_top">
+<td class="attributes"><a class="block_arrow" href="#">Attribute</a></td>
+<td class="value"><a class="block_arrow" href="#">Value</a></td>
+<td class="unit"><a class="block_arrow" href="#">Unit</a></td>
+</tr>
+
+<tr class="field_row bg_white">
+<td class="attributes_td">VA Time:</td>
+<td class="value_td">12</td>
+<td class="unit_td">Sec</td>
+</tr>
+
+<tr class="field_row ">
+<td class="attributes_td">NVA Time</td>
+<td class="value_td">15</td>
+<td class="unit_td">Min</td>
+</tr>
+
+<tr class="field_row bg_white">
+<td class="attributes_td">VA Time</td>
+<td class="value_td">12</td>
+<td class="unit_td">Min</td>
+</tr>
+
+<tr class="field_row ">
+<td class="attributes_td">NVA Time</td>
+<td class="value_td">15</td>
+<td class="unit_td">Min</td>
+</tr>
+
+
+</table>
+</td>
+
+
+
+
+</table></td>
+    <td><div class="nxt_arrow"><img src="images/nxt_arrow.png" /></div></td>
+    <td><table class="small_block" cellpadding="0" cellspacing="0">
+<tr>
+<td class="small_block_top" colspan="3"><img src="images/small_block_top.png" /></td>
+</tr>
+
+<tr class="block_1_top">
+<td class="Small_b3" style="padding-left:2%; width:32%;border-left:1px solid #CCCCCC;"><a class="block_arrow" href="#"></a>CT</td>
+<td class="Small_b3" style="padding-left:2%; width:29.9%;"><a class="block_arrow" href="#"></a>$</td>
+<td class="Small_b3" style="border-right:1px solid #CCCCCC;"><a class="block_arrow" href="#"></a>Time</td>
+</tr>
+
+<tr class="bg_white" style=" box-shadow: 4px 5px 4px #F3F3F3;">
+<td class="Small_b3" style="padding-left:2%; width:32%;border-left:1px solid #CCCCCC;border-right:1px solid #CCCCCC;">CT</td>
+<td class="Small_b3" style="padding-left:2%;  width: 26.8%;border-right:1px solid #CCCCCC;">$</td>
+<td class="Small_b3" style="border-right:1px solid #CCCCCC; padding-left:2%;">Time</td>
+</tr>
+
+
+
+
+
+</table></td>
+
+<td><div class="nxt_arrow"><img src="images/nxt_arrow.png" /></div></td>
+
+<td><table class="activity_block" cellpadding="0" cellspacing="0">
+<tr class="activity_block_top">
+<td class="th_fieldsi left"><a href="#" class="">Attributes</a></td>
+<td class="th_fieldsi"><a href="#">Inputs</a></td>
+<td class="th_fieldsi"><a href="#">BOM</a></td>
+<td class="th_fieldsi"><a href="#">TFG</a></td>
+<td class="th_fieldsi right last"><a href="#" class="">Machine</a></li>
+</tr>
+
+<tr>
+<td colspan="5" class="activity_txt">Activity 1</td>
+</tr>
+
+
+<td colspan="5">
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+
+
+   
+ 
+
+<tr class="block_1_top">
+<td class="attributes"><a class="block_arrow" href="#">Attribute</a></td>
+<td class="value"><a class="block_arrow" href="#">Value</a></td>
+<td class="unit"><a class="block_arrow" href="#">Unit</a></td>
+</tr>
+
+<tr class="field_row bg_white">
+<td class="attributes_td">VA Time:</td>
+<td class="value_td">12</td>
+<td class="unit_td">Sec</td>
+</tr>
+
+<tr class="field_row ">
+<td class="attributes_td">NVA Time</td>
+<td class="value_td">15</td>
+<td class="unit_td">Min</td>
+</tr>
+
+<tr class="field_row bg_white">
+<td class="attributes_td">VA Time</td>
+<td class="value_td">12</td>
+<td class="unit_td">Min</td>
+</tr>
+
+<tr class="field_row ">
+<td class="attributes_td">NVA Time</td>
+<td class="value_td">15</td>
+<td class="unit_td">Min</td>
+</tr>
+
+
+</table>
+</td>
+
+
+
+
+</table></td>
+    <td><div class="nxt_arrow"><img src="images/nxt_arrow.png" /></div></td>
+    <td><table class="small_block" cellpadding="0" cellspacing="0">
+<tr>
+<td class="small_block_top" colspan="3"><img src="images/small_block_top.png" /></td>
+</tr>
+
+<tr class="block_1_top">
+<td class="Small_b3" style="padding-left:2%; width:32%;border-left:1px solid #CCCCCC;"><a class="block_arrow" href="#"></a>CT</td>
+<td class="Small_b3" style="padding-left:2%; width:29.9%;"><a class="block_arrow" href="#"></a>$</td>
+<td class="Small_b3" style="border-right:1px solid #CCCCCC;"><a class="block_arrow" href="#"></a>Time</td>
+</tr>
+
+<tr class="bg_white" style=" box-shadow: 4px 5px 4px #F3F3F3;">
+<td class="Small_b3" style="padding-left:2%; width:32%;border-left:1px solid #CCCCCC;border-right:1px solid #CCCCCC;">CT</td>
+<td class="Small_b3" style="padding-left:2%;  width: 26.8%;border-right:1px solid #CCCCCC;">$</td>
+<td class="Small_b3" style="border-right:1px solid #CCCCCC; padding-left:2%;">Time</td>
+</tr>
+
+
+
+
+
+</table></td>
+
+<td><div class="nxt_arrow"><img src="images/nxt_arrow.png" /></div></td>
+
+
+<td><table class="activity_block" cellpadding="0" cellspacing="0">
+<tr class="activity_block_top">
+<td class="th_fieldsi left"><a href="#" class="">Attributes</a></td>
+<td class="th_fieldsi"><a href="#">Inputs</a></td>
+<td class="th_fieldsi"><a href="#">BOM</a></td>
+<td class="th_fieldsi"><a href="#">TFG</a></td>
+<td class="th_fieldsi right last"><a href="#" class="">Machine</a></li>
+</tr>
+
+<tr>
+<td colspan="5" class="activity_txt">Activity 1</td>
+</tr>
+
+
+<td colspan="5">
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+
+
+   
+ 
+
+<tr class="block_1_top">
+<td class="attributes"><a class="block_arrow" href="#">Attribute</a></td>
+<td class="value"><a class="block_arrow" href="#">Value</a></td>
+<td class="unit"><a class="block_arrow" href="#">Unit</a></td>
+</tr>
+
+<tr class="field_row bg_white">
+<td class="attributes_td">VA Time:</td>
+<td class="value_td">12</td>
+<td class="unit_td">Sec</td>
+</tr>
+
+<tr class="field_row ">
+<td class="attributes_td">NVA Time</td>
+<td class="value_td">15</td>
+<td class="unit_td">Min</td>
+</tr>
+
+<tr class="field_row bg_white">
+<td class="attributes_td">VA Time</td>
+<td class="value_td">12</td>
+<td class="unit_td">Min</td>
+</tr>
+
+<tr class="field_row ">
+<td class="attributes_td">NVA Time</td>
+<td class="value_td">15</td>
+<td class="unit_td">Min</td>
+</tr>
+
+
+</table>
+</td>
+
+
+
+
+</table></td>
+    <td><div class="nxt_arrow"><img src="images/nxt_arrow.png" /></div></td>
+    <td><table class="small_block" cellpadding="0" cellspacing="0">
+<tr>
+<td class="small_block_top" colspan="3"><img src="images/small_block_top.png" /></td>
+</tr>
+
+<tr class="block_1_top">
+<td class="Small_b3" style="padding-left:2%; width:32%;border-left:1px solid #CCCCCC;"><a class="block_arrow" href="#"></a>CT</td>
+<td class="Small_b3" style="padding-left:2%; width:29.9%;"><a class="block_arrow" href="#"></a>$</td>
+<td class="Small_b3" style="border-right:1px solid #CCCCCC;"><a class="block_arrow" href="#"></a>Time</td>
+</tr>
+
+<tr class="bg_white" style=" box-shadow: 4px 5px 4px #F3F3F3;">
+<td class="Small_b3" style="padding-left:2%; width:32%;border-left:1px solid #CCCCCC;border-right:1px solid #CCCCCC;">CT</td>
+<td class="Small_b3" style="padding-left:2%;  width: 26.8%;border-right:1px solid #CCCCCC;">$</td>
+<td class="Small_b3" style="border-right:1px solid #CCCCCC; padding-left:2%;">Time</td>
+</tr>
+
+
+
+
+
+</table></td>
+
+<td><div class="nxt_arrow"><img src="images/nxt_arrow.png" /></div></td>
+
+
+<td><table class="activity_block" cellpadding="0" cellspacing="0">
+<tr class="activity_block_top">
+<td class="th_fieldsi left"><a href="#" class="">Attributes</a></td>
+<td class="th_fieldsi"><a href="#">Inputs</a></td>
+<td class="th_fieldsi"><a href="#">BOM</a></td>
+<td class="th_fieldsi"><a href="#">TFG</a></td>
+<td class="th_fieldsi right last"><a href="#" class="">Machine</a></li>
+</tr>
+
+<tr>
+<td colspan="5" class="activity_txt">Activity 1</td>
+</tr>
+
+
+<td colspan="5">
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+
+
+   
+ 
+
+<tr class="block_1_top">
+<td class="attributes"><a class="block_arrow" href="#">Attribute</a></td>
+<td class="value"><a class="block_arrow" href="#">Value</a></td>
+<td class="unit"><a class="block_arrow" href="#">Unit</a></td>
+</tr>
+
+<tr class="field_row bg_white">
+<td class="attributes_td">VA Time:</td>
+<td class="value_td">12</td>
+<td class="unit_td">Sec</td>
+</tr>
+
+<tr class="field_row ">
+<td class="attributes_td">NVA Time</td>
+<td class="value_td">15</td>
+<td class="unit_td">Min</td>
+</tr>
+
+<tr class="field_row bg_white">
+<td class="attributes_td">VA Time</td>
+<td class="value_td">12</td>
+<td class="unit_td">Min</td>
+</tr>
+
+<tr class="field_row ">
+<td class="attributes_td">NVA Time</td>
+<td class="value_td">15</td>
+<td class="unit_td">Min</td>
+</tr>
+
+
+</table>
+</td>
+
+
+
+
+</table></td>
+    <td><div class="nxt_arrow"><img src="images/nxt_arrow.png" /></div></td>
+    <td><table class="small_block" cellpadding="0" cellspacing="0">
+<tr>
+<td class="small_block_top" colspan="3"><img src="images/small_block_top.png" /></td>
+</tr>
+
+<tr class="block_1_top">
+<td class="Small_b3" style="padding-left:2%; width:32%;border-left:1px solid #CCCCCC;"><a class="block_arrow" href="#"></a>CT</td>
+<td class="Small_b3" style="padding-left:2%; width:29.9%;"><a class="block_arrow" href="#"></a>$</td>
+<td class="Small_b3" style="border-right:1px solid #CCCCCC;"><a class="block_arrow" href="#"></a>Time</td>
+</tr>
+
+<tr class="bg_white" style=" box-shadow: 4px 5px 4px #F3F3F3;">
+<td class="Small_b3" style="padding-left:2%; width:32%;border-left:1px solid #CCCCCC;border-right:1px solid #CCCCCC;">CT</td>
+<td class="Small_b3" style="padding-left:2%;  width: 26.8%;border-right:1px solid #CCCCCC;">$</td>
+<td class="Small_b3" style="border-right:1px solid #CCCCCC; padding-left:2%;">Time</td>
+</tr>
+
+
+
+
+
+</table></td>
+
+<td><div class="nxt_arrow"><img src="images/nxt_arrow.png" /></div></td>
+
+
+<td><table class="activity_block" cellpadding="0" cellspacing="0">
+<tr class="activity_block_top">
+<td class="th_fieldsi left"><a href="#" class="">Attributes</a></td>
+<td class="th_fieldsi"><a href="#">Inputs</a></td>
+<td class="th_fieldsi"><a href="#">BOM</a></td>
+<td class="th_fieldsi"><a href="#">TFG</a></td>
+<td class="th_fieldsi right last"><a href="#" class="">Machine</a></li>
+</tr>
+
+<tr>
+<td colspan="5" class="activity_txt">Activity 1</td>
+</tr>
+
+
+<td colspan="5">
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+
+
+   
+ 
+
+<tr class="block_1_top">
+<td class="attributes"><a class="block_arrow" href="#">Attribute</a></td>
+<td class="value"><a class="block_arrow" href="#">Value</a></td>
+<td class="unit"><a class="block_arrow" href="#">Unit</a></td>
+</tr>
+
+<tr class="field_row bg_white">
+<td class="attributes_td">VA Time:</td>
+<td class="value_td">12</td>
+<td class="unit_td">Sec</td>
+</tr>
+
+<tr class="field_row ">
+<td class="attributes_td">NVA Time</td>
+<td class="value_td">15</td>
+<td class="unit_td">Min</td>
+</tr>
+
+<tr class="field_row bg_white">
+<td class="attributes_td">VA Time</td>
+<td class="value_td">12</td>
+<td class="unit_td">Min</td>
+</tr>
+
+<tr class="field_row ">
+<td class="attributes_td">NVA Time</td>
+<td class="value_td">15</td>
+<td class="unit_td">Min</td>
+</tr>
+
+
+</table>
+</td>
+
+
+
+
+</table></td>
+    <td><div class="nxt_arrow"><img src="images/nxt_arrow.png" /></div></td>
+    <td><table class="small_block" cellpadding="0" cellspacing="0">
+<tr>
+<td class="small_block_top" colspan="3"><img src="images/small_block_top.png" /></td>
+</tr>
+
+<tr class="block_1_top">
+<td class="Small_b3" style="padding-left:2%; width:32%;border-left:1px solid #CCCCCC;"><a class="block_arrow" href="#"></a>CT</td>
+<td class="Small_b3" style="padding-left:2%; width:29.9%;"><a class="block_arrow" href="#"></a>$</td>
+<td class="Small_b3" style="border-right:1px solid #CCCCCC;"><a class="block_arrow" href="#"></a>Time</td>
+</tr>
+
+<tr class="bg_white" style=" box-shadow: 4px 5px 4px #F3F3F3;">
+<td class="Small_b3" style="padding-left:2%; width:32%;border-left:1px solid #CCCCCC;border-right:1px solid #CCCCCC;">CT</td>
+<td class="Small_b3" style="padding-left:2%;  width: 26.8%;border-right:1px solid #CCCCCC;">$</td>
+<td class="Small_b3" style="border-right:1px solid #CCCCCC; padding-left:2%;">Time</td>
+</tr>
+
+
+
+
+
+</table></td>
+
+<td><div class="nxt_arrow"><img src="images/nxt_arrow.png" /></div></td>
+
+
+<td><table class="activity_block" cellpadding="0" cellspacing="0">
+<tr class="activity_block_top">
+<td class="th_fieldsi left"><a href="#" class="">Attributes</a></td>
+<td class="th_fieldsi"><a href="#">Inputs</a></td>
+<td class="th_fieldsi"><a href="#">BOM</a></td>
+<td class="th_fieldsi"><a href="#">TFG</a></td>
+<td class="th_fieldsi right last"><a href="#" class="">Machine</a></li>
+</tr>
+
+<tr>
+<td colspan="5" class="activity_txt">Activity 1</td>
+</tr>
+
+
+<td colspan="5">
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+
+
+   
+ 
+
+<tr class="block_1_top">
+<td class="attributes"><a class="block_arrow" href="#">Attribute</a></td>
+<td class="value"><a class="block_arrow" href="#">Value</a></td>
+<td class="unit"><a class="block_arrow" href="#">Unit</a></td>
+</tr>
+
+<tr class="field_row bg_white">
+<td class="attributes_td">VA Time:</td>
+<td class="value_td">12</td>
+<td class="unit_td">Sec</td>
+</tr>
+
+<tr class="field_row ">
+<td class="attributes_td">NVA Time</td>
+<td class="value_td">15</td>
+<td class="unit_td">Min</td>
+</tr>
+
+<tr class="field_row bg_white">
+<td class="attributes_td">VA Time</td>
+<td class="value_td">12</td>
+<td class="unit_td">Min</td>
+</tr>
+
+<tr class="field_row ">
+<td class="attributes_td">NVA Time</td>
+<td class="value_td">15</td>
+<td class="unit_td">Min</td>
+</tr>
+
+
+</table>
+</td>
+
+
+
+
+</table></td>
+    <td><div class="nxt_arrow"><img src="images/nxt_arrow.png" /></div></td>
+    <td><table class="small_block" cellpadding="0" cellspacing="0">
+<tr>
+<td class="small_block_top" colspan="3"><img src="images/small_block_top.png" /></td>
+</tr>
+
+<tr class="block_1_top">
+<td class="Small_b3" style="padding-left:2%; width:32%;border-left:1px solid #CCCCCC;"><a class="block_arrow" href="#"></a>CT</td>
+<td class="Small_b3" style="padding-left:2%; width:29.9%;"><a class="block_arrow" href="#"></a>$</td>
+<td class="Small_b3" style="border-right:1px solid #CCCCCC;"><a class="block_arrow" href="#"></a>Time</td>
+</tr>
+
+<tr class="bg_white" style=" box-shadow: 4px 5px 4px #F3F3F3;">
+<td class="Small_b3" style="padding-left:2%; width:32%;border-left:1px solid #CCCCCC;border-right:1px solid #CCCCCC;">CT</td>
+<td class="Small_b3" style="padding-left:2%;  width: 26.8%;border-right:1px solid #CCCCCC;">$</td>
+<td class="Small_b3" style="border-right:1px solid #CCCCCC; padding-left:2%;">Time</td>
+</tr>
+
+
+
+
+
+</table></td>
+    
+  </tr>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+<div class="block_2 margin_top">
+
+
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+  <td><div class="GreenStrip"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td align="center" valign="middle" height="313">M a r k e t i n g</td>
+  </tr>
+</table>
+</div></td>
+  
+  
+  
+    <td><table class="activity_block" cellpadding="0" cellspacing="0">
+<tr class="activity_block_top">
+<td class="th_fieldsi left"><a href="#" class="">Attributes</a></td>
+<td class="th_fieldsi"><a href="#">Inputs</a></td>
+<td class="th_fieldsi"><a href="#">BOM</a></td>
+<td class="th_fieldsi"><a href="#">TFG</a></td>
+<td class="th_fieldsi right last"><a href="#" class="">Machine</a></li>
+</tr>
+
+<tr>
+<td colspan="5" class="activity_txt">Activity 1</td>
+</tr>
+
+
+<td colspan="5">
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+
+
+   
+ 
+
+<tr class="block_1_top">
+<td class="attributes"><a class="block_arrow" href="#">Attribute</a></td>
+<td class="value"><a class="block_arrow" href="#">Value</a></td>
+<td class="unit"><a class="block_arrow" href="#">Unit</a></td>
+</tr>
+
+<tr class="field_row bg_white">
+<td class="attributes_td">VA Time:</td>
+<td class="value_td">12</td>
+<td class="unit_td">Sec</td>
+</tr>
+
+<tr class="field_row ">
+<td class="attributes_td">NVA Time</td>
+<td class="value_td">15</td>
+<td class="unit_td">Min</td>
+</tr>
+
+<tr class="field_row bg_white">
+<td class="attributes_td">VA Time</td>
+<td class="value_td">12</td>
+<td class="unit_td">Min</td>
+</tr>
+
+<tr class="field_row ">
+<td class="attributes_td">NVA Time</td>
+<td class="value_td">15</td>
+<td class="unit_td">Min</td>
+</tr>
+
+
+</table>
+</td>
+
+
+
+
+</table></td>
+    <td><div class="nxt_arrow"><img src="images/nxt_arrow.png" /></div></td>
+    <td><table class="small_block" cellpadding="0" cellspacing="0">
+<tr>
+<td class="small_block_top" colspan="3"><img src="images/small_block_top.png" /></td>
+</tr>
+
+<tr class="block_1_top">
+<td class="Small_b3" style="padding-left:2%; width:32%;border-left:1px solid #CCCCCC;"><a class="block_arrow" href="#"></a>CT</td>
+<td class="Small_b3" style="padding-left:2%; width:29.9%;"><a class="block_arrow" href="#"></a>$</td>
+<td class="Small_b3" style="border-right:1px solid #CCCCCC;"><a class="block_arrow" href="#"></a>Time</td>
+</tr>
+
+<tr class="bg_white" style=" box-shadow: 4px 5px 4px #F3F3F3;">
+<td class="Small_b3" style="padding-left:2%; width:32%;border-left:1px solid #CCCCCC;border-right:1px solid #CCCCCC;">CT</td>
+<td class="Small_b3" style="padding-left:2%;  width: 26.8%;border-right:1px solid #CCCCCC;">$</td>
+<td class="Small_b3" style="border-right:1px solid #CCCCCC; padding-left:2%;">Time</td>
+</tr>
+
+
+
+
+
+</table></td>
+
+<td><div class="nxt_arrow"><img src="images/nxt_arrow.png" /></div></td>
+
+<td><table class="activity_block" cellpadding="0" cellspacing="0">
+<tr class="activity_block_top">
+<td class="th_fieldsi left"><a href="#" class="">Attributes</a></td>
+<td class="th_fieldsi"><a href="#">Inputs</a></td>
+<td class="th_fieldsi"><a href="#">BOM</a></td>
+<td class="th_fieldsi"><a href="#">TFG</a></td>
+<td class="th_fieldsi right last"><a href="#" class="">Machine</a></li>
+</tr>
+
+<tr>
+<td colspan="5" class="activity_txt">Activity 1</td>
+</tr>
+
+
+<td colspan="5">
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+
+
+   
+ 
+
+<tr class="block_1_top">
+<td class="attributes"><a class="block_arrow" href="#">Attribute</a></td>
+<td class="value"><a class="block_arrow" href="#">Value</a></td>
+<td class="unit"><a class="block_arrow" href="#">Unit</a></td>
+</tr>
+
+<tr class="field_row bg_white">
+<td class="attributes_td">VA Time:</td>
+<td class="value_td">12</td>
+<td class="unit_td">Sec</td>
+</tr>
+
+<tr class="field_row ">
+<td class="attributes_td">NVA Time</td>
+<td class="value_td">15</td>
+<td class="unit_td">Min</td>
+</tr>
+
+<tr class="field_row bg_white">
+<td class="attributes_td">VA Time</td>
+<td class="value_td">12</td>
+<td class="unit_td">Min</td>
+</tr>
+
+<tr class="field_row ">
+<td class="attributes_td">NVA Time</td>
+<td class="value_td">15</td>
+<td class="unit_td">Min</td>
+</tr>
+
+
+</table>
+</td>
+
+
+
+
+</table></td>
+    <td><div class="nxt_arrow"><img src="images/nxt_arrow.png" /></div></td>
+    <td><table class="small_block" cellpadding="0" cellspacing="0">
+<tr>
+<td class="small_block_top" colspan="3"><img src="images/small_block_top.png" /></td>
+</tr>
+
+<tr class="block_1_top">
+<td class="Small_b3" style="padding-left:2%; width:32%;border-left:1px solid #CCCCCC;"><a class="block_arrow" href="#"></a>CT</td>
+<td class="Small_b3" style="padding-left:2%; width:29.9%;"><a class="block_arrow" href="#"></a>$</td>
+<td class="Small_b3" style="border-right:1px solid #CCCCCC;"><a class="block_arrow" href="#"></a>Time</td>
+</tr>
+
+<tr class="bg_white" style=" box-shadow: 4px 5px 4px #F3F3F3;">
+<td class="Small_b3" style="padding-left:2%; width:32%;border-left:1px solid #CCCCCC;border-right:1px solid #CCCCCC;">CT</td>
+<td class="Small_b3" style="padding-left:2%;  width: 26.8%;border-right:1px solid #CCCCCC;">$</td>
+<td class="Small_b3" style="border-right:1px solid #CCCCCC; padding-left:2%;">Time</td>
+</tr>
+
+
+
+
+
+</table></td>
+
+<td><div class="nxt_arrow"><img src="images/nxt_arrow.png" /></div></td>
+
+
+<td><table class="activity_block" cellpadding="0" cellspacing="0">
+<tr class="activity_block_top">
+<td class="th_fieldsi left"><a href="#" class="">Attributes</a></td>
+<td class="th_fieldsi"><a href="#">Inputs</a></td>
+<td class="th_fieldsi"><a href="#">BOM</a></td>
+<td class="th_fieldsi"><a href="#">TFG</a></td>
+<td class="th_fieldsi right last"><a href="#" class="">Machine</a></li>
+</tr>
+
+<tr>
+<td colspan="5" class="activity_txt">Activity 1</td>
+</tr>
+
+
+<td colspan="5">
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+
+
+   
+ 
+
+<tr class="block_1_top">
+<td class="attributes"><a class="block_arrow" href="#">Attribute</a></td>
+<td class="value"><a class="block_arrow" href="#">Value</a></td>
+<td class="unit"><a class="block_arrow" href="#">Unit</a></td>
+</tr>
+
+<tr class="field_row bg_white">
+<td class="attributes_td">VA Time:</td>
+<td class="value_td">12</td>
+<td class="unit_td">Sec</td>
+</tr>
+
+<tr class="field_row ">
+<td class="attributes_td">NVA Time</td>
+<td class="value_td">15</td>
+<td class="unit_td">Min</td>
+</tr>
+
+<tr class="field_row bg_white">
+<td class="attributes_td">VA Time</td>
+<td class="value_td">12</td>
+<td class="unit_td">Min</td>
+</tr>
+
+<tr class="field_row ">
+<td class="attributes_td">NVA Time</td>
+<td class="value_td">15</td>
+<td class="unit_td">Min</td>
+</tr>
+
+
+</table>
+</td>
+
+
+
+
+</table></td>
+    <td><div class="nxt_arrow"><img src="images/nxt_arrow.png" /></div></td>
+    <td><table class="small_block" cellpadding="0" cellspacing="0">
+<tr>
+<td class="small_block_top" colspan="3"><img src="images/small_block_top.png" /></td>
+</tr>
+
+<tr class="block_1_top">
+<td class="Small_b3" style="padding-left:2%; width:32%;border-left:1px solid #CCCCCC;"><a class="block_arrow" href="#"></a>CT</td>
+<td class="Small_b3" style="padding-left:2%; width:29.9%;"><a class="block_arrow" href="#"></a>$</td>
+<td class="Small_b3" style="border-right:1px solid #CCCCCC;"><a class="block_arrow" href="#"></a>Time</td>
+</tr>
+
+<tr class="bg_white" style=" box-shadow: 4px 5px 4px #F3F3F3;">
+<td class="Small_b3" style="padding-left:2%; width:32%;border-left:1px solid #CCCCCC;border-right:1px solid #CCCCCC;">CT</td>
+<td class="Small_b3" style="padding-left:2%;  width: 26.8%;border-right:1px solid #CCCCCC;">$</td>
+<td class="Small_b3" style="border-right:1px solid #CCCCCC; padding-left:2%;">Time</td>
+</tr>
+
+
+
+
+
+</table></td>
+
+<td><div class="nxt_arrow"><img src="images/nxt_arrow.png" /></div></td>
+
+
+<td><table class="activity_block" cellpadding="0" cellspacing="0">
+<tr class="activity_block_top">
+<td class="th_fieldsi left"><a href="#" class="">Attributes</a></td>
+<td class="th_fieldsi"><a href="#">Inputs</a></td>
+<td class="th_fieldsi"><a href="#">BOM</a></td>
+<td class="th_fieldsi"><a href="#">TFG</a></td>
+<td class="th_fieldsi right last"><a href="#" class="">Machine</a></li>
+</tr>
+
+<tr>
+<td colspan="5" class="activity_txt">Activity 1</td>
+</tr>
+
+
+<td colspan="5">
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+
+
+   
+ 
+
+<tr class="block_1_top">
+<td class="attributes"><a class="block_arrow" href="#">Attribute</a></td>
+<td class="value"><a class="block_arrow" href="#">Value</a></td>
+<td class="unit"><a class="block_arrow" href="#">Unit</a></td>
+</tr>
+
+<tr class="field_row bg_white">
+<td class="attributes_td">VA Time:</td>
+<td class="value_td">12</td>
+<td class="unit_td">Sec</td>
+</tr>
+
+<tr class="field_row ">
+<td class="attributes_td">NVA Time</td>
+<td class="value_td">15</td>
+<td class="unit_td">Min</td>
+</tr>
+
+<tr class="field_row bg_white">
+<td class="attributes_td">VA Time</td>
+<td class="value_td">12</td>
+<td class="unit_td">Min</td>
+</tr>
+
+<tr class="field_row ">
+<td class="attributes_td">NVA Time</td>
+<td class="value_td">15</td>
+<td class="unit_td">Min</td>
+</tr>
+
+
+</table>
+</td>
+
+
+
+
+</table></td>
+    <td><div class="nxt_arrow"><img src="images/nxt_arrow.png" /></div></td>
+    <td><table class="small_block" cellpadding="0" cellspacing="0">
+<tr>
+<td class="small_block_top" colspan="3"><img src="images/small_block_top.png" /></td>
+</tr>
+
+<tr class="block_1_top">
+<td class="Small_b3" style="padding-left:2%; width:32%;border-left:1px solid #CCCCCC;"><a class="block_arrow" href="#"></a>CT</td>
+<td class="Small_b3" style="padding-left:2%; width:29.9%;"><a class="block_arrow" href="#"></a>$</td>
+<td class="Small_b3" style="border-right:1px solid #CCCCCC;"><a class="block_arrow" href="#"></a>Time</td>
+</tr>
+
+<tr class="bg_white" style=" box-shadow: 4px 5px 4px #F3F3F3;">
+<td class="Small_b3" style="padding-left:2%; width:32%;border-left:1px solid #CCCCCC;border-right:1px solid #CCCCCC;">CT</td>
+<td class="Small_b3" style="padding-left:2%;  width: 26.8%;border-right:1px solid #CCCCCC;">$</td>
+<td class="Small_b3" style="border-right:1px solid #CCCCCC; padding-left:2%;">Time</td>
+</tr>
+
+
+
+
+
+</table></td>
+
+<td><div class="nxt_arrow"><img src="images/nxt_arrow.png" /></div></td>
+
+
+<td><table class="activity_block" cellpadding="0" cellspacing="0">
+<tr class="activity_block_top">
+<td class="th_fieldsi left"><a href="#" class="">Attributes</a></td>
+<td class="th_fieldsi"><a href="#">Inputs</a></td>
+<td class="th_fieldsi"><a href="#">BOM</a></td>
+<td class="th_fieldsi"><a href="#">TFG</a></td>
+<td class="th_fieldsi right last"><a href="#" class="">Machine</a></li>
+</tr>
+
+<tr>
+<td colspan="5" class="activity_txt">Activity 1</td>
+</tr>
+
+
+<td colspan="5">
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+
+
+   
+ 
+
+<tr class="block_1_top">
+<td class="attributes"><a class="block_arrow" href="#">Attribute</a></td>
+<td class="value"><a class="block_arrow" href="#">Value</a></td>
+<td class="unit"><a class="block_arrow" href="#">Unit</a></td>
+</tr>
+
+<tr class="field_row bg_white">
+<td class="attributes_td">VA Time:</td>
+<td class="value_td">12</td>
+<td class="unit_td">Sec</td>
+</tr>
+
+<tr class="field_row ">
+<td class="attributes_td">NVA Time</td>
+<td class="value_td">15</td>
+<td class="unit_td">Min</td>
+</tr>
+
+<tr class="field_row bg_white">
+<td class="attributes_td">VA Time</td>
+<td class="value_td">12</td>
+<td class="unit_td">Min</td>
+</tr>
+
+<tr class="field_row ">
+<td class="attributes_td">NVA Time</td>
+<td class="value_td">15</td>
+<td class="unit_td">Min</td>
+</tr>
+
+
+</table>
+</td>
+
+
+
+
+</table></td>
+    <td><div class="nxt_arrow"><img src="images/nxt_arrow.png" /></div></td>
+    <td><table class="small_block" cellpadding="0" cellspacing="0">
+<tr>
+<td class="small_block_top" colspan="3"><img src="images/small_block_top.png" /></td>
+</tr>
+
+<tr class="block_1_top">
+<td class="Small_b3" style="padding-left:2%; width:32%;border-left:1px solid #CCCCCC;"><a class="block_arrow" href="#"></a>CT</td>
+<td class="Small_b3" style="padding-left:2%; width:29.9%;"><a class="block_arrow" href="#"></a>$</td>
+<td class="Small_b3" style="border-right:1px solid #CCCCCC;"><a class="block_arrow" href="#"></a>Time</td>
+</tr>
+
+<tr class="bg_white" style=" box-shadow: 4px 5px 4px #F3F3F3;">
+<td class="Small_b3" style="padding-left:2%; width:32%;border-left:1px solid #CCCCCC;border-right:1px solid #CCCCCC;">CT</td>
+<td class="Small_b3" style="padding-left:2%;  width: 26.8%;border-right:1px solid #CCCCCC;">$</td>
+<td class="Small_b3" style="border-right:1px solid #CCCCCC; padding-left:2%;">Time</td>
+</tr>
+
+
+
+
+
+</table></td>
+
+<td><div class="nxt_arrow"><img src="images/nxt_arrow.png" /></div></td>
+
+
+<td><table class="activity_block" cellpadding="0" cellspacing="0">
+<tr class="activity_block_top">
+<td class="th_fieldsi left"><a href="#" class="">Attributes</a></td>
+<td class="th_fieldsi"><a href="#">Inputs</a></td>
+<td class="th_fieldsi"><a href="#">BOM</a></td>
+<td class="th_fieldsi"><a href="#">TFG</a></td>
+<td class="th_fieldsi right last"><a href="#" class="">Machine</a></li>
+</tr>
+
+<tr>
+<td colspan="5" class="activity_txt">Activity 1</td>
+</tr>
+
+
+<td colspan="5">
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+
+
+   
+ 
+
+<tr class="block_1_top">
+<td class="attributes"><a class="block_arrow" href="#">Attribute</a></td>
+<td class="value"><a class="block_arrow" href="#">Value</a></td>
+<td class="unit"><a class="block_arrow" href="#">Unit</a></td>
+</tr>
+
+<tr class="field_row bg_white">
+<td class="attributes_td">VA Time:</td>
+<td class="value_td">12</td>
+<td class="unit_td">Sec</td>
+</tr>
+
+<tr class="field_row ">
+<td class="attributes_td">NVA Time</td>
+<td class="value_td">15</td>
+<td class="unit_td">Min</td>
+</tr>
+
+<tr class="field_row bg_white">
+<td class="attributes_td">VA Time</td>
+<td class="value_td">12</td>
+<td class="unit_td">Min</td>
+</tr>
+
+<tr class="field_row ">
+<td class="attributes_td">NVA Time</td>
+<td class="value_td">15</td>
+<td class="unit_td">Min</td>
+</tr>
+
+
+</table>
+</td>
+
+
+
+
+</table></td>
+    <td><div class="nxt_arrow"><img src="images/nxt_arrow.png" /></div></td>
+    <td><table class="small_block" cellpadding="0" cellspacing="0">
+<tr>
+<td class="small_block_top" colspan="3"><img src="images/small_block_top.png" /></td>
+</tr>
+
+<tr class="block_1_top">
+<td class="Small_b3" style="padding-left:2%; width:32%;border-left:1px solid #CCCCCC;"><a class="block_arrow" href="#"></a>CT</td>
+<td class="Small_b3" style="padding-left:2%; width:29.9%;"><a class="block_arrow" href="#"></a>$</td>
+<td class="Small_b3" style="border-right:1px solid #CCCCCC;"><a class="block_arrow" href="#"></a>Time</td>
+</tr>
+
+<tr class="bg_white" style=" box-shadow: 4px 5px 4px #F3F3F3;">
+<td class="Small_b3" style="padding-left:2%; width:32%;border-left:1px solid #CCCCCC;border-right:1px solid #CCCCCC;">CT</td>
+<td class="Small_b3" style="padding-left:2%;  width: 26.8%;border-right:1px solid #CCCCCC;">$</td>
+<td class="Small_b3" style="border-right:1px solid #CCCCCC; padding-left:2%;">Time</td>
+</tr>
+
+
+
+
+
+</table></td>
+    
+  </tr>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+
+<div class="SummryListRi">
+
+<table cellspacing="0" cellpadding="0" class="summry_table">
+<tbody><tr>
+<th colspan="3" class="summry_table_th">Summry Table</th>
+</tr>
+
+
+<tr class="block_1_top">
+<td class="business"><a href="#" class="block_arrow"></a>Attribute</td>
+<td class="XYZ"><a href="#" class="block_arrow"></a>Value</td>
+<td class="digit"><a href="#" class="block_arrow"></a>Unit</td>
+</tr>
+
+<tr class="field_row bg_white">
+<td class="field_1">VA Time:</td>
+<td class="field_2">12</td>
+<td class="field_3">Sec</td>
+</tr>
+
+<tr class="field_row ">
+<td class="field_1">NVA Time</td>
+<td class="field_2">15</td>
+<td class="field_3">Min</td>
+</tr>
+
+<tr class="field_row bg_white">
+<td class="field_1">VA Time</td>
+<td class="field_2">12</td>
+<td class="field_3">Min</td>
+</tr>
+
+
+
+
+
+</tbody></table>
+
+</div>
+
+
+
+
+<!--<div class="down_arrow"><img src="images/arrow_down.png" /></div>
+
+<div class="block_2 margin_bottom">
+
+
+
+
+<table class="activity_block" cellpadding="0" cellspacing="0">
+<tr class="activity_block_top">
+<td class="th_fieldsi"><a href="#" class="left">Attributes</a></td>
+<td class="th_fieldsi"><a href="#">Inputs</a></td>
+<td class="th_fieldsi"><a href="#">BOM</a></td>
+<td class="th_fieldsi"><a href="#">TFG</a></td>
+<td class="th_fieldsi last"><a href="#" class="right">Machine</a></li>
+</tr>
+
+<tr>
+<td colspan="5" class="activity_txt">Activity 1</td>
+</tr>
+
+
+
+<tr class="block_1_top">
+<td class="attributes"><a class="block_arrow" href="#"></a>Attribute</td>
+<td class="value"><a class="block_arrow" href="#"></a>Value</td>
+<td class="unit"><a class="block_arrow" href="#"></a>Unit</td>
+</tr>
+
+<tr class="field_row bg_white">
+<td class="attributes_td">VA Time:</td>
+<td class="value_td">12</td>
+<td class="unit_td">Sec</td>
+</tr>
+
+<tr class="field_row ">
+<td class="attributes_td">NVA Time</td>
+<td class="value_td">15</td>
+<td class="unit_td">Min</td>
+</tr>
+
+<tr class="field_row bg_white">
+<td class="attributes_td">VA Time</td>
+<td class="value_td">12</td>
+<td class="unit_td">Min</td>
+</tr>
+
+<tr class="field_row ">
+<td class="attributes_td">NVA Time</td>
+<td class="value_td">15</td>
+<td class="unit_td">Min</td>
+</tr>
+
+
+
+</table>
+<div class="nxt_arrow"><img src="images/nxt_arrow.png" /></div>
+
+<table class="small_block" cellpadding="0" cellspacing="0">
+<tr>
+<td class="small_block_top" colspan="3"><img src="images/small_block_top.png" /></td>
+</tr>
+
+<tr class="block_1_top">
+<td class="Small_b3" style="padding-left:2%; width:32%;border-left:1px solid #CCCCCC;"><a class="block_arrow" href="#"></a>CT</td>
+<td class="Small_b3" style="padding-left:2%; width:29.9%;"><a class="block_arrow" href="#"></a>$</td>
+<td class="Small_b3" style="border-right:1px solid #CCCCCC;"><a class="block_arrow" href="#"></a>Time</td>
+</tr>
+
+<tr class="bg_white" style=" box-shadow: 4px 5px 4px #F3F3F3;">
+<td class="Small_b3" style="padding-left:2%; width:32%;border-left:1px solid #CCCCCC;border-right:1px solid #CCCCCC;">CT</td>
+<td class="Small_b3" style="padding-left:2%;  width: 26.8%;border-right:1px solid #CCCCCC;">$</td>
+<td class="Small_b3" style="border-right:1px solid #CCCCCC; padding-left:2%;">Time</td>
+</tr>
+
+
+
+
+
+</table>
+
+<div class="nxt_arrow"><img src="images/nxt_arrow.png" /></div>
+
+<table class="activity_block" cellpadding="0" cellspacing="0">
+<tr class="activity_block_top">
+<td class="th_fieldsi"><a href="#" class="left">Attributes</a></td>
+<td class="th_fieldsi"><a href="#">Inputs</a></td>
+<td class="th_fieldsi"><a href="#">BOM</a></td>
+<td class="th_fieldsi"><a href="#">TFG</a></td>
+<td class="th_fieldsi last"><a href="#" class="right">Machine</a></li>
+</tr>
+
+<tr>
+<td colspan="5" class="activity_txt">Activity 2</td>
+</tr>
+
+
+
+<tr class="block_1_top">
+<td class="attributes"><a class="block_arrow" href="#"></a>Attribute</td>
+<td class="value"><a class="block_arrow" href="#"></a>Value</td>
+<td class="unit"><a class="block_arrow" href="#"></a>Unit</td>
+</tr>
+
+<tr class="field_row bg_white">
+<td class="attributes_td">VA Time:</td>
+<td class="value_td">12</td>
+<td class="unit_td">Sec</td>
+</tr>
+
+<tr class="field_row ">
+<td class="attributes_td">NVA Time</td>
+<td class="value_td">15</td>
+<td class="unit_td">Min</td>
+</tr>
+
+<tr class="field_row bg_white">
+<td class="attributes_td">VA Time</td>
+<td class="value_td">12</td>
+<td class="unit_td">Min</td>
+</tr>
+
+<tr class="field_row ">
+<td class="attributes_td">NVA Time</td>
+<td class="value_td">15</td>
+<td class="unit_td">Min</td>
+</tr>
+
+
+
+</table>
+
+
+</div>-->
+</div>
+
+
+
+
+
+<div class="Clear"></div>
+</div>
+
+
+</div>
+
+<div class="footer">
+<p>© Copyright GroEngine, LLC 2013. All Rights Reserved</p>
+</div>
+</div>
+
+</body>
+</html>

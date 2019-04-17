@@ -1,0 +1,105 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Site.master.cs" Inherits="SiteMaster" %>
+
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head runat="server">
+    <title></title>
+    <link href="css/style.css" rel="stylesheet" type="text/css" />
+    <script src="Scripts/jquery-1.4.1.js" type="text/javascript"></script>
+    <script src="Scripts/Popup.js" type="text/javascript"></script>
+    <asp:ContentPlaceHolder ID="HeadContent" runat="server">
+    </asp:ContentPlaceHolder>
+    <script language="javascript" type="text/javascript">
+// <![CDATA[
+
+        function Button2_onclick() {
+            $("#txtpo").val("Up");
+            loadPopupBox();
+        }
+
+        function Button3_onclick() {
+            $("#txtpo").val("Down");
+            loadPopupBox();
+        }
+
+// ]]>
+    </script>
+    <script type="text/javascript" language="javascript">
+        function DynamicDiv() {
+            var dynDiv = document.createElement("div");
+            dynDiv.id = "divDyna";
+            dynDiv.innerHTML = "Created using JavaScript";
+            dynDiv.style.height = "20px";
+            dynDiv.style.width = "300px";
+            dynDiv.style.backgroundColor = 'gray';
+            document.body.appendChild(dynDiv);
+
+        }
+
+</script>
+</head>
+<body>
+    <form runat="server">
+    <asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server">
+    </asp:ToolkitScriptManager>
+    <div class="main_container" id="container">
+        <div class="header">
+            <div class="Logo">
+                <a href="#">
+                    <img src="images/logo.png" /></a>
+         <%--                  <a href="#">
+                <img src="images/logo4.png"/><img src="images/logo2.png" /></a>--%>
+            </div>
+            <div class="header_right">
+                <ul>
+                    <li>
+                    <a href="#" class="process_manager" id="PCreate" runat="server">Process View</a></li>
+                    <li><a href="#" class=" enterprize_manager">Enterprise Manager</a></li>
+                </ul>
+            </div>
+        </div>
+        <asp:UpdatePanel ID="UpdateTree" runat="server" UpdateMode="Always">
+        <ContentTemplate>
+        <div class="mid_container">
+            <div class="side_bar">
+            <div>
+                <input id="Button2" type="button" value="UP" onclick="return Button2_onclick()" />
+                <input id="Button3" type="button"
+                    value="Down" onclick="return Button3_onclick()" />
+                </div>
+                 <asp:TextBox ID="txtpo" style=" display:none" runat="server"></asp:TextBox>
+                <asp:TreeView ID="TreeView1" runat="server" 
+                    ontreenodepopulate="MyTreeView_TreeNodePopulate">
+                </asp:TreeView>
+               </div>
+            <div class="right_container" id="rghtDiv" runat="server">
+                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                </asp:ContentPlaceHolder>
+            </div>
+        </div>
+        
+        </ContentTemplate>
+         <%-- <Triggers>
+            <asp:AsyncPostBackTrigger ControlID="Button1"  EventName="Click"/>
+          </Triggers>--%>
+        </asp:UpdatePanel>
+        <div class="footer">
+            <p>
+                © Copyright GroEngine, LLC 2013. All Rights Reserved</p>
+        </div>
+    </div>
+    
+    <!--Model Popup Add Tree Node-->
+     <div id="popup_box">
+        <!-- OUR PopupBox DIV-->
+       
+        <asp:TextBox ID="txtNodeName" runat="server"></asp:TextBox>
+        <br />
+        <asp:Button ID="Button1" runat="server" Text="Add" onclick="Button1_Click" />
+        <a id="popupBoxClose">Close</a>
+    </div>
+    </form>
+</body>
+</html>

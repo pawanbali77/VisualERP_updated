@@ -1,0 +1,337 @@
+﻿@charset "utf-8";
+/* CSS Document */
+
+#popup_box
+{
+    /*display: none; /* Hide the DIV */
+    position: fixed;
+    _position: absolute; /* hack for internet explorer 6 */
+    height: 100px;
+    width: 200px;
+    background: #FFFFFF;
+    left: 300px;
+    top: 150px;
+    z-index: 100; /* Layering ( on-top of others), if you have lots of layers: I just maximized, you can change it yourself */
+    margin-left: 15px; /* additional features, can be omitted */
+    border: 2px solid #ff0000;
+    padding: 15px;
+    font-size: 15px;
+    -moz-box-shadow: 0 0 5px #ff0000;
+    -webkit-box-shadow: 0 0 5px #ff0000;
+    box-shadow: 0 0 5px #ff0000;
+}
+
+#container
+{
+  
+    width: 100%;
+    height: 100%;
+}
+
+a
+{
+    cursor: pointer;
+    text-decoration: none;
+}
+
+/* This is for the positioning of the Close Link */
+#popupBoxClose
+{
+    font-size: 20px;
+    line-height: 15px;
+    right: 5px;
+    top: 5px;
+    position: absolute;
+    color: #6fa5e2;
+    font-weight: 500;
+}
+
+
+/*Ajax Popup  by prithvi*/
+.AjaxLoaderOuter {
+	background: url("images/bg1Image.png") repeat scroll 0 0 transparent;
+	height: 100%;
+	left: 0;
+	min-height: 100%;
+	min-width: 100%;
+	position: fixed !important;
+	text-align: center;
+	top: 0;
+	width: 100%;
+	z-index: 99999999;
+}
+
+.AjaxLoaderOuter {
+	position: fixed;
+	vertical-align: middle;
+	text-align: center;
+	z-index: 1000;
+	top: 0px;
+	left: 0px;
+	background-color: Gray;
+	filter: alpha(opacity=70);
+	opacity: 0.7;
+	margin: 0px 0px 0px 0px;
+	width: 100%;
+	height: 100%;
+	min-height: 100%;
+	min-width: 100%;
+}
+
+.Po2Wrp {
+	width:487px;
+	margin:70px auto;
+}
+
+.Po2Wrp.Po3ListWrp {
+    margin: 70px auto;
+    width: 687px;
+}
+
+.Po2Wrp.Po3ListWrp .PoTop2Bg {
+    background: url("images/po_top_bg4.png") no-repeat scroll center top transparent;
+    padding: 31px 0 0;
+    position: relative;
+    width: 687px;
+}
+
+.Po2Wrp.Po3ListWrp .Po2BotmBg {
+    background: url("images/po_botm_bg4.png") no-repeat scroll center bottom transparent;
+    float: left;
+    padding: 0 25px 25px;
+    width: 637px;
+    height:300px;
+}
+
+.Po2Wrp.Po3ListWrp .PotiTxtBox h2 {
+    background: url("images/po_ti_bg6.png") no-repeat scroll 0 0 transparent;
+    color: #FFFFFF;
+    font: 20px/55px HelveticaLTStd-Bold;
+    height: 45px;
+    margin: -13px 0 0 -7px;
+    padding: 0 20px;
+    position: relative;
+}
+
+.PoTop2Bg {
+	width:487px;
+	background:url(images/po_top_bg1.png) no-repeat top;
+	padding:31px 0 0 0;
+	position:relative;
+}
+
+.CloseBtn {
+	position: absolute;
+	right: 32px;
+	top: 32px;
+	cursor:pointer;
+	z-index:200;
+	margin:-20px -28px;
+}
+.Po2BotmBg {
+	width:437px;
+	background:url(images/po_botm_bg1.png) no-repeat bottom;
+	padding:0 25px 25px 25px;
+	float:left;
+}
+.PotiTxtBox {
+	width:100%;
+	float:left;
+}
+.PotiTxtBox h2 {
+	background:url(images/po_ti_bg1.png) no-repeat;
+	height:45px;
+	padding:0 20px;
+	font:normal 20px HelveticaLTStd-Bold;
+	color:#fff;
+	line-height:55px;
+	margin:-13px 0 0 -7px;
+	position:relative;
+}
+.PotiTxtBox h2 label
+{
+    padding:0 0 0 20px;
+}
+
+.gridpopup
+{
+    width: 100%;
+    margin-top: 0px;
+    border: 1px solid #cccbcb;
+}
+
+.rqrPosition
+{
+    color:Red;
+    width: 12%;
+    height: 100%;
+    text-align: right;
+    padding: 8px 10px 0 0;
+    float: left;
+}
+.rqrPositionAsh
+{
+    color:Red;
+    width: 6%;
+    height: 100%;
+    text-align: center;
+    padding: 8px 10px 0 0;
+    float: left;
+}
+.gridChant
+{
+    width: 100%;
+    margin-top: 0px;
+    border: 1px solid #cccbcb;
+}
+
+/*************************************************************/
+
+
+
+
+
+*, html {
+	margin:0px;
+	padding:0px;
+}
+body {
+	margin:0px;
+	padding:0px;
+	font:12px Arial, Helvetica, sans-serif;
+	color:#333;
+	background:#e9e9e9;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	margin:0px;
+	padding:0px;
+}
+p {
+	margin:0px;
+}
+ul, li {
+	list-style:none;
+}
+a {
+	text-decoration:none;
+}
+
+img {
+	border:none;
+	outline:none;
+	max-width:100%;
+}
+.Clear {
+	clear:both
+}
+
+.main_container{ width:100%; float:left; background:#FFF;}
+.header{ width:100%; background: url(../images/header_bg.png) repeat-x left top; height:44px; float:left; padding-top:4px;}
+.Logo{ float:left; margin-left:9px; margin-top:9px;}
+.header_right{ float:right; line-height: 48px;}
+.header_right ul li{ list-style:none; float:left; padding: 0px 12px 0px 14px; background:url(../images/ldivider_bg.png) no-repeat left top; }
+.header_right ul li a{ text-decoration:none; font:bold 14px  Arial, Helvetica, sans-serif; color:#FFF; line-height:44px;display:block;}
+.header_right ul li a.process_manager{ background:url(../images/process_manager.png) no-repeat left 11px; padding-left:35px; float:left;}
+.header_right ul li a.enterprize_manager{ background:url(../images/enterprize_manager.png) no-repeat left 11px; padding-left:33px; float:left;}
+
+.mid_container{ width:100%; float:left;}
+.side_bar{ float:left; width:20%; background:url(../images/side_bar_bg.png) repeat top center; border-right:1px solid #c7c7c7; padding-bottom:400px;}
+
+
+.right_container{ background:url(../images/right_container_bg.png) repeat-x left top #FFF; float:left; padding-top:26px; width:79.6%; position:relative;border-left:1px solid #c7c7c7;   margin-left: 2px; }
+.right_container_top{ border-top:1px solid #c7c7c7;border-bottom:1px solid #c7c7c7; float:left; height:51px; width:100%   }
+.right_container_top h1{font:18px Arial, Helvetica, sans-serif; color:#555555; float:left; padding:13px; }
+
+.right_nav{ float:right;}
+.right_nav ul li{ list-style:none; float:left; background:url(../images/icon_divider.png) no-repeat left top #efefef; text-align:center; padding:3px 15px;  }
+.filter_strip{  height:33px; background:#f1f1f1;  float:left; width:100%; position:relative; }
+.filter_strip a{ text-decoration:none;font:14px Arial, Helvetica, sans-serif; color:#555555; background:url(../images/filter_arrow.png) no-repeat right 3px; padding-left:15px; padding-right:24px; line-height:33px;}
+.bottom_container{ width:100%; float:left; }
+
+.block_1{ float:left; margin-left:13px; width:32%; margin-bottom:39px; position:absolute; top:111px; left:0px; }
+.block_1_top{ background:url(../images/block_top_bg.png) repeat-x left top; height:36px; font: bold 14px Arial, Helvetica, sans-serif; color:#555555; padding:0px 7px;line-height:36px;}
+
+.business{  float:left; width:33%; padding-left:12px; border-left: 1px solid #CCCCCC;}
+.block_arrow{ background:url(../images/block_arrow.png) no-repeat left top!important; width:10px; height:6px; float:left; margin-top:16px; margin-right:7px;}
+
+.XYZ{ padding-left:12px; float:left;width:41%; }
+.digit{ padding-left:13px;  float:left;width:16%;border-right: 1px solid #CCCCCC;}
+.field_row{ float:left; background:#eeeeee; height:36px;  border-bottom:1px solid #cccccc;line-height:36px; width:100%}
+.field_1{ padding-left: 10px; font:12px Arial, Helvetica, sans-serif; color:#555555; border-right:1px solid #cccccc; float:left; line-height:36px; width:33%;border-left: 1px solid #CCCCCC;}
+.field_2{ padding-left:11px; font:12px Arial, Helvetica, sans-serif; color:#555555; border-right:1px solid #cccccc;float:left;line-height:36px; width:42%;}
+.field_3{ padding-left: 10px; font:12px Arial, Helvetica, sans-serif; color:#555555;float:left; line-height:36px; width:16%;border-right: 1px solid #CCCCCC;}
+.bg_white{ background:#FFF;}
+
+.block_2{ margin-left:6px; float:left; width:99%;}
+.float_left{ float:left; }
+
+.activity_block{ border-top-left-radius:10px; border-top-right-radius:10px;  float:left; width:32%; border-bottom:none; margin-right:6px;}
+.activity_block_top{ background:url(../images/activity_block_bg.png) repeat-x left top; height:40px; float:left; border-bottom:1px solid #cccccc;border-top-left-radius:10px; border-top-right-radius:10px;border:1px solid #cccccc; width:100%;}
+.activity_block_top ul li{ background:url(../images/block_divider.png) no-repeat right top; padding:0px 16px; float:left; font:16px Arial, Helvetica, sans-serif; color:#000000; text-align:center; line-height:40px;}
+.activity_block_top ul li.last{ background:none;}
+
+.activity_txt{ font:bold 20px Arial, Helvetica, sans-serif; color:#555555; text-align:center; padding:30px 0px; clear:both;border-left:1px solid #cccccc;border-right:1px solid #cccccc;border-bottom:1px solid #cccccc; width:100%}
+.activity_inner{ margin-left:0px; width:100%; margin-bottom:0px;}
+.nxt_arrow{ float:left; margin-top:160px; margin-right:9px;}
+
+.small_block{ float:left; margin-right:6px; margin-top:75px; width:15%;}
+.small_block_top{ text-align:center; border-bottom: 1px solid #CCCCCC;} }
+
+.Small_b1{ border-right:1px solid #CCCCCC;float: left;padding-left:13px; width:22%;}
+.Small_b3{ float: left;padding-left:13px; width:33%;}
+
+.down_arrow{ float:left; margin:5px 0px 5px 22%;}
+.summry_table{ float:right; width:25%; position:fixed; right:85px; top:385px;}
+.summry_table_th{ font:20px Arial, Helvetica, sans-serif; color:#555555; text-align:center; border:1px solid #cccccc;  padding:12px 0px; text-align:center;  width:100%; background:#FFF;}
+
+.footer{ width:100%; background: url(../images/header_bg.png) repeat-x left top; height:48px; float:left;}
+.footer p{ font:12px Arial, Helvetica, sans-serif; color:#FFF; text-align:center; line-height:48px;}
+.nxt_arrow img{ max-width:100%;}
+
+
+.th_fieldsi {
+    background: url("../images/block_divider.png") no-repeat scroll right top transparent;
+    color: #000000;
+    float: left;
+    font: 16px/40px Arial,Helvetica,sans-serif;
+    padding: 0 15px;
+    text-align: center;
+}
+
+.last{ background:none;}
+
+.margin_top{ margin-top:193px;}
+.margin_bottom{ margin-bottom:50px;}
+
+.form_center {
+    /*max-width: 400px;*/
+    width: 100%;
+    margin: 0 auto;
+    text-align: left;
+}
+
+
+/*----------------------------------Responsive Css---------------------------------------------*/
+
+@media only screen and (min-width: 768px) and (max-width: 959px) {
+	
+	.right_container{ width:79.4%;}
+	.block_1{ width:64%;}
+	.float_left img{ max-width:40%;}
+    .activity_inner { width: 100%;}
+	.activity_block { width:65%}
+	
+	
+.activity_block_top ul li { font: 12px/40px Arial,Helvetica,sans-serif;}
+.activity_txt { font-size:20px;}
+.nxt_arrow img{ max-width:45%;}
+.small_block { width:31%; margin-top:8px; margin-left:20%;margin-bottom:8px;}
+.nxt_arrow { margin-right: 9px;margin-top: 110px; }
+.summry_table { width: 52%;}	
+	
+	
+	
+}
+
+
