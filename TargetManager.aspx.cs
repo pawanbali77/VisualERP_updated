@@ -8,7 +8,7 @@ using System.Text;
 using System.Collections;
 using System.Data;
 using System.Web.UI.HtmlControls;
-public partial class ProcessManager : System.Web.UI.Page
+public partial class TargetManager : System.Web.UI.Page
 {
     #region
     List<UserControl> lst = new List<UserControl>();
@@ -395,18 +395,18 @@ public partial class ProcessManager : System.Web.UI.Page
             }
             ///////////////////////////22April////////////////////////
 
-            if (ProcessData.GetSummaryData(ProcessId))
+            if (TargetData.GetSummaryData(ProcessId))
             {
-                List<ProcessData.ProcessDataProperty> record = ProcessData.GetSummaryTableRecord(this.CBool(ViewState["isAsc"]), ViewState["sortBy"].ToString(), Convert.ToInt32(ProcessId));
+                List<TargetData.TargetDataProperty> record = TargetData.GetSummaryTableRecord(this.CBool(ViewState["isAsc"]), ViewState["sortBy"].ToString(), Convert.ToInt32(ProcessId));
                 if (record.Count != 0)
                 {
                     for (int k = 0; k < record.Count; k++)
                     {
                         string AttributeName = Convert.ToString(record[k].AttributeName);
-                        // string unitName = ProcessData.GetUnitName(AttributeName);
+                        // string unitName = TargetData.GetUnitName(AttributeName);
                         string unitName = Convert.ToString(record[k].UnitName);
                         int FunctionID = Convert.ToInt32(record[k].FunctionID);
-                        List<ProcessData.ProcessDataProperty> res = ProcessData.GetAttributeValue(this.CBool(ViewState["isAsc"]), ViewState["sortBy"].ToString(), Convert.ToInt32(ProcessId), AttributeName, unitName);
+                        List<TargetData.TargetDataProperty> res = TargetData.GetAttributeValue(this.CBool(ViewState["isAsc"]), ViewState["sortBy"].ToString(), Convert.ToInt32(ProcessId), AttributeName, unitName);
                         if (res.Count > 0)
                         {
                             if (FunctionID == 1)
@@ -553,8 +553,8 @@ public partial class ProcessManager : System.Web.UI.Page
 
 
         VisualERPDataContext ObjData = new VisualERPDataContext();
-        //List<ProcessData.ProcessDataProperty> lstpoid = ProcessData.GetAllProcessObjId(ProcessId);
-        List<ProcessData.ProcessDataProperty> lstpoid = ProcessData.GetAllSingleProcessObjId(ProcessId);  ////////////////////////////// 
+        //List<TargetData.TargetDataProperty> lstpoid = TargetData.GetAllProcessObjId(ProcessId);
+        List<TargetData.TargetDataProperty> lstpoid = TargetData.GetAllSingleProcessObjId(ProcessId);  ////////////////////////////// 
 
         if (lstpoid.Count > 0)
         {
@@ -570,7 +570,7 @@ public partial class ProcessManager : System.Web.UI.Page
         TblFirst.Width = Unit.Percentage(100);
         TblFirst.BorderWidth = 0;
         TableRow TrFirst = new TableRow();
-        //lstpoid = ProcessData.GetAllProcessObjId(ProcessId);
+        //lstpoid = TargetData.GetAllProcessObjId(ProcessId);
         int j = 0;
         for (int i = 0; i < lstpoid.Count; i++)
         {
@@ -657,8 +657,8 @@ public partial class ProcessManager : System.Web.UI.Page
         }
 
         VisualERPDataContext ObjData = new VisualERPDataContext();
-        //List<ProcessData.ProcessDataProperty> lstpoid = ProcessData.GetAllProcessObjId(ProcessId);     
-        List<ProcessData.ProcessDataProperty> lstpoidParallel = ProcessData.GetAllParallelProcessObjId(ProcessId);  //////////////////////////////
+        //List<TargetData.TargetDataProperty> lstpoid = TargetData.GetAllProcessObjId(ProcessId);     
+        List<TargetData.TargetDataProperty> lstpoidParallel = TargetData.GetAllParallelProcessObjId(ProcessId);  //////////////////////////////
 
 
         Table TblSecond = new Table();
@@ -669,7 +669,7 @@ public partial class ProcessManager : System.Web.UI.Page
         //TblFirst.Width = Unit.Percentage(100);
         TableRow TrSecond = new TableRow();
 
-        //lstpoid = ProcessData.GetAllProcessObjId(ProcessId);
+        //lstpoid = TargetData.GetAllProcessObjId(ProcessId);
 
         /////////////////////////////////////
 
@@ -765,14 +765,14 @@ public partial class ProcessManager : System.Web.UI.Page
         ProcessDummyObj.Type = 0;
         bool result = false;
 
-        result = ProcessData.SaveDumyProcessObject(ProcessDummyObj);
+        result = TargetData.SaveDumyProcessObject(ProcessDummyObj);
         int OrderNO = 0;
-        OrderNO = ProcessData.GetMaxOrderID();
+        OrderNO = TargetData.GetMaxOrderID();
 
         ViewState["OrderNO"] = OrderNO;
 
         int ProcessObjId = 0;
-        ProcessObjId = ProcessData.GetMaxProcessObjId(ProcessId);
+        ProcessObjId = TargetData.GetMaxProcessObjId(ProcessId);
 
         ViewState["ProcessObjID"] = ProcessObjId;
     }
@@ -790,7 +790,7 @@ public partial class ProcessManager : System.Web.UI.Page
         ProcessObj.ModifiedDate = DateTime.Now;
         ProcessObj.ProcessObjID = this.CInt32(ViewState["ProcessObjID"]);
         bool result = false;
-        result = ProcessData.SaveProcessObject(ProcessObj);
+        result = TargetData.SaveProcessObject(ProcessObj);
         VisualERPDataContext ObjData = new VisualERPDataContext();
         ObjData.SP_BulkInsertAttribute(this.CInt32(ViewState["ProcessObjID"]), ProcessId);
         if (result == true)
@@ -1206,7 +1206,7 @@ public partial class ProcessManager : System.Web.UI.Page
         if (processobjId > 0)
         {
             bool result = false;
-            result = ProcessData.DeleteProcessObjDataByID(processobjId);////DeleteTFG is stored procedure in database that will delete selected TFG id from multiple tables 
+            result = TargetData.DeleteProcessObjDataByID(processobjId);////DeleteTFG is stored procedure in database that will delete selected TFG id from multiple tables 
             if (result == true)
             {
                 //delete successfully
@@ -1225,10 +1225,10 @@ public partial class ProcessManager : System.Web.UI.Page
         processobjId = this.CInt32(cntrlPoid);
         if (processobjId > 0)
         {
-            int pid = ProcessData.GetProcessIdByPoid(processobjId);
-            int position = ProcessData.GetPositionByPoid(processobjId);
+            int pid = TargetData.GetProcessIdByPoid(processobjId);
+            int position = TargetData.GetPositionByPoid(processobjId);
             bool decrease = false;
-            decrease = ProcessData.DecreaseNextRowsPosition(pid, position);
+            decrease = TargetData.DecreaseNextRowsPosition(pid, position);
             if (decrease == true)
             {
                 // position updated successfully
@@ -1236,7 +1236,7 @@ public partial class ProcessManager : System.Web.UI.Page
             bool result = false;
             result = InventeryData.DeleteInventeryProcessObjByID(processobjId); ////DeleteTFG is stored procedure in database that will delete selected TFG id from multiple tables
             bool result1 = false;
-            result1 = ProcessData.DeleteProcessObjDataByID(processobjId);
+            result1 = TargetData.DeleteProcessObjDataByID(processobjId);
         }
 
     }
@@ -1254,10 +1254,10 @@ public partial class ProcessManager : System.Web.UI.Page
         processobjId = this.CInt32(cntrlPoid);
         if (processobjId > 0)
         {
-            hasreport = ProcessData.HasReport(processobjId);
+            hasreport = TargetData.HasReport(processobjId);
             if (hasreport)
             {
-                string reportName = ProcessData.GetReportName(processobjId);
+                string reportName = TargetData.GetReportName(processobjId);
                 //this activity associcated with report please delete report first
                 lblMsg.Text = "This activity is associcated with report  " + "<a href='ManageReport.aspx'><span style='color:red; margin-left:3px; margin-right:3px;'><u>" + reportName + "</u></span></a>" + "  Click on report to delete.";
                 //lblMsg.Style.Add("color", "red");
@@ -1270,21 +1270,21 @@ public partial class ProcessManager : System.Web.UI.Page
             }
             else
             {
-                int PId = ProcessData.GetProcessIdByPoid(processobjId);
+                int PId = TargetData.GetProcessIdByPoid(processobjId);
 
                 bool IsParalled = false;
-                IsParalled = ProcessData.IsParallelProcessByPoid(processobjId);
+                IsParalled = TargetData.IsParallelProcessByPoid(processobjId);
                 if (IsParalled == true)
                 {
                     bool resultP = false;
-                    resultP = ProcessData.DeleteParallelProcessObjDataByID(processobjId);////DeleteTFG is stored procedure in database that will delete selected TFG id from multiple tables
+                    resultP = TargetData.DeleteParallelProcessObjDataByID(processobjId);////DeleteTFG is stored procedure in database that will delete selected TFG id from multiple tables
                     // do nothing because no position define for parallel process
                 }
                 else
                 {
-                    int position = ProcessData.GetPositionByPoid(processobjId);
+                    int position = TargetData.GetPositionByPoid(processobjId);
                     bool decrease = false;
-                    decrease = ProcessData.DecreaseNextRowsPosition(PId, position);
+                    decrease = TargetData.DecreaseNextRowsPosition(PId, position);
                     if (decrease == true)
                     {
                         // position updated successfully
@@ -1295,12 +1295,12 @@ public partial class ProcessManager : System.Web.UI.Page
 
 
                 //join poid data with summary data and delete join attribute data from summarydata
-                deleteSummaryData = ProcessData.DeleteSummaryDataByPoid(processobjId, ProcessId);
+                deleteSummaryData = TargetData.DeleteSummaryDataByPoid(processobjId, ProcessId);
 
-                result = ProcessData.DeleteProcessObjDataByID(processobjId); ////DeleteTFG is stored procedure in database that will delete selected TFG id from multiple tables            
-                result1 = ProcessData.DeleteAttributedataByPoID(processobjId);
-                resultSystemIO = ProcessData.DeleteSystemIODataByPoID(processobjId);
-                // reportResult = ProcessData.DeleteReportDataByPoID(processobjId);
+                result = TargetData.DeleteProcessObjDataByID(processobjId); ////DeleteTFG is stored procedure in database that will delete selected TFG id from multiple tables            
+                result1 = TargetData.DeleteAttributedataByPoID(processobjId);
+                resultSystemIO = TargetData.DeleteSystemIODataByPoID(processobjId);
+                // reportResult = TargetData.DeleteReportDataByPoID(processobjId);
                 lblMsg.Text = "This activity has been deleted.";
                 lblMsg.Style.Add("color", "green");
                 divErrorMsg.Style.Add("min-width", "200px");
@@ -1318,7 +1318,7 @@ public partial class ProcessManager : System.Web.UI.Page
     public void CalculateCriticalPath(int ProcessId)
     {
 
-        List<ProcessData.ProcessDataProperty> prop = ProcessData.GetPoidIdByPosition(ProcessId); // getting process object id by position from table process object 
+        List<TargetData.TargetDataProperty> prop = TargetData.GetPoidIdByPosition(ProcessId); // getting process object id by position from table process object 
         List<string> PathCalculated = new List<string>();
         if (prop != null)
         {
@@ -1345,7 +1345,7 @@ public partial class ProcessManager : System.Web.UI.Page
             {
                 // now find other start points of process manager and find all other path relative to new start point
                 string startPoid = string.Empty;
-                List<ProcessData.ProcessDataProperty> OtherStartPoint = ProcessData.GetOtherStartPoints(ProcessId); // other start point on process manager page
+                List<TargetData.TargetDataProperty> OtherStartPoint = TargetData.GetOtherStartPoints(ProcessId); // other start point on process manager page
                 if (OtherStartPoint.Count > 0)
                 {
                     for (int r = 0; r < OtherStartPoint.Count; r++)
@@ -1366,7 +1366,7 @@ public partial class ProcessManager : System.Web.UI.Page
                         for (int k = 0; k < pathValue.Length; k++)
                         {
                             int valPoid = Convert.ToInt32(pathValue[k]); // get path value that is process obj id
-                            add += ProcessData.GetCycleTimeforPoid(valPoid); // add will have total cycle time for each path
+                            add += TargetData.GetCycleTimeforPoid(valPoid); // add will have total cycle time for each path
                         }
                         cyclePathTime.Add(add); // add other path in list cyclePathTime
                     }
@@ -1391,7 +1391,7 @@ public partial class ProcessManager : System.Web.UI.Page
         str1 += poidfor.ToString() + "-";  // append process object id to and making path 
         string splitStr = str1.TrimEnd('-'); // trim las char that is "-"
 
-        List<ProcessData.ProcessDataProperty> Fromparallelpoid = ProcessData.GetFromParallelProcessObjId(poidfor, ProcessId); // it will get next or To process object id for given processobj id
+        List<TargetData.TargetDataProperty> Fromparallelpoid = TargetData.GetFromParallelProcessObjId(poidfor, ProcessId); // it will get next or To process object id for given processobj id
         if (Fromparallelpoid.Count != 0)
         {
             for (int i = 0; i < Fromparallelpoid.Count; i++)

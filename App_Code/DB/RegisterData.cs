@@ -208,7 +208,7 @@ public class RegisterData
 
     public static string ProfileImage(int id, string ComapnyName)
     {
-        VisualERPDataContext db = new VisualERPDataContext();
+        using (VisualERPDataContext db = new VisualERPDataContext())
         {
             var profileLogo = db.tbl_Registrations.FirstOrDefault(s => s.CompanyName.Contains(ComapnyName) && s.ParentID == 0).UploadPhoto;                                      
             return profileLogo;

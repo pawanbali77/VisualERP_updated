@@ -81,6 +81,11 @@ img {
 	padding-left:35px;
 	float:left;
 }
+.header_right ul li a.target_manager {
+	background:url(../images/process_manager.png) no-repeat left 11px;
+	padding-left:35px;
+	float:left;
+}
 .header_right ul li a.enterprize_manager {
 	background:url(../images/enterprize_manager.png) no-repeat left 11px;
 	padding-left:33px;
@@ -1720,6 +1725,8 @@ height: 480px;
     display: block;
 }
 
+
+.Target{ background: url(../images/process_manager.png) no-repeat left top!important; padding-left:35px;  height:22px; margin-top:3px; float:left; margin-left:10px;}
 
 .Process{ background: url(../images/process_manager.png) no-repeat left top!important; padding-left:35px;  height:22px; margin-top:3px; float:left; margin-left:10px;}
 .Enterprize{ background: url(../images/enterprize_manager.png) no-repeat left top!important; padding-left:35px;  height:21px;margin-top:4px; float:left; margin-left:10px;}

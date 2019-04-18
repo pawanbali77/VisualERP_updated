@@ -129,6 +129,28 @@ public class Activity
     {
         VisualERPDataContext ObjData = new VisualERPDataContext();
         var qry = (from x in ObjData.tbl_Reports
+                   where x.ProcessID == poID
+                   select new ListReportData
+                   {
+                       ReportID = x.ReportID,
+                       ProcessObjID = x.ProcessObjID,
+                       AttributeName = x.AttributeName,
+                       ReportName = x.ReportName,
+                       ReportType = x.ReportTypeID,
+                       ReportTypeName = Enum.GetName(typeof(ReportTypeID), x.ReportTypeID)
+                   }).Distinct().ToList();
+        if (inAsc)
+        {
+            return qry.OrderByDescending(x => x.GetType().GetProperty(SortBy).GetValue(x, null)).ToList();
+        }
+
+        return qry.OrderBy(x => x.GetType().GetProperty(SortBy).GetValue(x, null)).ToList();
+
+    }
+    public static List<ListReportData> GetReportByProcessID(bool inAsc, string SortBy, int poID, int reportID)
+    {
+        VisualERPDataContext ObjData = new VisualERPDataContext();
+        var qry = (from x in ObjData.tbl_Reports
                    where x.ProcessID == poID 
                    select new ListReportData
                    {
@@ -191,7 +213,7 @@ public class Activity
     /// <param name="ReportName">ReportName hold the report name user entered in textbox</param>
     /// <param name="ProcessID">ProcessID hold processid of report</param>
     /// <returns>return tru and false </returns>
-    public static bool GetDuplicateCheckReportName(string ReportName, int ProcessID,int ReportType,int editReportID)
+    public static bool GetDuplicateCheckReportName(string ReportName, int ProcessID,int ReportType,int editReportID=0)
     {
         VisualERPDataContext ObjData = new VisualERPDataContext();  
         if (editReportID > 0)
@@ -226,6 +248,7 @@ public class Activity
         }
     }
 
+     
     public class ListReportData
     {
         public int ReportID { get; set; }
