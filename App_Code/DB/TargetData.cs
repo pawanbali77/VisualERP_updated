@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+ 
 
 /// <summary>
 /// Summary description for ProcessData
@@ -19,9 +20,9 @@ public class TargetData
     {
         VisualERPDataContext Objdata = new VisualERPDataContext();
         //qry will return GetTypeID details according our search query
-        var qry = (from x in Objdata.tbl_Processes
-                   where x.ProcessID == processId
-                   select x.ProcessName).FirstOrDefault();
+        var qry = (from x in Objdata.tbl_Targets 
+                   where x.TargetID == processId
+                   select x.TargetName).FirstOrDefault();
 
         return Convert.ToString(qry);
     }
@@ -30,11 +31,11 @@ public class TargetData
     {
         VisualERPDataContext Objdata = new VisualERPDataContext();
         //qry will return GetTypeID details according our search query
-        var qry = (from x in Objdata.tbl_Processes
-                   join y in Objdata.tbl_ProcessObjects
-                   on x.ProcessID equals y.ProcessID
-                   where y.ProcessObjID == poid
-                   select x.ProcessName).FirstOrDefault();
+        var qry = (from x in Objdata.tbl_Targets
+                   join y in Objdata.tbl_TargetObjects
+                   on x.TargetID equals y.TargetID
+                   where y.TargetObjID == poid
+                   select x.TargetName).FirstOrDefault();
 
         return Convert.ToString(qry);
     }
@@ -43,8 +44,8 @@ public class TargetData
     {
         VisualERPDataContext Objdata = new VisualERPDataContext();
         //qry will return GetTypeID details according our search query
-        var qry = (from x in Objdata.tbl_Processes
-                   where x.ProcessID == processId && x.TypeID == 5
+        var qry = (from x in Objdata.tbl_Targets
+                   where x.TargetID == processId && x.TypeID == 5
                    select x.FunctionName).FirstOrDefault();
 
         return Convert.ToString(qry);
@@ -54,32 +55,32 @@ public class TargetData
     {
         VisualERPDataContext Objdata = new VisualERPDataContext();
         //qry will return GetTypeID details according our search query
-        var qry = (from x in Objdata.tbl_ProcessObjects
-                   where x.ProcessObjID == poid
-                   select x.ProcessObjName).FirstOrDefault();
+        var qry = (from x in Objdata.tbl_TargetObjects
+                   where x.TargetObjID == poid
+                   select x.TargetObjName).FirstOrDefault();
 
         return Convert.ToString(qry);
     }
 
-    public static bool SaveProcessData(tbl_Process ProcessTblData)
+    public static bool SaveProcessData(tbl_Target ProcessTblData)
     {
         VisualERPDataContext ObjData = new VisualERPDataContext();
-        var qry = (from x in ObjData.tbl_Processes
-                   where x.ProcessID == ProcessTblData.ProcessID
+        var qry = (from x in ObjData.tbl_Targets
+                   where x.TargetID == ProcessTblData.TargetID
                    select x).FirstOrDefault();
 
         if (qry == null)
         {
 
-            ObjData.tbl_Processes.InsertOnSubmit(ProcessTblData);
+            ObjData.tbl_Targets.InsertOnSubmit(ProcessTblData);
             //new ObjData().tbl_AttributesMenus.InsertOnSubmit(ListAttributeData);
 
         }
         else
         {
-            qry.ProcessName = ProcessTblData.ProcessName;
+            qry.TargetName = ProcessTblData.TargetName;
             qry.FunctionName = ProcessTblData.FunctionName;
-            qry.ProcessID = ProcessTblData.ProcessID;
+            qry.TargetID  = ProcessTblData.TargetID;
             qry.TypeID = ProcessTblData.TypeID;
             qry.UserRegisterID = ProcessTblData.UserRegisterID;
             qry.CompanyID = ProcessTblData.CompanyID;
@@ -106,10 +107,10 @@ public class TargetData
         if (ProcessId > 0)
         {
             //Process Name Count will get Process from table Process on behalf of ProcessName
-            var ProcessNameCount = (from c in ObjData.tbl_Processes
-                                    where c.ProcessName.ToLower() == ProcessName.ToLower()
-                                     && c.ProcessID != ProcessId
-                                    select c.ProcessID).Count();
+            var ProcessNameCount = (from c in ObjData.tbl_Targets
+                                    where c.TargetName.ToLower() == ProcessName.ToLower()
+                                     && c.TargetID != ProcessId
+                                    select c.TargetID).Count();
             if (ProcessNameCount > 0)
             {
                 return false;
@@ -121,10 +122,10 @@ public class TargetData
         }
         else
         {
-            //countcat variable will get ProcessName from table tbl_Processes on behalf of ProcessName
-            var countCat = (from c in ObjData.tbl_Processes
-                            where c.ProcessName.ToLower() == ProcessName.ToLower()
-                            select c.ProcessID).Count();
+            //countcat variable will get ProcessName from table tbl_Targets on behalf of ProcessName
+            var countCat = (from c in ObjData.tbl_Targets
+                            where c.TargetName.ToLower() == ProcessName.ToLower()
+                            select c.TargetID).Count();
             if (countCat > 0)
             {
                 return false;
@@ -136,25 +137,25 @@ public class TargetData
         }
     }
 
-    public static bool SaveDumyProcessObject(tbl_ProcessObject tblProcessDummyObject)
+    public static bool SaveDumyProcessObject(tbl_TargetObject tblProcessDummyObject)
     {
         VisualERPDataContext ObjData = new VisualERPDataContext();
-        var qry = (from x in ObjData.tbl_ProcessObjects
-                   where x.ProcessObjID == tblProcessDummyObject.ProcessObjID
+        var qry = (from x in ObjData.tbl_TargetObjects
+                   where x.TargetObjID == tblProcessDummyObject.TargetObjID
                    select x).FirstOrDefault();
 
         if (qry == null)
         {
 
-            ObjData.tbl_ProcessObjects.InsertOnSubmit(tblProcessDummyObject);
+            ObjData.tbl_TargetObjects.InsertOnSubmit(tblProcessDummyObject);
             // return 
             //new ObjData().tbl_AttributesMenus.InsertOnSubmit(ListAttributeData);
 
         }
         else
         {
-            qry.ProcessObjName = tblProcessDummyObject.ProcessObjName;
-            qry.ProcessID = tblProcessDummyObject.ProcessID;
+            qry.TargetObjName = tblProcessDummyObject.TargetObjName;
+            qry.TargetID = tblProcessDummyObject.TargetID;
             qry.ModifiedDate = tblProcessDummyObject.ModifiedDate;
             qry.OrderNo = tblProcessDummyObject.OrderNo;
             qry.Width = tblProcessDummyObject.Width;
@@ -175,24 +176,24 @@ public class TargetData
 
     }
 
-    public static bool SaveProcessObject(tbl_ProcessObject tblProcessObject)
+    public static bool SaveProcessObject(tbl_TargetObject tblProcessObject)
     {
         VisualERPDataContext ObjData = new VisualERPDataContext();
-        var qry = (from x in ObjData.tbl_ProcessObjects
-                   where x.ProcessObjID == tblProcessObject.ProcessObjID
+        var qry = (from x in ObjData.tbl_TargetObjects
+                   where x.TargetObjID == tblProcessObject.TargetObjID
                    select x).FirstOrDefault();
 
         if (qry == null)
         {
 
-            ObjData.tbl_ProcessObjects.InsertOnSubmit(tblProcessObject);
+            ObjData.tbl_TargetObjects.InsertOnSubmit(tblProcessObject);
             //new ObjData().tbl_AttributesMenus.InsertOnSubmit(ListAttributeData);
 
         }
         else
         {
-            qry.ProcessObjName = tblProcessObject.ProcessObjName;
-            qry.ProcessID = tblProcessObject.ProcessID;
+            qry.TargetObjName = tblProcessObject.TargetObjName;
+            qry.TargetID = tblProcessObject.TargetID;
             qry.ModifiedDate = tblProcessObject.ModifiedDate;
             qry.OrderNo = tblProcessObject.OrderNo;
             qry.XTop = tblProcessObject.XTop;
@@ -219,28 +220,28 @@ public class TargetData
     {
         VisualERPDataContext Objdata = new VisualERPDataContext();
         //qry will return GetTypeID details according our search query
-        var qry = (from x in Objdata.tbl_ProcessObjects
+        var qry = (from x in Objdata.tbl_TargetObjects
                    select x.OrderNo).Max();
         return Convert.ToInt32(qry);
     }
-    public static int GetMaxProcessObjId(int processID)
+    public static int GetMaxTargetObjID(int processID)
     {
         VisualERPDataContext Objdata = new VisualERPDataContext();
         //qry will return GetTypeID details according our search query
-        var qry = (from x in Objdata.tbl_ProcessObjects
-                   where x.ProcessID == processID
-                   select x.ProcessObjID).Max();
+        var qry = (from x in Objdata.tbl_TargetObjects
+                   where x.TargetID == processID
+                   select x.TargetObjID).Max();
         return Convert.ToInt32(qry);
     }
-    public static List<TargetDataProperty> GetAllProcessObjId(int processID)
+    public static List<TargetDataProperty> GetAllTargetObjID(int processID)
     {
         VisualERPDataContext Objdata = new VisualERPDataContext();
         //qry will return GetTypeID details according our search query
-        var qry = (from x in Objdata.tbl_ProcessObjects
-                   where x.ProcessID == processID && (x.Type == 0 || x.Type == 1) && x.ParallelProcessObjID == null
+        var qry = (from x in Objdata.tbl_TargetObjects
+                   where x.TargetID == processID && (x.Type == 0 || x.Type == 1) && x.ParallelTargetObjID == null
                    select new TargetDataProperty
                    {
-                       ProcessObjID = x.ProcessObjID,
+                       TargetObjID = x.TargetObjID,
                        Type = x.Type
 
                    }).Distinct().ToList();
@@ -252,11 +253,11 @@ public class TargetData
     {
         VisualERPDataContext Objdata = new VisualERPDataContext();
         //qry will return GetTypeID details according our search query
-        var qry = (from x in Objdata.tbl_Processes
+        var qry = (from x in Objdata.tbl_Targets
                    select new TargetDataProperty
                    {
-                       ProcessID = x.ProcessID,
-                       ProcessName = x.ProcessName,
+                       TargetID = x.TargetID,
+                       TargetName = x.TargetName,
                        ParentID = x.ParentID,
 
                    }).Distinct().ToList();
@@ -267,14 +268,14 @@ public class TargetData
     {
         VisualERPDataContext Objdata = new VisualERPDataContext();
         //qry will return GetTypeID details according our search query
-        var qry = (from x in Objdata.tbl_Processes
-                       // where x.ProcessID == Id && (x.ParentID == null || x.ParentID == 0)
-                       // where x.ProcessID == Id && x.CompanyID == 10
+        var qry = (from x in Objdata.tbl_Targets
+                       // where x.TargetID == Id && (x.ParentID == null || x.ParentID == 0)
+                       // where x.TargetID == Id && x.CompanyID == 10
                    where x.CompanyID == CompanyId && x.UserRegisterID == UserID
                    select new TargetDataProperty
                    {
-                       ProcessID = x.ProcessID,
-                       ProcessName = x.ProcessName,
+                       TargetID = x.TargetID,
+                       TargetName = x.TargetName,
                        ParentID = x.ParentID
 
                    }).Distinct().ToList();
@@ -282,28 +283,28 @@ public class TargetData
         return qry.ToList();
     }
 
-    public static tbl_ProcessObject ProcessObjectByID(Int32 ProcessObjid)
+    public static tbl_TargetObject ProcessObjectByID(Int32 TargetObjID)
     {
         VisualERPDataContext ObjData = new VisualERPDataContext();
-        return (from bc in ObjData.tbl_ProcessObjects
-                where bc.ProcessObjID == ProcessObjid
+        return (from bc in ObjData.tbl_TargetObjects
+                where bc.TargetObjID == TargetObjID
                 select bc).FirstOrDefault();
     }
 
-    public static tbl_InvantoryTriangle ProcessObjectInventoryByID(Int32 ProcessObjid)
+    public static tbl_InvantoryTriangle ProcessObjectInventoryByID(Int32 TargetObjID)
     {
         VisualERPDataContext ObjData = new VisualERPDataContext();
         return (from bc in ObjData.tbl_InvantoryTriangles
-                where bc.ProcessObjID == ProcessObjid
+                where bc.ProcessObjID == TargetObjID
                 select bc).FirstOrDefault();
     }
-    public static List<TargetDataProperty> GetActivityOrderData(bool inAsc, string SortBy, int processObjID)
+    public static List<TargetDataProperty> GetActivityOrderData(bool inAsc, string SortBy, int TargetObjID)
     {
         VisualERPDataContext ObjData = new VisualERPDataContext();
         var qry = (from x in ObjData.tbl_AttributesMenus
                    join y in ObjData.tbl_Units
                    on x.UnitID equals y.UnitID
-                   where x.ProcessObjectID == processObjID && x.IncludeOnMap == true
+                   where x.ProcessObjectID == TargetObjID && x.IncludeOnMap == true
                    select new TargetDataProperty
                    {
                        AttributeName = x.AttributeName,
@@ -364,7 +365,7 @@ public class TargetData
     {
         VisualERPDataContext ObjData = new VisualERPDataContext();
         var qry = (from x in ObjData.tbl_AttributesMenus
-                   join z in ObjData.tbl_Processes on x.ProcessID equals z.ProcessID
+                   join z in ObjData.tbl_Targets on x.ProcessID equals z.TargetID
                    join y in ObjData.tbl_Units
                    on x.UnitID equals y.UnitID
                    where x.ProcessID == processId && x.IncludeOnMap == true
@@ -374,7 +375,7 @@ public class TargetData
                        AttributeMenuID = x.AttributeMenuID,
                        AttributeValue = x.AttributeValue,
                        UnitName = y.UnitName,
-                       NodeName = z.ProcessName
+                       NodeName = z.TargetName
 
                    }).Distinct().ToList();
         if (inAsc)
@@ -387,12 +388,12 @@ public class TargetData
     public static List<TargetDataProperty> GetAllProcessByProcessId(int ProcessId)
     {
         VisualERPDataContext ObjData = new VisualERPDataContext();
-        var qry = (from x in ObjData.tbl_Processes
-                   where x.ProcessID == ProcessId || x.ParentID == null
+        var qry = (from x in ObjData.tbl_Targets
+                   where x.TargetID == ProcessId || x.ParentID == null
                    select new TargetDataProperty
                    {
-                       ProcessID = x.ProcessID,
-                       ProcessName = x.ProcessName,
+                       TargetID = x.TargetID,
+                       TargetName = x.TargetName,
                        ParentID = x.ParentID
 
                    }).Distinct().ToList();
@@ -408,12 +409,12 @@ public class TargetData
     {
         bool result = false;
         VisualERPDataContext ObjData = new VisualERPDataContext();
-        var ProcessObjData = (from k in ObjData.tbl_ProcessObjects
-                              where k.ProcessObjID == Poid
+        var ProcessObjData = (from k in ObjData.tbl_TargetObjects
+                              where k.TargetObjID == Poid
                               select k).ToList();
         if (ProcessObjData.Count > 0)
         {
-            ObjData.DeleteProcessObjDataByID(Poid); //DeleteMachine is stored procedure in database that delete TFGData of TFG Id
+            ObjData.DeleteTargetObjDataByID(Poid); //DeleteMachine is stored procedure in database that delete TFGData of TFG Id
             result = true;
         }
         else
@@ -463,7 +464,7 @@ public class TargetData
                                 select k).ToList();
         if (AttributeObjData.Count > 0)
         {
-            ObjData.DeleteAttributeDataByProcessObjID(Poid); //DeleteAttributeDataByProcessObj ID is stored procedure in database that delete AttributeData of By ProcessObjID
+            ObjData.DeleteInventeryProcessObjByID(Poid); //DeleteAttributeDataByProcessObj ID is stored procedure in database that delete AttributeData of By TargetObjID
             result = true;
         }
         else
@@ -489,7 +490,7 @@ public class TargetData
                             select k).ToList();
         if (SystemIOData.Count > 0)
         {
-            ObjData.DeleteSystemIODataByPOID(Poid); //DeleteAttributeDataByProcessObj ID is stored procedure in database that delete AttributeData of By ProcessObjID
+            ObjData.DeleteSystemIODataByPOID(Poid); //DeleteAttributeDataByProcessObj ID is stored procedure in database that delete AttributeData of By TargetObjID
             result = true;
         }
         else
@@ -500,32 +501,32 @@ public class TargetData
         return result;
     }
 
-    public static List<tbl_Process> GetProcessCollection(int systemId)
+    public static List<tbl_Target> GetProcessCollection(int systemId)
     {
         VisualERPDataContext Objdata = new VisualERPDataContext();
-        var qry = (from x in Objdata.tbl_Processes
+        var qry = (from x in Objdata.tbl_Targets
                    join y in Objdata.tbl_SystemProcessIOs
-                   on x.ProcessID equals y.ProcessID
+                   on x.TargetID equals y.ProcessID
                    where y.SystemID == systemId
                    select x).ToList();
         return qry;
     }
-    public static List<tbl_ProcessObject> GetProcessObjActvityCollection(int ProcessId)
+    public static List<tbl_TargetObject> GetProcessObjActvityCollection(int ProcessId)
     {
         VisualERPDataContext Objdata = new VisualERPDataContext();
-        var qry = (from x in Objdata.tbl_ProcessObjects
-                   where x.ProcessID == ProcessId && x.Type == 0
+        var qry = (from x in Objdata.tbl_TargetObjects
+                   where x.TargetID == ProcessId && x.Type == 0
                    select x).ToList();
         return qry;
     }
     public class TargetDataProperty
     {
-        public string ProcessName { get; set; }
-        public int? ProcessID { get; set; }
+        public string TargetName { get; set; }
+        public int? TargetID { get; set; }
         public int? ParentID { get; set; }
         public int SystemID { get; set; }
-        public string ProcessObjectName { get; set; }
-        public int ProcessObjID { get; set; }
+        public string TargetObjectName { get; set; }
+        public int TargetObjID { get; set; }
         public string AttributeName { get; set; }
         public int AttributeMenuID { get; set; }
         public string AttributeValue { get; set; }
@@ -540,24 +541,24 @@ public class TargetData
         public int? Position { get; set; }
         public int AttributeValueSum { get; set; }
         public int? NeighbourActivityID { get; set; }
-        public int? ProcessObjIDParl { get; set; }
-        public int? ProcessObjIDParl1 { get; set; }
+        public int? TargetObjIDParl { get; set; }
+        public int? TargetObjIDParl1 { get; set; }
         public int? FunctionID { get; set; }
 
         public int? UserID { get; set; }
-        public string ProcessObjIdsCollection { get; set; }
+        public string TargetObjIdsCollection { get; set; }
 
     }
 
     public static List<TargetDataProperty> GetProcessObjActvities(int ProcessId)
     {
         VisualERPDataContext Objdata = new VisualERPDataContext();
-        var qry = (from x in Objdata.tbl_ProcessObjects
-                   where x.ProcessID == ProcessId && x.Type == 0
+        var qry = (from x in Objdata.tbl_TargetObjects
+                   where x.TargetID == ProcessId && x.Type == 0
                    select new TargetDataProperty
                    {
-                       ProcessObjID = x.ProcessObjID,
-                       ProcessObjectName = x.ProcessObjName
+                       TargetObjID = x.TargetObjID,
+                       TargetObjectName = x.TargetObjName
                    }).ToList();
         return qry.ToList();
     }
@@ -565,13 +566,13 @@ public class TargetData
     public static List<TargetDataProperty> GetPPESAProcessObjActvities(int ProcessId, int FormType)
     {
         VisualERPDataContext Objdata = new VisualERPDataContext();
-        var qry = (from x in Objdata.tbl_ProcessObjects
-                   join z in Objdata.tbl_PPESAnPDESAs on x.ProcessObjID equals z.ProcessObjectID
-                   where x.ProcessID == ProcessId && x.Type == 0 && z.FormType == FormType && z.ActionCriticalParameter == true
+        var qry = (from x in Objdata.tbl_TargetObjects
+                   join z in Objdata.tbl_PPESAnPDESAs on x.TargetObjID equals z.ProcessObjectID
+                   where x.TargetID == ProcessId && x.Type == 0 && z.FormType == FormType && z.ActionCriticalParameter == true
                    select new TargetDataProperty
                    {
-                       ProcessObjID = x.ProcessObjID,
-                       ProcessObjectName = x.ProcessObjName
+                       TargetObjID = x.TargetObjID,
+                       TargetObjectName = x.TargetObjName
                    }).Distinct().ToList();
         return qry.ToList();
     }
@@ -579,12 +580,12 @@ public class TargetData
     public static List<TargetDataProperty> GetPObjActivitySequence(int ProcessId)
     {
         VisualERPDataContext Objdata = new VisualERPDataContext();
-        var qry = (from x in Objdata.tbl_ProcessObjects
-                   where x.ProcessID == ProcessId && x.Type == 0 && x.ParallelProcessObjID == null
+        var qry = (from x in Objdata.tbl_TargetObjects
+                   where x.TargetID == ProcessId && x.Type == 0 && x.ParallelTargetObjID == null
                    select new TargetDataProperty
                    {
-                       ProcessObjID = x.ProcessObjID,
-                       ProcessObjectName = x.ProcessObjName
+                       TargetObjID = x.TargetObjID,
+                       TargetObjectName = x.TargetObjName
                    }).ToList();
         return qry.ToList();
     }
@@ -592,21 +593,21 @@ public class TargetData
     public static List<TargetDataProperty> GetProcessObjActvitiesToSelect(int ProcessId, int selectedPOid)
     {
         VisualERPDataContext Objdata = new VisualERPDataContext();
-        var qry = (from x in Objdata.tbl_ProcessObjects
-                   where x.ProcessID == ProcessId && x.Type == 0 && x.ProcessObjID != selectedPOid
+        var qry = (from x in Objdata.tbl_TargetObjects
+                   where x.TargetID == ProcessId && x.Type == 0 && x.TargetObjID != selectedPOid
                    select new TargetDataProperty
                    {
-                       ProcessObjID = x.ProcessObjID,
-                       ProcessObjectName = x.ProcessObjName
+                       TargetObjID = x.TargetObjID,
+                       TargetObjectName = x.TargetObjName
                    }).ToList();
         return qry.ToList();
     }
 
-    public static List<TargetDataProperty> GetProcessObjAttributes(int ProcessObjId)
+    public static List<TargetDataProperty> GetProcessObjAttributes(int TargetObjID)
     {
         VisualERPDataContext Objdata = new VisualERPDataContext();
         var qry = (from x in Objdata.tbl_AttributesMenus
-                   where x.ProcessObjectID == ProcessObjId
+                   where x.ProcessObjectID == TargetObjID
                    select new TargetDataProperty
                    {
                        AttributeName = x.AttributeName,
@@ -617,7 +618,7 @@ public class TargetData
 
     }
 
-    //public static List<ProcessData.ProcessDataProperty> SelectedItemReport(bool inAsc, string SortBy, int processId, string attributeName,int processObjID)
+    //public static List<ProcessData.ProcessDataProperty> SelectedItemReport(bool inAsc, string SortBy, int processId, string attributeName,int TargetObjID)
     //{
     //    VisualERPDataContext ObjData = new VisualERPDataContext();
 
@@ -627,10 +628,10 @@ public class TargetData
     //    var distinct = Enumerable.Distinct(data);
 
     //    var qry = (from x in distinct
-    //               join z in ObjData.tbl_Processes on x.ProcessID equals z.ProcessID
+    //               join z in ObjData.tbl_Targets on x.TargetID equals z.ProcessID
     //               join y in ObjData.tbl_Units on x.UnitID equals y.UnitID
-    //               join p in ObjData.tbl_ProcessObjects on x.ProcessObjectID equals p.ProcessObjID                   
-    //               where x.ProcessID == processId && x.IncludeOnMap == true && x.AttributeName == attributeName && x.ProcessObjectID == processObjID
+    //               join p in ObjData.tbl_TargetObjects on x.ProcessObjectID equals p.TargetObjID                   
+    //               where x.TargetID == processId && x.IncludeOnMap == true && x.AttributeName == attributeName && x.ProcessObjectID == TargetObjID
 
     //               select new ProcessDataProperty
     //               {
@@ -650,7 +651,7 @@ public class TargetData
     //    return qry.OrderBy(x => x.GetType().GetProperty(SortBy).GetValue(x, null)).ToList();
     //}
 
-    public static List<TargetData.TargetDataProperty> SelectedItemReport(bool inAsc, string SortBy, int processId, string attributeName, int processObjID)
+    public static List<TargetData.TargetDataProperty> SelectedItemReport(bool inAsc, string SortBy, int processId, string attributeName, int TargetObjID)
     {
         VisualERPDataContext ObjData = new VisualERPDataContext();
 
@@ -660,12 +661,12 @@ public class TargetData
         //var distinct = Enumerable.Distinct(data);
 
         var qry = (from x in ObjData.tbl_AttributesMenus
-                   join z in ObjData.tbl_Processes on x.ProcessID equals z.ProcessID
+                   join z in ObjData.tbl_Targets on x.ProcessID equals z.TargetID
                    join y in ObjData.tbl_Units on x.UnitID equals y.UnitID
-                   join p in ObjData.tbl_ProcessObjects on x.ProcessObjectID equals p.ProcessObjID
-                   where x.ProcessID == processId && x.IncludeOnMap == true && x.AttributeName == attributeName && x.ProcessObjectID == processObjID
-                   group new { x, p, y, z } by new { p.ProcessObjName, p.ProcessObjID, x.AttributeName, x.AttributeValue, y.UnitName, z.ProcessName } into g
-                   where g.Key.ProcessObjID == processObjID
+                   join p in ObjData.tbl_TargetObjects on x.ProcessObjectID equals p.TargetObjID
+                   where x.ProcessID == processId && x.IncludeOnMap == true && x.AttributeName == attributeName && x.ProcessObjectID == TargetObjID
+                   group new { x, p, y, z } by new { p.TargetObjName, p.TargetObjID, x.AttributeName, x.AttributeValue, y.UnitName, z.TargetName } into g
+                   where g.Key.TargetObjID == TargetObjID
 
                    select new TargetDataProperty
                    {
@@ -675,8 +676,8 @@ public class TargetData
                        // AttributeMenuID = g.Key.AttributeMenuID,
                        AttributeValue = g.Key.AttributeValue,
                        UnitName = g.Key.UnitName,
-                       NodeName = g.Key.ProcessName,
-                       ActivityName = g.Key.ProcessObjName
+                       NodeName = g.Key.TargetName,
+                       ActivityName = g.Key.TargetObjName
 
                    }).Distinct().ToList();
         if (inAsc)
@@ -689,28 +690,28 @@ public class TargetData
 
 
     //*************************Parallel Activity Methods**************************//
-    public static bool SaveParallelProcessObject(tbl_ProcessObject tblProcessObject)
+    public static bool SaveParallelProcessObject(tbl_TargetObject tblProcessObject)
     {
         VisualERPDataContext ObjData = new VisualERPDataContext();
-        var qry = (from x in ObjData.tbl_ProcessObjects
-                   where x.ProcessObjID == tblProcessObject.ProcessObjID
+        var qry = (from x in ObjData.tbl_TargetObjects
+                   where x.TargetObjID == tblProcessObject.TargetObjID
                    select x).FirstOrDefault();
 
         if (qry == null)
         {
 
-            ObjData.tbl_ProcessObjects.InsertOnSubmit(tblProcessObject);
+            ObjData.tbl_TargetObjects.InsertOnSubmit(tblProcessObject);
             //new ObjData().tbl_AttributesMenus.InsertOnSubmit(ListAttributeData);
 
         }
-        qry.ProcessObjName = tblProcessObject.ProcessObjName;
-        qry.ProcessID = tblProcessObject.ProcessID;
+        qry.TargetObjName = tblProcessObject.TargetObjName;
+        qry.TargetID = tblProcessObject.TargetID;
         qry.ModifiedDate = tblProcessObject.ModifiedDate;
         qry.OrderNo = tblProcessObject.OrderNo;
         qry.XTop = tblProcessObject.XTop;
         qry.YLeft = tblProcessObject.YLeft;
         qry.Title = tblProcessObject.Title;
-        qry.ParallelProcessObjID = tblProcessObject.ParallelProcessObjID;
+        qry.ParallelTargetObjID = tblProcessObject.ParallelTargetObjID;
 
         try
         {
@@ -758,15 +759,15 @@ public class TargetData
         return false;
     }
 
-    public static List<TargetDataProperty> GetAllSingleProcessObjId(int processID)
+    public static List<ProcessData.ProcessDataProperty> GetAllSingleTargetObjID(int processID)
     {
         VisualERPDataContext Objdata = new VisualERPDataContext();
         //qry will return GetTypeID details according our search query
-        var qry = (from x in Objdata.tbl_ProcessObjects
-                   where x.ProcessID == processID && (x.Type == 0 || x.Type == 1) && x.ParallelProcessObjID == null
-                   select new TargetDataProperty
+        var qry = (from x in Objdata.tbl_TargetObjects
+                   where x.TargetID == processID && (x.Type == 0 || x.Type == 1) && x.ParallelTargetObjID == null
+                   select new ProcessData.ProcessDataProperty
                    {
-                       ProcessObjID = x.ProcessObjID,
+                       ProcessObjID = x.TargetObjID,
                        Type = x.Type,
                        Position = x.Position
 
@@ -775,15 +776,15 @@ public class TargetData
         return qry.OrderBy(p => p.Position).ToList();
     }
 
-    public static List<TargetDataProperty> GetAllParallelProcessObjId(int processID)
+    public static List<TargetDataProperty> GetAllParallelTargetObjID(int processID)
     {
         VisualERPDataContext Objdata = new VisualERPDataContext();
         //qry will return GetTypeID details according our search query
-        var qry = (from x in Objdata.tbl_ProcessObjects
-                   where x.ProcessID == processID && (x.Type == 0 || x.Type == 1) && x.ParallelProcessObjID != null
+        var qry = (from x in Objdata.tbl_TargetObjects
+                   where x.TargetID == processID && (x.Type == 0 || x.Type == 1) && x.ParallelTargetObjID != null
                    select new TargetDataProperty
                    {
-                       ProcessObjID = x.ProcessObjID,
+                       TargetObjID = x.TargetObjID,
                        Type = x.Type
 
                    }).Distinct().ToList();
@@ -795,8 +796,8 @@ public class TargetData
     {
         VisualERPDataContext Objdata = new VisualERPDataContext();
         //qry will return GetTypeID details according our search query
-        var qry = (from x in Objdata.tbl_ProcessObjects
-                   where x.ProcessObjID == PreviousPoid
+        var qry = (from x in Objdata.tbl_TargetObjects
+                   where x.TargetObjID == PreviousPoid
                    select x.Position).FirstOrDefault();
         if (qry != null)
             return Convert.ToInt32(qry);
@@ -808,9 +809,9 @@ public class TargetData
     {
         VisualERPDataContext Objdata = new VisualERPDataContext();
         //qry will return GetTypeID details according our search query
-        var qry = (from x in Objdata.tbl_ProcessObjects
-                   where x.ProcessObjID == probjid
-                   select x.ProcessID).FirstOrDefault();
+        var qry = (from x in Objdata.tbl_TargetObjects
+                   where x.TargetObjID == probjid
+                   select x.TargetID).FirstOrDefault();
 
         return Convert.ToInt32(qry);
     }
@@ -819,9 +820,9 @@ public class TargetData
     {
         VisualERPDataContext Objdata = new VisualERPDataContext();
         //qry will return GetTypeID details according our search query
-        var qry = (from x in Objdata.tbl_ProcessObjects
-                   where x.ProcessObjID == probjid
-                   select x.ParallelProcessObjID).FirstOrDefault();
+        var qry = (from x in Objdata.tbl_TargetObjects
+                   where x.TargetObjID == probjid
+                   select x.ParallelTargetObjID).FirstOrDefault();
 
         if (qry != null)
             return true;
@@ -834,11 +835,11 @@ public class TargetData
     {
         VisualERPDataContext Objdata = new VisualERPDataContext();
         //qry will return GetTypeID details according our search query
-        var qry = (from x in Objdata.tbl_ProcessObjects
-                   where x.ProcessID == processID && (x.Type == 0 || x.Type == 1) && x.ParallelProcessObjID == null && x.Position >= InsertedPosition
+        var qry = (from x in Objdata.tbl_TargetObjects
+                   where x.TargetID == processID && (x.Type == 0 || x.Type == 1) && x.ParallelTargetObjID == null && x.Position >= InsertedPosition
                    select x).ToList(); ;
 
-        foreach (tbl_ProcessObject pos in qry)
+        foreach (tbl_TargetObject pos in qry)
         {
             pos.Position += 1;
 
@@ -862,11 +863,11 @@ public class TargetData
     {
         VisualERPDataContext Objdata = new VisualERPDataContext();
         //qry will return GetTypeID details according our search query
-        var qry = (from x in Objdata.tbl_ProcessObjects
-                   where x.ProcessID == processID && (x.Type == 0 || x.Type == 1) && x.ParallelProcessObjID == null && x.Position > deletedPosition
+        var qry = (from x in Objdata.tbl_TargetObjects
+                   where x.TargetID == processID && (x.Type == 0 || x.Type == 1) && x.ParallelTargetObjID == null && x.Position > deletedPosition
                    select x).ToList(); ;
 
-        foreach (tbl_ProcessObject pos in qry)
+        foreach (tbl_TargetObject pos in qry)
         {
             pos.Position -= 1;
 
@@ -890,8 +891,8 @@ public class TargetData
     {
         VisualERPDataContext Objdata = new VisualERPDataContext();
         //qry will return GetTypeID details according our search query
-        var qry = (from x in Objdata.tbl_ProcessObjects
-                   where x.ProcessID == ProcessId
+        var qry = (from x in Objdata.tbl_TargetObjects
+                   where x.TargetID == ProcessId
                    select x.Position).Max();
         return Convert.ToInt32(qry);
     }
@@ -900,18 +901,18 @@ public class TargetData
     {
         VisualERPDataContext Objdata = new VisualERPDataContext();
         //qry will return GetTypeID details according our search query
-        var qry = (from x in Objdata.tbl_ProcessObjects
-                   where x.ProcessID == ProcessId && x.Position != null
+        var qry = (from x in Objdata.tbl_TargetObjects
+                   where x.TargetID == ProcessId && x.Position != null
                    select new TargetDataProperty
                    {
-                       ProcessObjID = x.ProcessObjID,
+                       TargetObjID = x.TargetObjID,
                        Position = x.Position
                    }).ToList();
 
         return qry.OrderBy(p => p.Position).ToList();
     }
 
-    //public static List<ProcessDataProperty> GetFromParallelProcessObjId(string fromPoid)
+    //public static List<ProcessDataProperty> GetFromParallelTargetObjID(string fromPoid)
     //{
     //    VisualERPDataContext Objdata = new VisualERPDataContext();
     //    //qry will return GetTypeID details according our search query
@@ -920,28 +921,28 @@ public class TargetData
     //               select new ProcessDataProperty
     //               {
     //                   NeighbourActivityID = x.NeighbourActivityID,
-    //                   ProcessObjIDParl = x.ProcessObjID
+    //                   TargetObjIDParl = x.TargetObjID
     //               }).ToList();
 
-    //    return qry.OrderBy(p => p.ProcessObjIDParl).ToList();
+    //    return qry.OrderBy(p => p.TargetObjIDParl).ToList();
     //}
 
-    //public static List<ProcessDataProperty> GetToParallelProcessObjId(string ToPoid)
+    //public static List<ProcessDataProperty> GetToParallelTargetObjID(string ToPoid)
     //{
     //    VisualERPDataContext Objdata = new VisualERPDataContext();
     //    //qry will return GetTypeID details according our search query
     //    var qry = (from x in Objdata.tbl_ParallelRelationships
-    //               where x.ProcessObjID == Convert.ToInt32(ToPoid) && x.Type == 1
+    //               where x.TargetObjID == Convert.ToInt32(ToPoid) && x.Type == 1
     //               select new ProcessDataProperty
     //               {
     //                   NeighbourActivityID = x.NeighbourActivityID,
-    //                   ProcessObjIDParl = x.ProcessObjID
+    //                   TargetObjIDParl = x.TargetObjID
     //               }).ToList();
 
-    //    return qry.OrderBy(p => p.ProcessObjID).ToList();
+    //    return qry.OrderBy(p => p.TargetObjID).ToList();
     //}
 
-    public static List<TargetDataProperty> GetFromParallelProcessObjId(string fromPoid, int ProcessId)
+    public static List<TargetDataProperty> GetFromParallelTargetObjID(string fromPoid, int ProcessId)
     {
         if (fromPoid == string.Empty)
         {
@@ -955,7 +956,7 @@ public class TargetData
                    select new TargetDataProperty
                    {
                        NeighbourActivityID = x.NeighbourActivityID,
-                       ProcessObjIDParl = x.ProcessObjID
+                       TargetObjIDParl = x.ProcessObjID
                    }).ToList();
 
         var qry1 = (from y in Objdata.tbl_ParallelRelationships
@@ -963,13 +964,13 @@ public class TargetData
                     select new TargetDataProperty
                     {
                         NeighbourActivityID = y.ProcessObjID,
-                        ProcessObjIDParl = y.NeighbourActivityID
+                        TargetObjIDParl = y.NeighbourActivityID
                     }).ToList();
 
 
 
-        var qry2 = (from z in Objdata.tbl_ProcessObjects
-                    where (z.ProcessObjID == Convert.ToInt32(fromPoid))
+        var qry2 = (from z in Objdata.tbl_TargetObjects
+                    where (z.TargetObjID == Convert.ToInt32(fromPoid))
                     select z.Position).FirstOrDefault();
         if (qry2 != null)
         {
@@ -977,12 +978,12 @@ public class TargetData
             Nxtposition = preposition + 1;
         }
 
-        var qry3 = (from p in Objdata.tbl_ProcessObjects
-                    where (p.Position == Nxtposition && p.ProcessID == ProcessId)
+        var qry3 = (from p in Objdata.tbl_TargetObjects
+                    where (p.Position == Nxtposition && p.TargetID == ProcessId)
                     select new TargetDataProperty
                     {
-                        NeighbourActivityID = p.ProcessObjID,
-                        ProcessObjIDParl = p.ProcessObjID
+                        NeighbourActivityID = p.TargetObjID,
+                        TargetObjIDParl = p.TargetObjID
                     }).ToList();
 
 
@@ -993,10 +994,10 @@ public class TargetData
 
 
 
-        return result1.OrderBy(p => p.ProcessObjIDParl).ToList();
+        return result1.OrderBy(p => p.TargetObjIDParl).ToList();
     }
 
-    public static List<TargetDataProperty> GetToParallelProcessObjId(string ToPoid)
+    public static List<TargetDataProperty> GetToParallelTargetObjID(string ToPoid)
     {
         VisualERPDataContext Objdata = new VisualERPDataContext();
         //qry will return GetTypeID details according our search query
@@ -1005,10 +1006,10 @@ public class TargetData
                    select new TargetDataProperty
                    {
                        NeighbourActivityID = x.NeighbourActivityID,
-                       ProcessObjIDParl = x.ProcessObjID
+                       TargetObjIDParl = x.ProcessObjID
                    }).ToList();
 
-        return qry.OrderBy(p => p.ProcessObjID).ToList();
+        return qry.OrderBy(p => p.TargetObjID).ToList();
     }
 
     public static int GetCycleTimeforPoid(int Poid)
@@ -1029,25 +1030,25 @@ public class TargetData
                     where x.Type == 0 && x.ProcessID == ProcessId
                     select new TargetDataProperty
                     {
-                        ProcessObjIDParl = x.ProcessObjID
+                        TargetObjIDParl = x.ProcessObjID
                     }).ToList();
 
         var qry2 = (from x in Objdata.tbl_ParallelRelationships
                     where x.Type == 1 && x.ProcessID == ProcessId
                     select new TargetDataProperty
                     {
-                        ProcessObjIDParl = x.ProcessObjID
+                        TargetObjIDParl = x.ProcessObjID
                     }).ToList();
 
         // var qry3 = qry1.Except(qry2);
 
         var qry3 = (from file in qry2
-                    where !qry1.Any(a => a.ProcessObjIDParl == file.ProcessObjIDParl)
+                    where !qry1.Any(a => a.TargetObjIDParl == file.TargetObjIDParl)
                     select new TargetDataProperty
                     {
-                        ProcessObjIDParl = file.ProcessObjIDParl
+                        TargetObjIDParl = file.TargetObjIDParl
                     }).ToList();
-        return qry3.OrderBy(p => p.ProcessObjIDParl).ToList();
+        return qry3.OrderBy(p => p.TargetObjIDParl).ToList();
     }
 
     public static bool DeleteExistingRecord(int ProcessId)
@@ -1148,7 +1149,7 @@ public class TargetData
                        AttributeName = x.AttributeName,
                        AttributeValueSum = Convert.ToInt32(x.AttributeValue),
                        UnitName = y.UnitName,
-                       ProcessID = x.ProcessID
+                       TargetID = x.ProcessID
                    }).ToList();
 
         return qry.OrderBy(x => x.GetType().GetProperty(SortBy).GetValue(x, null)).ToList();
@@ -1171,7 +1172,7 @@ public class TargetData
     //{
     //    VisualERPDataContext ObjData = new VisualERPDataContext();
     //    var qry = (from x in ObjData.tbl_SummaryDatas
-    //               where x.ProcessID == processId
+    //               where x.TargetID == processId
     //               select new ProcessDataProperty
     //               {
     //                   AttributeName = x.AttributeName,
@@ -1325,7 +1326,7 @@ public class TargetData
                        AttributeName = y.AttributeName,
                        AttributeValue = y.AttributeValue,
                        UnitName = z.UnitName,
-                       ProcessID = y.ProcessID
+                       TargetID = y.ProcessID
                    }).ToList();
 
         return qry.OrderBy(x => x.GetType().GetProperty(SortBy).GetValue(x, null)).ToList();
@@ -1346,7 +1347,7 @@ public class TargetData
     //                        select k).ToList();
     //    if (reportData.Count > 0)
     //    {
-    //        ObjData.DeleteReportDataByPID(Poid); //DeleteAttributeDataByProcessObj ID is stored procedure in database that delete AttributeData of By ProcessObjID
+    //        ObjData.DeleteReportDataByPID(Poid); //DeleteAttributeDataByProcessObj ID is stored procedure in database that delete AttributeData of By TargetObjID
     //        result = true;
     //    }
     //    else
@@ -1382,14 +1383,14 @@ public class TargetData
         return Convert.ToString(qry);
     }
 
-    public static List<TargetDataProperty> GetSavedProcessObjIdsFromReport(int ProcessId, int ReporttypeID)
+    public static List<TargetDataProperty> GetSavedTargetObjIDsFromReport(int ProcessId, int ReporttypeID)
     {
         VisualERPDataContext Objdata = new VisualERPDataContext();
         var qry = (from x in Objdata.tbl_Reports
                    where x.ProcessID == ProcessId && x.ReportTypeID == ReporttypeID
                    select new TargetDataProperty
                    {
-                       ProcessObjIdsCollection = x.ProcessObjID
+                        TargetObjIdsCollection = x.ProcessObjID
                    }).ToList();
         return qry.ToList();
     }

@@ -25,6 +25,16 @@ public class Activity
 
         return Convert.ToString(qry);
     }
+    public static string GetActivityNameByTargetObjId(int processObjId)
+    {
+        VisualERPDataContext Objdata = new VisualERPDataContext();
+        //qry will return activity name by processobjId
+        var qry = (from x in Objdata.tbl_TargetObjects
+                   where x.TargetObjID == processObjId
+                   select x.TargetObjName).FirstOrDefault();
+
+        return Convert.ToString(qry);
+    }
 
     /// <summary>
     /// GetDuplicateCheck will check duplicate check of Attribute name if it exist or not 

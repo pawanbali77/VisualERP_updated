@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+ 
 
 /// <summary>
 /// Summary description for ControlsData
@@ -15,17 +16,17 @@ public class TargetControlsData
         //
     }
 
-    public static int SaveControlData(tbl_ProcessObject processObjData)
+    public static int SaveControlData(tbl_TargetObject processObjData)
     {
         int NewID;
         VisualERPDataContext ObjData = new VisualERPDataContext();
-        var qry = (from x in ObjData.tbl_ProcessObjects
-                   where x.ProcessObjID == processObjData.ProcessObjID
+        var qry = (from x in ObjData.tbl_TargetObjects
+                   where x.TargetObjID == processObjData.TargetObjID
                    select x).FirstOrDefault();
 
         if (qry == null)
         {
-            ObjData.tbl_ProcessObjects.InsertOnSubmit(processObjData);
+            ObjData.tbl_TargetObjects.InsertOnSubmit(processObjData);
             //new ObjData().tbl_ProcessObjects.InsertOnSubmit(ListAttributeData);
         }
         else
@@ -40,7 +41,7 @@ public class TargetControlsData
         try
         {
             ObjData.SubmitChanges();
-            NewID = processObjData.ProcessObjID;
+            NewID = processObjData.TargetObjID;
 
             return NewID;
         }
@@ -51,25 +52,25 @@ public class TargetControlsData
         }        
     }
 
-    public static List<TargetObjectData> GetAllProcessControlData(int processID)
+    public static List<ControlsData.ProcessObjectData> GetAllProcessControlData(int processID)
     {
         VisualERPDataContext Objdata = new VisualERPDataContext();
         //qry will return GetTypeID details according our search query
-        var qry = (from x in Objdata.tbl_ProcessObjects
-                   orderby x.Type, x.ParallelProcessObjID ascending
-                   where x.ProcessID == processID //&& (x.Type==0 || x.Type==1)
-                   select new TargetObjectData
+        var qry = (from x in Objdata.tbl_TargetObjects
+                   orderby x.Type, x.ParallelTargetObjID ascending
+                   where x.TargetID == processID //&& (x.Type==0 || x.Type==1)
+                   select new ControlsData.ProcessObjectData
                    {
-                       TargetObjID = x.ProcessObjID,
+                       ProcessObjID = x.TargetObjID,
                        Type = x.Type,
                        XTop = x.XTop,
                        YLeft = x.YLeft,
                        Width = x.Width,
                        Height = x.Height,
                        Title = x.Title,
-                       ParallelTargetObjID = x.ParallelProcessObjID,
-                       TagetObjName = x.ProcessObjName,
-                       TypeParallel = x.ParallelProcessObjID ==null?0:1
+                       ParallelProcessObjID = x.ParallelTargetObjID,
+                       ProcessObjName = x.TargetObjName,
+                       TypeParallel = x.ParallelTargetObjID == null?0:1
                    }).OrderBy(a=>a.TypeParallel).ToList();
 
         return qry.ToList();

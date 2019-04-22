@@ -175,6 +175,46 @@ public class ProcessData
 
     }
 
+
+    public static bool SaveDumyTargetObject(tbl_TargetObject tblProcessDummyObject)
+    {
+        VisualERPDataContext ObjData = new VisualERPDataContext();
+        var qry = (from x in ObjData.tbl_TargetObjects
+                   where x.TargetObjID == tblProcessDummyObject.TargetObjID
+                   select x).FirstOrDefault();
+
+        if (qry == null)
+        {
+
+            ObjData.tbl_TargetObjects.InsertOnSubmit(tblProcessDummyObject);
+            // return 
+            //new ObjData().tbl_AttributesMenus.InsertOnSubmit(ListAttributeData);
+
+        }
+        else
+        {
+            qry.TargetObjName = tblProcessDummyObject.TargetObjName;
+            qry.TargetID = tblProcessDummyObject.TargetID;
+            qry.ModifiedDate = tblProcessDummyObject.ModifiedDate;
+            qry.OrderNo = tblProcessDummyObject.OrderNo;
+            qry.Width = tblProcessDummyObject.Width;
+            qry.Height = tblProcessDummyObject.Height;
+            qry.Type = 0;
+        }
+        try
+        {
+            ObjData.SubmitChanges();
+
+            return true;
+        }
+        catch
+        {
+
+        }
+        return false;
+
+    }
+
     public static bool SaveProcessObject(tbl_ProcessObject tblProcessObject)
     {
         VisualERPDataContext ObjData = new VisualERPDataContext();
@@ -214,12 +254,59 @@ public class ProcessData
         }
         return false;
     }
+    public static bool SaveTargetObject(tbl_TargetObject tblProcessObject)
+    {
+        VisualERPDataContext ObjData = new VisualERPDataContext();
+        var qry = (from x in ObjData.tbl_TargetObjects
+                   where x.TargetObjID == tblProcessObject.TargetObjID
+                   select x).FirstOrDefault();
+
+        if (qry == null)
+        {
+
+            ObjData.tbl_TargetObjects.InsertOnSubmit(tblProcessObject);
+            //new ObjData().tbl_AttributesMenus.InsertOnSubmit(ListAttributeData);
+
+        }
+        else
+        {
+            qry.TargetObjName = tblProcessObject.TargetObjName;
+            qry.TargetID = tblProcessObject.TargetID;
+            qry.ModifiedDate = tblProcessObject.ModifiedDate;
+            qry.OrderNo = tblProcessObject.OrderNo;
+            qry.XTop = tblProcessObject.XTop;
+            qry.YLeft = tblProcessObject.YLeft;
+            qry.Width = tblProcessObject.Width;
+            qry.Height = tblProcessObject.Height;
+            qry.Title = tblProcessObject.Title;
+            qry.Position = tblProcessObject.Position;
+        }
+        try
+        {
+            ObjData.SubmitChanges();
+
+            return true;
+        }
+        catch
+        {
+
+        }
+        return false;
+    }
 
     public static int GetMaxOrderID()
     {
         VisualERPDataContext Objdata = new VisualERPDataContext();
         //qry will return GetTypeID details according our search query
         var qry = (from x in Objdata.tbl_ProcessObjects
+                   select x.OrderNo).Max();
+        return Convert.ToInt32(qry);
+    }
+    public static int GetMaxTargetOrderID()
+    {
+        VisualERPDataContext Objdata = new VisualERPDataContext();
+        //qry will return GetTypeID details according our search query
+        var qry = (from x in Objdata.tbl_TargetObjects
                    select x.OrderNo).Max();
         return Convert.ToInt32(qry);
     }
@@ -230,6 +317,17 @@ public class ProcessData
         var qry = (from x in Objdata.tbl_ProcessObjects
                    where x.ProcessID == processID
                    select x.ProcessObjID).Max();
+        return Convert.ToInt32(qry);
+    }
+
+
+    public static int GetMaxTargetObjId(int processID)
+    {
+        VisualERPDataContext Objdata = new VisualERPDataContext();
+        //qry will return GetTypeID details according our search query
+        var qry = (from x in Objdata.tbl_TargetObjects
+                   where x.TargetID == processID
+                   select x.TargetObjID).Max();
         return Convert.ToInt32(qry);
     }
     public static List<ProcessDataProperty> GetAllProcessObjId(int processID)
@@ -561,6 +659,18 @@ public class ProcessData
                    }).ToList();
         return qry.ToList();
     }
+    public static List<ProcessDataProperty> GetTargetObjActvities(int ProcessId)
+    {
+        VisualERPDataContext Objdata = new VisualERPDataContext();
+        var qry = (from x in Objdata.tbl_TargetObjects
+                   where x.TargetID == ProcessId && x.Type == 0
+                   select new ProcessDataProperty
+                   {
+                       ProcessObjID = x.TargetObjID,
+                       ProcessObjectName = x.TargetObjName
+                   }).ToList();
+        return qry.ToList();
+    }
 
     public static List<ProcessDataProperty> GetPPESAProcessObjActvities(int ProcessId, int FormType)
     {
@@ -589,7 +699,34 @@ public class ProcessData
         return qry.ToList();
     }
 
+    public static List<ProcessDataProperty> GetTObjActivitySequence(int ProcessId)
+    {
+        VisualERPDataContext Objdata = new VisualERPDataContext();
+        var qry = (from x in Objdata.tbl_TargetObjects
+                   where x.TargetID == ProcessId && x.Type == 0 && x.ParallelTargetObjID == null
+                   select new ProcessDataProperty
+                   {
+                       ProcessObjID = x.TargetObjID,
+                       ProcessObjectName = x.TargetObjName
+                   }).ToList();
+        return qry.ToList();
+    }
+
+
     public static List<ProcessDataProperty> GetProcessObjActvitiesToSelect(int ProcessId, int selectedPOid)
+    {
+        VisualERPDataContext Objdata = new VisualERPDataContext();
+        var qry = (from x in Objdata.tbl_ProcessObjects
+                   where x.ProcessID == ProcessId && x.Type == 0 && x.ProcessObjID != selectedPOid
+                   select new ProcessDataProperty
+                   {
+                       ProcessObjID = x.ProcessObjID,
+                       ProcessObjectName = x.ProcessObjName
+                   }).ToList();
+        return qry.ToList();
+    }
+
+    public static List<ProcessDataProperty> GetTargetObjActvitiesToSelect(int ProcessId, int selectedPOid)
     {
         VisualERPDataContext Objdata = new VisualERPDataContext();
         var qry = (from x in Objdata.tbl_ProcessObjects
@@ -791,12 +928,41 @@ public class ProcessData
         return qry.ToList();
     }
 
+    public static List<ProcessDataProperty> GetAllParallelTargetObjId(int processID)
+    {
+        VisualERPDataContext Objdata = new VisualERPDataContext();
+        //qry will return GetTypeID details according our search query
+        var qry = (from x in Objdata.tbl_TargetObjects
+                   where x.TargetID == processID && (x.Type == 0 || x.Type == 1) && x.ParallelTargetObjID != null
+                   select new ProcessDataProperty
+                   {
+                       ProcessObjID = x.TargetObjID,
+                       Type = x.Type
+
+                   }).Distinct().ToList();
+
+        return qry.ToList();
+    }
+
     public static int GetPositionByPoid(int PreviousPoid)
     {
         VisualERPDataContext Objdata = new VisualERPDataContext();
         //qry will return GetTypeID details according our search query
         var qry = (from x in Objdata.tbl_ProcessObjects
                    where x.ProcessObjID == PreviousPoid
+                   select x.Position).FirstOrDefault();
+        if (qry != null)
+            return Convert.ToInt32(qry);
+        else
+            return 0;
+    }
+
+    public static int GetTPositionByPoid(int PreviousPoid)
+    {
+        VisualERPDataContext Objdata = new VisualERPDataContext();
+        //qry will return GetTypeID details according our search query
+        var qry = (from x in Objdata.tbl_TargetObjects
+                   where x.TargetObjID == PreviousPoid
                    select x.Position).FirstOrDefault();
         if (qry != null)
             return Convert.ToInt32(qry);
@@ -857,7 +1023,33 @@ public class ProcessData
             // Provide for exceptions.
         }
     }
+    public static bool IncreasNextTargetRowsPosition(int processID, int InsertedPosition)
+    {
+        VisualERPDataContext Objdata = new VisualERPDataContext();
+        //qry will return GetTypeID details according our search query
+        var qry = (from x in Objdata.tbl_TargetObjects
+                   where x.TargetID == processID && (x.Type == 0 || x.Type == 1) && x.ParallelTargetObjID == null && x.Position >= InsertedPosition
+                   select x).ToList(); ;
 
+        foreach (tbl_TargetObject pos in qry)
+        {
+            pos.Position += 1;
+
+            // Insert any changes to column values.
+        }
+
+        try
+        {
+            Objdata.SubmitChanges();
+            return true;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return false;
+            // Provide for exceptions.
+        }
+    }
     public static bool DecreaseNextRowsPosition(int processID, int deletedPosition)
     {
         VisualERPDataContext Objdata = new VisualERPDataContext();

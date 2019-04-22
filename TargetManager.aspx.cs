@@ -8,6 +8,8 @@ using System.Text;
 using System.Collections;
 using System.Data;
 using System.Web.UI.HtmlControls;
+ 
+
 public partial class TargetManager : System.Web.UI.Page
 {
     #region
@@ -54,8 +56,8 @@ public partial class TargetManager : System.Web.UI.Page
 
         divErrorMsg.Visible = false;
         Label lblManager = (Label)Master.FindControl("lblManager");
-        lblManager.Text = "Process View";
-        lblManager.Attributes.Add("class", "Process");
+        lblManager.Text = "Target View";
+        lblManager.Attributes.Add("class", "Target");
         string script = "test();";
         ScriptManager.RegisterStartupScript(this, this.GetType(),
                       "ServerControlScript", script, true);
@@ -129,9 +131,9 @@ public partial class TargetManager : System.Web.UI.Page
                     int top = 0; int left = 0; int width = 50; int height = 50; string title = "";
                     title = listData[i].Title.ToString();
                     int type = Convert.ToInt32(listData[i].Type.ToString()); // get control type
-                    int DBID = Convert.ToInt32(listData[i].TargetObjID.ToString()); // get control primary key id
-                    if (listData[i].ParallelTargetObjID != null)
-                        ParallelProcessObjID = Convert.ToInt32(listData[i].ParallelTargetObjID.ToString());  // get control parallel id
+                    int DBID = Convert.ToInt32(listData[i].ProcessObjID.ToString()); // get control primary key id
+                    if (listData[i].ParallelProcessObjID != null)
+                        ParallelProcessObjID = Convert.ToInt32(listData[i].ParallelProcessObjID.ToString());  // get control parallel id
                     divId = GetDivid(type, DBID, ProcessId, ParallelProcessObjID);
                     top = Convert.ToInt32(listData[i].XTop.ToString()); // get top position
                     left = Convert.ToInt32(listData[i].YLeft.ToString()); // get left position
@@ -281,6 +283,7 @@ public partial class TargetManager : System.Web.UI.Page
         //Session["SeletedPoId"] = strProcessObjectId;
         if (strAction == "attribute")
         {
+            ModelPopupAttributeUC1.SourceType = 2;
             ModelPopupAttributeUC1.ProcessObjectId = Convert.ToInt32(strProcessObjectId);
             //UserControl UcAttribute = (UserControl)Page.FindControl("ModelPopupAttributeUC.ascx");
             AjaxControlToolkit.ModalPopupExtender PopupModelAttribute = (AjaxControlToolkit.ModalPopupExtender)ModelPopupAttributeUC1.FindControl("mopoExUser");
@@ -294,6 +297,7 @@ public partial class TargetManager : System.Web.UI.Page
         }
         if (strAction == "inputs")
         {
+            ModelPopupInputUC1.SourceType = 2;
             ModelPopupInputUC1.ProcessObjectId = Convert.ToInt32(strProcessObjectId);
             // UserControl UcInput = (UserControl)Page.FindControl("ModelPopupInputUC.ascx");
             AjaxControlToolkit.ModalPopupExtender PopupModelInput = (AjaxControlToolkit.ModalPopupExtender)ModelPopupInputUC1.FindControl("modelInput");
@@ -305,6 +309,7 @@ public partial class TargetManager : System.Web.UI.Page
         }
         if (strAction == "BOM")
         {
+            ModelPopupBOMUC1.SourceType = 2;
             ModelPopupBOMUC1.ProcessObjectId = Convert.ToInt32(strProcessObjectId);
             //UserControl UcBOM = (UserControl)Page.FindControl("ModelPopupBOMUC.ascx");
             AjaxControlToolkit.ModalPopupExtender PopupModelBOM = (AjaxControlToolkit.ModalPopupExtender)ModelPopupBOMUC1.FindControl("ModelBOM");
@@ -316,6 +321,7 @@ public partial class TargetManager : System.Web.UI.Page
         }
         if (strAction == "TFG")
         {
+            ModelPopupTFGUC1.SourceType = 2;
             ModelPopupTFGUC1.ProcessObjectId = Convert.ToInt32(strProcessObjectId);
             /// UserControl UcTFG = (UserControl)Page.FindControl("ModelPopupTFGUC.ascx");
             AjaxControlToolkit.ModalPopupExtender PopupModelTFG = (AjaxControlToolkit.ModalPopupExtender)ModelPopupTFGUC1.FindControl("ModelTFG");
@@ -328,6 +334,7 @@ public partial class TargetManager : System.Web.UI.Page
 
         if (strAction == "Machine")
         {
+            ModelPopupBOMUC1.SourceType = 2;
             ModelPopupMchUC1.ProcessObjectId = Convert.ToInt32(strProcessObjectId);
             // UserControl UcMachine = (UserControl)Page.FindControl("ModelPopupMchUC.ascx");
             AjaxControlToolkit.ModalPopupExtender PopupModelMachine = (AjaxControlToolkit.ModalPopupExtender)ModelPopupMchUC1.FindControl("ModelMachine");
@@ -359,6 +366,7 @@ public partial class TargetManager : System.Web.UI.Page
 
         if (strAction == "Activity")
         {
+            ModelPopupActivityUC9.SourceType = 2;
             ModelPopupActivityUC9.ProcessObjectId = Convert.ToInt32(strProcessObjectId);
             // UserControl UcMachine = (UserControl)Page.FindControl("ModelPopupMchUC.ascx");
             AjaxControlToolkit.ModalPopupExtender PopupModelActivity = (AjaxControlToolkit.ModalPopupExtender)ModelPopupActivityUC9.FindControl("ModelPopupActivity");
@@ -554,7 +562,7 @@ public partial class TargetManager : System.Web.UI.Page
 
         VisualERPDataContext ObjData = new VisualERPDataContext();
         //List<TargetData.TargetDataProperty> lstpoid = TargetData.GetAllProcessObjId(ProcessId);
-        List<TargetData.TargetDataProperty> lstpoid = TargetData.GetAllSingleProcessObjId(ProcessId);  ////////////////////////////// 
+        List<ProcessData.ProcessDataProperty> lstpoid = TargetData.GetAllSingleTargetObjID(ProcessId);  ////////////////////////////// 
 
         if (lstpoid.Count > 0)
         {
@@ -581,8 +589,10 @@ public partial class TargetManager : System.Web.UI.Page
                 UserControls_ProcessObject xx = LoadControl("UserControls/ProcessObject.ascx") as UserControls_ProcessObject;
                 //ModelPopupBOMUC1.Index = j;
                 xx.Index = j;
+                xx.SourceType = 2;
                 xx.ProcessObjectId = this.CInt32(lstpoid[i].ProcessObjID);
                 xx.PageMethodWithParamRef = delParam;
+               
                 if (i == 0)
                 {
                     lst.Add(xx);
@@ -597,6 +607,8 @@ public partial class TargetManager : System.Web.UI.Page
             else
             {
                 UserControls_InventeryObject xx = LoadControl("UserControls/InventeryObject.ascx") as UserControls_InventeryObject;
+
+                xx.SourceType = 2;
                 xx.ProcessObjectId = this.CInt32(lstpoid[i].ProcessObjID);
                 //xx.PageMethodWithParamRef = delParam;
 
@@ -658,7 +670,7 @@ public partial class TargetManager : System.Web.UI.Page
 
         VisualERPDataContext ObjData = new VisualERPDataContext();
         //List<TargetData.TargetDataProperty> lstpoid = TargetData.GetAllProcessObjId(ProcessId);     
-        List<TargetData.TargetDataProperty> lstpoidParallel = TargetData.GetAllParallelProcessObjId(ProcessId);  //////////////////////////////
+        List<TargetData.TargetDataProperty> lstpoidParallel = TargetData.GetAllParallelTargetObjID(ProcessId);  //////////////////////////////
 
 
         Table TblSecond = new Table();
@@ -684,8 +696,10 @@ public partial class TargetManager : System.Web.UI.Page
                 //ModelPopupBOMUC1.Index = j;  
                 xx.Index = t;
                 //xx.ProcessObjectId = this.CInt32(lstpoidParallel[i].ProcessObjID);
+                xx.SourceType = 2;
                 xx.ProcessObjectId = DBID;
                 xx.PageMethodWithParamRef = delParam;
+             
                 if (i == 0)
                 {
                     Plst.Add(xx);
@@ -754,11 +768,11 @@ public partial class TargetManager : System.Web.UI.Page
 
     public void SaveDummyProcesObject()
     {
-        tbl_ProcessObject ProcessDummyObj = new tbl_ProcessObject();
+        tbl_TargetObject ProcessDummyObj = new tbl_TargetObject();
         TreeView mastertreeview = (TreeView)Master.FindControl("TreeView1");
         if (mastertreeview.SelectedNode != null)
             ProcessId = this.CInt32(mastertreeview.SelectedNode.Value);
-        ProcessDummyObj.ProcessID = ProcessId;
+        ProcessDummyObj.TargetID = ProcessId;
         ProcessDummyObj.CreatedDate = DateTime.Now;
 
         // if()
@@ -772,7 +786,7 @@ public partial class TargetManager : System.Web.UI.Page
         ViewState["OrderNO"] = OrderNO;
 
         int ProcessObjId = 0;
-        ProcessObjId = TargetData.GetMaxProcessObjId(ProcessId);
+        ProcessObjId = TargetData.GetMaxTargetObjID(ProcessId);
 
         ViewState["ProcessObjID"] = ProcessObjId;
     }
@@ -780,15 +794,15 @@ public partial class TargetManager : System.Web.UI.Page
 
     public void ProcesObjectWorkView()
     {
-        tbl_ProcessObject ProcessObj = new tbl_ProcessObject();
-        ProcessObj.ProcessObjName = "Activity-" + ViewState["OrderNO"];
+        tbl_TargetObject ProcessObj = new tbl_TargetObject();
+        ProcessObj.TargetObjName = "Activity-" + ViewState["OrderNO"];
         TreeView mastertreeview = (TreeView)Master.FindControl("TreeView1");
         if (mastertreeview.SelectedNode != null)
             ProcessId = this.CInt32(mastertreeview.SelectedNode.Value);
-        ProcessObj.ProcessID = ProcessId;
+        ProcessObj.TargetID = ProcessId;
         ProcessObj.OrderNo = this.CInt32(ViewState["OrderNO"]); ;
         ProcessObj.ModifiedDate = DateTime.Now;
-        ProcessObj.ProcessObjID = this.CInt32(ViewState["ProcessObjID"]);
+        ProcessObj.TargetObjID = this.CInt32(ViewState["ProcessObjID"]);
         bool result = false;
         result = TargetData.SaveProcessObject(ProcessObj);
         VisualERPDataContext ObjData = new VisualERPDataContext();
@@ -833,8 +847,9 @@ public partial class TargetManager : System.Web.UI.Page
         if (lst.Count == 0)
         {
             UserControls_ProcessObject uc1 = LoadControl("UserControls/ProcessObject.ascx") as UserControls_ProcessObject;
+            uc1.SourceType = 2;
             uc1.ProcessObjectId = this.CInt32(ViewState["ProcessObjID"]);
-
+          
             //if (Session["lst"] != null)
             //    lst = (List<UserControl>)Session["lst"];
 
@@ -863,6 +878,7 @@ public partial class TargetManager : System.Web.UI.Page
 
             //UserControl uc2 = new UserControl();
             UserControls_ProcessObject uc2 = LoadControl("UserControls/ProcessObject.ascx") as UserControls_ProcessObject;
+            uc2.SourceType = 2;
             //if (Session["lst"] != null)
             //    lst = (List<UserControl>)Session["lst"];
 
@@ -1325,7 +1341,7 @@ public partial class TargetManager : System.Web.UI.Page
             string defaultpath = string.Empty; string defaultpath1 = string.Empty; string path = string.Empty; string path2 = string.Empty; string poid = string.Empty; string poidfor = string.Empty; string poidfor1 = string.Empty; string FromPoid = string.Empty; string ToPoid = string.Empty;
             for (int i = 0; i < prop.Count; i++)
             {
-                poid = Convert.ToString(prop[i].ProcessObjID);
+                poid = Convert.ToString(prop[i].TargetObjID);
                 path += poid + "-";
 
             }
@@ -1338,7 +1354,7 @@ public partial class TargetManager : System.Web.UI.Page
             //{
             poidfor = pathArray[0];
             Session["StartNode"] = poidfor;
-            FromParallelProcessObjID(poidfor, ProcessId);
+          FromParallelProcessObjID(poidfor, ProcessId);
 
 
             if (poidfor != "") // if process is not empty
@@ -1350,10 +1366,10 @@ public partial class TargetManager : System.Web.UI.Page
                 {
                     for (int r = 0; r < OtherStartPoint.Count; r++)
                     {
-                        startPoid = Convert.ToString(OtherStartPoint[r].ProcessObjIDParl);
+                        startPoid = Convert.ToString(OtherStartPoint[r].TargetObjIDParl);
                         str = string.Empty;
                         str1 = string.Empty;
-                        FromParallelProcessObjID(startPoid, ProcessId); // getting path for other start point
+                       FromParallelProcessObjID(startPoid, ProcessId); // getting path for other start point
                     }
                 }
 
@@ -1391,16 +1407,16 @@ public partial class TargetManager : System.Web.UI.Page
         str1 += poidfor.ToString() + "-";  // append process object id to and making path 
         string splitStr = str1.TrimEnd('-'); // trim las char that is "-"
 
-        List<TargetData.TargetDataProperty> Fromparallelpoid = TargetData.GetFromParallelProcessObjId(poidfor, ProcessId); // it will get next or To process object id for given processobj id
+        List<TargetData.TargetDataProperty> Fromparallelpoid = TargetData.GetFromParallelTargetObjID(poidfor, ProcessId); // it will get next or To process object id for given processobj id
         if (Fromparallelpoid.Count != 0)
         {
             for (int i = 0; i < Fromparallelpoid.Count; i++)
             {
                 // Recursively call the DisplayChildNodeText method to
                 // traverse the tree and display all the child nodes.
-                FromParallelProcessObjID(Convert.ToString(Fromparallelpoid[i].ProcessObjIDParl), ProcessId); // recursive method call and add current poid to desire path
-                if (str1.IndexOf(Convert.ToString(Fromparallelpoid[i].ProcessObjIDParl)) >= 0)
-                    str1 = str1.Substring(0, str1.IndexOf(Convert.ToString(Fromparallelpoid[i].ProcessObjIDParl))); // pop old path 
+               FromParallelProcessObjID(Convert.ToString(Fromparallelpoid[i].TargetObjIDParl), ProcessId); // recursive method call and add current poid to desire path
+                if (str1.IndexOf(Convert.ToString(Fromparallelpoid[i].TargetObjIDParl)) >= 0)
+                    str1 = str1.Substring(0, str1.IndexOf(Convert.ToString(Fromparallelpoid[i].TargetObjIDParl))); // pop old path 
             }
         }
         else
@@ -1409,6 +1425,10 @@ public partial class TargetManager : System.Web.UI.Page
             str1 = str1.Substring(0, str1.IndexOf(poidfor));
         }
     }
+
+
+
+
 
     public class TopHeightWidth
     {

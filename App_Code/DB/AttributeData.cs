@@ -91,10 +91,10 @@ public class AttributeData
         {
             //countcountry will get AttributeName from table tbl_AttributesMenus on behalf of AttributeName
             var AttributeNameCount = (from c in ObjData.tbl_AttributesMenus
-                             where c.AttributeName.ToLower() == AttributeName.ToLower()
-                              && c.ProcessObjectID == poid
-                            && c.AttributeMenuID != AttributeMenuId
-                                select c.AttributeMenuID).Count();
+                                      where c.AttributeName.ToLower() == AttributeName.ToLower()
+                                       && c.ProcessObjectID == poid  
+                                     && c.AttributeMenuID != AttributeMenuId
+                                      select c.AttributeMenuID).Count();
             if (AttributeNameCount > 0)
             {
                 return false;
@@ -109,7 +109,7 @@ public class AttributeData
             //countcat variable will get AttributeName from table tbl_AttributesMenus on behalf of AttributeName
             var countCat = (from c in ObjData.tbl_AttributesMenus
                             where c.AttributeName.ToLower() == AttributeName.ToLower()
-                             && c.ProcessObjectID == poid
+                             && c.ProcessObjectID == poid  
                             select c.AttributeMenuID).Count();
             if (countCat > 0)
             {

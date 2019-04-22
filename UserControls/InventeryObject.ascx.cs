@@ -14,7 +14,13 @@ public partial class UserControls_InventeryObject : System.Web.UI.UserControl
         get { return 0; }
         set { BindInventoryData(value); }
     }
-
+    private int _sourceTypeID = 1;
+    [BrowsableAttribute(true)]
+    public int SourceType
+    {
+        get { return _sourceTypeID; }
+        set { _sourceTypeID = value; }
+    }
     protected void Page_Load(object sender, EventArgs e)
     {
         
@@ -29,6 +35,9 @@ public partial class UserControls_InventeryObject : System.Web.UI.UserControl
             ltrCT.Text = ProcessObjInventory.CT.ToString();
             ltrDoller.Text = ProcessObjInventory.Doller.ToString();
             ltrTime.Text = ProcessObjInventory.Time.ToString();
+            if(SourceType==2)
+                ViewState["TargetObjID"] = poid;
+            else
             ViewState["ProcessObjID"] = poid;
             deleteBtnTriangleid.ID = "lnkDeleteInventory_" + poid;
         }

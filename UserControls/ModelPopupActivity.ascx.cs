@@ -18,6 +18,13 @@ public partial class UserControls_ModelPopupActivity : System.Web.UI.UserControl
     int ProcessId = 0;
     #endregion
 
+    private int _sourceTypeID = 1;
+    [BrowsableAttribute(true)]
+    public int SourceType 
+    {
+        get { return _sourceTypeID; }
+        set { _sourceTypeID = value; }
+    }
     [BrowsableAttribute(true)]
     public int ProcessObjectId
     {

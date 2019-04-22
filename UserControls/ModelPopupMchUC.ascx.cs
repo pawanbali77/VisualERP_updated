@@ -31,6 +31,13 @@ using System.ComponentModel;
 
 public partial class UserControls_ModelPopupMchUC : System.Web.UI.UserControl
 {
+    private int _sourceTypeID = 1;
+    [BrowsableAttribute(true)]
+    public int SourceType
+    {
+        get { return _sourceTypeID; }
+        set { _sourceTypeID = value; }
+    }
     /// <summary>
     /// Its browsable var for attending the Process object id.
     /// </summary>

@@ -119,7 +119,7 @@ public partial class ProcessManager : System.Web.UI.Page
             if (ViewState["SelectedValue"] != null)
                 sV = Convert.ToInt32(ViewState["SelectedValue"]);
 
-            var listData = TargetControlsData.GetAllProcessControlData(ProcessId); // get all controls record from database
+            var listData =  ControlsData.GetAllProcessControlData(ProcessId); // get all controls record from database
 
             if (listData.Count != 0)
             {
@@ -129,9 +129,9 @@ public partial class ProcessManager : System.Web.UI.Page
                     int top = 0; int left = 0; int width = 50; int height = 50; string title = "";
                     title = listData[i].Title.ToString();
                     int type = Convert.ToInt32(listData[i].Type.ToString()); // get control type
-                    int DBID = Convert.ToInt32(listData[i].TargetObjID.ToString()); // get control primary key id
-                    if (listData[i].ParallelTargetObjID != null)
-                        ParallelProcessObjID = Convert.ToInt32(listData[i].ParallelTargetObjID.ToString());  // get control parallel id
+                    int DBID = Convert.ToInt32(listData[i].ProcessObjID.ToString()); // get control primary key id
+                    if (listData[i].ParallelProcessObjID != null)
+                        ParallelProcessObjID = Convert.ToInt32(listData[i].ParallelProcessObjID.ToString());  // get control parallel id
                     divId = GetDivid(type, DBID, ProcessId, ParallelProcessObjID);
                     top = Convert.ToInt32(listData[i].XTop.ToString()); // get top position
                     left = Convert.ToInt32(listData[i].YLeft.ToString()); // get left position

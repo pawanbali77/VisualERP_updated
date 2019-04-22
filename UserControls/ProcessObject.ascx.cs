@@ -34,6 +34,13 @@ public partial class UserControls_ProcessObject : System.Web.UI.UserControl
         set { ViewState["Index"] = value; }
     }
 
+    private int _sourceTypeID=1;
+    [BrowsableAttribute(true)]
+    public int SourceType
+    {
+        get { return _sourceTypeID; }
+        set { _sourceTypeID=value; }
+    }
     protected void Page_Load(object sender, EventArgs e)
     {
         //ResetBinding();
@@ -53,7 +60,7 @@ public partial class UserControls_ProcessObject : System.Web.UI.UserControl
             Machine.Attributes.Add("class", "th_fieldsiPro right last");  //disable attribute link button and remove hover class 
             lblOrderNo.Enabled = false;            
         }
-        if ((returnurl == "ProcessManager.aspx") || (returnurl == "EnterPriseManager.aspx"))
+        if ((returnurl == "ProcessManager.aspx") || (returnurl == "EnterPriseManager.aspx") || (returnurl == "TargetManager.aspx"))
         {
             deleteBtnPoid.Enabled = false;
             deleteBtnPoid.Style.Add("cursor", " default!important");
@@ -67,47 +74,76 @@ public partial class UserControls_ProcessObject : System.Web.UI.UserControl
             lnkBtnMachine.Enabled = true;
             lblOrderNo.Enabled = true;
         }
+
+       
     }
 
     public void BindDataOrderGrid(int poId)
     {
-        //int ProcessId = 0;
-        //TreeView mastertreeview = (TreeView)this.Page.Master.FindControl("TreeView1");
-        //if (mastertreeview.SelectedNode != null)
-        //    ProcessId = this.CInt32(mastertreeview.SelectedNode.Value);
-        //lnkbtn.PostBackUrl = "~/ProcessManager.aspx?ProcessObjectId=" + poId + "&action=attribute";
-        //lnkBtnInput.PostBackUrl = "~/ProcessManager.aspx?ProcessObjectId=" + poId + "&action=Input";
-        //lnkBtnBOM.PostBackUrl = "~/ProcessManager.aspx?ProcessObjectId=" + poId + "&action=BOM";
-        //lnkBtnTFG.PostBackUrl = "~/ProcessManager.aspx?ProcessObjectId=" + poId + "&action=TFG";
-        //lnkBtnMachine.PostBackUrl = "~/ProcessManager.aspx?ProcessObjectId=" + poId + "&action=Machine";
-        //int ProcessObjId = 0;
-        //ProcessObjId = ProcessData.GetMaxProcessObjId(ProcessId);
-        ViewState["ProcessObjID"] = poId;
         
-        tbl_ProcessObject ProcessObj = new tbl_ProcessObject();
-        ProcessObj = ProcessData.ProcessObjectByID(poId);////AttributeById will get Attribute by its id that is EditIDINT
-        if (ProcessObj != null)
-        {
 
-           // lblOrderNo.Text = ProcessObj.ProcessObjName;
-            if (ViewState["Index"] != null)
-                lblOrderNo.Text = Activity.GetActivityNameByProcessObjId(this.CInt32(poId));         
+        if (SourceType == 2)  //2: Target
+        {
+          ViewState["TargetObjID"] = poId;
+        }
+        else
+            ViewState["ProcessObjID"] = poId;
+
+
+
+        if (SourceType == 2)  //2: Target
+        {
+            tbl_TargetObject TargetObj = TargetData.ProcessObjectByID(poId);
+                if (TargetObj != null)
+            {
+
+                // lblOrderNo.Text = ProcessObj.ProcessObjName;
+                if (ViewState["Index"] != null)
+                    lblOrderNo.Text = Activity.GetActivityNameByTargetObjId(this.CInt32(poId));
                 //lblOrderNo.Text = "Activity-" + ViewState["Index"].ToString();
                 tbl_ProcessObject tblProcessObj = new tbl_ProcessObject();
                 //ProcessObj.ProcessObjName = "Activity-" + ViewState["Index"].ToString();
-                ProcessObj.ProcessObjName = Activity.GetActivityNameByProcessObjId(this.CInt32(poId));   
+                TargetObj.TargetObjName = Activity.GetActivityNameByTargetObjId(this.CInt32(poId));
+                TargetObj.TargetObjID = this.CInt32(poId);
+                bool result = false;
+                result = TargetData.SaveProcessObject(TargetObj);
+
+
+                ViewState["TargetID"] = TargetObj.TargetID;
+                gridActivityOrder.DataSource = ProcessData.GetActivityOrderData(this.CBool(ViewState["isAsc"]), ViewState["sortBy"].ToString(), Convert.ToInt32(poId));
+                gridActivityOrder.DataBind();
+                deleteBtnPoid.ID = "lnkDeleteProcess_" + poId;
+
+
+            }
+        }
+        else
+        { 
+            tbl_ProcessObject ProcessObj = ProcessData.ProcessObjectByID(poId);////AttributeById will get Attribute by its id that is EditIDINT
+
+            if (ProcessObj != null)
+            {
+
+                // lblOrderNo.Text = ProcessObj.ProcessObjName;
+                if (ViewState["Index"] != null)
+                    lblOrderNo.Text = Activity.GetActivityNameByProcessObjId(this.CInt32(poId));
+                //lblOrderNo.Text = "Activity-" + ViewState["Index"].ToString();
+                tbl_ProcessObject tblProcessObj = new tbl_ProcessObject();
+                //ProcessObj.ProcessObjName = "Activity-" + ViewState["Index"].ToString();
+                ProcessObj.ProcessObjName = Activity.GetActivityNameByProcessObjId(this.CInt32(poId));
                 ProcessObj.ProcessObjID = this.CInt32(poId);
                 bool result = false;
                 result = ProcessData.SaveProcessObject(ProcessObj);
 
 
-            ViewState["ProcessID"] = ProcessObj.ProcessID;
-            gridActivityOrder.DataSource = ProcessData.GetActivityOrderData(this.CBool(ViewState["isAsc"]), ViewState["sortBy"].ToString(), Convert.ToInt32(poId));
-            gridActivityOrder.DataBind();
-            deleteBtnPoid.ID = "lnkDeleteProcess_" + poId;
+                ViewState["ProcessID"] = ProcessObj.ProcessID;
+                gridActivityOrder.DataSource = ProcessData.GetActivityOrderData(this.CBool(ViewState["isAsc"]), ViewState["sortBy"].ToString(), Convert.ToInt32(poId));
+                gridActivityOrder.DataBind();
+                deleteBtnPoid.ID = "lnkDeleteProcess_" + poId;
 
-           
-        }
+
+            }
+    }
     }
     protected void lnkbtn_Click(object sender, EventArgs e)
     {
@@ -163,7 +199,17 @@ public partial class UserControls_ProcessObject : System.Web.UI.UserControl
             ViewState["isAsc"] = "0";
         }
         ViewState["sortBy"] = e.SortExpression;
-        BindDataOrderGrid(this.CInt32(ViewState["ProcessObjID"]));
+
+        if (SourceType == 2)  //2: Target
+        {
+            BindDataOrderGrid(this.CInt32(ViewState["TargetObjID"]));
+        }
+        else
+        {
+            BindDataOrderGrid(this.CInt32(ViewState["ProcessObjID"]));
+        }
+
+            
     }
     public void ResetBinding(int poId)
     {
@@ -175,7 +221,15 @@ public partial class UserControls_ProcessObject : System.Web.UI.UserControl
     {
         //Parameter to a method is being made ready
         object[] obj = new object[2];
-        obj[0] = ViewState["ProcessObjID"].ToString();
+
+        if (SourceType == 2)  //2: Target
+        {
+            obj[0] = ViewState["TargetObjID"].ToString();
+        }
+        else
+            obj[0] = ViewState["ProcessObjID"].ToString();
+
+
         obj[1] = "attribute";
         _delWithParam.DynamicInvoke(obj);
     }
@@ -184,7 +238,12 @@ public partial class UserControls_ProcessObject : System.Web.UI.UserControl
     {
         //Parameter to a method is being made ready
         object[] obj = new object[2];
-        obj[0] = ViewState["ProcessObjID"].ToString();
+        if (SourceType == 2)  //2: Target
+        {
+            obj[0] = ViewState["TargetObjID"].ToString();
+        }
+        else
+            obj[0] = ViewState["ProcessObjID"].ToString();
         obj[1] = "inputs";
         _delWithParam.DynamicInvoke(obj);
     }
@@ -193,7 +252,12 @@ public partial class UserControls_ProcessObject : System.Web.UI.UserControl
     {
         //Parameter to a method is being made ready
         object[] obj = new object[2];
-        obj[0] = ViewState["ProcessObjID"].ToString();
+        if (SourceType == 2)  //2: Target
+        {
+            obj[0] = ViewState["TargetObjID"].ToString();
+        }
+        else
+            obj[0] = ViewState["ProcessObjID"].ToString();
         obj[1] = "BOM";
         _delWithParam.DynamicInvoke(obj);
 
@@ -203,7 +267,12 @@ public partial class UserControls_ProcessObject : System.Web.UI.UserControl
     {
         //Parameter to a method is being made ready
         object[] obj = new object[2];
-        obj[0] = ViewState["ProcessObjID"].ToString();
+        if (SourceType == 2)  //2: Target
+        {
+            obj[0] = ViewState["TargetObjID"].ToString();
+        }
+        else
+            obj[0] = ViewState["ProcessObjID"].ToString();
         obj[1] = "TFG";
         _delWithParam.DynamicInvoke(obj);
     }
@@ -212,7 +281,12 @@ public partial class UserControls_ProcessObject : System.Web.UI.UserControl
     {
         //Parameter to a method is being made ready
         object[] obj = new object[2];
-        obj[0] = ViewState["ProcessObjID"].ToString();
+        if (SourceType == 2)  //2: Target
+        {
+            obj[0] = ViewState["TargetObjID"].ToString();
+        }
+        else
+            obj[0] = ViewState["ProcessObjID"].ToString();
         obj[1] = "Machine";
         _delWithParam.DynamicInvoke(obj);
     }
@@ -256,7 +330,12 @@ public partial class UserControls_ProcessObject : System.Web.UI.UserControl
     {
         //Parameter to a method is being made ready
         object[] obj = new object[2];
-        obj[0] = ViewState["ProcessObjID"].ToString();
+        if (SourceType == 2)  //2: Target
+        {
+            obj[0] = ViewState["TargetObjID"].ToString();
+        }
+        else
+            obj[0] = ViewState["ProcessObjID"].ToString();
         obj[1] = "Activity";
         _delWithParam.DynamicInvoke(obj);
     }

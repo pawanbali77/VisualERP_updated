@@ -31,7 +31,13 @@ using System.ComponentModel;
 
 public partial class UserControls_ModelPopupInputUC : System.Web.UI.UserControl
 {
-
+    private int _sourceTypeID = 1;
+    [BrowsableAttribute(true)]
+    public int SourceType
+    {
+        get { return _sourceTypeID; }
+        set { _sourceTypeID = value; }
+    }
     [BrowsableAttribute(true)]
     public int ProcessObjectId
     {

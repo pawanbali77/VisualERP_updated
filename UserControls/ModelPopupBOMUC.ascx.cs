@@ -52,6 +52,13 @@ public partial class UserControls_ModelPopupDataUc : System.Web.UI.UserControl
     DateTime InServiceDate;
     DateTime ObslncDate;
     #endregion
+    private int _sourceTypeID = 1;
+    [BrowsableAttribute(true)]
+    public int SourceType
+    {
+        get { return _sourceTypeID; }
+        set { _sourceTypeID = value; }
+    }
     [BrowsableAttribute(true)]
     public int ProcessObjectId
     {

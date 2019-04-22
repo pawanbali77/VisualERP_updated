@@ -38,7 +38,13 @@ public partial class UserControls_ModelPopupAttributeUC : System.Web.UI.UserCont
     #region
     int ProcessId = 0;
     #endregion
-
+    private int _sourceTypeID = 1;
+    [BrowsableAttribute(true)]
+    public int SourceType 
+    {
+        get { return _sourceTypeID; }
+        set { _sourceTypeID = value; }
+    }
     [BrowsableAttribute(true)]
     public int ProcessObjectId
     {
@@ -166,6 +172,7 @@ public partial class UserControls_ModelPopupAttributeUC : System.Web.UI.UserCont
 
     public void AddAttribute()
     {
+        
         if (AttributeData.GetDuplicateCheck(txtAttributeName.Text.Trim(), Convert.ToInt32(ViewState["poId"]), this.EditIDINT))
         {
 

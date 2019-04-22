@@ -85,7 +85,7 @@
                  </div>--%>
                     <div class="right_nav">
                         <ul>
-                            <li runat="server" id="liDesignViewBtn"><a href="Production.aspx" class="DesignBtn">Design View</a></li>
+                            <li runat="server" id="liDesignViewBtn"><a href="Production.aspx?src=process" class="DesignBtn">Design View</a></li>
                             <li onclick="return ZoomIn();" id="liZoomIn" runat="server" style="cursor: pointer;
                                 margin-top: 3px;"><a title="Zoom-in" class="ZommIn"></a></li>
                             <li onclick="return ZoomOut();" id="liZoomOut" runat="server" style="cursor: pointer;

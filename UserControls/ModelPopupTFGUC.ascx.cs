@@ -32,6 +32,13 @@ using System.ComponentModel;
 public partial class UserControls_ModelPopupTFGUC : System.Web.UI.UserControl
 {
 
+    private int _sourceType = 1;
+    public int SourceType
+    {
+        get { return _sourceType; }
+        set { _sourceType = value; }
+    }
+
     [BrowsableAttribute(true)]
     public int ProcessObjectId
     {
@@ -375,12 +382,27 @@ public partial class UserControls_ModelPopupTFGUC : System.Web.UI.UserControl
         if (TFGGetData != null)
         {
             VisualERPDataContext ObjData = new VisualERPDataContext();
-            var qry = (from x in ObjData.tbl_ProcessObjects
-                       where x.ProcessObjID == TFGGetData.ProcessObjectID
-                       select x).FirstOrDefault();
-            if (qry != null)
+
+            if (SourceType == 2)
             {
-                txtprocessObj.Text = qry.ProcessObjName;
+                tbl_TargetObject qry = (from x in ObjData.tbl_TargetObjects
+                                        where x.TargetObjID == TFGGetData.ProcessObjectID
+                                        select x).FirstOrDefault();
+                if (qry != null)
+                {
+                    txtprocessObj.Text = qry.TargetObjName;
+                }
+
+            }
+            else
+            {
+                tbl_ProcessObject qry = (from x in ObjData.tbl_ProcessObjects
+                                         where x.ProcessObjID == TFGGetData.ProcessObjectID
+                                         select x).FirstOrDefault();
+                if (qry != null)
+                {
+                    txtprocessObj.Text = qry.ProcessObjName;
+                }
             }
             //  txtprocessObj.Text = Convert.ToString(TFGDataID.ProcessObjectID);
             txtTFGQty.Text = TFGGetData.TFGQty.ToString();
@@ -398,6 +420,7 @@ public partial class UserControls_ModelPopupTFGUC : System.Web.UI.UserControl
             this.SetDropDownListValue(ddlcaliVender, TFGGetData.CalibrationVendorID.ToString());
             this.SetDropDownListValue(ddlTFGvender, TFGGetData.TFGVendorID.ToString());
             submitBtn.Text = "Update";
+      
         }
     }
 
@@ -414,13 +437,29 @@ public partial class UserControls_ModelPopupTFGUC : System.Web.UI.UserControl
             int proId = Convert.ToInt32(ViewState["poId"]);
 
             VisualERPDataContext ObjData = new VisualERPDataContext();
-            var qry = (from x in ObjData.tbl_ProcessObjects
-                       where x.ProcessObjID == proId
-                       select x).FirstOrDefault();
-            if (qry != null)
+
+
+            if (SourceType == 2)
             {
-                txtprocessObj.Text = qry.ProcessObjName;
+                var qry = (from x in ObjData.tbl_TargetObjects
+                           where x.TargetObjID == proId
+                           select x).FirstOrDefault();
+                if (qry != null)
+                {
+                    txtprocessObj.Text = qry.TargetObjName;
+                }
             }
+            else
+            {
+                var qry = (from x in ObjData.tbl_ProcessObjects
+                           where x.ProcessObjID == proId
+                           select x).FirstOrDefault();
+                if (qry != null)
+                {
+                    txtprocessObj.Text = qry.ProcessObjName;
+                }
+            }
+                
         }
         if (lblMsg.Visible == true)
         {
