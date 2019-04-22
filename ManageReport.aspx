@@ -189,6 +189,14 @@
                                         <asp:LinkButton ID="lnkBtnPDESAReport" OnClick="lnkBtnPDESAReport_Click" runat="server"
                                             Text="Design Capability Scorecard" Style="font: bold 13px/32px Arial,Helvetica,sans-serif;
                                             color: #555555; margin-left: 17px;" /></li>
+
+
+                                     <li id="liTgtValueGap" runat="server"><span style="background: url(images/report.png) no-repeat left top!important;
+                                        padding-left: 27px; height: 29px; float: left; margin-left: 10px;"></span>
+                                        <asp:LinkButton ID="btnTgtValueGap" OnClick="btnTgtValueGap_Click" runat="server"
+                                            Text="Target Value Gap" Style="font: bold 13px/32px Arial,Helvetica,sans-serif;
+                                            color: #555555; margin-left: 17px;" /></li>
+
                                     <%--<li><a href="#"><span class="ReportTag"></span>TFG Report</a></li>
                                     <li><a href="#"><span class="ReportTag"></span>Machine Report</a></li>--%>
                                 </ul>

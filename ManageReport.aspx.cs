@@ -2408,4 +2408,9 @@ public partial class ManageReport : BasePage
             divErrorMsg.Attributes.Add("class", "isa_warning");
         }
     }
+
+    protected void btnTgtValueGap_Click(object sender, EventArgs e)
+    {
+
+    }
 }
