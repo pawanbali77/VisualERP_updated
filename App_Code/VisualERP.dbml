@@ -10,19 +10,6 @@
       <Column Name="ModifiedDate" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
     </Type>
   </Table>
-  <Table Name="dbo.tbl_AttributesMenu" Member="tbl_AttributesMenus">
-    <Type Name="tbl_AttributesMenu">
-      <Column Name="AttributeMenuID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="AttributeName" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
-      <Column Name="AttributeValue" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
-      <Column Name="UnitID" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="IncludeOnMap" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="CreatedDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
-      <Column Name="ModifiedDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
-      <Column Name="ProcessObjectID" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="ProcessID" Type="System.Int32" DbType="Int" CanBeNull="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.tbl_BOM" Member="tbl_BOMs">
     <Type Name="tbl_BOM">
       <Column Name="BOMID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -520,6 +507,20 @@
       <Column Name="CompanyID" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </Type>
   </Table>
+  <Table Name="dbo.tbl_AttributesMenu" Member="tbl_AttributesMenus">
+    <Type Name="tbl_AttributesMenu">
+      <Column Name="AttributeMenuID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="AttributeName" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="AttributeValue" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="UnitID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IncludeOnMap" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="CreatedDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="ModifiedDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="ProcessObjectID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ProcessID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SourceType" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
   <Function Name="dbo.DeleteAttributeDataByID" Method="DeleteAttributeDataByID">
     <Parameter Name="AttributemenuId" Parameter="attributemenuId" Type="System.Int32" DbType="Int" />
     <Return Type="System.Int32" />
@@ -597,5 +598,9 @@
   <Function Name="dbo.udf_PutSpacesBetweenChars" Method="udf_PutSpacesBetweenChars" IsComposable="true">
     <Parameter Name="String" Parameter="string" Type="System.String" DbType="VarChar(100)" />
     <Return Type="System.String" />
+  </Function>
+  <Function Name="dbo.DeleteTargetObjDataByID" Method="DeleteTargetObjDataByID">
+    <Parameter Name="TargetObjID" Parameter="targetObjID" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
   </Function>
 </Database>

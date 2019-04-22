@@ -32,9 +32,6 @@ public partial class VisualERPDataContext : System.Data.Linq.DataContext
   partial void Inserttbl_Assembly(tbl_Assembly instance);
   partial void Updatetbl_Assembly(tbl_Assembly instance);
   partial void Deletetbl_Assembly(tbl_Assembly instance);
-  partial void Inserttbl_AttributesMenu(tbl_AttributesMenu instance);
-  partial void Updatetbl_AttributesMenu(tbl_AttributesMenu instance);
-  partial void Deletetbl_AttributesMenu(tbl_AttributesMenu instance);
   partial void Inserttbl_BOM(tbl_BOM instance);
   partial void Updatetbl_BOM(tbl_BOM instance);
   partial void Deletetbl_BOM(tbl_BOM instance);
@@ -143,6 +140,9 @@ public partial class VisualERPDataContext : System.Data.Linq.DataContext
   partial void Inserttbl_Target(tbl_Target instance);
   partial void Updatetbl_Target(tbl_Target instance);
   partial void Deletetbl_Target(tbl_Target instance);
+  partial void Inserttbl_AttributesMenu(tbl_AttributesMenu instance);
+  partial void Updatetbl_AttributesMenu(tbl_AttributesMenu instance);
+  partial void Deletetbl_AttributesMenu(tbl_AttributesMenu instance);
   #endregion
 	
 	public VisualERPDataContext() : 
@@ -180,14 +180,6 @@ public partial class VisualERPDataContext : System.Data.Linq.DataContext
 		get
 		{
 			return this.GetTable<tbl_Assembly>();
-		}
-	}
-	
-	public System.Data.Linq.Table<tbl_AttributesMenu> tbl_AttributesMenus
-	{
-		get
-		{
-			return this.GetTable<tbl_AttributesMenu>();
 		}
 	}
 	
@@ -511,6 +503,14 @@ public partial class VisualERPDataContext : System.Data.Linq.DataContext
 		}
 	}
 	
+	public System.Data.Linq.Table<tbl_AttributesMenu> tbl_AttributesMenus
+	{
+		get
+		{
+			return this.GetTable<tbl_AttributesMenu>();
+		}
+	}
+	
 	[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.DeleteAttributeDataByID")]
 	public int DeleteAttributeDataByID([global::System.Data.Linq.Mapping.ParameterAttribute(Name="AttributemenuId", DbType="Int")] System.Nullable<int> attributemenuId)
 	{
@@ -587,15 +587,8 @@ public partial class VisualERPDataContext : System.Data.Linq.DataContext
 		IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), processObjID);
 		return ((int)(result.ReturnValue));
 	}
-
-    [global::System.Data.Linq.Mapping.FunctionAttribute(Name = "dbo.DeleteTargetObjDataByID")]
-    public int DeleteTargetObjDataByID([global::System.Data.Linq.Mapping.ParameterAttribute(Name = "TargetObjID", DbType = "Int")] System.Nullable<int> targetObjID)
-    {
-        IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), targetObjID);
-        return ((int)(result.ReturnValue));
-    }
-
-    [global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.DeleteReportByID")]
+	
+	[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.DeleteReportByID")]
 	public int DeleteReportByID([global::System.Data.Linq.Mapping.ParameterAttribute(Name="ReportID", DbType="Int")] System.Nullable<int> reportID)
 	{
 		IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), reportID);
@@ -648,6 +641,13 @@ public partial class VisualERPDataContext : System.Data.Linq.DataContext
 	public string udf_PutSpacesBetweenChars([global::System.Data.Linq.Mapping.ParameterAttribute(Name="String", DbType="VarChar(100)")] string @string)
 	{
 		return ((string)(this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), @string).ReturnValue));
+	}
+	
+	[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.DeleteTargetObjDataByID")]
+	public int DeleteTargetObjDataByID([global::System.Data.Linq.Mapping.ParameterAttribute(Name="TargetObjID", DbType="Int")] System.Nullable<int> targetObjID)
+	{
+		IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), targetObjID);
+		return ((int)(result.ReturnValue));
 	}
 }
 
@@ -808,260 +808,6 @@ public partial class tbl_Assembly : INotifyPropertyChanging, INotifyPropertyChan
 				this._ModifiedDate = value;
 				this.SendPropertyChanged("ModifiedDate");
 				this.OnModifiedDateChanged();
-			}
-		}
-	}
-	
-	public event PropertyChangingEventHandler PropertyChanging;
-	
-	public event PropertyChangedEventHandler PropertyChanged;
-	
-	protected virtual void SendPropertyChanging()
-	{
-		if ((this.PropertyChanging != null))
-		{
-			this.PropertyChanging(this, emptyChangingEventArgs);
-		}
-	}
-	
-	protected virtual void SendPropertyChanged(String propertyName)
-	{
-		if ((this.PropertyChanged != null))
-		{
-			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-		}
-	}
-}
-
-[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.tbl_AttributesMenu")]
-public partial class tbl_AttributesMenu : INotifyPropertyChanging, INotifyPropertyChanged
-{
-	
-	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-	
-	private int _AttributeMenuID;
-	
-	private string _AttributeName;
-	
-	private string _AttributeValue;
-	
-	private System.Nullable<int> _UnitID;
-	
-	private System.Nullable<bool> _IncludeOnMap;
-	
-	private System.Nullable<System.DateTime> _CreatedDate;
-	
-	private System.Nullable<System.DateTime> _ModifiedDate;
-	
-	private System.Nullable<int> _ProcessObjectID;
-	
-	private System.Nullable<int> _ProcessID;
-	
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnAttributeMenuIDChanging(int value);
-    partial void OnAttributeMenuIDChanged();
-    partial void OnAttributeNameChanging(string value);
-    partial void OnAttributeNameChanged();
-    partial void OnAttributeValueChanging(string value);
-    partial void OnAttributeValueChanged();
-    partial void OnUnitIDChanging(System.Nullable<int> value);
-    partial void OnUnitIDChanged();
-    partial void OnIncludeOnMapChanging(System.Nullable<bool> value);
-    partial void OnIncludeOnMapChanged();
-    partial void OnCreatedDateChanging(System.Nullable<System.DateTime> value);
-    partial void OnCreatedDateChanged();
-    partial void OnModifiedDateChanging(System.Nullable<System.DateTime> value);
-    partial void OnModifiedDateChanged();
-    partial void OnProcessObjectIDChanging(System.Nullable<int> value);
-    partial void OnProcessObjectIDChanged();
-    partial void OnProcessIDChanging(System.Nullable<int> value);
-    partial void OnProcessIDChanged();
-    #endregion
-	
-	public tbl_AttributesMenu()
-	{
-		OnCreated();
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AttributeMenuID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-	public int AttributeMenuID
-	{
-		get
-		{
-			return this._AttributeMenuID;
-		}
-		set
-		{
-			if ((this._AttributeMenuID != value))
-			{
-				this.OnAttributeMenuIDChanging(value);
-				this.SendPropertyChanging();
-				this._AttributeMenuID = value;
-				this.SendPropertyChanged("AttributeMenuID");
-				this.OnAttributeMenuIDChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AttributeName", DbType="NVarChar(100)")]
-	public string AttributeName
-	{
-		get
-		{
-			return this._AttributeName;
-		}
-		set
-		{
-			if ((this._AttributeName != value))
-			{
-				this.OnAttributeNameChanging(value);
-				this.SendPropertyChanging();
-				this._AttributeName = value;
-				this.SendPropertyChanged("AttributeName");
-				this.OnAttributeNameChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AttributeValue", DbType="NVarChar(500)")]
-	public string AttributeValue
-	{
-		get
-		{
-			return this._AttributeValue;
-		}
-		set
-		{
-			if ((this._AttributeValue != value))
-			{
-				this.OnAttributeValueChanging(value);
-				this.SendPropertyChanging();
-				this._AttributeValue = value;
-				this.SendPropertyChanged("AttributeValue");
-				this.OnAttributeValueChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UnitID", DbType="Int")]
-	public System.Nullable<int> UnitID
-	{
-		get
-		{
-			return this._UnitID;
-		}
-		set
-		{
-			if ((this._UnitID != value))
-			{
-				this.OnUnitIDChanging(value);
-				this.SendPropertyChanging();
-				this._UnitID = value;
-				this.SendPropertyChanged("UnitID");
-				this.OnUnitIDChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IncludeOnMap", DbType="Bit")]
-	public System.Nullable<bool> IncludeOnMap
-	{
-		get
-		{
-			return this._IncludeOnMap;
-		}
-		set
-		{
-			if ((this._IncludeOnMap != value))
-			{
-				this.OnIncludeOnMapChanging(value);
-				this.SendPropertyChanging();
-				this._IncludeOnMap = value;
-				this.SendPropertyChanged("IncludeOnMap");
-				this.OnIncludeOnMapChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedDate", DbType="Date")]
-	public System.Nullable<System.DateTime> CreatedDate
-	{
-		get
-		{
-			return this._CreatedDate;
-		}
-		set
-		{
-			if ((this._CreatedDate != value))
-			{
-				this.OnCreatedDateChanging(value);
-				this.SendPropertyChanging();
-				this._CreatedDate = value;
-				this.SendPropertyChanged("CreatedDate");
-				this.OnCreatedDateChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ModifiedDate", DbType="Date")]
-	public System.Nullable<System.DateTime> ModifiedDate
-	{
-		get
-		{
-			return this._ModifiedDate;
-		}
-		set
-		{
-			if ((this._ModifiedDate != value))
-			{
-				this.OnModifiedDateChanging(value);
-				this.SendPropertyChanging();
-				this._ModifiedDate = value;
-				this.SendPropertyChanged("ModifiedDate");
-				this.OnModifiedDateChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProcessObjectID", DbType="Int")]
-	public System.Nullable<int> ProcessObjectID
-	{
-		get
-		{
-			return this._ProcessObjectID;
-		}
-		set
-		{
-			if ((this._ProcessObjectID != value))
-			{
-				this.OnProcessObjectIDChanging(value);
-				this.SendPropertyChanging();
-				this._ProcessObjectID = value;
-				this.SendPropertyChanged("ProcessObjectID");
-				this.OnProcessObjectIDChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProcessID", DbType="Int")]
-	public System.Nullable<int> ProcessID
-	{
-		get
-		{
-			return this._ProcessID;
-		}
-		set
-		{
-			if ((this._ProcessID != value))
-			{
-				this.OnProcessIDChanging(value);
-				this.SendPropertyChanging();
-				this._ProcessID = value;
-				this.SendPropertyChanged("ProcessID");
-				this.OnProcessIDChanged();
 			}
 		}
 	}
@@ -10452,6 +10198,284 @@ public partial class tbl_Target : INotifyPropertyChanging, INotifyPropertyChange
 				this._CompanyID = value;
 				this.SendPropertyChanged("CompanyID");
 				this.OnCompanyIDChanged();
+			}
+		}
+	}
+	
+	public event PropertyChangingEventHandler PropertyChanging;
+	
+	public event PropertyChangedEventHandler PropertyChanged;
+	
+	protected virtual void SendPropertyChanging()
+	{
+		if ((this.PropertyChanging != null))
+		{
+			this.PropertyChanging(this, emptyChangingEventArgs);
+		}
+	}
+	
+	protected virtual void SendPropertyChanged(String propertyName)
+	{
+		if ((this.PropertyChanged != null))
+		{
+			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+		}
+	}
+}
+
+[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.tbl_AttributesMenu")]
+public partial class tbl_AttributesMenu : INotifyPropertyChanging, INotifyPropertyChanged
+{
+	
+	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+	
+	private int _AttributeMenuID;
+	
+	private string _AttributeName;
+	
+	private string _AttributeValue;
+	
+	private System.Nullable<int> _UnitID;
+	
+	private System.Nullable<bool> _IncludeOnMap;
+	
+	private System.Nullable<System.DateTime> _CreatedDate;
+	
+	private System.Nullable<System.DateTime> _ModifiedDate;
+	
+	private System.Nullable<int> _ProcessObjectID;
+	
+	private System.Nullable<int> _ProcessID;
+	
+	private System.Nullable<int> _SourceType;
+	
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnAttributeMenuIDChanging(int value);
+    partial void OnAttributeMenuIDChanged();
+    partial void OnAttributeNameChanging(string value);
+    partial void OnAttributeNameChanged();
+    partial void OnAttributeValueChanging(string value);
+    partial void OnAttributeValueChanged();
+    partial void OnUnitIDChanging(System.Nullable<int> value);
+    partial void OnUnitIDChanged();
+    partial void OnIncludeOnMapChanging(System.Nullable<bool> value);
+    partial void OnIncludeOnMapChanged();
+    partial void OnCreatedDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnCreatedDateChanged();
+    partial void OnModifiedDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnModifiedDateChanged();
+    partial void OnProcessObjectIDChanging(System.Nullable<int> value);
+    partial void OnProcessObjectIDChanged();
+    partial void OnProcessIDChanging(System.Nullable<int> value);
+    partial void OnProcessIDChanged();
+    partial void OnSourceTypeChanging(System.Nullable<int> value);
+    partial void OnSourceTypeChanged();
+    #endregion
+	
+	public tbl_AttributesMenu()
+	{
+		OnCreated();
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AttributeMenuID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+	public int AttributeMenuID
+	{
+		get
+		{
+			return this._AttributeMenuID;
+		}
+		set
+		{
+			if ((this._AttributeMenuID != value))
+			{
+				this.OnAttributeMenuIDChanging(value);
+				this.SendPropertyChanging();
+				this._AttributeMenuID = value;
+				this.SendPropertyChanged("AttributeMenuID");
+				this.OnAttributeMenuIDChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AttributeName", DbType="NVarChar(100)")]
+	public string AttributeName
+	{
+		get
+		{
+			return this._AttributeName;
+		}
+		set
+		{
+			if ((this._AttributeName != value))
+			{
+				this.OnAttributeNameChanging(value);
+				this.SendPropertyChanging();
+				this._AttributeName = value;
+				this.SendPropertyChanged("AttributeName");
+				this.OnAttributeNameChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AttributeValue", DbType="NVarChar(500)")]
+	public string AttributeValue
+	{
+		get
+		{
+			return this._AttributeValue;
+		}
+		set
+		{
+			if ((this._AttributeValue != value))
+			{
+				this.OnAttributeValueChanging(value);
+				this.SendPropertyChanging();
+				this._AttributeValue = value;
+				this.SendPropertyChanged("AttributeValue");
+				this.OnAttributeValueChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UnitID", DbType="Int")]
+	public System.Nullable<int> UnitID
+	{
+		get
+		{
+			return this._UnitID;
+		}
+		set
+		{
+			if ((this._UnitID != value))
+			{
+				this.OnUnitIDChanging(value);
+				this.SendPropertyChanging();
+				this._UnitID = value;
+				this.SendPropertyChanged("UnitID");
+				this.OnUnitIDChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IncludeOnMap", DbType="Bit")]
+	public System.Nullable<bool> IncludeOnMap
+	{
+		get
+		{
+			return this._IncludeOnMap;
+		}
+		set
+		{
+			if ((this._IncludeOnMap != value))
+			{
+				this.OnIncludeOnMapChanging(value);
+				this.SendPropertyChanging();
+				this._IncludeOnMap = value;
+				this.SendPropertyChanged("IncludeOnMap");
+				this.OnIncludeOnMapChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedDate", DbType="Date")]
+	public System.Nullable<System.DateTime> CreatedDate
+	{
+		get
+		{
+			return this._CreatedDate;
+		}
+		set
+		{
+			if ((this._CreatedDate != value))
+			{
+				this.OnCreatedDateChanging(value);
+				this.SendPropertyChanging();
+				this._CreatedDate = value;
+				this.SendPropertyChanged("CreatedDate");
+				this.OnCreatedDateChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ModifiedDate", DbType="Date")]
+	public System.Nullable<System.DateTime> ModifiedDate
+	{
+		get
+		{
+			return this._ModifiedDate;
+		}
+		set
+		{
+			if ((this._ModifiedDate != value))
+			{
+				this.OnModifiedDateChanging(value);
+				this.SendPropertyChanging();
+				this._ModifiedDate = value;
+				this.SendPropertyChanged("ModifiedDate");
+				this.OnModifiedDateChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProcessObjectID", DbType="Int")]
+	public System.Nullable<int> ProcessObjectID
+	{
+		get
+		{
+			return this._ProcessObjectID;
+		}
+		set
+		{
+			if ((this._ProcessObjectID != value))
+			{
+				this.OnProcessObjectIDChanging(value);
+				this.SendPropertyChanging();
+				this._ProcessObjectID = value;
+				this.SendPropertyChanged("ProcessObjectID");
+				this.OnProcessObjectIDChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProcessID", DbType="Int")]
+	public System.Nullable<int> ProcessID
+	{
+		get
+		{
+			return this._ProcessID;
+		}
+		set
+		{
+			if ((this._ProcessID != value))
+			{
+				this.OnProcessIDChanging(value);
+				this.SendPropertyChanging();
+				this._ProcessID = value;
+				this.SendPropertyChanged("ProcessID");
+				this.OnProcessIDChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SourceType", DbType="Int")]
+	public System.Nullable<int> SourceType
+	{
+		get
+		{
+			return this._SourceType;
+		}
+		set
+		{
+			if ((this._SourceType != value))
+			{
+				this.OnSourceTypeChanging(value);
+				this.SendPropertyChanging();
+				this._SourceType = value;
+				this.SendPropertyChanged("SourceType");
+				this.OnSourceTypeChanged();
 			}
 		}
 	}
