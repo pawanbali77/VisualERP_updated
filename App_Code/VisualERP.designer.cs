@@ -68,9 +68,6 @@ public partial class VisualERPDataContext : System.Data.Linq.DataContext
   partial void Inserttbl_InputType(tbl_InputType instance);
   partial void Updatetbl_InputType(tbl_InputType instance);
   partial void Deletetbl_InputType(tbl_InputType instance);
-  partial void Inserttbl_InvantoryTriangle(tbl_InvantoryTriangle instance);
-  partial void Updatetbl_InvantoryTriangle(tbl_InvantoryTriangle instance);
-  partial void Deletetbl_InvantoryTriangle(tbl_InvantoryTriangle instance);
   partial void Inserttbl_MachineList(tbl_MachineList instance);
   partial void Updatetbl_MachineList(tbl_MachineList instance);
   partial void Deletetbl_MachineList(tbl_MachineList instance);
@@ -143,6 +140,9 @@ public partial class VisualERPDataContext : System.Data.Linq.DataContext
   partial void Inserttbl_AttributesMenu(tbl_AttributesMenu instance);
   partial void Updatetbl_AttributesMenu(tbl_AttributesMenu instance);
   partial void Deletetbl_AttributesMenu(tbl_AttributesMenu instance);
+  partial void Inserttbl_InvantoryTriangle(tbl_InvantoryTriangle instance);
+  partial void Updatetbl_InvantoryTriangle(tbl_InvantoryTriangle instance);
+  partial void Deletetbl_InvantoryTriangle(tbl_InvantoryTriangle instance);
   #endregion
 	
 	public VisualERPDataContext() : 
@@ -292,14 +292,6 @@ public partial class VisualERPDataContext : System.Data.Linq.DataContext
 		get
 		{
 			return this.GetTable<tbl_InputType>();
-		}
-	}
-	
-	public System.Data.Linq.Table<tbl_InvantoryTriangle> tbl_InvantoryTriangles
-	{
-		get
-		{
-			return this.GetTable<tbl_InvantoryTriangle>();
 		}
 	}
 	
@@ -508,6 +500,14 @@ public partial class VisualERPDataContext : System.Data.Linq.DataContext
 		get
 		{
 			return this.GetTable<tbl_AttributesMenu>();
+		}
+	}
+	
+	public System.Data.Linq.Table<tbl_InvantoryTriangle> tbl_InvantoryTriangles
+	{
+		get
+		{
+			return this.GetTable<tbl_InvantoryTriangle>();
 		}
 	}
 	
@@ -3730,212 +3730,6 @@ public partial class tbl_InputType : INotifyPropertyChanging, INotifyPropertyCha
 				this._Type = value;
 				this.SendPropertyChanged("Type");
 				this.OnTypeChanged();
-			}
-		}
-	}
-	
-	public event PropertyChangingEventHandler PropertyChanging;
-	
-	public event PropertyChangedEventHandler PropertyChanged;
-	
-	protected virtual void SendPropertyChanging()
-	{
-		if ((this.PropertyChanging != null))
-		{
-			this.PropertyChanging(this, emptyChangingEventArgs);
-		}
-	}
-	
-	protected virtual void SendPropertyChanged(String propertyName)
-	{
-		if ((this.PropertyChanged != null))
-		{
-			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-		}
-	}
-}
-
-[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.tbl_InvantoryTriangle")]
-public partial class tbl_InvantoryTriangle : INotifyPropertyChanging, INotifyPropertyChanged
-{
-	
-	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-	
-	private int _InvantoryTriangleID;
-	
-	private System.Nullable<int> _ProcessObjID;
-	
-	private System.Nullable<int> _CT;
-	
-	private System.Nullable<int> _Doller;
-	
-	private System.Nullable<int> _Time;
-	
-	private System.Nullable<System.DateTime> _CreatedDate;
-	
-	private System.Nullable<System.DateTime> _ModifiedDate;
-	
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnInvantoryTriangleIDChanging(int value);
-    partial void OnInvantoryTriangleIDChanged();
-    partial void OnProcessObjIDChanging(System.Nullable<int> value);
-    partial void OnProcessObjIDChanged();
-    partial void OnCTChanging(System.Nullable<int> value);
-    partial void OnCTChanged();
-    partial void OnDollerChanging(System.Nullable<int> value);
-    partial void OnDollerChanged();
-    partial void OnTimeChanging(System.Nullable<int> value);
-    partial void OnTimeChanged();
-    partial void OnCreatedDateChanging(System.Nullable<System.DateTime> value);
-    partial void OnCreatedDateChanged();
-    partial void OnModifiedDateChanging(System.Nullable<System.DateTime> value);
-    partial void OnModifiedDateChanged();
-    #endregion
-	
-	public tbl_InvantoryTriangle()
-	{
-		OnCreated();
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_InvantoryTriangleID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-	public int InvantoryTriangleID
-	{
-		get
-		{
-			return this._InvantoryTriangleID;
-		}
-		set
-		{
-			if ((this._InvantoryTriangleID != value))
-			{
-				this.OnInvantoryTriangleIDChanging(value);
-				this.SendPropertyChanging();
-				this._InvantoryTriangleID = value;
-				this.SendPropertyChanged("InvantoryTriangleID");
-				this.OnInvantoryTriangleIDChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProcessObjID", DbType="Int")]
-	public System.Nullable<int> ProcessObjID
-	{
-		get
-		{
-			return this._ProcessObjID;
-		}
-		set
-		{
-			if ((this._ProcessObjID != value))
-			{
-				this.OnProcessObjIDChanging(value);
-				this.SendPropertyChanging();
-				this._ProcessObjID = value;
-				this.SendPropertyChanged("ProcessObjID");
-				this.OnProcessObjIDChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CT", DbType="Int")]
-	public System.Nullable<int> CT
-	{
-		get
-		{
-			return this._CT;
-		}
-		set
-		{
-			if ((this._CT != value))
-			{
-				this.OnCTChanging(value);
-				this.SendPropertyChanging();
-				this._CT = value;
-				this.SendPropertyChanged("CT");
-				this.OnCTChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Doller", DbType="Int")]
-	public System.Nullable<int> Doller
-	{
-		get
-		{
-			return this._Doller;
-		}
-		set
-		{
-			if ((this._Doller != value))
-			{
-				this.OnDollerChanging(value);
-				this.SendPropertyChanging();
-				this._Doller = value;
-				this.SendPropertyChanged("Doller");
-				this.OnDollerChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Time", DbType="Int")]
-	public System.Nullable<int> Time
-	{
-		get
-		{
-			return this._Time;
-		}
-		set
-		{
-			if ((this._Time != value))
-			{
-				this.OnTimeChanging(value);
-				this.SendPropertyChanging();
-				this._Time = value;
-				this.SendPropertyChanged("Time");
-				this.OnTimeChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedDate", DbType="Date")]
-	public System.Nullable<System.DateTime> CreatedDate
-	{
-		get
-		{
-			return this._CreatedDate;
-		}
-		set
-		{
-			if ((this._CreatedDate != value))
-			{
-				this.OnCreatedDateChanging(value);
-				this.SendPropertyChanging();
-				this._CreatedDate = value;
-				this.SendPropertyChanged("CreatedDate");
-				this.OnCreatedDateChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ModifiedDate", DbType="Date")]
-	public System.Nullable<System.DateTime> ModifiedDate
-	{
-		get
-		{
-			return this._ModifiedDate;
-		}
-		set
-		{
-			if ((this._ModifiedDate != value))
-			{
-				this.OnModifiedDateChanging(value);
-				this.SendPropertyChanging();
-				this._ModifiedDate = value;
-				this.SendPropertyChanged("ModifiedDate");
-				this.OnModifiedDateChanged();
 			}
 		}
 	}
@@ -10456,6 +10250,236 @@ public partial class tbl_AttributesMenu : INotifyPropertyChanging, INotifyProper
 				this._ProcessID = value;
 				this.SendPropertyChanged("ProcessID");
 				this.OnProcessIDChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SourceType", DbType="Int")]
+	public System.Nullable<int> SourceType
+	{
+		get
+		{
+			return this._SourceType;
+		}
+		set
+		{
+			if ((this._SourceType != value))
+			{
+				this.OnSourceTypeChanging(value);
+				this.SendPropertyChanging();
+				this._SourceType = value;
+				this.SendPropertyChanged("SourceType");
+				this.OnSourceTypeChanged();
+			}
+		}
+	}
+	
+	public event PropertyChangingEventHandler PropertyChanging;
+	
+	public event PropertyChangedEventHandler PropertyChanged;
+	
+	protected virtual void SendPropertyChanging()
+	{
+		if ((this.PropertyChanging != null))
+		{
+			this.PropertyChanging(this, emptyChangingEventArgs);
+		}
+	}
+	
+	protected virtual void SendPropertyChanged(String propertyName)
+	{
+		if ((this.PropertyChanged != null))
+		{
+			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+		}
+	}
+}
+
+[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.tbl_InvantoryTriangle")]
+public partial class tbl_InvantoryTriangle : INotifyPropertyChanging, INotifyPropertyChanged
+{
+	
+	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+	
+	private int _InvantoryTriangleID;
+	
+	private System.Nullable<int> _ProcessObjID;
+	
+	private System.Nullable<int> _CT;
+	
+	private System.Nullable<int> _Doller;
+	
+	private System.Nullable<int> _Time;
+	
+	private System.Nullable<System.DateTime> _CreatedDate;
+	
+	private System.Nullable<System.DateTime> _ModifiedDate;
+	
+	private System.Nullable<int> _SourceType;
+	
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnInvantoryTriangleIDChanging(int value);
+    partial void OnInvantoryTriangleIDChanged();
+    partial void OnProcessObjIDChanging(System.Nullable<int> value);
+    partial void OnProcessObjIDChanged();
+    partial void OnCTChanging(System.Nullable<int> value);
+    partial void OnCTChanged();
+    partial void OnDollerChanging(System.Nullable<int> value);
+    partial void OnDollerChanged();
+    partial void OnTimeChanging(System.Nullable<int> value);
+    partial void OnTimeChanged();
+    partial void OnCreatedDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnCreatedDateChanged();
+    partial void OnModifiedDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnModifiedDateChanged();
+    partial void OnSourceTypeChanging(System.Nullable<int> value);
+    partial void OnSourceTypeChanged();
+    #endregion
+	
+	public tbl_InvantoryTriangle()
+	{
+		OnCreated();
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_InvantoryTriangleID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+	public int InvantoryTriangleID
+	{
+		get
+		{
+			return this._InvantoryTriangleID;
+		}
+		set
+		{
+			if ((this._InvantoryTriangleID != value))
+			{
+				this.OnInvantoryTriangleIDChanging(value);
+				this.SendPropertyChanging();
+				this._InvantoryTriangleID = value;
+				this.SendPropertyChanged("InvantoryTriangleID");
+				this.OnInvantoryTriangleIDChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProcessObjID", DbType="Int")]
+	public System.Nullable<int> ProcessObjID
+	{
+		get
+		{
+			return this._ProcessObjID;
+		}
+		set
+		{
+			if ((this._ProcessObjID != value))
+			{
+				this.OnProcessObjIDChanging(value);
+				this.SendPropertyChanging();
+				this._ProcessObjID = value;
+				this.SendPropertyChanged("ProcessObjID");
+				this.OnProcessObjIDChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CT", DbType="Int")]
+	public System.Nullable<int> CT
+	{
+		get
+		{
+			return this._CT;
+		}
+		set
+		{
+			if ((this._CT != value))
+			{
+				this.OnCTChanging(value);
+				this.SendPropertyChanging();
+				this._CT = value;
+				this.SendPropertyChanged("CT");
+				this.OnCTChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Doller", DbType="Int")]
+	public System.Nullable<int> Doller
+	{
+		get
+		{
+			return this._Doller;
+		}
+		set
+		{
+			if ((this._Doller != value))
+			{
+				this.OnDollerChanging(value);
+				this.SendPropertyChanging();
+				this._Doller = value;
+				this.SendPropertyChanged("Doller");
+				this.OnDollerChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Time", DbType="Int")]
+	public System.Nullable<int> Time
+	{
+		get
+		{
+			return this._Time;
+		}
+		set
+		{
+			if ((this._Time != value))
+			{
+				this.OnTimeChanging(value);
+				this.SendPropertyChanging();
+				this._Time = value;
+				this.SendPropertyChanged("Time");
+				this.OnTimeChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedDate", DbType="Date")]
+	public System.Nullable<System.DateTime> CreatedDate
+	{
+		get
+		{
+			return this._CreatedDate;
+		}
+		set
+		{
+			if ((this._CreatedDate != value))
+			{
+				this.OnCreatedDateChanging(value);
+				this.SendPropertyChanging();
+				this._CreatedDate = value;
+				this.SendPropertyChanged("CreatedDate");
+				this.OnCreatedDateChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ModifiedDate", DbType="Date")]
+	public System.Nullable<System.DateTime> ModifiedDate
+	{
+		get
+		{
+			return this._ModifiedDate;
+		}
+		set
+		{
+			if ((this._ModifiedDate != value))
+			{
+				this.OnModifiedDateChanging(value);
+				this.SendPropertyChanging();
+				this._ModifiedDate = value;
+				this.SendPropertyChanged("ModifiedDate");
+				this.OnModifiedDateChanged();
 			}
 		}
 	}

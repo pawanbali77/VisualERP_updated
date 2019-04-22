@@ -33,6 +33,7 @@ public partial class UserControls_ModelPopupTFGUC : System.Web.UI.UserControl
 {
 
     private int _sourceType = 1;
+    [BrowsableAttribute(true)]
     public int SourceType
     {
         get { return _sourceType; }

@@ -5,13 +5,20 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Reflection;
+using System.ComponentModel;
 
 public partial class UserControls_InventoryUC : System.Web.UI.UserControl
 {
     #region
     int ProcessId = 0;
     #endregion
-
+    private int _sourceTypeID = 1;
+    [BrowsableAttribute(true)]
+    public int SourceType
+    {
+        get { return _sourceTypeID; }
+        set { _sourceTypeID = value; }
+    }
     private System.Delegate _delWithParam;
     public Delegate PageMethodWithParamRef
     {

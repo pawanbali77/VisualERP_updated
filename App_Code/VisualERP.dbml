@@ -171,17 +171,6 @@
       <Column Name="Type" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
     </Type>
   </Table>
-  <Table Name="dbo.tbl_InvantoryTriangle" Member="tbl_InvantoryTriangles">
-    <Type Name="tbl_InvantoryTriangle">
-      <Column Name="InvantoryTriangleID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="ProcessObjID" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="CT" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="Doller" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="Time" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="CreatedDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
-      <Column Name="ModifiedDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.tbl_MachineList" Member="tbl_MachineLists">
     <Type Name="tbl_MachineList">
       <Column Name="MachineID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -518,6 +507,18 @@
       <Column Name="ModifiedDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
       <Column Name="ProcessObjectID" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="ProcessID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SourceType" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tbl_InvantoryTriangle" Member="tbl_InvantoryTriangles">
+    <Type Name="tbl_InvantoryTriangle">
+      <Column Name="InvantoryTriangleID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ProcessObjID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CT" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Doller" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Time" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CreatedDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="ModifiedDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
       <Column Name="SourceType" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </Type>
   </Table>

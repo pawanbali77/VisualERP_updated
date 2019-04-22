@@ -455,12 +455,12 @@ public class TargetData
     /// </summary>
     /// <param name="Process Object ID">Process Object  ID is current >Process Object  ID that is selected</param>
     /// <returns></returns>
-    public static bool DeleteAttributedataByPoID(int Poid)
+    public static bool DeleteAttributedataByPoID(int Poid, int sourceType=1)
     {
         bool result = false;
         VisualERPDataContext ObjData = new VisualERPDataContext();
         var AttributeObjData = (from k in ObjData.tbl_AttributesMenus
-                                where k.ProcessObjectID == Poid
+                                where k.ProcessObjectID == Poid && (k.SourceType==null || k.SourceType==sourceType)
                                 select k).ToList();
         if (AttributeObjData.Count > 0)
         {

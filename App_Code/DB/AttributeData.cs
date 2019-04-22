@@ -44,11 +44,12 @@ public class AttributeData
 
     }
 
-    public static bool SaveAttributeData(tbl_AttributesMenu AttributeData)
+    public static bool SaveAttributeData(tbl_AttributesMenu AttributeData, int sourceType=1)
     {
         VisualERPDataContext ObjData = new VisualERPDataContext();
         var qry = (from x in ObjData.tbl_AttributesMenus
                    where x.AttributeMenuID == AttributeData.AttributeMenuID
+                   && (x.SourceType==null || x.SourceType==sourceType)
                    select x).FirstOrDefault();
 
         if(qry==null)
@@ -64,6 +65,7 @@ public class AttributeData
             qry.UnitID = AttributeData.UnitID;
             qry.IncludeOnMap = AttributeData.IncludeOnMap;
             qry.ProcessObjectID = AttributeData.ProcessObjectID;
+            qry.SourceType = sourceType;
         }
         try
         {

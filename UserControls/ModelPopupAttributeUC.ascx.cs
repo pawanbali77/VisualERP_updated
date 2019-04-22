@@ -181,6 +181,7 @@ public partial class UserControls_ModelPopupAttributeUC : System.Web.UI.UserCont
             if (mastertreeview.SelectedNode != null)
                 ProcessId = this.CInt32(mastertreeview.SelectedNode.Value);
             tbl_AttributesMenu AttributeTbl = new tbl_AttributesMenu();
+            AttributeTbl.SourceType = this.SourceType;
             AttributeTbl.AttributeValue = txtAttrivalue.Text.Trim();
             AttributeTbl.AttributeName = txtAttributeName.Text.Trim();
             AttributeTbl.UnitID = this.CInt32(ddlUnits.SelectedValue);
@@ -191,8 +192,9 @@ public partial class UserControls_ModelPopupAttributeUC : System.Web.UI.UserCont
             {
                 AttributeTbl.ProcessObjectID = Convert.ToInt32(ViewState["poId"]);
             }
-           // AttributeTbl.ProcessObjectID = this.CInt32(ViewState["ProcessObjID"]);
+            // AttributeTbl.ProcessObjectID = this.CInt32(ViewState["ProcessObjID"]);
 
+            AttributeTbl.SourceType = this.SourceType;
             AttributeTbl.ProcessID = ProcessId;
             AttributeTbl.CreatedDate = DateTime.Now;
             if (radioBtnYes.Checked == true)
@@ -207,7 +209,7 @@ public partial class UserControls_ModelPopupAttributeUC : System.Web.UI.UserCont
             }
 
             bool result = false;
-            result = AttributeData.SaveAttributeData(AttributeTbl);
+            result = AttributeData.SaveAttributeData(AttributeTbl, SourceType);
 
             if (result == true)
             {

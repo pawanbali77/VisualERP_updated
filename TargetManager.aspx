@@ -212,23 +212,23 @@ Six month Professional Training in Web Desinging from  Rajiv Nanda Design & Phot
                 </div>
             </div>
             <%--<uc6:ProcessObject ID="ProcessObject1" runat="server" />--%>
-            <uc7:InventoryUC ID="InventoryUC1" runat="server" />
+            <uc7:InventoryUC ID="InventoryUC1" SourceType="2"  runat="server" />
             <%--Attribute--%>
-            <uc2:ModelPopupAttributeUC ID="ModelPopupAttributeUC1" runat="server" />
+            <uc2:ModelPopupAttributeUC ID="ModelPopupAttributeUC1" SourceType="2" runat="server" />
             <%--Attribute end--%>
             <%--Input Attribute--%>
-            <uc3:ModelPopupInputUC ID="ModelPopupInputUC1" runat="server" />
+            <uc3:ModelPopupInputUC ID="ModelPopupInputUC1" SourceType="2" runat="server" />
             <%--Input Attribute--%>
             <%--BOM Manger---%>
-            <uc1:ModelPopupBOMUC ID="ModelPopupBOMUC1" runat="server" />
+            <uc1:ModelPopupBOMUC ID="ModelPopupBOMUC1" SourceType="2" runat="server" />
             <%--End BOM Manger--%>
             <%----TFG----%>
-            <uc5:ModelPopupTFGUC ID="ModelPopupTFGUC1" runat="server" />
+            <uc5:ModelPopupTFGUC ID="ModelPopupTFGUC1" SourceType="2" runat="server" />
             <%----End TFG--%>
             <%---Machine--%>
-            <uc4:ModelPopupMchUC ID="ModelPopupMchUC1" runat="server" />
+            <uc4:ModelPopupMchUC ID="ModelPopupMchUC1" SourceType="2" runat="server" />
             <%--MachineEnd--%>
-            <uc9:ModelPopupActivity ID="ModelPopupActivityUC9" runat="server" />
+            <uc9:ModelPopupActivity ID="ModelPopupActivityUC9" SourceType="2" runat="server" />
             <%--Activity--%>
             <%-- <uc21:ModelPopupSummaryTable ID="ModelPopupSummaryTableuc21" runat="server" />--%>
         </ContentTemplate>
