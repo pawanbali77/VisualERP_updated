@@ -1,5 +1,5 @@
-﻿<?xml version="1.0" encoding="utf-8"?><Database Name="NewVisualERP" Class="VisualERPDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="WebSettings" ConnectionString="Data Source=pawang\sqlexpress;Initial Catalog=NewVisualERP;User ID=sa" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="NewVisualERPConnectionString" Provider="System.Data.SqlClient" />
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="NewVisualERP_Local" Class="VisualERPDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=192.168.1.99,55321;Initial Catalog=NewVisualERP_Local;Persist Security Info=True;User ID=pawanb" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="NewVisualERP_LocalConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.tbl_Assembly" Member="tbl_Assemblies">
     <Type Name="tbl_Assembly">
       <Column Name="AssemblyID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -8,6 +8,20 @@
       <Column Name="Description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="CreatedDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
       <Column Name="ModifiedDate" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tbl_AttributesMenu" Member="tbl_AttributesMenus">
+    <Type Name="tbl_AttributesMenu">
+      <Column Name="AttributeMenuID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="AttributeName" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="AttributeValue" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="UnitID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IncludeOnMap" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="CreatedDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="ModifiedDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="ProcessObjectID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ProcessID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SourceType" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </Type>
   </Table>
   <Table Name="dbo.tbl_BOM" Member="tbl_BOMs">
@@ -171,6 +185,18 @@
       <Column Name="Type" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
     </Type>
   </Table>
+  <Table Name="dbo.tbl_InvantoryTriangle" Member="tbl_InvantoryTriangles">
+    <Type Name="tbl_InvantoryTriangle">
+      <Column Name="InvantoryTriangleID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ProcessObjID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CT" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Doller" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Time" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CreatedDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="ModifiedDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="SourceType" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
   <Table Name="dbo.tbl_MachineList" Member="tbl_MachineLists">
     <Type Name="tbl_MachineList">
       <Column Name="MachineID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -294,6 +320,24 @@
       <Column Name="ModifiedDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
     </Type>
   </Table>
+  <Table Name="dbo.tbl_Registration" Member="tbl_Registrations">
+    <Type Name="tbl_Registration">
+      <Column Name="RegisterID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Username" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Password" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Mobile" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="CompanyName" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="UploadPhoto" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Industries" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CreatedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Status" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Role" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ParentID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IsDeleted" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="UniqueCode" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+    </Type>
+  </Table>
   <Table Name="dbo.tbl_RepairLog" Member="tbl_RepairLogs">
     <Type Name="tbl_RepairLog">
       <Column Name="MachineRepairID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -398,6 +442,47 @@
       <Column Name="CreatedDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
     </Type>
   </Table>
+  <Table Name="dbo.tbl_Target" Member="tbl_Targets">
+    <Type Name="tbl_Target">
+      <Column Name="TargetID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TargetName" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="FunctionName" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="SystemID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TypeID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ParentID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CreatedDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="ModifiedDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="UserRegisterID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CompanyID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tbl_TargetObject" Member="tbl_TargetObjects">
+    <Type Name="tbl_TargetObject">
+      <Column Name="TargetObjID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TargetObjName" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="TargetID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="OrderNo" Type="System.Int32" DbType="Int" IsDbGenerated="true" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Type" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CreatedDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="ModifiedDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="XTop" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="YLeft" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Width" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Height" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="ParallelTargetObjID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Position" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tbl_TargetParallelRelationship" Member="tbl_TargetParallelRelationships">
+    <Type Name="tbl_TargetParallelRelationship">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TargetObjID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="NeighbourActivityID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Type" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TargetID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
   <Table Name="dbo.tbl_TFG" Member="tbl_TFGs">
     <Type Name="tbl_TFG">
       <Column Name="TFGID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -445,81 +530,6 @@
       <Column Name="Symbol" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
       <Column Name="CreatedDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
       <Column Name="ModifiedDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.tbl_Registration" Member="tbl_Registrations">
-    <Type Name="tbl_Registration">
-      <Column Name="RegisterID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Username" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
-      <Column Name="Email" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="Password" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="Mobile" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="CompanyName" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="UploadPhoto" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="Industries" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="CreatedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="Status" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="Role" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="ParentID" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="IsDeleted" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.tbl_TargetObjects" Member="tbl_TargetObjects">
-    <Type Name="tbl_TargetObject">
-      <Column Name="TargetObjID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="TargetObjName" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
-      <Column Name="TargetID" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="OrderNo" Type="System.Int32" DbType="Int" IsDbGenerated="true" CanBeNull="true" UpdateCheck="Never" />
-      <Column Name="Type" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="CreatedDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
-      <Column Name="ModifiedDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
-      <Column Name="XTop" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="YLeft" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="Width" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="Height" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="Title" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
-      <Column Name="ParallelTargetObjID" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="Position" Type="System.Int32" DbType="Int" CanBeNull="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.tbl_Targets" Member="tbl_Targets">
-    <Type Name="tbl_Target">
-      <Column Name="TargetID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="TargetName" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
-      <Column Name="FunctionName" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
-      <Column Name="SystemID" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="TypeID" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="ParentID" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="CreatedDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
-      <Column Name="ModifiedDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
-      <Column Name="UserRegisterID" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="CompanyID" Type="System.Int32" DbType="Int" CanBeNull="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.tbl_AttributesMenu" Member="tbl_AttributesMenus">
-    <Type Name="tbl_AttributesMenu">
-      <Column Name="AttributeMenuID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="AttributeName" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
-      <Column Name="AttributeValue" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
-      <Column Name="UnitID" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="IncludeOnMap" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="CreatedDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
-      <Column Name="ModifiedDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
-      <Column Name="ProcessObjectID" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="ProcessID" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="SourceType" Type="System.Int32" DbType="Int" CanBeNull="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.tbl_InvantoryTriangle" Member="tbl_InvantoryTriangles">
-    <Type Name="tbl_InvantoryTriangle">
-      <Column Name="InvantoryTriangleID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="ProcessObjID" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="CT" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="Doller" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="Time" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="CreatedDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
-      <Column Name="ModifiedDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
-      <Column Name="SourceType" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </Type>
   </Table>
   <Function Name="dbo.DeleteAttributeDataByID" Method="DeleteAttributeDataByID">
@@ -582,6 +592,10 @@
     <Parameter Name="ProcessObjectID" Parameter="processObjectID" Type="System.Int32" DbType="Int" />
     <Return Type="System.Int32" />
   </Function>
+  <Function Name="dbo.DeleteTargetObjDataByID" Method="DeleteTargetObjDataByID" IsComposable="true">
+    <Parameter Name="TargetObjID" Parameter="targetObjID" Type="System.Int32" DbType="Int" />
+    <Return Type="object" />
+  </Function>
   <Function Name="dbo.DeleteTFGDataByID" Method="DeleteTFGDataByID">
     <Parameter Name="TFGID" Parameter="tFGID" Type="System.Int32" DbType="Int" />
     <Return Type="System.Int32" />
@@ -599,9 +613,5 @@
   <Function Name="dbo.udf_PutSpacesBetweenChars" Method="udf_PutSpacesBetweenChars" IsComposable="true">
     <Parameter Name="String" Parameter="string" Type="System.String" DbType="VarChar(100)" />
     <Return Type="System.String" />
-  </Function>
-  <Function Name="dbo.DeleteTargetObjDataByID" Method="DeleteTargetObjDataByID">
-    <Parameter Name="TargetObjID" Parameter="targetObjID" Type="System.Int32" DbType="Int" />
-    <Return Type="System.Int32" />
   </Function>
 </Database>

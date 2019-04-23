@@ -63,18 +63,6 @@ public partial class Registration : System.Web.UI.Page
         }
         registerdetail.UploadPhoto = CompanyPhoto;
 
-        //tbl_Registration data = RegisterData.check_Companyname(txtCompanyname.Text.Trim());
-        //if(data != null)
-        //{
-        //    userdetail.CompanyName = data.CompanyName;
-        //    userdetail.ParentID = data.RegisterID;
-        //}
-        //else
-        //{
-        //    userdetail.CompanyName = txtCompanyname.Text.Trim();
-        //    userdetail.ParentID = 0;
-        //}
-
         var result = RegisterData.register_Users(registerdetail);
         if (result == 1)
         {
