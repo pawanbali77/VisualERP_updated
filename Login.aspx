@@ -40,7 +40,7 @@
 
 
         .auto-style1 {
-            width: 37%;
+            width: 40%;
         }
 
         .auto-style2 {
@@ -99,14 +99,13 @@
                 </td>
                 <td class="auto-style4"></td>
             </tr>
-
-       <%--     <tr>
+            <tr>
                 <td class="auto-style2">
-                    <asp:HyperLink ID="hyperlink1" NavigateUrl="#" style="white-space: nowrap;" Text="Forget Password" runat="server" />
+                    <asp:HyperLink ID="hyperlink1" NavigateUrl="ForgotPassword.aspx" style="white-space: nowrap;" Text="Forgot Password" runat="server" />
                 </td>
                 <td class="auto-style3"></td>
                 <td class="auto-style4">&nbsp;</td>
-            </tr>--%>
+            </tr>
             <tr>
                 <td class="auto-style2"></td>
                 <td class="auto-style3">
