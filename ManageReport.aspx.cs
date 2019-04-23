@@ -2213,7 +2213,56 @@ public partial class ManageReport : BasePage
                     dt.Rows.Add(row); // datatable row has been created here 
                 }
             }
+            if (reporttyp == 7 ) //Session["CurrentReport"] will have current report type 1 for Machine
+            {
+                int ESAtype = 0;
+                
+                    excelReportName = "Target Value Gap";
+                //  ESAtype = Convert.ToInt32(FormType.PPESA);
 
+
+
+                List<SummaryDetail> ESAProcessData = new List<SummaryDetail>();
+                // var getRecord;
+                //if (Session["Activity"] != null)
+                //{
+                //    activity = (List<int>)Session["Activity"];
+                //    // for multiple activities
+
+                //    for (int i = 0; i < activity.Count; i++)
+                //    {
+                //        int prcobjID = Convert.ToInt32(activity[i].ToString()); //proobjId is selected atctivity id
+                ViewState["sortBy"] = "CreatedDate";
+                ViewState["isAsc"] = "1";
+                //        ESAProcessData.AddRange(LoadTgtValueGapData());
+                //    }
+                //}
+                ESAProcessData.AddRange(LoadTgtValueGapData());
+                dt.Columns.Add("S No.");
+                dt.Columns.Add("Attribute");
+                dt.Columns.Add("Value");
+                dt.Columns.Add("Unit");
+                dt.Columns.Add("Target Value");
+                dt.Columns.Add("Target Unit");
+                //foreach (TableCell cell in gridTgtValueGap.HeaderRow.Cells)
+                //{
+                //    dt.Columns.Add(cell.Text);
+                //}
+                int count = 0;
+                foreach (SummaryDetail prop in ESAProcessData)
+                {
+                    DataRow row = dt.NewRow();
+                     count += 1;
+                     row["S No."] = count;
+                    row["Attribute"] = prop.AttributeName;
+                    row["Value"] = prop.AttributeValueResult;
+                    row["Unit"] = prop.UnitName;
+                    row["Target Value"] = prop.AttributeValueResult;
+                    row["Target Unit"] = prop.UnitName;
+                    
+                    dt.Rows.Add(row); // datatable row has been created here 
+                }
+            }
             //"+ excelReportName +" + DateTime.Now.ToString("hh-mm-ss") + ".xlsx"
 
             using (XLWorkbook wb = new XLWorkbook()) // we will add our datatable in workbook and after we will set it in memory stream to make excel file
@@ -2419,9 +2468,9 @@ public partial class ManageReport : BasePage
     protected void btnTgtValueGap_Click(object sender, EventArgs e)
     {
 
-        if (PPESAnPDESA.GetIfReportAlreadyExist(ProcessId, (int)ReportTypeID.DCS))  // first check if there PDESA report alredy exist
-        {
-            Session["CurrentReport"] = (int)ReportTypeID.DCS;
+       // if (PPESAnPDESA.GetIfReportAlreadyExist(ProcessId, (int)ReportTypeID.DCS))  // first check if there PDESA report alredy exist
+        //{
+            Session["CurrentReport"] = (int)ReportTypeID.TGTGAP;
             this.IsEdit = false;
             List<PPESAnPDESA.ListPPESAnPDESAData> ESADataR = new List<PPESAnPDESA.ListPPESAnPDESAData>();
 
@@ -2433,11 +2482,13 @@ public partial class ManageReport : BasePage
             int reportid = 0;
             ESAtype = Convert.ToInt32(FormType.PDESA);
 
-           // ESADataR.AddRange(PPESAnPDESA.GetPPESAnPDESAReportData(this.CBool(ViewState["isAsc"]), ViewState["sortBy"].ToString(), ESAtype, ProcessId, reportid));
+            // ESADataR.AddRange(PPESAnPDESA.GetPPESAnPDESAReportData(this.CBool(ViewState["isAsc"]), ViewState["sortBy"].ToString(), ESAtype, ProcessId, reportid));
 
             //if (ESADataR.Count > 0)
             //{
-                LoadTgtValueGapData();
+            gridTgtValueGap.DataSource = LoadTgtValueGapData();
+            gridTgtValueGap.DataBind();  
+
                 pnlTgtValueGap.Visible = true;
                 lnkbtnSaveReport.Visible = true;
                 if (RoleID == 4)
@@ -2476,18 +2527,18 @@ public partial class ManageReport : BasePage
             divErrorMsg.Visible = false;
            // txtTVGReportName.Text = "Target Vale Gap";
            // txtTVGReportName.Attributes.Add("readonly", "readonly");
-        }
-        else
-        {
-            SetErrorMessage();
-            lblMsg.Text = "Scorecard already exists.";
-        }
+        //}
+        //else
+        //{
+        //    SetErrorMessage();
+        //    lblMsg.Text = "Scorecard already exists.";
+        //}
 
     }
 
     List<SummaryDetail> summaryResult = new List<SummaryDetail>();
 
-    public void LoadTgtValueGapData()
+    public List<SummaryDetail> LoadTgtValueGapData()
     {
 
         if (ProcessData.GetSummaryData(ProcessId))
@@ -2591,13 +2642,13 @@ public partial class ManageReport : BasePage
                     }
                 }
 
-                gridTgtValueGap.DataSource = summaryResult;
-                gridTgtValueGap.DataBind();
+             
 
 
             }
 
         }
+        return summaryResult;
     }
 
     public class SummaryDetail
