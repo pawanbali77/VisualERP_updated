@@ -62,6 +62,7 @@ public partial class ManageReport : BasePage
         pnlESAReport.Visible = false;
         pnlReportType.Visible = false;
         pnlListSavedReport.Visible = false;
+        pnlTgtValueGap.Visible = false;
 
         lnkbtnSaveReport.Visible = false; //hide save button on load
         lnkbtnExporttoExcel.Visible = false; // hide export to excel button on load
@@ -166,6 +167,7 @@ public partial class ManageReport : BasePage
                         pnlMachineReport.Visible = false;
                         pnlESAReport.Visible = false;
                         pnlListSavedReport.Visible = false;
+                        pnlTgtValueGap.Visible = false;
                         divErrorMsg.Visible = false;
                         //*******************
                     }
@@ -201,6 +203,9 @@ public partial class ManageReport : BasePage
 
                 if (EditId == "lnkBtnPDESAReport") // maintain currentreport type of PDESA in session before click on linkbutton
                     Session["CurrentReport"] = (int)ReportTypeID.DCS;
+
+                if (EditId == "liTgtValueGap") // maintain currentreport type of PDESA in session before click on linkbutton
+                    Session["CurrentReport"] = (int)ReportTypeID.TGTGAP;
 
                 BindActivityCheckboxList(Convert.ToInt32(mastertreeview.SelectedNode.Value)); // bind activity checkbox
 
@@ -384,6 +389,7 @@ public partial class ManageReport : BasePage
             pnlMachineReport.Visible = false;
             pnlESAReport.Visible = false;
             pnlListSavedReport.Visible = false;
+            pnlTgtValueGap.Visible = false;
             divErrorMsg.Visible = false;
             //*******************
         }
@@ -1117,6 +1123,7 @@ public partial class ManageReport : BasePage
         pnlAttributeReport.Visible = false;
         pnlBomReport.Visible = false;
         pnlTFGReport.Visible = false;
+        pnlTgtValueGap.Visible = false;
         pnlMachineReport.Visible = false;
         pnlESAReport.Visible = false;
         pnlListSavedReport.Visible = false;

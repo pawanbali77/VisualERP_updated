@@ -948,17 +948,18 @@
             </asp:Panel>
 
             <asp:Panel ID="pnlTgtValueGap" runat="server" >
-                <div class="RightAt" id="div6" runat="server" visible="true" style="float: right;
+                <div class="RightAt" id="div6" runat="server" visible="true" style=" float: right;
                     margin-right: 10px; margin-top: 110px; width: 1030px !important; overflow-y: scroll;
-                    max-height: 300px;">
+                    max-height: 400px;">
+
+                    
                         <asp:GridView ID="gridTgtValueGap" runat="server" AlternatingRowStyle-CssClass="field_row bg_white"
-                            CssClass="summry_table" AutoGenerateColumns="false"  
+                            AutoGenerateColumns="false"  
                             AllowSorting="true"  CellSpacing="0"
                             CellPadding="0" RowStyle-CssClass="field_row" GridLines="None" HeaderStyle-CssClass="block_1_top"
-                            Style="overflow-y: auto; overflow-x: hidden; height: 200px; width: 300px;">
+                            Style="overflow-y: auto; overflow-x: hidden; height: 200px;">
                             <Columns>
-                                <asp:TemplateField SortExpression="AttributeName" HeaderStyle-CssClass="attributes"
-                                    ItemStyle-CssClass="attributes_td">
+                                <asp:TemplateField SortExpression="AttributeName"  >
                                     <HeaderTemplate>
                                         <a class="block_arrow" href="#">Attribute</a>
                                     </HeaderTemplate>
@@ -966,8 +967,7 @@
                                         <%#DataBinder.Eval(Container.DataItem, "AttributeName")%>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField SortExpression="AttributeValue" ItemStyle-CssClass="value_td"
-                                    HeaderStyle-CssClass="value">
+                                <asp:TemplateField SortExpression="AttributeValue"  >
                                     <HeaderTemplate>
                                         <a class="block_arrow" href="#">Value</a>
                                     </HeaderTemplate>
@@ -975,9 +975,36 @@
                                         <%#DataBinder.Eval(Container.DataItem, "AttributeValueResult")%>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField SortExpression="UnitName" ItemStyle-CssClass="unit_td" HeaderStyle-CssClass="unit">
+                                <asp:TemplateField SortExpression="UnitName"  >
                                     <HeaderTemplate>
                                         <a class="block_arrow" href="#">Unit</a>
+                                    </HeaderTemplate>
+                                    <ItemTemplate>
+                                        <%#DataBinder.Eval(Container.DataItem, "UnitName")%>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+
+                              <%--  <asp:TemplateField SortExpression="AttributeName" HeaderStyle-CssClass="attributes"
+                                    ItemStyle-CssClass="attributes_td">
+                                    <HeaderTemplate>
+                                        <a class="block_arrow" href="#">Attribute</a>
+                                    </HeaderTemplate>
+                                    <ItemTemplate>
+                                        <%#DataBinder.Eval(Container.DataItem, "AttributeName")%>
+                                    </ItemTemplate>
+                                </asp:TemplateField>--%>
+                                <asp:TemplateField SortExpression="AttributeValue"  
+                                    >
+                                    <HeaderTemplate>
+                                        <a class="block_arrow" href="#">Target  Value</a>
+                                    </HeaderTemplate>
+                                    <ItemTemplate>
+                                        <%#DataBinder.Eval(Container.DataItem, "AttributeValueResult")%>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField    SortExpression="UnitName" >
+                                    <HeaderTemplate>
+                                        <a class="block_arrow" href="#">Target Unit</a>
                                     </HeaderTemplate>
                                     <ItemTemplate>
                                         <%#DataBinder.Eval(Container.DataItem, "UnitName")%>
@@ -991,10 +1018,10 @@
                 </div>
                 <div id="div7" runat="server" style="float: left; margin-left: 330px; margin-top: 50px;">
                     <span style="color: #40464C; font-size: 14px; font-weight: bold;">Save Report as :</span>
-                    &nbsp;&nbsp;<asp:TextBox ID="TextBox1" runat="server" CssClass="AttrTxtFild"
+                    &nbsp;&nbsp;<asp:TextBox ID="txtTgtGapReportName" runat="server" CssClass="AttrTxtFild"
                         Style="width: 200px!important; float: none!important" placeholder="Report Name" />
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" InitialValue=""
-                        ControlToValidate="txtTVGReportName" ErrorMessage="Please enter report Name"
+                        ControlToValidate="txtTgtGapReportName" ErrorMessage="Please enter report Name"
                         ValidationGroup="addReport" ForeColor="Red" Text="*">
                     </asp:RequiredFieldValidator>
                 </div>
@@ -1003,6 +1030,7 @@
             <asp:Panel ID="pnlListSavedReport" runat="server" Visible="false">
                 <div class="RightAt" style="float: right; margin-right: 10px; margin-top: 120px;
                     width: 1030px !important;">
+
                     <asp:GridView ID="grdSavedReport" runat="server" AlternatingRowStyle-CssClass="GrayBg"
                         AutoGenerateColumns="false" AllowPaging="true" OnSorting="grdSavedReport_Sorting"
                         AllowSorting="true" OnPageIndexChanging="grdSavedReport_PageIndexChanging" OnRowEditing="grdSavedReport_RowEditing"

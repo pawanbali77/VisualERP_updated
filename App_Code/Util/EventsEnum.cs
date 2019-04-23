@@ -53,7 +53,8 @@ public enum ReportTypeID
     TFG=3,
     Machine=4,
     PCS=5,
-    DCS=6
+    DCS=6,
+    TGTGAP = 7
 }
 
 public enum ArrowControl
