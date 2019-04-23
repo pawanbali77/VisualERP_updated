@@ -815,6 +815,7 @@
                     </asp:RequiredFieldValidator>
                 </div>
             </asp:Panel>
+            
             <asp:Panel ID="pnlESAReport" runat="server" Visible="false">
                 <div class="RightAt" id="div5" runat="server" visible="true" style="float: right;
                     margin-right: 10px; margin-top: 110px; width: 1030px !important; overflow-y: scroll;
@@ -945,6 +946,60 @@
                     </asp:RequiredFieldValidator>
                 </div>
             </asp:Panel>
+
+            <asp:Panel ID="pnlTgtValueGap" runat="server" >
+                <div class="RightAt" id="div6" runat="server" visible="true" style="float: right;
+                    margin-right: 10px; margin-top: 110px; width: 1030px !important; overflow-y: scroll;
+                    max-height: 300px;">
+                        <asp:GridView ID="gridTgtValueGap" runat="server" AlternatingRowStyle-CssClass="field_row bg_white"
+                            CssClass="summry_table" AutoGenerateColumns="false"  
+                            AllowSorting="true"  CellSpacing="0"
+                            CellPadding="0" RowStyle-CssClass="field_row" GridLines="None" HeaderStyle-CssClass="block_1_top"
+                            Style="overflow-y: auto; overflow-x: hidden; height: 200px; width: 300px;">
+                            <Columns>
+                                <asp:TemplateField SortExpression="AttributeName" HeaderStyle-CssClass="attributes"
+                                    ItemStyle-CssClass="attributes_td">
+                                    <HeaderTemplate>
+                                        <a class="block_arrow" href="#">Attribute</a>
+                                    </HeaderTemplate>
+                                    <ItemTemplate>
+                                        <%#DataBinder.Eval(Container.DataItem, "AttributeName")%>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField SortExpression="AttributeValue" ItemStyle-CssClass="value_td"
+                                    HeaderStyle-CssClass="value">
+                                    <HeaderTemplate>
+                                        <a class="block_arrow" href="#">Value</a>
+                                    </HeaderTemplate>
+                                    <ItemTemplate>
+                                        <%#DataBinder.Eval(Container.DataItem, "AttributeValueResult")%>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField SortExpression="UnitName" ItemStyle-CssClass="unit_td" HeaderStyle-CssClass="unit">
+                                    <HeaderTemplate>
+                                        <a class="block_arrow" href="#">Unit</a>
+                                    </HeaderTemplate>
+                                    <ItemTemplate>
+                                        <%#DataBinder.Eval(Container.DataItem, "UnitName")%>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                            </Columns>
+                            <RowStyle CssClass="field_row" />
+                            <%--    <HeaderStyle CssClass="block_1_top" />--%>
+                        </asp:GridView>
+                    
+                </div>
+                <div id="div7" runat="server" style="float: left; margin-left: 330px; margin-top: 50px;">
+                    <span style="color: #40464C; font-size: 14px; font-weight: bold;">Save Report as :</span>
+                    &nbsp;&nbsp;<asp:TextBox ID="TextBox1" runat="server" CssClass="AttrTxtFild"
+                        Style="width: 200px!important; float: none!important" placeholder="Report Name" />
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" InitialValue=""
+                        ControlToValidate="txtTVGReportName" ErrorMessage="Please enter report Name"
+                        ValidationGroup="addReport" ForeColor="Red" Text="*">
+                    </asp:RequiredFieldValidator>
+                </div>
+            </asp:Panel>
+
             <asp:Panel ID="pnlListSavedReport" runat="server" Visible="false">
                 <div class="RightAt" style="float: right; margin-right: 10px; margin-top: 120px;
                     width: 1030px !important;">

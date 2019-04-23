@@ -2412,5 +2412,192 @@ public partial class ManageReport : BasePage
     protected void btnTgtValueGap_Click(object sender, EventArgs e)
     {
 
+        if (PPESAnPDESA.GetIfReportAlreadyExist(ProcessId, (int)ReportTypeID.DCS))  // first check if there PDESA report alredy exist
+        {
+            Session["CurrentReport"] = (int)ReportTypeID.DCS;
+            this.IsEdit = false;
+            List<PPESAnPDESA.ListPPESAnPDESAData> ESADataR = new List<PPESAnPDESA.ListPPESAnPDESAData>();
+
+            ViewState["sortBy"] = "CreatedDate";
+            ViewState["isAsc"] = "1";
+
+
+            int ESAtype = 0;
+            int reportid = 0;
+            ESAtype = Convert.ToInt32(FormType.PDESA);
+
+           // ESADataR.AddRange(PPESAnPDESA.GetPPESAnPDESAReportData(this.CBool(ViewState["isAsc"]), ViewState["sortBy"].ToString(), ESAtype, ProcessId, reportid));
+
+            //if (ESADataR.Count > 0)
+            //{
+                LoadTgtValueGapData();
+                pnlTgtValueGap.Visible = true;
+                lnkbtnSaveReport.Visible = true;
+                if (RoleID == 4)
+                {
+                    lnkbtnSaveReport.Visible = false;
+                    txtAttributeReportName.Visible = false;
+                }
+                liSaveReport.Visible = true;
+                //divESAName.Visible = true;
+                //txtESAReportName.Text = "";
+                lblMsg.Text = "";
+                lnkbtnExporttoExcel.Visible = true; // show export to excel button if report grid display
+                liExporttoExcel.Visible = true;
+            //}
+            //else
+            //{
+            //    grdESAReport.DataSource = null;
+            //    grdESAReport.DataBind();
+            //    divESAName.Visible = false;
+            //    lnkbtnSaveReport.Visible = false;
+            //    liSaveReport.Visible = false;
+            //    liSaveReport.Visible = false;
+            //    pnlESAReport.Visible = true;
+            //    lblMsg.Text = "";
+            //    lnkbtnExporttoExcel.Visible = false; // hide export to excel button if report grid is null
+            //    liExporttoExcel.Visible = false;
+            //}
+            pnlReportType.Visible = false;
+            pnlAttribute.Visible = false;
+            pnlBomProcess.Visible = false;
+            pnlAttributeReport.Visible = false;
+            pnlBomReport.Visible = false;
+            pnlTFGReport.Visible = false;
+            pnlMachineReport.Visible = false;
+            pnlListSavedReport.Visible = false;
+            divErrorMsg.Visible = false;
+           // txtTVGReportName.Text = "Target Vale Gap";
+           // txtTVGReportName.Attributes.Add("readonly", "readonly");
+        }
+        else
+        {
+            SetErrorMessage();
+            lblMsg.Text = "Scorecard already exists.";
+        }
+
+    }
+
+    List<SummaryDetail> summaryResult = new List<SummaryDetail>();
+
+    public void LoadTgtValueGapData()
+    {
+
+        if (ProcessData.GetSummaryData(ProcessId))
+        {
+            List<ProcessData.ProcessDataProperty> record = ProcessData.GetSummaryTableRecord(this.CBool(ViewState["isAsc"]), ViewState["sortBy"].ToString(), Convert.ToInt32(ProcessId));
+            if (record.Count != 0)
+            {
+                for (int k = 0; k < record.Count; k++)
+                {
+                    string AttributeName = Convert.ToString(record[k].AttributeName);
+                    // string unitName = ProcessData.GetUnitName(AttributeName);
+                    string unitName = Convert.ToString(record[k].UnitName);
+                    int FunctionID = Convert.ToInt32(record[k].FunctionID);
+                    List<ProcessData.ProcessDataProperty> res = ProcessData.GetAttributeValue(this.CBool(ViewState["isAsc"]), ViewState["sortBy"].ToString(), Convert.ToInt32(ProcessId), AttributeName, unitName);
+                    if (res.Count > 0)
+                    {
+                        if (FunctionID == 1)
+                        {
+                            int sum = res.Sum(x => Convert.ToInt32(x.AttributeValueSum)); // get Sum here
+                                                                                          // add attributename,value, unitname in list to display it in summary table
+                            summaryResult.Add(new SummaryDetail() { AttributeName = AttributeName, AttributeValueResult = Convert.ToString(sum), UnitName = unitName });
+                        }
+
+                        if (FunctionID == 2)
+                        {
+                            double average = res.Average(x => Convert.ToInt32(x.AttributeValueSum)); // get Average here
+                                                                                                     // add attributename,value, unitname in list to display it in summary table
+                            summaryResult.Add(new SummaryDetail() { AttributeName = AttributeName, AttributeValueResult = String.Format("{0:0.00}", average), UnitName = unitName });
+                        }
+
+                        if (FunctionID == 3)
+                        {
+                            /****************Median formula ******************/
+                            int[] numbers = new int[res.Count]; // initialize int array with max record in list
+                            for (int j = 0; j < res.Count; j++)
+                            {
+                                numbers[j] = res[j].AttributeValueSum; // make int[] array for all value in list
+                            }
+
+                            // int[] numbers = { 13, 18, 13, 14, 13, 16, 14, 21, 13 }; // median will be 14
+                            // int[] numbers = { 6, 6, 8, 7 }; //median will be 3 
+
+                            int numberCount = numbers.Count(); // count no of values from array
+                            int halfIndex = numbers.Count() / 2; // half of count
+                                                                 // var sortedNumbers = numbers.OrderBy(n => n); // sorted numbers
+                            var sortedNumbers = numbers.OrderBy(c => c).ToArray();
+                            double median;
+                            if ((numberCount % 2) == 0)
+                            {
+                                int ElementFirst = sortedNumbers.ElementAt(halfIndex - 1);
+                                int ElementSecond = sortedNumbers.ElementAt(halfIndex);
+                                int addElemtn = ElementFirst + ElementSecond;
+                                median = (double)addElemtn / 2;
+                            }
+                            else
+                            {
+                                median = sortedNumbers.ElementAt(halfIndex);
+                            }
+                            //int total = Convert.ToInt32(median); // get median here
+                            // add attributename,value, unitname in list to display it in summary table
+                            summaryResult.Add(new SummaryDetail() { AttributeName = AttributeName, AttributeValueResult = String.Format("{0:0.00}", median), UnitName = unitName });
+                        }
+
+                        if (FunctionID == 4)
+                        {
+                            int total = res.Min(x => Convert.ToInt32(x.AttributeValueSum)); // get min here
+                                                                                            // add attributename,value, unitname in list to display it in summary table
+                            summaryResult.Add(new SummaryDetail() { AttributeName = AttributeName, AttributeValueResult = Convert.ToString(total), UnitName = unitName });
+                        }
+
+                        if (FunctionID == 5)
+                        {
+                            int total = res.Max(x => Convert.ToInt32(x.AttributeValueSum)); // get max here
+                                                                                            // add attributename,value, unitname in list to display it in summary table
+                            summaryResult.Add(new SummaryDetail() { AttributeName = AttributeName, AttributeValueResult = Convert.ToString(total), UnitName = unitName });
+                        }
+
+                        if (FunctionID == 6)
+                        {
+
+                            //***************************standard deviation formula******************/
+
+                            int[] numA = new int[res.Count]; // int[] array get all values from list in int[] array
+                            for (int j = 0; j < res.Count; j++)
+                            {
+                                numA[j] = res[j].AttributeValueSum;
+                            }
+                            //int[] numA = { 9, 2, 5, 4, 12, 7, 8, 11, 9, 3, 7, 4, 12, 5, 4, 10, 9, 6, 9, 4 }; //example to test math function 
+                            double ret = 0;
+                            int count = numA.Count();
+                            if (count > 0)
+                            {
+                                double avg = numA.Average(); // avg will get avg number of array 
+                                double sum = numA.Sum(d => (d - avg) * (d - avg)); // sum of (x(i)-avg) sq root 
+                                ret = Math.Sqrt(sum / count); // ret is result for standard deviation formula
+                                                              //int total = Convert.ToInt32(ret);
+                                                              // add attributename,value, unitname in list to display it in summary table
+                                summaryResult.Add(new SummaryDetail() { AttributeName = AttributeName, AttributeValueResult = String.Format("{0:0.00}", ret), UnitName = unitName });
+                            }
+                        }
+                    }
+                }
+
+                gridTgtValueGap.DataSource = summaryResult;
+                gridTgtValueGap.DataBind();
+
+
+            }
+
+        }
+    }
+
+    public class SummaryDetail
+    {
+        public string AttributeName { get; set; }
+        // public int AttributeValueResult { get; set; }
+        public string AttributeValueResult { get; set; }
+        public string UnitName { get; set; }
     }
 }

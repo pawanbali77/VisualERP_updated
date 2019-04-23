@@ -1403,11 +1403,11 @@ public class ProcessData
                      {
                          AttributeName = c.AttributeName,
                          FunctionID = (subpet == null ? 0 : subpet.FunctionID),
-                         UnitName = c.UnitName //added 28 april
+                         UnitName = c.UnitName  //added 28 april
                      }).OrderBy(a => a.AttributeName).ToList();
 
-        // return qry.OrderBy(x => x.GetType().GetProperty(SortBy).GetValue(x, null)).ToList();
         return query.OrderBy(x => x.GetType().GetProperty(SortBy).GetValue(x, null)).ToList();
+       // return query.ToList();
 
     }
 
@@ -1425,7 +1425,7 @@ public class ProcessData
                        UnitName = g.Key.UnitName,
                    }).Distinct().ToList();
 
-        return qry.OrderBy(x => x.GetType().GetProperty(SortBy).GetValue(x, null)).ToList();
+         return qry.OrderBy(x => x.GetType().GetProperty(SortBy).GetValue(x, null)).ToList();
 
     }
 
