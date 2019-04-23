@@ -188,8 +188,6 @@ public class RegisterData
                                        }).ToList();
         return gridData;
     }
-
-
     public static List<GridUserdata2> EditUser2(int id , int Parent_id)
     {
         VisualERPDataContext db = new VisualERPDataContext();
@@ -205,7 +203,6 @@ public class RegisterData
                                        }).ToList();
         return gridData;
     }
-
     public static string ProfileImage(int id, string ComapnyName)
     {
         using (VisualERPDataContext db = new VisualERPDataContext())
@@ -213,6 +210,38 @@ public class RegisterData
             var profileLogo = db.tbl_Registrations.FirstOrDefault(s => s.CompanyName.Contains(ComapnyName) && s.ParentID == 0).UploadPhoto;                                      
             return profileLogo;
         }           
+    }
+    public static tbl_Registration Check_Email(string email)
+    {
+        VisualERPDataContext db = new VisualERPDataContext();
+
+        return (from k in db.tbl_Registrations
+                where k.Email == email && k.Status == true && k.IsDeleted == false
+                select k).FirstOrDefault();
+    }
+    public static tbl_Registration Update_UniqueCode(string email , string uniquecode)
+    {
+        VisualERPDataContext db = new VisualERPDataContext();
+        var  data = db.tbl_Registrations.Single(x => x.Email == email);
+        data.UniqueCode = uniquecode;
+        db.SubmitChanges();
+        return data;
+    }
+   public static tbl_Registration Check_EmailandUniqueCode(string email , string uniquecode)
+    {
+        VisualERPDataContext db = new VisualERPDataContext();
+        return (from k in db.tbl_Registrations
+                where k.Email == email && k.UniqueCode == uniquecode && k.Status == true && k.IsDeleted == false
+                select k).FirstOrDefault();
+    }
+    public static tbl_Registration Update_Password(string email, string uniquecode , string password)
+    {
+        VisualERPDataContext db = new VisualERPDataContext();
+        var data = db.tbl_Registrations.Single(x => x.Email == email && x.UniqueCode == uniquecode);
+        data.Password = password;
+        data.UniqueCode = "";
+        db.SubmitChanges();
+        return data;
     }
 }
 
