@@ -35,17 +35,17 @@ public partial class ForgotPassword : System.Web.UI.Page
                 //strBody.Append("<a href=http://182.156.245.82:214/ResetPassword.aspx?email=" + Email + "&uCode=" + uniqueCode + ">Click here to change your password</a>");
 
                 //forLocal
-                strBody.Append("<a href=http://localhost:52534/ResetPassword.aspx?email=" + Email + "&uCode=" + uniqueCode + ">Click here to change your password</a>");
+                //strBody.Append("<a href=http://localhost:52534/ResetPassword.aspx?email=" + Email + "&uCode=" + uniqueCode + ">Click here to change your password</a>");
 
-                System.Net.Mail.MailMessage mail = new System.Net.Mail.MailMessage("EmailClient", Email, "Reset Your Password", strBody.ToString());
-                System.Net.NetworkCredential mailAuthenticaion = new System.Net.NetworkCredential("EmailClient", "PasswordClient****");
+                //System.Net.Mail.MailMessage mail = new System.Net.Mail.MailMessage("EmailClient", Email, "Reset Your Password", strBody.ToString());
+                //System.Net.NetworkCredential mailAuthenticaion = new System.Net.NetworkCredential("EmailClient", "PasswordClient****");
 
-                System.Net.Mail.SmtpClient mailclient = new System.Net.Mail.SmtpClient("smtp.gmail.com", 587);
-                mailclient.EnableSsl = true;
-                mailclient.UseDefaultCredentials = false;
-                mailclient.Credentials = mailAuthenticaion;
-                mail.IsBodyHtml = true;
-                mailclient.Send(mail);
+                //System.Net.Mail.SmtpClient mailclient = new System.Net.Mail.SmtpClient("smtp.gmail.com", 587);
+                //mailclient.EnableSsl = true;
+                //mailclient.UseDefaultCredentials = false;
+                //mailclient.Credentials = mailAuthenticaion;
+                //mail.IsBodyHtml = true;
+                //mailclient.Send(mail);
                 lblStatus.Visible = true;
                 lblStatus.Text = "Reset password link has been sent to your email address.";
                 lblStatus.ForeColor = Color.Green;
