@@ -1144,6 +1144,7 @@ public class TargetData
         var qry = (from x in ObjData.tbl_AttributesMenus
                    join y in ObjData.tbl_Units on x.UnitID equals y.UnitID
                    where x.ProcessID == processId && x.AttributeName == AttributeName && y.UnitName == unitname
+                   && x.SourceType==2
                    select new TargetDataProperty
                    {
                        AttributeName = x.AttributeName,
@@ -1196,7 +1197,7 @@ public class TargetData
 
         var qry1 = (from x in ObjData.tbl_AttributesMenus
                     join y in ObjData.tbl_Units on x.UnitID equals y.UnitID
-                    where x.ProcessID == processId
+                    where x.ProcessID == processId && x.SourceType==2
                     group new { x, y } by new { x.AttributeName, x.AttributeValue, y.UnitName } into g
                     select new TargetDataProperty
                     {

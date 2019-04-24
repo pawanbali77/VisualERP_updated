@@ -999,7 +999,7 @@
                                         <a class="block_arrow" href="#">Target  Value</a>
                                     </HeaderTemplate>
                                     <ItemTemplate>
-                                        <%#DataBinder.Eval(Container.DataItem, "AttributeValueResult")%>
+                                        <%#DataBinder.Eval(Container.DataItem, "TargetValue")%>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField    SortExpression="UnitName" >
@@ -1007,7 +1007,7 @@
                                         <a class="block_arrow" href="#">Target Unit</a>
                                     </HeaderTemplate>
                                     <ItemTemplate>
-                                        <%#DataBinder.Eval(Container.DataItem, "UnitName")%>
+                                        <%#DataBinder.Eval(Container.DataItem, "TargetUnitName")%>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                             </Columns>

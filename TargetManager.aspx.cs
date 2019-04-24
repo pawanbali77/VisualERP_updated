@@ -806,7 +806,7 @@ public partial class TargetManager : System.Web.UI.Page
         bool result = false;
         result = TargetData.SaveProcessObject(ProcessObj);
         VisualERPDataContext ObjData = new VisualERPDataContext();
-        ObjData.SP_BulkInsertAttribute(this.CInt32(ViewState["ProcessObjID"]), ProcessId);
+        ObjData.SP_BulkInsertAttribute(this.CInt32(ViewState["ProcessObjID"]), ProcessId,2);
         if (result == true)
         {
             lst.Clear();

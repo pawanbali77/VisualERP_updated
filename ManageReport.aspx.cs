@@ -2215,7 +2215,7 @@ public partial class ManageReport : BasePage
             }
             if (reporttyp == 7 ) //Session["CurrentReport"] will have current report type 1 for Machine
             {
-                int ESAtype = 0;
+                //int ESAtype = 0;
                 
                     excelReportName = "Target Value Gap";
                 //  ESAtype = Convert.ToInt32(FormType.PPESA);
@@ -2257,8 +2257,8 @@ public partial class ManageReport : BasePage
                     row["Attribute"] = prop.AttributeName;
                     row["Value"] = prop.AttributeValueResult;
                     row["Unit"] = prop.UnitName;
-                    row["Target Value"] = prop.AttributeValueResult;
-                    row["Target Unit"] = prop.UnitName;
+                    row["Target Value"] = prop.TargetValue;
+                    row["Target Unit"] = prop.TargetUnitName;
                     
                     dt.Rows.Add(row); // datatable row has been created here 
                 }
@@ -2543,7 +2543,7 @@ public partial class ManageReport : BasePage
 
         if (ProcessData.GetSummaryData(ProcessId))
         {
-            List<ProcessData.ProcessDataProperty> record = ProcessData.GetSummaryTableRecord(this.CBool(ViewState["isAsc"]), ViewState["sortBy"].ToString(), Convert.ToInt32(ProcessId));
+            List<ProcessData.ProcessDataProperty> record = ProcessData.GetSummaryTableRecordForTargetValueGapReport(this.CBool(ViewState["isAsc"]), ViewState["sortBy"].ToString(), Convert.ToInt32(ProcessId));
             if (record.Count != 0)
             {
                 for (int k = 0; k < record.Count; k++)
@@ -2552,21 +2552,33 @@ public partial class ManageReport : BasePage
                     // string unitName = ProcessData.GetUnitName(AttributeName);
                     string unitName = Convert.ToString(record[k].UnitName);
                     int FunctionID = Convert.ToInt32(record[k].FunctionID);
-                    List<ProcessData.ProcessDataProperty> res = ProcessData.GetAttributeValue(this.CBool(ViewState["isAsc"]), ViewState["sortBy"].ToString(), Convert.ToInt32(ProcessId), AttributeName, unitName);
+                    List<ProcessData.ProcessDataProperty> res = ProcessData.GetProcessAttributeValue(this.CBool(ViewState["isAsc"]), ViewState["sortBy"].ToString(), Convert.ToInt32(ProcessId), AttributeName, unitName);
+
+
                     if (res.Count > 0)
                     {
+                        List<ProcessData.ProcessDataProperty> processData = res.Where(p => p.SourceType.GetValueOrDefault() == 1).ToList();
+                        List<ProcessData.ProcessDataProperty> targetData = res.Where(p => p.SourceType.GetValueOrDefault() == 2).ToList();
+
                         if (FunctionID == 1)
                         {
-                            int sum = res.Sum(x => Convert.ToInt32(x.AttributeValueSum)); // get Sum here
+                            int sum = processData.Sum(x => Convert.ToInt32(x.AttributeValueSum)); // get Sum here
                                                                                           // add attributename,value, unitname in list to display it in summary table
-                            summaryResult.Add(new SummaryDetail() { AttributeName = AttributeName, AttributeValueResult = Convert.ToString(sum), UnitName = unitName });
+                            int targetSum = targetData.Sum(x => Convert.ToInt32(x.AttributeValueSum));
+                            summaryResult.Add(new SummaryDetail() { AttributeName = AttributeName, AttributeValueResult = Convert.ToString(sum),
+                                UnitName = unitName, TargetValue= Convert.ToString(targetSum), TargetUnitName= unitName
+                            });
                         }
 
                         if (FunctionID == 2)
                         {
-                            double average = res.Average(x => Convert.ToInt32(x.AttributeValueSum)); // get Average here
-                                                                                                     // add attributename,value, unitname in list to display it in summary table
-                            summaryResult.Add(new SummaryDetail() { AttributeName = AttributeName, AttributeValueResult = String.Format("{0:0.00}", average), UnitName = unitName });
+                            double average = processData.Average(x => Convert.ToInt32(x.AttributeValueSum)); // get Average here
+                            double targetAverage = targetData.Average(x => Convert.ToInt32(x.AttributeValueSum));
+                            summaryResult.Add(new SummaryDetail() { AttributeName = AttributeName, AttributeValueResult = String.Format("{0:0.00}", average),
+                                UnitName = unitName,
+                                TargetValue = String.Format("{0:0.00}", targetAverage),
+                                TargetUnitName = unitName
+                            });
                         }
 
                         if (FunctionID == 3)
@@ -2599,21 +2611,34 @@ public partial class ManageReport : BasePage
                             }
                             //int total = Convert.ToInt32(median); // get median here
                             // add attributename,value, unitname in list to display it in summary table
-                            summaryResult.Add(new SummaryDetail() { AttributeName = AttributeName, AttributeValueResult = String.Format("{0:0.00}", median), UnitName = unitName });
+                            summaryResult.Add(new SummaryDetail() { AttributeName = AttributeName,
+                                AttributeValueResult = String.Format("{0:0.00}", median),
+                                UnitName = unitName , TargetValue = String.Format("{0:0.00}", median),
+                                  TargetUnitName=unitName });
                         }
 
                         if (FunctionID == 4)
                         {
-                            int total = res.Min(x => Convert.ToInt32(x.AttributeValueSum)); // get min here
-                                                                                            // add attributename,value, unitname in list to display it in summary table
-                            summaryResult.Add(new SummaryDetail() { AttributeName = AttributeName, AttributeValueResult = Convert.ToString(total), UnitName = unitName });
+                            int total = processData.Min(x => Convert.ToInt32(x.AttributeValueSum)); // get min here
+                            int targetTotal = targetData.Min(x => Convert.ToInt32(x.AttributeValueSum));
+                            summaryResult.Add(new SummaryDetail() { AttributeName = AttributeName,
+                                AttributeValueResult = Convert.ToString(total),
+                                UnitName = unitName,
+                                 TargetValue = Convert.ToString(targetTotal),
+                                  TargetUnitName=unitName
+                            });
                         }
 
                         if (FunctionID == 5)
                         {
-                            int total = res.Max(x => Convert.ToInt32(x.AttributeValueSum)); // get max here
-                                                                                            // add attributename,value, unitname in list to display it in summary table
-                            summaryResult.Add(new SummaryDetail() { AttributeName = AttributeName, AttributeValueResult = Convert.ToString(total), UnitName = unitName });
+                            int total = processData.Max(x => Convert.ToInt32(x.AttributeValueSum)); // get max here
+                            int targetTotal = targetData.Max(x => Convert.ToInt32(x.AttributeValueSum));
+                            summaryResult.Add(new SummaryDetail() { AttributeName = AttributeName,
+                                AttributeValueResult = Convert.ToString(total),
+                                UnitName = unitName,
+                                TargetValue = Convert.ToString(targetTotal),
+                                TargetUnitName = unitName
+                            });
                         }
 
                         if (FunctionID == 6)
@@ -2636,14 +2661,16 @@ public partial class ManageReport : BasePage
                                 ret = Math.Sqrt(sum / count); // ret is result for standard deviation formula
                                                               //int total = Convert.ToInt32(ret);
                                                               // add attributename,value, unitname in list to display it in summary table
-                                summaryResult.Add(new SummaryDetail() { AttributeName = AttributeName, AttributeValueResult = String.Format("{0:0.00}", ret), UnitName = unitName });
+                                summaryResult.Add(new SummaryDetail() { AttributeName = AttributeName,
+                                    AttributeValueResult = String.Format("{0:0.00}", ret),
+                                    UnitName = unitName,
+                                     TargetValue= String.Format("{0:0.00}", ret),
+                                     TargetUnitName =unitName
+                                    });
                             }
                         }
                     }
-                }
-
-             
-
+                } 
 
             }
 
@@ -2657,5 +2684,7 @@ public partial class ManageReport : BasePage
         // public int AttributeValueResult { get; set; }
         public string AttributeValueResult { get; set; }
         public string UnitName { get; set; }
+        public string TargetValue { get; set; }
+        public string TargetUnitName { get; set; }
     }
 }

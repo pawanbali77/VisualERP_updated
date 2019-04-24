@@ -792,7 +792,7 @@ public partial class ProcessManager : System.Web.UI.Page
         bool result = false;
         result = ProcessData.SaveProcessObject(ProcessObj);
         VisualERPDataContext ObjData = new VisualERPDataContext();
-        ObjData.SP_BulkInsertAttribute(this.CInt32(ViewState["ProcessObjID"]), ProcessId);
+        ObjData.SP_BulkInsertAttribute(this.CInt32(ViewState["ProcessObjID"]), ProcessId,1);
         if (result == true)
         {
             lst.Clear();

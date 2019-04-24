@@ -1883,7 +1883,7 @@ public partial class Production : System.Web.UI.Page
         bool result = false;
         result = ProcessData.SaveParallelProcessObject(ProcessObj);
         VisualERPDataContext ObjData = new VisualERPDataContext();
-        ObjData.SP_BulkInsertAttribute(this.CInt32(ViewState["ProcessObjID"]), ProcessId);
+        ObjData.SP_BulkInsertAttribute(this.CInt32(ViewState["ProcessObjID"]), ProcessId,1);
         if (result == true)
         {
             bool resultFrom = false;
@@ -1959,7 +1959,7 @@ public partial class Production : System.Web.UI.Page
         bool result = false;
         result = TargetData.SaveParallelProcessObject(ProcessObj);
         VisualERPDataContext ObjData = new VisualERPDataContext();
-        ObjData.SP_BulkInsertAttribute(this.CInt32(ViewState["TargetObjID"]), ProcessId);
+        ObjData.SP_BulkInsertAttribute(this.CInt32(ViewState["TargetObjID"]), ProcessId,2);
         if (result == true)
         {
             bool resultFrom = false;
@@ -2533,7 +2533,7 @@ public partial class Production : System.Web.UI.Page
 
 
         VisualERPDataContext ObjData = new VisualERPDataContext();
-        ObjData.SP_BulkInsertAttribute(this.CInt32(ViewState["ProcessObjID"]), ProcessId);
+        ObjData.SP_BulkInsertAttribute(this.CInt32(ViewState["ProcessObjID"]), ProcessId, 1);
         if (result == true)
         {
             lst.Clear();
@@ -2582,7 +2582,7 @@ public partial class Production : System.Web.UI.Page
 
 
         VisualERPDataContext ObjData = new VisualERPDataContext();
-        ObjData.SP_BulkInsertAttribute(this.CInt32(ViewState["TargetObjID"]), ProcessId);
+        ObjData.SP_BulkInsertAttribute(this.CInt32(ViewState["TargetObjID"]), ProcessId,2);
         if (result == true)
         {
             lst.Clear();

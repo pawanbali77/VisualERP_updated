@@ -644,6 +644,7 @@ public class ProcessData
 
         public int? UserID { get; set; }
         public string ProcessObjIdsCollection { get; set; }
+        public int? SourceType { get; set; }
 
     }
 
@@ -1335,6 +1336,45 @@ public class ProcessData
         var qry = (from x in ObjData.tbl_AttributesMenus
                    join y in ObjData.tbl_Units on x.UnitID equals y.UnitID
                    where x.ProcessID == processId && x.AttributeName == AttributeName && y.UnitName == unitname
+                   &&(x.SourceType==null || x.SourceType==1)
+                   select new ProcessDataProperty
+                   {
+                       AttributeName = x.AttributeName,
+                       AttributeValueSum = Convert.ToInt32(x.AttributeValue),
+                       UnitName = y.UnitName,
+                       ProcessID = x.ProcessID
+                   }).ToList();
+
+        return qry.OrderBy(x => x.GetType().GetProperty(SortBy).GetValue(x, null)).ToList();
+
+    }
+
+    public static List<ProcessDataProperty> GetProcessAttributeValue(bool inAsc, string SortBy, int processId, string AttributeName, string unitname)
+    {
+        VisualERPDataContext ObjData = new VisualERPDataContext();
+        var qry = (from x in ObjData.tbl_AttributesMenus
+                   join y in ObjData.tbl_Units on x.UnitID equals y.UnitID
+                   where x.ProcessID == processId && x.AttributeName == AttributeName && y.UnitName == unitname
+                   select new ProcessDataProperty
+                   {
+                       AttributeName = x.AttributeName,
+                       AttributeValueSum = Convert.ToInt32(x.AttributeValue),
+                       UnitName = y.UnitName,
+                       ProcessID = x.ProcessID,
+                        SourceType =x.SourceType?? 1
+                     
+                   }).ToList();
+
+        return qry.OrderBy(x => x.GetType().GetProperty(SortBy).GetValue(x, null)).ToList();
+
+    }
+
+    public static List<ProcessDataProperty> GetTargetAttributeValue(bool inAsc, string SortBy, int processId, string AttributeName, string unitname)
+    {
+        VisualERPDataContext ObjData = new VisualERPDataContext();
+        var qry = (from x in ObjData.tbl_AttributesMenus
+                   join y in ObjData.tbl_Units on x.UnitID equals y.UnitID
+                   where x.ProcessID == processId && x.AttributeName == AttributeName && y.UnitName == unitname
                    select new ProcessDataProperty
                    {
                        AttributeName = x.AttributeName,
@@ -1387,7 +1427,7 @@ public class ProcessData
 
         var qry1 = (from x in ObjData.tbl_AttributesMenus
                     join y in ObjData.tbl_Units on x.UnitID equals y.UnitID
-                    where x.ProcessID == processId
+                    where x.ProcessID == processId &&  (x.SourceType==null || x.SourceType==1)
                     group new { x, y } by new { x.AttributeName, x.AttributeValue, y.UnitName } into g
                     select new ProcessDataProperty
                     {
@@ -1408,6 +1448,45 @@ public class ProcessData
 
         return query.OrderBy(x => x.GetType().GetProperty(SortBy).GetValue(x, null)).ToList();
        // return query.ToList();
+
+    }
+
+
+    public static List<ProcessDataProperty> GetSummaryTableRecordForTargetValueGapReport(bool inAsc, string SortBy, int processId)
+    {
+        VisualERPDataContext ObjData = new VisualERPDataContext();
+        var qry = (from x in ObjData.tbl_SummaryDatas
+                   where x.ProcessID == processId
+                   select new ProcessDataProperty
+                   {
+                       AttributeName = x.AttributeName,
+                       FunctionID = x.FunctionName
+                   }).Distinct().ToList();
+
+        var qry1 = (from x in ObjData.tbl_AttributesMenus
+                    join y in ObjData.tbl_Units on x.UnitID equals y.UnitID
+                    where x.ProcessID == processId
+                   group new { x, y } by new { x.AttributeName, x.AttributeValue, y.UnitName } into g
+                    select new ProcessDataProperty
+                    {
+                        AttributeName = g.Key.AttributeName,
+                        //AttributeValueSum = (ObjData.tbl_AttributesMenus.Where(a => a.ProcessID == processId && a.AttributeName == g.Key.AttributeName).Sum(a => Convert.ToInt32(a.AttributeValue))),
+                        UnitName = g.Key.UnitName  
+                       
+                    }).Distinct().ToList();
+
+        var query = (from c in qry1
+                     join p in qry on c.AttributeName equals p.AttributeName into ps
+                     from subpet in ps.DefaultIfEmpty()
+                     select new ProcessDataProperty
+                     {
+                         AttributeName = c.AttributeName,
+                         FunctionID = (subpet == null ? 0 : subpet.FunctionID),
+                         UnitName = c.UnitName 
+                     }).OrderBy(a => a.AttributeName).ToList();
+
+        return query.OrderBy(x => x.GetType().GetProperty(SortBy).GetValue(x, null)).ToList();
+        // return query.ToList();
 
     }
 

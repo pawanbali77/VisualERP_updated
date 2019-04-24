@@ -21,7 +21,7 @@ using System.Reflection;
 
 
 
-[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="NewVisualERP_Local")]
+[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="NewVisualERP")]
 public partial class VisualERPDataContext : System.Data.Linq.DataContext
 {
 	
@@ -640,13 +640,6 @@ public partial class VisualERPDataContext : System.Data.Linq.DataContext
 		return ((int)(result.ReturnValue));
 	}
 	
-	[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_BulkInsertAttribute")]
-	public int SP_BulkInsertAttribute([global::System.Data.Linq.Mapping.ParameterAttribute(Name="ProcessObjectID", DbType="Int")] System.Nullable<int> processObjectID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="ProcessID", DbType="Int")] System.Nullable<int> processID)
-	{
-		IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), processObjectID, processID);
-		return ((int)(result.ReturnValue));
-	}
-	
 	[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_CopyInsertBomProcess")]
 	public int SP_CopyInsertBomProcess([global::System.Data.Linq.Mapping.ParameterAttribute(Name="SeletedBomProcessId", DbType="Int")] System.Nullable<int> seletedBomProcessId, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="CurrentBomProcessId", DbType="Int")] System.Nullable<int> currentBomProcessId)
 	{
@@ -658,6 +651,13 @@ public partial class VisualERPDataContext : System.Data.Linq.DataContext
 	public string udf_PutSpacesBetweenChars([global::System.Data.Linq.Mapping.ParameterAttribute(Name="String", DbType="VarChar(100)")] string @string)
 	{
 		return ((string)(this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), @string).ReturnValue));
+	}
+	
+	[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_BulkInsertAttribute")]
+	public int SP_BulkInsertAttribute([global::System.Data.Linq.Mapping.ParameterAttribute(Name="ProcessObjectID", DbType="Int")] System.Nullable<int> processObjectID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="ProcessID", DbType="Int")] System.Nullable<int> processID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="SourceType", DbType="Int")] System.Nullable<int> sourceType)
+	{
+		IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), processObjectID, processID, sourceType);
+		return ((int)(result.ReturnValue));
 	}
 }
 
@@ -9288,7 +9288,7 @@ public partial class tbl_Target : INotifyPropertyChanging, INotifyPropertyChange
 	}
 }
 
-[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.tbl_TargetObject")]
+[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.tbl_TargetObjects")]
 public partial class tbl_TargetObject : INotifyPropertyChanging, INotifyPropertyChanged
 {
 	
