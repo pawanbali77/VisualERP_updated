@@ -1013,13 +1013,15 @@ public partial class ManageReport : BasePage
                 {
                     prefix = "tab0.AttributeName";
                     middle = ",tab0.AttributeValue as [" + actName + "]";
-                    postfix = " from (SELECT AttributeName,AttributeValue FROM [NewVisualERP].[dbo].[tbl_AttributesMenu] where ProcessObjectID ='" + actID.ToString() + "') as tab0";
+                    //postfix = " from (SELECT AttributeName,AttributeValue FROM [NewVisualERP].[dbo].[tbl_AttributesMenu] where ProcessObjectID ='" + actID.ToString() + "') as tab0";
+                    postfix = " from (SELECT AttributeName,AttributeValue FROM tbl_AttributesMenu where ProcessObjectID ='" + actID.ToString() + "') as tab0";
                 }
                 else
                 {
                     prefix = "ISNULL(" + prefix + ",tab" + i.ToString() + ".AttributeName)";
                     middle += ",tab" + i + ".AttributeValue as [" + actName + "]";
-                    postfix += " FULL OUTER JOIN (SELECT AttributeName,AttributeValue FROM [NewVisualERP].[dbo].[tbl_AttributesMenu] where ProcessObjectID ='" + actID.ToString() + "') as tab" + i.ToString() + " on tab0.AttributeName = tab" + i + ".AttributeName";
+                    //postfix += " FULL OUTER JOIN (SELECT AttributeName,AttributeValue FROM [NewVisualERP].[dbo].[tbl_AttributesMenu] where ProcessObjectID ='" + actID.ToString() + "') as tab" + i.ToString() + " on tab0.AttributeName = tab" + i + ".AttributeName";
+                    postfix += " FULL OUTER JOIN (SELECT AttributeName,AttributeValue FROM tbl_AttributesMenu where ProcessObjectID ='" + actID.ToString() + "') as tab" + i.ToString() + " on tab0.AttributeName = tab" + i + ".AttributeName";
                 }
             }
 
@@ -2213,11 +2215,11 @@ public partial class ManageReport : BasePage
                     dt.Rows.Add(row); // datatable row has been created here 
                 }
             }
-            if (reporttyp == 7 ) //Session["CurrentReport"] will have current report type 1 for Machine
+            if (reporttyp == 7) //Session["CurrentReport"] will have current report type 1 for Machine
             {
                 //int ESAtype = 0;
-                
-                    excelReportName = "Target Value Gap";
+
+                excelReportName = "Target Value Gap";
                 //  ESAtype = Convert.ToInt32(FormType.PPESA);
 
 
@@ -2252,14 +2254,14 @@ public partial class ManageReport : BasePage
                 foreach (SummaryDetail prop in ESAProcessData)
                 {
                     DataRow row = dt.NewRow();
-                     count += 1;
-                     row["S No."] = count;
+                    count += 1;
+                    row["S No."] = count;
                     row["Attribute"] = prop.AttributeName;
                     row["Value"] = prop.AttributeValueResult;
                     row["Unit"] = prop.UnitName;
                     row["Target Value"] = prop.TargetValue;
                     row["Target Unit"] = prop.TargetUnitName;
-                    
+
                     dt.Rows.Add(row); // datatable row has been created here 
                 }
             }
