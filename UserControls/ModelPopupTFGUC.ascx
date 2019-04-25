@@ -168,7 +168,7 @@
                                     <td>
                                         <%--<asp:TextBox ID="txtCaliDate" runat="server" CssClass="AttrTxtFild"></asp:TextBox>--%>
                                         <asp:TextBox ID="txtCaliDate" runat="server" CssClass="AttrTxtFild" autocomplete="off"></asp:TextBox>
-                                        <asp:CalendarExtender ID="Cal1" runat="server" Format="dd/MM/yyyy" TargetControlID="txtCaliDate">
+                                        <asp:CalendarExtender ID="Cal1" runat="server" Format="MM/dd/yyyy" TargetControlID="txtCaliDate">
                                         </asp:CalendarExtender>
                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator8" runat="server" InitialValue=""
                                             ValidationGroup="addTFG" ControlToValidate="txtCaliDate" ErrorMessage="*" ForeColor="Red">
