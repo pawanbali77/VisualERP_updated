@@ -48,15 +48,15 @@
                                 ForeColor="Red" Text="*">
                             </asp:RequiredFieldValidator>
                             
-                            <%--<asp:RegularExpressionValidator ID="RegularExpressionValidator2" Style="width: 100%;"
+                            <asp:RegularExpressionValidator ID="RegularExpressionValidator2" Style="width: 100%;"
                                         Display="Dynamic" ValidationExpression="^[0-9]{1,100}$" runat="server"
                                         ErrorMessage="Only numeric allowed" ValidationGroup="addInputLink" ControlToValidate="txtLinkValue"
-                                        ForeColor="Red"></asp:RegularExpressionValidator>--%>
+                                        ForeColor="Red"></asp:RegularExpressionValidator>
 
-                            <asp:CompareValidator ID="CompareValidator1" 
+                         <%--   <asp:CompareValidator ID="CompareValidator1" 
                                  Operator="DataTypeCheck"   Display="Dynamic" Style="width: 100%;"
                                  ControlToValidate="txtLinkValue" Type="Integer" ErrorMessage="Only numeric allowed"
-                                runat="server" ValidationGroup="addInputLink" ></asp:CompareValidator>
+                                runat="server" ValidationGroup="addInputLink" ></asp:CompareValidator>--%>
                         </li>
                         <li>
                             <label>
