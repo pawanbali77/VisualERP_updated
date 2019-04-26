@@ -63,55 +63,90 @@ public partial class UserControls_ModelPopupActivity : System.Web.UI.UserControl
 
     public void AddAttribute()
     {
-        if (Activity.GetDuplicateCheck(txtActivityName.Text.Trim(), Convert.ToInt32(ViewState["poId"])))
+        if (Activity.GetDuplicateCheck(txtActivityName.Text.Trim(), Convert.ToInt32(ViewState["poId"]), SourceType))
         {
             MasterPage mstr = this.Parent.Page.Master as MasterPage;
             TreeView mastertreeview = (TreeView)mstr.FindControl("TreeView1");
             if (mastertreeview.SelectedNode != null)
                 ProcessId = this.CInt32(mastertreeview.SelectedNode.Value);
-            tbl_ProcessObject processObj = new tbl_ProcessObject();
-            processObj.ProcessObjName = txtActivityName.Text.Trim();
 
-            //int ProcessObjId = 0;
-            // ProcessObjId = ProcessData.GetMaxProcessObjId(ProcessId);
-            // ViewState["ProcessObjID"] = ProcessObjId;
-            if (Convert.ToInt32(ViewState["poId"]) > -1)
+            if(SourceType==2)
             {
-                processObj.ProcessObjID = Convert.ToInt32(ViewState["poId"]);
-            }
-            // AttributeTbl.ProcessObjectID = this.CInt32(ViewState["ProcessObjID"]);
+                tbl_TargetObject targetObj = new tbl_TargetObject();
+                targetObj.TargetObjName = txtActivityName.Text.Trim();
 
-            processObj.ProcessID = ProcessId;
-            processObj.CreatedDate = DateTime.Now;
 
-            if (this.EditIDINT > 0)
-            {
-                processObj.ModifiedDate = DateTime.Now;
-            }
+                if (Convert.ToInt32(ViewState["poId"]) > -1)
+                {
+                    targetObj.TargetObjID = Convert.ToInt32(ViewState["poId"]);
+                }
 
-            bool result = false;
-            result = Activity.UpdateActivityName(processObj);
 
-            if (result == true)
-            {
-                //string script = "alert(\"Saved successfully!\");";
-                //ScriptManager.RegisterStartupScript(this, this.GetType(),
-                //              "ServerControlScript", script, true);
-                lblMsg.Visible = true;
-                lblMsg.Text = "Activity renamed successfully!";
-                lblMsg.CssClass = "msgSucess";
+                targetObj.TargetID = ProcessId;
+                targetObj.CreatedDate = DateTime.Now;
 
+                if (this.EditIDINT > 0)
+                {
+                    targetObj.ModifiedDate = DateTime.Now;
+                }
+
+                bool result = false;
+                result = Activity.UpdateTargetActivityName(targetObj);
+
+                if (result == true)
+                {
+
+                    lblMsg.Visible = true;
+                    lblMsg.Text = "Activity renamed successfully!";
+                    lblMsg.CssClass = "msgSucess";
+
+                }
+                else
+                {
+                    lblMsg.Text = "Error on saving data.!";
+                    lblMsg.CssClass = "msgError";
+                    lblMsg.Visible = true;
+                }
             }
             else
             {
+                tbl_ProcessObject processObj = new tbl_ProcessObject();
+                processObj.ProcessObjName = txtActivityName.Text.Trim();
 
-                //string script = "alert(\"Error on saving data.!\");";
-                //ScriptManager.RegisterStartupScript(this, this.GetType(),
-                //              "ServerControlScript", script, true);
-                lblMsg.Text = "Error on saving data.!";
-                lblMsg.CssClass = "msgError";
-                lblMsg.Visible = true;
+
+                if (Convert.ToInt32(ViewState["poId"]) > -1)
+                {
+                    processObj.ProcessObjID = Convert.ToInt32(ViewState["poId"]);
+                }
+
+
+                processObj.ProcessID = ProcessId;
+                processObj.CreatedDate = DateTime.Now;
+
+                if (this.EditIDINT > 0)
+                {
+                    processObj.ModifiedDate = DateTime.Now;
+                }
+
+                bool result = false;
+                result = Activity.UpdateActivityName(processObj);
+
+                if (result == true)
+                {
+
+                    lblMsg.Visible = true;
+                    lblMsg.Text = "Activity renamed successfully!";
+                    lblMsg.CssClass = "msgSucess";
+
+                }
+                else
+                {
+                    lblMsg.Text = "Error on saving data.!";
+                    lblMsg.CssClass = "msgError";
+                    lblMsg.Visible = true;
+                }
             }
+           
         }
         else
         {

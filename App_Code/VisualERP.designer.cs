@@ -627,12 +627,6 @@ public partial class VisualERPDataContext : System.Data.Linq.DataContext
 		return ((int)(result.ReturnValue));
 	}
 	
-	[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.DeleteTargetObjDataByID", IsComposable=true)]
-	public object DeleteTargetObjDataByID([global::System.Data.Linq.Mapping.ParameterAttribute(Name="TargetObjID", DbType="Int")] System.Nullable<int> targetObjID)
-	{
-		return ((object)(this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), targetObjID).ReturnValue));
-	}
-	
 	[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.DeleteTFGDataByID")]
 	public int DeleteTFGDataByID([global::System.Data.Linq.Mapping.ParameterAttribute(Name="TFGID", DbType="Int")] System.Nullable<int> tFGID)
 	{
@@ -657,6 +651,13 @@ public partial class VisualERPDataContext : System.Data.Linq.DataContext
 	public int SP_BulkInsertAttribute([global::System.Data.Linq.Mapping.ParameterAttribute(Name="ProcessObjectID", DbType="Int")] System.Nullable<int> processObjectID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="ProcessID", DbType="Int")] System.Nullable<int> processID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="SourceType", DbType="Int")] System.Nullable<int> sourceType)
 	{
 		IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), processObjectID, processID, sourceType);
+		return ((int)(result.ReturnValue));
+	}
+	
+	[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.DeleteTargetObjDataByID")]
+	public int DeleteTargetObjDataByID([global::System.Data.Linq.Mapping.ParameterAttribute(Name="TargetObjID", DbType="Int")] System.Nullable<int> targetObjID)
+	{
+		IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), targetObjID);
 		return ((int)(result.ReturnValue));
 	}
 }

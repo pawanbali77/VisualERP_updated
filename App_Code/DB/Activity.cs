@@ -42,21 +42,34 @@ public class Activity
     /// <param name="Attributename">Attributename hold the Attribute name user entered in textbox</param>
     /// <param name="Attributeid">Attributeid hold Attribute id from base page</param>
     /// <returns>return tru and false </returns>
-    public static bool GetDuplicateCheck(string ProcessObjName, int ProcessObjID)
+    public static bool GetDuplicateCheck(string ProcessObjName, int ProcessObjID, int sourceType=1)
     {
         VisualERPDataContext ObjData = new VisualERPDataContext();
         //countcountry will get AttributeName from table tbl_AttributesMenus on behalf of AttributeName
-        var ActivityRecord = (from c in ObjData.tbl_ProcessObjects
-                              where c.ProcessObjName.ToLower() == ProcessObjName.ToLower()
-                             && c.ProcessObjID == ProcessObjID
-                              select c).ToList();
-        if (ActivityRecord.Count > 0)
+
+        if (sourceType == 2)
         {
-            return false;
+            var ActivityRecord = (from c in ObjData.tbl_TargetObjects
+                                  where c.TargetObjName.ToLower() == ProcessObjName.ToLower()
+                                 && c.TargetObjID == ProcessObjID
+                                  select c).ToList();
+            return ActivityRecord.Count > 0 ? false : true;
+             
         }
         else
         {
-            return true;
+            var ActivityRecord = (from c in ObjData.tbl_ProcessObjects
+                                  where c.ProcessObjName.ToLower() == ProcessObjName.ToLower()
+                                 && c.ProcessObjID == ProcessObjID
+                                  select c).ToList();
+            if (ActivityRecord.Count > 0)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
     }
 
@@ -74,6 +87,33 @@ public class Activity
         else
         {
             qry.ProcessObjName = data.ProcessObjName;
+        }
+        try
+        {
+            ObjData.SubmitChanges();
+
+            return true;
+        }
+        catch
+        {
+
+        }
+        return false;
+    }
+    public static bool UpdateTargetActivityName(tbl_TargetObject data)
+    {
+        VisualERPDataContext ObjData = new VisualERPDataContext();
+        var qry = (from x in ObjData.tbl_TargetObjects 
+                   where x.TargetObjID == data.TargetObjID
+                   select x).FirstOrDefault();
+
+        if (qry == null)
+        {
+            //ObjData.tbl_AttributesMenus.InsertOnSubmit(AttributeData);
+        }
+        else
+        {
+            qry.TargetObjName = data.TargetObjName;
         }
         try
         {

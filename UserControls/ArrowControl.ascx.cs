@@ -19,6 +19,14 @@ public partial class UserControls_ArrowControl : System.Web.UI.UserControl
     //private string _Title;
 
     // Control's Unique Database Id
+    private int _sourceTypeID = 1;
+    [BrowsableAttribute(true)]
+    public int SourceType
+    {
+        get { return _sourceTypeID; }
+        set { _sourceTypeID = value; }
+    }
+
     [BrowsableAttribute(true)]
     public int ProcessObjectId
     {
@@ -83,7 +91,7 @@ public partial class UserControls_ArrowControl : System.Web.UI.UserControl
     {
         string absolutepath = Request.Url.AbsolutePath;
         string returnurl = absolutepath.Substring(absolutepath.LastIndexOf('/') + 1);
-        if ((returnurl == "ProcessManager.aspx") || (returnurl == "EnterPriseManager.aspx"))
+        if ((returnurl == "ProcessManager.aspx") || (returnurl == "TargetManager.aspx") || (returnurl == "EnterPriseManager.aspx"))
         {
             lnkbtnDeleteArrowControl.Enabled = false;
             lnkbtnDeleteArrowControl.Style.Add("cursor", " default!important");

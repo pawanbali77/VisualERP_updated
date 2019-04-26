@@ -1561,10 +1561,17 @@ public partial class Production : System.Web.UI.Page
     /// <returns></returns>
     public int InsertControlData(int type, string title, int sourceType=1)
     {
+        string src = Request.QueryString["src"];
+        int srcType = 1;
+        if (!string.IsNullOrEmpty(src) && src == "tgt")
+        {
+            srcType = 2;
+        }
+
         int InsertedID = 0; // output primary key id 
         VisualERPDataContext ObjData = new VisualERPDataContext();
 
-        if (sourceType == 1)
+        if (srcType == 1)
         {
             tbl_ProcessObject controldata = new tbl_ProcessObject();
             //controldata.ProcessObjID = id;
@@ -1583,7 +1590,7 @@ public partial class Production : System.Web.UI.Page
             {
             }
         }
-        if (sourceType == 2)
+        if (srcType == 2)
         {
             tbl_TargetObject controldata = new tbl_TargetObject();
             //controldata.ProcessObjID = id;
@@ -2355,7 +2362,16 @@ public partial class Production : System.Web.UI.Page
     /// <param name="title">title if yes</param>
     public void ArrowControlAdd(string id, int InsertedID, int type, string title)
     {
-        UserControls_ArrowControl arrowControl = LoadControl("UserControls/ArrowControl.ascx") as UserControls_ArrowControl;
+
+        string src = Request.QueryString["src"];
+        int sourceType = 1;
+        if (!string.IsNullOrEmpty(src) && src == "tgt")
+        {
+            sourceType = 2;
+        }
+        
+            UserControls_ArrowControl arrowControl = LoadControl("UserControls/ArrowControl.ascx") as UserControls_ArrowControl;
+        arrowControl.SourceType = sourceType;
         arrowControl.ControlId = id.Replace("d", "a");
         arrowControl.Type = type;
         arrowControl.ProcessObjectId = InsertedID;

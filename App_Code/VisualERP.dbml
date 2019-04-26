@@ -592,10 +592,6 @@
     <Parameter Name="ProcessObjectID" Parameter="processObjectID" Type="System.Int32" DbType="Int" />
     <Return Type="System.Int32" />
   </Function>
-  <Function Name="dbo.DeleteTargetObjDataByID" Method="DeleteTargetObjDataByID" IsComposable="true">
-    <Parameter Name="TargetObjID" Parameter="targetObjID" Type="System.Int32" DbType="Int" />
-    <Return Type="object" />
-  </Function>
   <Function Name="dbo.DeleteTFGDataByID" Method="DeleteTFGDataByID">
     <Parameter Name="TFGID" Parameter="tFGID" Type="System.Int32" DbType="Int" />
     <Return Type="System.Int32" />
@@ -613,6 +609,10 @@
     <Parameter Name="ProcessObjectID" Parameter="processObjectID" Type="System.Int32" DbType="Int" />
     <Parameter Name="ProcessID" Parameter="processID" Type="System.Int32" DbType="Int" />
     <Parameter Name="SourceType" Parameter="sourceType" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.DeleteTargetObjDataByID" Method="DeleteTargetObjDataByID">
+    <Parameter Name="TargetObjID" Parameter="targetObjID" Type="System.Int32" DbType="Int" />
     <Return Type="System.Int32" />
   </Function>
 </Database>
