@@ -317,7 +317,7 @@
 
               <div class="header_right">
                     <ul>
-                        <li id="menu_Process" runat="server"><a href="MyProcess.aspx" class="enterprize_manager"> My Process</a></li>
+                        <li id="menu_Process" runat="server"><a href="MyProcess.aspx" class="enterprize_manager"> My Org</a></li>
            <%--              <li id="menu_AllUsers" runat="server"><a href="First_Dashboard.aspx" class="enterprize_manager">Users</a></li>
                           <li id="menu_UserRegister" runat="server"><a href="UserRegistration.aspx" class="process_manager" id="UserRegistration">User Registration</a></li>--%>
                         <li><a href="Logout.aspx" class="enterprize_manager">Logout</a></li>
