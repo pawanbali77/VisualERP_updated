@@ -53,10 +53,16 @@
                                         ValidationGroup="addValue" ControlToValidate="txtAttrivalue" ErrorMessage="Please enter attribute value"
                                         ForeColor="Red" Text="*">
                                     </asp:RequiredFieldValidator>
-                                     <asp:RegularExpressionValidator ID="RegularExpressionValidator1" Style="width: 100%;"
+                                    <%-- <asp:RegularExpressionValidator ID="RegularExpressionValidator1" Style="width: 100%;"
                                         Display="Dynamic" ValidationExpression="^[a-zA-Z0-9\s]{1,100}$" runat="server"
                                         ErrorMessage="Special symbols not allowed" ValidationGroup="addValue" ControlToValidate="txtAttrivalue"
-                                        ForeColor="Red"></asp:RegularExpressionValidator>
+                                        ForeColor="Red"></asp:RegularExpressionValidator>--%>
+
+                                      <asp:CompareValidator ID="CompareValidator1" 
+                                 Operator="DataTypeCheck"   Display="Dynamic" Style="width: 100%;" ForeColor="Red"
+                                 ControlToValidate="txtAttrivalue" Type="Integer" ErrorMessage="Only numeric allowed"
+                                runat="server" ValidationGroup="addValue" ></asp:CompareValidator>
+
                                 </li>
                                 <li>
                                     <label>

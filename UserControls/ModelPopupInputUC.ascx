@@ -47,10 +47,16 @@
                                 ValidationGroup="addInputLink" ControlToValidate="txtLinkValue" ErrorMessage="Please enter the link value"
                                 ForeColor="Red" Text="*">
                             </asp:RequiredFieldValidator>
-                            <asp:RegularExpressionValidator ID="RegularExpressionValidator2" Style="width: 100%;"
-                                        Display="Dynamic" ValidationExpression="^[a-zA-Z0-9\s]{1,100}$" runat="server"
-                                        ErrorMessage="Special symbols not allowed" ValidationGroup="addInputLink" ControlToValidate="txtLinkValue"
-                                        ForeColor="Red"></asp:RegularExpressionValidator>
+                            
+                            <%--<asp:RegularExpressionValidator ID="RegularExpressionValidator2" Style="width: 100%;"
+                                        Display="Dynamic" ValidationExpression="^[0-9]{1,100}$" runat="server"
+                                        ErrorMessage="Only numeric allowed" ValidationGroup="addInputLink" ControlToValidate="txtLinkValue"
+                                        ForeColor="Red"></asp:RegularExpressionValidator>--%>
+
+                            <asp:CompareValidator ID="CompareValidator1" 
+                                 Operator="DataTypeCheck"   Display="Dynamic" Style="width: 100%;"
+                                 ControlToValidate="txtLinkValue" Type="Integer" ErrorMessage="Only numeric allowed"
+                                runat="server" ValidationGroup="addInputLink" ></asp:CompareValidator>
                         </li>
                         <li>
                             <label>
