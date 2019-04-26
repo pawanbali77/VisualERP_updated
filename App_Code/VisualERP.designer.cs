@@ -149,7 +149,7 @@ public partial class VisualERPDataContext : System.Data.Linq.DataContext
   #endregion
 	
 	public VisualERPDataContext() : 
-			base(global::System.Configuration.ConfigurationManager.ConnectionStrings["NewVisualERP_LocalConnectionString"].ConnectionString, mappingSource)
+			base(global::System.Configuration.ConfigurationManager.ConnectionStrings["NewVisualERPConnectionString"].ConnectionString, mappingSource)
 	{
 		OnCreated();
 	}
@@ -627,10 +627,24 @@ public partial class VisualERPDataContext : System.Data.Linq.DataContext
 		return ((int)(result.ReturnValue));
 	}
 	
+	[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.DeleteTargetObjDataByID")]
+	public int DeleteTargetObjDataByID([global::System.Data.Linq.Mapping.ParameterAttribute(Name="TargetObjID", DbType="Int")] System.Nullable<int> targetObjID)
+	{
+		IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), targetObjID);
+		return ((int)(result.ReturnValue));
+	}
+	
 	[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.DeleteTFGDataByID")]
 	public int DeleteTFGDataByID([global::System.Data.Linq.Mapping.ParameterAttribute(Name="TFGID", DbType="Int")] System.Nullable<int> tFGID)
 	{
 		IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), tFGID);
+		return ((int)(result.ReturnValue));
+	}
+	
+	[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_BulkInsertAttribute")]
+	public int SP_BulkInsertAttribute([global::System.Data.Linq.Mapping.ParameterAttribute(Name="ProcessObjectID", DbType="Int")] System.Nullable<int> processObjectID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="ProcessID", DbType="Int")] System.Nullable<int> processID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="SourceType", DbType="Int")] System.Nullable<int> sourceType)
+	{
+		IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), processObjectID, processID, sourceType);
 		return ((int)(result.ReturnValue));
 	}
 	
@@ -645,20 +659,6 @@ public partial class VisualERPDataContext : System.Data.Linq.DataContext
 	public string udf_PutSpacesBetweenChars([global::System.Data.Linq.Mapping.ParameterAttribute(Name="String", DbType="VarChar(100)")] string @string)
 	{
 		return ((string)(this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), @string).ReturnValue));
-	}
-	
-	[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_BulkInsertAttribute")]
-	public int SP_BulkInsertAttribute([global::System.Data.Linq.Mapping.ParameterAttribute(Name="ProcessObjectID", DbType="Int")] System.Nullable<int> processObjectID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="ProcessID", DbType="Int")] System.Nullable<int> processID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="SourceType", DbType="Int")] System.Nullable<int> sourceType)
-	{
-		IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), processObjectID, processID, sourceType);
-		return ((int)(result.ReturnValue));
-	}
-	
-	[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.DeleteTargetObjDataByID")]
-	public int DeleteTargetObjDataByID([global::System.Data.Linq.Mapping.ParameterAttribute(Name="TargetObjID", DbType="Int")] System.Nullable<int> targetObjID)
-	{
-		IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), targetObjID);
-		return ((int)(result.ReturnValue));
 	}
 }
 

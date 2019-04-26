@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="NewVisualERP" Class="VisualERPDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="WebSettings" ConnectionString="Data Source=pawang\sqlexpress;Initial Catalog=NewVisualERP;Persist Security Info=True;User ID=sa" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="NewVisualERP_LocalConnectionString" Provider="System.Data.SqlClient" />
+  <Connection Mode="WebSettings" ConnectionString="Data Source=192.168.1.99,55321;Initial Catalog=NewVisualERP;User ID=dotnet_new" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="NewVisualERPConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.tbl_Assembly" Member="tbl_Assemblies">
     <Type Name="tbl_Assembly">
       <Column Name="AssemblyID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -456,7 +456,7 @@
       <Column Name="CompanyID" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </Type>
   </Table>
-  <Table Name="dbo.tbl_TargetObject" Member="tbl_TargetObjects">
+  <Table Name="dbo.tbl_TargetObjects" Member="tbl_TargetObjects">
     <Type Name="tbl_TargetObject">
       <Column Name="TargetObjID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="TargetObjName" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
@@ -592,8 +592,18 @@
     <Parameter Name="ProcessObjectID" Parameter="processObjectID" Type="System.Int32" DbType="Int" />
     <Return Type="System.Int32" />
   </Function>
+  <Function Name="dbo.DeleteTargetObjDataByID" Method="DeleteTargetObjDataByID">
+    <Parameter Name="TargetObjID" Parameter="targetObjID" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
   <Function Name="dbo.DeleteTFGDataByID" Method="DeleteTFGDataByID">
     <Parameter Name="TFGID" Parameter="tFGID" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SP_BulkInsertAttribute" Method="SP_BulkInsertAttribute">
+    <Parameter Name="ProcessObjectID" Parameter="processObjectID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="ProcessID" Parameter="processID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="SourceType" Parameter="sourceType" Type="System.Int32" DbType="Int" />
     <Return Type="System.Int32" />
   </Function>
   <Function Name="dbo.SP_CopyInsertBomProcess" Method="SP_CopyInsertBomProcess">
@@ -604,15 +614,5 @@
   <Function Name="dbo.udf_PutSpacesBetweenChars" Method="udf_PutSpacesBetweenChars" IsComposable="true">
     <Parameter Name="String" Parameter="string" Type="System.String" DbType="VarChar(100)" />
     <Return Type="System.String" />
-  </Function>
-  <Function Name="dbo.SP_BulkInsertAttribute" Method="SP_BulkInsertAttribute">
-    <Parameter Name="ProcessObjectID" Parameter="processObjectID" Type="System.Int32" DbType="Int" />
-    <Parameter Name="ProcessID" Parameter="processID" Type="System.Int32" DbType="Int" />
-    <Parameter Name="SourceType" Parameter="sourceType" Type="System.Int32" DbType="Int" />
-    <Return Type="System.Int32" />
-  </Function>
-  <Function Name="dbo.DeleteTargetObjDataByID" Method="DeleteTargetObjDataByID">
-    <Parameter Name="TargetObjID" Parameter="targetObjID" Type="System.Int32" DbType="Int" />
-    <Return Type="System.Int32" />
   </Function>
 </Database>
