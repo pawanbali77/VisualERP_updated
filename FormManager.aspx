@@ -935,7 +935,7 @@
                         OnRowCommand="grdErrorGrid_RowCommand"
                         AllowSorting="true">
                         <Columns>
-                            <asp:TemplateField HeaderText="Insert Row">
+                            <asp:TemplateField HeaderText="Insert Row"  ItemStyle-Width="5%">
                                <ItemTemplate>
                                     <div class="itemstyle">
                                         
@@ -944,7 +944,7 @@
                                     </div>
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Delete Row" ItemStyle-CssClass="GrayBg">
+                            <asp:TemplateField HeaderText="Delete Row"  ItemStyle-Width="5%" ItemStyle-CssClass="GrayBg">
                                 <ItemTemplate>
                                     <asp:Literal ID="litFormID" runat="server" Visible="false" Text='<%#Eval("ErrorID") %>' />
                                     <asp:Literal ID="litpoid" runat="server" Visible="false" Text='<%#Eval("ErrorID") %>' />
@@ -960,46 +960,50 @@
                                 </ItemTemplate>
                             </asp:TemplateField>
                            
-                            <asp:TemplateField HeaderText="Error" HeaderStyle-ForeColor="#43494F">
+                            <asp:TemplateField HeaderText="Error"  ItemStyle-Width="50%" HeaderStyle-ForeColor="#43494F">
                                 <ItemTemplate>
-                                    <div class="itemstyle">
+                                   
                                         <asp:TextBox ID="txtError" runat="server" Text='<%# Eval("Error") %>'
-                                            CssClass="AttrTxtFildExcel" Style="width: 200px; margin-right: 0px;" />
-                                    </div>
+                                            CssClass="AttrTxtFildExcel"  style="width:100%"
+                                             />
+                                    
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Cycle Time" HeaderStyle-ForeColor="#43494F">
+                            <asp:TemplateField HeaderText="Cycle Time"  ItemStyle-Width="5%" HeaderStyle-ForeColor="#43494F">
                                 <ItemTemplate>
-                                    <div class="itemstyle">
+                                     
                                         <asp:TextBox ID="txtCycleTime" runat="server" Text='<%# Eval("CycleTime") %>'
-                                            CssClass="AttrTxtFildExcel" Style="width: 50px; margin-right: 0px;" />
-                                    </div>
+                                            CssClass="AttrTxtFildExcel" style="width:100px" />
+                                    
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Work Content" HeaderStyle-ForeColor="#43494F">
+                            <asp:TemplateField HeaderText="Work Content" ItemStyle-Width="5%" HeaderStyle-ForeColor="#43494F">
                                 <ItemTemplate>
-                                    <div class="itemstyle">
+                                    
                                         <asp:TextBox ID="txtWorkContent" runat="server" Text='<%# Eval("WorkContent") %>'
-                                            CssClass="AttrTxtFildExcel" Style="width: 136px; margin-right: 0px;" />
+                                            CssClass="AttrTxtFildExcel" style="width:100px" />
                                        
-                                    </div>
+                                  
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Counter Measure" ItemStyle-CssClass="GrayBg"
+                            <asp:TemplateField HeaderText="Counter Measure" ItemStyle-Width="5%" ItemStyle-CssClass="GrayBg"
                                 HeaderStyle-ForeColor="#43494F">
                                 <ItemTemplate>
-                                    <div class="itemstyle">
+                                    
                                         <asp:TextBox ID="txtCounterMeasure" runat="server" Text='<%# Eval("CounterMeasure") %>'
-                                            CssClass="AttrTxtFildExcel" Style="width: 100px; margin-right: 0px;" />
+                                            CssClass="AttrTxtFildExcel" style="width:100px"  />
                                         
-                                    </div>
+                                    
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:TemplateField HeaderText="CounterMeasure Strength" ItemStyle-CssClass="GrayBg" HeaderStyle-ForeColor="#43494F">
+                            <asp:TemplateField HeaderText="CounterMeasure Strength" ItemStyle-Width="5%"
+                                ItemStyle-CssClass="GrayBg" HeaderStyle-ForeColor="#43494F">
                                 <ItemTemplate>
                                     <div class="itemstyle">
-                                        <asp:TextBox ID="txtCounterMeasureStrength" runat="server" Text='<%# Eval("CounterMeasureStrength") %>' CssClass="AttrTxtFildExcel"
-                                            Style="width: 100px; margin-right: 0px;" />
+                                        <asp:TextBox ID="txtCounterMeasureStrength" runat="server"
+                                            style="width:100px"
+                                             Text='<%# Eval("CounterMeasureStrength") %>' CssClass="AttrTxtFildExcel"
+                                             />
                                         
                                     </div>
                                 </ItemTemplate>

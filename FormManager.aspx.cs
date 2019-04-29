@@ -394,6 +394,11 @@ public partial class FormManager : BasePage
                 
 
                 new ErrorData().Save(data);
+                lblMsg.Visible = true;
+                divErrorMsg.Visible = true;
+                lblMsg.Text = "Record saved successfully.";
+                lblMsg.Style.Add("color", "green");
+                divErrorMsg.Attributes.Add("class", "isa_success");
             }
 
         }
