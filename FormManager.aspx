@@ -963,38 +963,46 @@
                                     </div>
                                 </ItemTemplate>
                             </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Error" HeaderStyle-ForeColor="#43494F">
+                                <ItemTemplate>
+                                    <div class="itemstyle">
+                                        <asp:TextBox ID="txtError" runat="server" Text='<%# Eval("Error") %>'
+                                            CssClass="AttrTxtFildExcel" Style="width: 200px; margin-right: 0px;" />
+                                    </div>
+                                </ItemTemplate>
+                            </asp:TemplateField>
                             <asp:TemplateField HeaderText="Cycle Time" HeaderStyle-ForeColor="#43494F">
                                 <ItemTemplate>
                                     <div class="itemstyle">
-                                        <asp:TextBox ID="txtProductFeatureAdded1" runat="server" Text='<%# Eval("CycleTime") %>'
-                                            CssClass="AttrTxtFildExcel" Style="width: 136px; margin-right: 0px;" />
+                                        <asp:TextBox ID="txtCycleTime" runat="server" Text='<%# Eval("CycleTime") %>'
+                                            CssClass="AttrTxtFildExcel" Style="width: 50px; margin-right: 0px;" />
                                     </div>
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Work Content" HeaderStyle-ForeColor="#43494F">
                                 <ItemTemplate>
                                     <div class="itemstyle">
-                                        <asp:TextBox ID="txtProductFeatureAdded2" runat="server" Text='<%# Eval("WorkContent") %>'
+                                        <asp:TextBox ID="txtWorkContent" runat="server" Text='<%# Eval("WorkContent") %>'
                                             CssClass="AttrTxtFildExcel" Style="width: 136px; margin-right: 0px;" />
                                        
                                     </div>
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Countermeasure" ItemStyle-CssClass="GrayBg"
+                            <asp:TemplateField HeaderText="Counter Measure" ItemStyle-CssClass="GrayBg"
                                 HeaderStyle-ForeColor="#43494F">
                                 <ItemTemplate>
                                     <div class="itemstyle">
-                                        <asp:TextBox ID="txtFunctionProductFeature3" runat="server" Text='<%# Eval("CounterMeasure") %>'
-                                            CssClass="AttrTxtFildExcel" Style="width: 136px; margin-right: 0px;" />
+                                        <asp:TextBox ID="txtCounterMeasure" runat="server" Text='<%# Eval("CounterMeasure") %>'
+                                            CssClass="AttrTxtFildExcel" Style="width: 100px; margin-right: 0px;" />
                                         
                                     </div>
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Countermeasure Strength" ItemStyle-CssClass="GrayBg" HeaderStyle-ForeColor="#43494F">
+                            <asp:TemplateField HeaderText="CounterMeasure Strength" ItemStyle-CssClass="GrayBg" HeaderStyle-ForeColor="#43494F">
                                 <ItemTemplate>
                                     <div class="itemstyle">
-                                        <asp:TextBox ID="txtErrorEvent4" runat="server" Text='<%# Eval("CounterMeasureStrength") %>' CssClass="AttrTxtFildExcel"
-                                            Style="width: 136px; margin-right: 0px;" />
+                                        <asp:TextBox ID="txtCounterMeasureStrength" runat="server" Text='<%# Eval("CounterMeasureStrength") %>' CssClass="AttrTxtFildExcel"
+                                            Style="width: 100px; margin-right: 0px;" />
                                         
                                     </div>
                                 </ItemTemplate>

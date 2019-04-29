@@ -14,6 +14,16 @@ public class ErrorData
         // TODO: Add constructor logic here
         //
     }
+
+    public int GetMaxSequenceNo(int processID, int formType)
+    {
+        return 6;
+    }
+
+    public bool Save(ErrorInfo errorInfo)
+    {
+        return true;
+    }
     public List<ErrorInfo> GetAll()
     {
         VisualERPDataContext Objdata = new VisualERPDataContext();
@@ -57,5 +67,7 @@ public class ErrorInfo
     public int CounterMeasureStrength { get; set; }
     public int CounterMeasure { get; set; }
     public int WorkContent { get; set; }
+    public int ProcessID { get; set; }
+   
 }
 
