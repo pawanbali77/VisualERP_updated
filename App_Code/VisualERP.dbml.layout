@@ -260,5 +260,11 @@
         <elementListCompartment Id="8105c002-f3c2-4f12-8e87-d73f1fd1e6af" absoluteBounds="21.765, 9.21, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
+    <classShape Id="6b2e9a6b-8930-45e5-b988-63d3c4e0be46" absoluteBounds="4.125, 4, 2, 2.1554996744791666">
+      <DataClassMoniker Name="/VisualERPDataContext/ErrorInfo" />
+      <nestedChildShapes>
+        <elementListCompartment Id="308f3f84-cb4b-4098-b048-22c356a68cb9" absoluteBounds="4.14, 4.46, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
   </nestedChildShapes>
 </ordesignerObjectsDiagram>

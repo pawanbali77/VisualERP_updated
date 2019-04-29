@@ -146,6 +146,9 @@ public partial class VisualERPDataContext : System.Data.Linq.DataContext
   partial void Inserttbl_Unit(tbl_Unit instance);
   partial void Updatetbl_Unit(tbl_Unit instance);
   partial void Deletetbl_Unit(tbl_Unit instance);
+  partial void InsertErrorInfo(ErrorInfo instance);
+  partial void UpdateErrorInfo(ErrorInfo instance);
+  partial void DeleteErrorInfo(ErrorInfo instance);
   #endregion
 	
 	public VisualERPDataContext() : 
@@ -519,6 +522,14 @@ public partial class VisualERPDataContext : System.Data.Linq.DataContext
 		get
 		{
 			return this.GetTable<tbl_Unit>();
+		}
+	}
+	
+	public System.Data.Linq.Table<ErrorInfo> ErrorInfos
+	{
+		get
+		{
+			return this.GetTable<ErrorInfo>();
 		}
 	}
 	
@@ -10693,6 +10704,212 @@ public partial class tbl_Unit : INotifyPropertyChanging, INotifyPropertyChanged
 				this._ModifiedDate = value;
 				this.SendPropertyChanged("ModifiedDate");
 				this.OnModifiedDateChanged();
+			}
+		}
+	}
+	
+	public event PropertyChangingEventHandler PropertyChanging;
+	
+	public event PropertyChangedEventHandler PropertyChanged;
+	
+	protected virtual void SendPropertyChanging()
+	{
+		if ((this.PropertyChanging != null))
+		{
+			this.PropertyChanging(this, emptyChangingEventArgs);
+		}
+	}
+	
+	protected virtual void SendPropertyChanged(String propertyName)
+	{
+		if ((this.PropertyChanged != null))
+		{
+			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+		}
+	}
+}
+
+[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ErrorInfos")]
+public partial class ErrorInfo : INotifyPropertyChanging, INotifyPropertyChanged
+{
+	
+	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+	
+	private int _ErrorID;
+	
+	private string _Error;
+	
+	private System.Nullable<int> _CycleTime;
+	
+	private System.Nullable<int> _CounterMeasureStrength;
+	
+	private System.Nullable<int> _CounterMeasure;
+	
+	private System.Nullable<int> _WorkContent;
+	
+	private System.Nullable<int> _ProcessID;
+	
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnErrorIDChanging(int value);
+    partial void OnErrorIDChanged();
+    partial void OnErrorChanging(string value);
+    partial void OnErrorChanged();
+    partial void OnCycleTimeChanging(System.Nullable<int> value);
+    partial void OnCycleTimeChanged();
+    partial void OnCounterMeasureStrengthChanging(System.Nullable<int> value);
+    partial void OnCounterMeasureStrengthChanged();
+    partial void OnCounterMeasureChanging(System.Nullable<int> value);
+    partial void OnCounterMeasureChanged();
+    partial void OnWorkContentChanging(System.Nullable<int> value);
+    partial void OnWorkContentChanged();
+    partial void OnProcessIDChanging(System.Nullable<int> value);
+    partial void OnProcessIDChanged();
+    #endregion
+	
+	public ErrorInfo()
+	{
+		OnCreated();
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ErrorID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+	public int ErrorID
+	{
+		get
+		{
+			return this._ErrorID;
+		}
+		set
+		{
+			if ((this._ErrorID != value))
+			{
+				this.OnErrorIDChanging(value);
+				this.SendPropertyChanging();
+				this._ErrorID = value;
+				this.SendPropertyChanged("ErrorID");
+				this.OnErrorIDChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Error", DbType="VarChar(500)")]
+	public string Error
+	{
+		get
+		{
+			return this._Error;
+		}
+		set
+		{
+			if ((this._Error != value))
+			{
+				this.OnErrorChanging(value);
+				this.SendPropertyChanging();
+				this._Error = value;
+				this.SendPropertyChanged("Error");
+				this.OnErrorChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CycleTime", DbType="Int")]
+	public System.Nullable<int> CycleTime
+	{
+		get
+		{
+			return this._CycleTime;
+		}
+		set
+		{
+			if ((this._CycleTime != value))
+			{
+				this.OnCycleTimeChanging(value);
+				this.SendPropertyChanging();
+				this._CycleTime = value;
+				this.SendPropertyChanged("CycleTime");
+				this.OnCycleTimeChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CounterMeasureStrength", DbType="Int")]
+	public System.Nullable<int> CounterMeasureStrength
+	{
+		get
+		{
+			return this._CounterMeasureStrength;
+		}
+		set
+		{
+			if ((this._CounterMeasureStrength != value))
+			{
+				this.OnCounterMeasureStrengthChanging(value);
+				this.SendPropertyChanging();
+				this._CounterMeasureStrength = value;
+				this.SendPropertyChanged("CounterMeasureStrength");
+				this.OnCounterMeasureStrengthChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CounterMeasure", DbType="Int")]
+	public System.Nullable<int> CounterMeasure
+	{
+		get
+		{
+			return this._CounterMeasure;
+		}
+		set
+		{
+			if ((this._CounterMeasure != value))
+			{
+				this.OnCounterMeasureChanging(value);
+				this.SendPropertyChanging();
+				this._CounterMeasure = value;
+				this.SendPropertyChanged("CounterMeasure");
+				this.OnCounterMeasureChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WorkContent", DbType="Int")]
+	public System.Nullable<int> WorkContent
+	{
+		get
+		{
+			return this._WorkContent;
+		}
+		set
+		{
+			if ((this._WorkContent != value))
+			{
+				this.OnWorkContentChanging(value);
+				this.SendPropertyChanging();
+				this._WorkContent = value;
+				this.SendPropertyChanged("WorkContent");
+				this.OnWorkContentChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProcessID", DbType="Int")]
+	public System.Nullable<int> ProcessID
+	{
+		get
+		{
+			return this._ProcessID;
+		}
+		set
+		{
+			if ((this._ProcessID != value))
+			{
+				this.OnProcessIDChanging(value);
+				this.SendPropertyChanging();
+				this._ProcessID = value;
+				this.SendPropertyChanged("ProcessID");
+				this.OnProcessIDChanged();
 			}
 		}
 	}

@@ -8,6 +8,7 @@ using System.Web;
 /// </summary>
 public class ErrorData
 {
+    VisualERPDataContext objdata = new VisualERPDataContext();
     public ErrorData()
     {
         //
@@ -22,52 +23,41 @@ public class ErrorData
 
     public bool Save(ErrorInfo errorInfo)
     {
+        ErrorInfo item= objdata.ErrorInfos.FirstOrDefault(p => p.ErrorID == errorInfo.ErrorID);
+        if(item!=null)
+        {
+            item.Error = errorInfo.Error;
+            item.CycleTime = errorInfo.CycleTime;
+            item.CounterMeasureStrength = errorInfo.CounterMeasureStrength;
+            item.CounterMeasure = errorInfo.CounterMeasure;
+            item.WorkContent = errorInfo.WorkContent;
+            item.ProcessID = errorInfo.ProcessID;
+            objdata.SubmitChanges();
+
+        }
+        else
+        {
+            objdata.ErrorInfos.InsertOnSubmit(errorInfo);
+            objdata.SubmitChanges();
+
+        }
+        return true;
+    }
+    public bool Delete(int errorID)
+    {
+        ErrorInfo item = objdata.ErrorInfos.FirstOrDefault(p => p.ErrorID == errorID);
+        if (item != null)
+        {
+            objdata.ErrorInfos.DeleteOnSubmit(item);
+            objdata.SubmitChanges();
+        }
         return true;
     }
     public List<ErrorInfo> GetAll()
-    {
-        VisualERPDataContext Objdata = new VisualERPDataContext();
-        List<ErrorInfo> errors = new List<ErrorInfo>();
-        errors.Add(new ErrorInfo() {
-            CycleTime = 1,
-             Error="Test Error"
-
-        });
-
-        errors.Add(new ErrorInfo()
-        {
-            CycleTime = 1,
-            Error = "Test Error"
-
-        });
-
-        errors.Add(new ErrorInfo()
-        {
-            CycleTime = 1,
-            Error = "Test Error"
-
-        });
-
-        errors.Add(new ErrorInfo()
-        {
-            CycleTime = 1,
-            Error = "Test Error"
-
-        });
-        return errors;
+    { 
+        return objdata.ErrorInfos.ToList();
+        
     }
 }
-
-public class ErrorInfo
-{
-    public int ErrorID { get; set; }
-    public string Error { get; set; }
-    public int CycleTime { get; set; }
-   public int  Sequence { get; set; }
-    public int CounterMeasureStrength { get; set; }
-    public int CounterMeasure { get; set; }
-    public int WorkContent { get; set; }
-    public int ProcessID { get; set; }
-   
-}
+ 
 

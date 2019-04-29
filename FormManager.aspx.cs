@@ -356,11 +356,44 @@ public partial class FormManager : BasePage
         if (formType == 2)
         {
 
-            ErrorInfo data = new ErrorInfo();
+          
             foreach (GridViewRow row in grdErrorGrid.Rows)
             {
-                //data.FormID = Convert.ToInt32((row.FindControl("litFormID") as Literal).Text);
+                ErrorInfo data = new ErrorInfo();
+                data.ErrorID = Convert.ToInt32((row.FindControl("hdnErrorID") as HiddenField).Value);
+                data.ProcessID = Convert.ToInt32((row.FindControl("hdnProcessID") as HiddenField).Value);
 
+                string error = (row.FindControl("txtError") as TextBox).Text;
+                data.Error = error;
+
+                string cycleTime= (row.FindControl("txtCycleTime") as TextBox).Text;
+                if (string.IsNullOrEmpty(cycleTime))
+                     data.CycleTime = 0;
+                else
+                data.CycleTime = Convert.ToInt32(cycleTime);
+
+
+                string workContent = (row.FindControl("txtWorkContent") as TextBox).Text;
+                if (string.IsNullOrEmpty(workContent))
+                    data.WorkContent = 0;
+                else
+                    data.WorkContent = Convert.ToInt32(workContent);
+
+                string counterMeasure = (row.FindControl("txtCounterMeasure") as TextBox).Text;
+                if (string.IsNullOrEmpty(counterMeasure))
+                    data.CounterMeasure = 0;
+                else
+                    data.CounterMeasure = Convert.ToInt32(counterMeasure);
+
+                string counterMeasureStrength = (row.FindControl("txtCounterMeasureStrength") as TextBox).Text;
+                if (string.IsNullOrEmpty(counterMeasureStrength))
+                    data.CounterMeasureStrength = 0;
+                else
+                    data.CounterMeasureStrength = Convert.ToInt32(counterMeasureStrength);
+               
+                
+
+                new ErrorData().Save(data);
             }
 
         }
@@ -494,7 +527,10 @@ public partial class FormManager : BasePage
         {
             if(formType==2)
             {
-
+                ErrorData errorData = new ErrorData();
+                List<ErrorInfo> listData = errorData.GetAll();
+                grdErrorGrid.DataSource = listData;
+                grdErrorGrid.DataBind();
 
                 pnlListPPESA.Visible = false;
                 pnlListErrorRecord.Visible = true;
@@ -935,18 +971,19 @@ public partial class FormManager : BasePage
 
         int maxSequenceNo = 0;
         maxSequenceNo =new ErrorData().GetMaxSequenceNo(ProcessId, formtyp);
-        ////add row at next sequence
-
-         data.Sequence = maxSequenceNo + 1; //next sequence after maxsequence no
+        ////add row at next sequence 
          data.ProcessID = ProcessId;
          data.Error = string.Empty;
          data.CycleTime = 0;
-        bool result = false;
-        //// result =
+        data.CounterMeasure = 0;
+        data.CounterMeasureStrength = 0;
+        data.WorkContent = 0;
+         bool result = false;
+        
          result = new ErrorData().Save(data);  ////SaveInputData will dave input link in database table information input
 
          if (result == true)  // if record is updated or inserted
-        {
+         {
             ResetBinding(Convert.ToInt32(ViewState["FormType"]));
             // pnlActivity.Visible = false;
             //pnlAddForm.Visible = false;
@@ -1089,47 +1126,106 @@ public partial class FormManager : BasePage
         //ViewState["sortBy"] = "ProductFeatureAdded";
         ViewState["sortBy"] = "Sequence";
         ViewState["isAsc"] = "1";
+        headerTitle.InnerText = "Error Log";
         if (Convert.ToInt32(ViewState["poId"]) > -1)
         {
             ErrorData errorData = new ErrorData();
-           List<ErrorInfo> listData= errorData.GetAll();
+            List<ErrorInfo> listData = errorData.GetAll();
             grdErrorGrid.DataSource = listData;
             grdErrorGrid.DataBind();
-            if (listData.Count == 0)
+
+
+            btnAddNewRow.Visible = true;
+            if (RoleID == 4)
             {
-                List<ProcessData.ProcessDataProperty> acty = ProcessData.GetProcessObjActvities(ProcessId);
-
-
-                if (acty.Count > 0)
-                {
-                    btnAddNewRow.Visible = true;
-                    if (RoleID == 4)
-                    {
-                        btnAddNewRow.Visible = false;
-                    }
-                }
-                else
-                {
-                    btnAddNewRow.Visible = false;
-                }
-
-                //btnAddNewRow.Visible = false;
+                btnAddNewRow.Visible = false;
+            }
+            lnkbtnSaveForm.Visible = true;
+            if (RoleID == 4)
+            {
                 lnkbtnSaveForm.Visible = false;
             }
-            else
-            {
-                btnAddNewRow.Visible = true;
-                if (RoleID == 4)
-                {
-                    btnAddNewRow.Visible = false;
-                }
-                lnkbtnSaveForm.Visible = true;
-                if (RoleID == 4)
-                {
-                    lnkbtnSaveForm.Visible = false;
-                }
-            }
+
         }
          
     }
+
+    protected void grdErrorGrid_RowCommand(object sender, GridViewCommandEventArgs e)
+    {
+        if (e.CommandName == "Add")
+        {
+            int formtyp = 0;
+            ErrorInfo data = new ErrorInfo();
+            if (ViewState["FormType"] != null)
+                formtyp = Convert.ToInt32(ViewState["FormType"]);
+
+            //data.FormType = formtyp;
+
+            int maxSequenceNo = 0;
+            maxSequenceNo = new ErrorData().GetMaxSequenceNo(ProcessId, formtyp);
+            ////add row at next sequence 
+            data.ProcessID = ProcessId;
+            data.Error = string.Empty;
+            data.CycleTime = 0;
+            bool result = false;
+
+            result = new ErrorData().Save(data);  ////SaveInputData will dave input link in database table information input
+
+            if (result == true)  // if record is updated or inserted
+            {
+                ResetBinding(Convert.ToInt32(ViewState["FormType"]));
+                // pnlActivity.Visible = false;
+                //pnlAddForm.Visible = false;
+                pnlListPPESA.Visible = false;
+                pnlListErrorRecord.Visible = true;
+                //lnkbtnSaveForm.Visible = false;
+                lblMsg.Visible = true;
+                divErrorMsg.Visible = true;
+                lblMsg.Text = "Row added successfully";
+                lblMsg.Style.Add("color", "green");
+                divErrorMsg.Attributes.Add("class", "isa_success");
+
+                string cid = string.Empty;
+                if (Convert.ToInt32(ViewState["FormType"]) == 0)
+                    cid = lnkbtnViewPPESAForm.ClientID;
+                else if (Convert.ToInt32(ViewState["FormType"]) == 2)
+                    cid = lnkbtnErrorRecord.ClientID;
+                else
+                    cid = lnkbtnViewPDESAForm.ClientID;
+
+                string script2 = "actvieclassByid(" + cid + ")";
+                ScriptManager.RegisterStartupScript(this, this.GetType(),
+                              "script", script2, true);
+            }
+        }
+        if (e.CommandName == "Remove")
+        {
+           int errorID=Convert.ToInt32( e.CommandArgument);
+            new ErrorData().Delete(errorID);
+            ResetBinding(Convert.ToInt32(ViewState["FormType"]));
+            // pnlActivity.Visible = false;
+            //pnlAddForm.Visible = false;
+            pnlListPPESA.Visible = false;
+            pnlListErrorRecord.Visible = true;
+            //lnkbtnSaveForm.Visible = false;
+            lblMsg.Visible = true;
+            divErrorMsg.Visible = true;
+            lblMsg.Text = "Row deleted successfully";
+            lblMsg.Style.Add("color", "green");
+            divErrorMsg.Attributes.Add("class", "isa_success");
+
+            string cid = string.Empty;
+            if (Convert.ToInt32(ViewState["FormType"]) == 0)
+                cid = lnkbtnViewPPESAForm.ClientID;
+            else if (Convert.ToInt32(ViewState["FormType"]) == 2)
+                cid = lnkbtnErrorRecord.ClientID;
+            else
+                cid = lnkbtnViewPDESAForm.ClientID;
+
+            string script2 = "actvieclassByid(" + cid + ")";
+            ScriptManager.RegisterStartupScript(this, this.GetType(),
+                          "script", script2, true);
+        }
+    }
+
 }

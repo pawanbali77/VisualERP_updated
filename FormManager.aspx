@@ -932,14 +932,15 @@
                     max-height: 400px;">
                     <asp:GridView ID="grdErrorGrid" runat="server" AlternatingRowStyle-CssClass="GrayBg"
                         AutoGenerateColumns="false" AllowPaging="false"  
+                        OnRowCommand="grdErrorGrid_RowCommand"
                         AllowSorting="true">
                         <Columns>
                             <asp:TemplateField HeaderText="Insert Row">
-                                <ItemTemplate>
+                               <ItemTemplate>
                                     <div class="itemstyle">
-                                        <asp:Literal ID="litSequence" runat="server" Visible="false" Text='<%#Eval("Sequence") %>' />
-                                        <asp:ImageButton ID="imgbtnAddrow" runat="server" CommandName="add" AlternateText="Add Row"
-                                            ToolTip="Add Row" CommandArgument='<%#Eval("Sequence") %>' ImageUrl="~/images/plus.png" />
+                                        
+                                        <asp:ImageButton ID="imgbtnAddrow" runat="server" CommandName="Add" AlternateText="Add Row"
+                                            ToolTip="Add Row" CommandArgument="0" ImageUrl="~/images/plus.png" />
                                     </div>
                                 </ItemTemplate>
                             </asp:TemplateField>
@@ -948,21 +949,17 @@
                                     <asp:Literal ID="litFormID" runat="server" Visible="false" Text='<%#Eval("ErrorID") %>' />
                                     <asp:Literal ID="litpoid" runat="server" Visible="false" Text='<%#Eval("ErrorID") %>' />
                                     <asp:Literal ID="litFormType" runat="server" Visible="false" Text='<%#Eval("ErrorID") %>' />
-                                    <asp:Literal ID="litDelSequence" runat="server" Visible="false" Text='<%#Eval("Sequence") %>' />
+
+                                    <asp:HiddenField ID="hdnErrorID" Value='<%#Eval("ErrorID") %>' runat="server" />
+                                      <asp:HiddenField ID="hdnProcessID" Value='<%#Eval("ProcessID") %>' runat="server" />
+                                   <%-- <asp:Literal ID="litDelSequence" runat="server" Visible="false" Text='<%#Eval("Sequence") %>' />--%>
                                     <%--<asp:ImageButton ID="editBtn" runat="server" CommandName="Edit" CommandArgument='<%#Eval("FormID")%>'
                                         ImageUrl="~/images/Edit.png" AlternateText="Edit" ToolTip="Edit" />--%>
-                                    <asp:ImageButton ID="deleteBtn" runat="server" CommandName="Delete" AlternateText="Delete"
+                                    <asp:ImageButton ID="deleteBtn" runat="server" CommandName="Remove" AlternateText="Delete"
                                         ToolTip="Delete" CommandArgument='<%#Eval("ErrorID") %>' ImageUrl="~/images/delete.png" />
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:TemplateField HeaderText="S No.">
-                                <ItemTemplate>
-                                    <div class="itemstyle">
-                                        <%--<%#Container.DataItemIndex+1 %>--%>
-                                        <%# Eval("Sequence") %>
-                                    </div>
-                                </ItemTemplate>
-                            </asp:TemplateField>
+                           
                             <asp:TemplateField HeaderText="Error" HeaderStyle-ForeColor="#43494F">
                                 <ItemTemplate>
                                     <div class="itemstyle">

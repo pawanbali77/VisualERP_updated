@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="NewVisualERP" Class="VisualERPDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="WebSettings" ConnectionString="Data Source=192.168.1.99,55321;Initial Catalog=NewVisualERP;User ID=dotnet_new" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="NewVisualERPConnectionString" Provider="System.Data.SqlClient" />
+  <Connection Mode="WebSettings" ConnectionString="Data Source=pawang\sqlexpress;Initial Catalog=NewVisualERP;Persist Security Info=True;User ID=sa" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="NewVisualERPConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.tbl_Assembly" Member="tbl_Assemblies">
     <Type Name="tbl_Assembly">
       <Column Name="AssemblyID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -530,6 +530,17 @@
       <Column Name="Symbol" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
       <Column Name="CreatedDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
       <Column Name="ModifiedDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ErrorInfos" Member="ErrorInfos">
+    <Type Name="ErrorInfo">
+      <Column Name="ErrorID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Error" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="CycleTime" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CounterMeasureStrength" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CounterMeasure" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="WorkContent" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ProcessID" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </Type>
   </Table>
   <Function Name="dbo.DeleteAttributeDataByID" Method="DeleteAttributeDataByID">
