@@ -43,7 +43,7 @@ public class TypeData
     {
         VisualERPDataContext Objdata = new VisualERPDataContext();
         //qry will return GetTypeID details according our search query
-        var qry = (from x in Objdata.tbl_Processes
+       var qry = (from x in Objdata.tbl_Processes
                    where x.ProcessID == processId
                    select x.TypeID).FirstOrDefault();
 

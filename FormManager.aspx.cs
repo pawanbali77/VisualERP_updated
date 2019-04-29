@@ -111,6 +111,20 @@ public partial class FormManager : BasePage
                                   "script", script2, true);
                 }
             }
+           else if(formtype==2)
+            {
+
+                headerTitle.InnerText = "Error Log";
+                // lnkbtnAddPPESAForm.Visible = false;
+                //lnkbtnSaveForm.Visible = false;
+                if (ProcessId > 0)
+                {
+                    string cid = lnkbtnErrorRecord.ClientID;
+                    string script2 = "actvieclassByid(" + cid + ")";
+                    ScriptManager.RegisterStartupScript(this, this.GetType(),
+                                  "script", script2, true);
+                }
+            }
             else
             {
                 headerTitle.InnerText = "List PDESA";
@@ -1029,6 +1043,7 @@ public partial class FormManager : BasePage
 
     protected void lnkbtnErrorRecord_Click(object sender, EventArgs e)
     {
+        ViewState["FormType"] = Convert.ToInt32(FormType.ERRORLOG);
         pnlListPPESA.Visible = false;
         pnlListErrorRecord.Visible = true;
         //ViewState["sortBy"] = "ProductFeatureAdded";

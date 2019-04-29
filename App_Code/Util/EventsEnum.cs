@@ -95,7 +95,8 @@ public enum SummaryFunction
 public enum FormType
 {
     PPESA = 0,
-    PDESA = 1
+    PDESA = 1,
+    ERRORLOG=2
 }
 
 public enum Actions { True = 1, False = 2 };
