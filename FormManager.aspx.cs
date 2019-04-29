@@ -874,6 +874,64 @@ public partial class FormManager : BasePage
         }
     }
 
+    protected void btnAddNewErrorRecord_Click(object sender, EventArgs e)
+    {
+        //int formtyp = 0;
+        //tbl_PPESAnPDESA data = new tbl_PPESAnPDESA();
+        //if (ViewState["FormType"] != null)
+        //    formtyp = Convert.ToInt32(ViewState["FormType"]);
+
+        //data.FormType = formtyp;
+
+        //int maxSequenceNo = 0;
+        //maxSequenceNo = PPESAnPDESA.GetMaxSequenceNo(ProcessId, formtyp);
+        ////add row at next sequence
+
+        //data.Sequence = maxSequenceNo + 1; //next sequence after maxsequence no
+        //data.ProcessID = ProcessId;
+        //data.ActionCriticalParameter = false;
+        //data.ConditonCriticalParameter = false;
+        //bool result = false;
+        //// result =
+        //result = PPESAnPDESA.SavePPESAnPDESAData(data);  ////SaveInputData will dave input link in database table information input
+
+        //if (result == true)  // if record is updated or inserted
+        //{
+        //    ResetBinding(Convert.ToInt32(ViewState["FormType"]));
+        //    // pnlActivity.Visible = false;
+        //    //pnlAddForm.Visible = false;
+        //    pnlListPPESA.Visible = true;
+        //    //lnkbtnSaveForm.Visible = false;
+        //    lblMsg.Visible = true;
+        //    divErrorMsg.Visible = true;
+        //    lblMsg.Text = "Row added successfully";
+        //    lblMsg.Style.Add("color", "green");
+        //    divErrorMsg.Attributes.Add("class", "isa_success");
+
+        //    string cid = string.Empty;
+        //    if (Convert.ToInt32(ViewState["FormType"]) == 0)
+        //        cid = lnkbtnViewPPESAForm.ClientID;
+        //    else
+        //        cid = lnkbtnViewPDESAForm.ClientID;
+
+        //    string script2 = "actvieclassByid(" + cid + ")";
+        //    ScriptManager.RegisterStartupScript(this, this.GetType(),
+        //                  "script", script2, true);
+        //}
+        //else
+        //{
+        //    // pnlActivity.Visible = false;
+        //    //pnlAddForm.Visible = true;
+        //    pnlListPPESA.Visible = false;
+        //    //lnkbtnSaveForm.Visible = false;
+        //    lblMsg.Visible = true;
+        //    divErrorMsg.Visible = true;
+        //    lblMsg.Text = "Error on adding row!";
+        //    lblMsg.Style.Add("color", "red");
+        //    divErrorMsg.Attributes.Add("class", "isa_error");
+        //}
+    }
+
     private void FillddlNumbers(DropDownList ddl)
     {
         // This would create 1 - 10
@@ -967,5 +1025,56 @@ public partial class FormManager : BasePage
             }
         }
 
+    }
+
+    protected void lnkbtnErrorRecord_Click(object sender, EventArgs e)
+    {
+        pnlListPPESA.Visible = false;
+        pnlListErrorRecord.Visible = true;
+        //ViewState["sortBy"] = "ProductFeatureAdded";
+        ViewState["sortBy"] = "Sequence";
+        ViewState["isAsc"] = "1";
+        if (Convert.ToInt32(ViewState["poId"]) > -1)
+        {
+            ErrorData errorData = new ErrorData();
+           List<ErrorInfo> listData= errorData.GetAll();
+            grdErrorGrid.DataSource = listData;
+            grdErrorGrid.DataBind();
+            if (listData.Count == 0)
+            {
+                List<ProcessData.ProcessDataProperty> acty = ProcessData.GetProcessObjActvities(ProcessId);
+
+
+                if (acty.Count > 0)
+                {
+                    btnAddNewRow.Visible = true;
+                    if (RoleID == 4)
+                    {
+                        btnAddNewRow.Visible = false;
+                    }
+                }
+                else
+                {
+                    btnAddNewRow.Visible = false;
+                }
+
+                //btnAddNewRow.Visible = false;
+                lnkbtnSaveForm.Visible = false;
+            }
+            else
+            {
+                btnAddNewRow.Visible = true;
+                if (RoleID == 4)
+                {
+                    btnAddNewRow.Visible = false;
+                }
+                lnkbtnSaveForm.Visible = true;
+                if (RoleID == 4)
+                {
+                    lnkbtnSaveForm.Visible = false;
+                }
+            }
+        }
+         
     }
 }

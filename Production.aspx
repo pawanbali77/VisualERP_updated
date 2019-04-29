@@ -12,6 +12,8 @@
 <%@ Register Src="UserControls/ProcessObject.ascx" TagName="ProcessObject" TagPrefix="uc6" %>
 <%--<%@ Register Src="UserControls/InventoryUC.ascx" TagName="InventoryUC" TagPrefix="uc7" %>--%>
 <%@ Register Src="UserControls/InventeryObject.ascx" TagName="InventeryObject" TagPrefix="uc8" %>
+<%--<%@ Register Src="UserControls/ModelPopupActivity.ascx" TagName="ModelPopupActivity"
+    TagPrefix="uc9" %>--%>
 <%@ Register Src="UserControls/ImageControl.ascx" TagName="ImageControl" TagPrefix="uc15" %>
 <%@ Register Src="UserControls/ArrowControl.ascx" TagName="ArrowControl" TagPrefix="ucArrow" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="Server">
@@ -677,6 +679,8 @@
                 </div>
                 <%--  </div>--%>
             </asp:Panel>
+ 
+
         </ContentTemplate>
     </asp:UpdatePanel>
 </asp:Content>

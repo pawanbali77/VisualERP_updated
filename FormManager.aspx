@@ -173,6 +173,12 @@
                                 <asp:LinkButton ID="lnkbtnViewPDESAForm" runat="server" ToolTip="View PDESA" CssClass="ViewPPESA"
                                     OnClick="lnkbtnViewPDESAForm_Click" />
                             </li>
+
+                               <li style="margin-right: 1px">
+                                <asp:LinkButton ID="lnkbtnErrorRecord" runat="server" ToolTip="Error Record" 
+                                    CssClass="ViewPPESA"
+                                    OnClick="lnkbtnErrorRecord_Click" />
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -919,7 +925,106 @@
                         font-size: 11px; line-height: 14px; height: 24px;" />
                 </div>
             </asp:Panel>
+
+            <asp:Panel ID="pnlListErrorRecord" runat="server" Visible="false">
+                <div class="RightAtExcel" id="div3" runat="server" visible="true" style="float: right;
+                    margin-right: 10px; margin-top: 110px; width: 1030px !important; overflow-y: scroll;
+                    max-height: 400px;">
+                    <asp:GridView ID="grdErrorGrid" runat="server" AlternatingRowStyle-CssClass="GrayBg"
+                        AutoGenerateColumns="false" AllowPaging="false"  
+                        AllowSorting="true">
+                        <Columns>
+                            <asp:TemplateField HeaderText="Insert Row">
+                                <ItemTemplate>
+                                    <div class="itemstyle">
+                                        <asp:Literal ID="litSequence" runat="server" Visible="false" Text='<%#Eval("Sequence") %>' />
+                                        <asp:ImageButton ID="imgbtnAddrow" runat="server" CommandName="add" AlternateText="Add Row"
+                                            ToolTip="Add Row" CommandArgument='<%#Eval("Sequence") %>' ImageUrl="~/images/plus.png" />
+                                    </div>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Delete Row" ItemStyle-CssClass="GrayBg">
+                                <ItemTemplate>
+                                    <asp:Literal ID="litFormID" runat="server" Visible="false" Text='<%#Eval("ErrorID") %>' />
+                                    <asp:Literal ID="litpoid" runat="server" Visible="false" Text='<%#Eval("ErrorID") %>' />
+                                    <asp:Literal ID="litFormType" runat="server" Visible="false" Text='<%#Eval("ErrorID") %>' />
+                                    <asp:Literal ID="litDelSequence" runat="server" Visible="false" Text='<%#Eval("Sequence") %>' />
+                                    <%--<asp:ImageButton ID="editBtn" runat="server" CommandName="Edit" CommandArgument='<%#Eval("FormID")%>'
+                                        ImageUrl="~/images/Edit.png" AlternateText="Edit" ToolTip="Edit" />--%>
+                                    <asp:ImageButton ID="deleteBtn" runat="server" CommandName="Delete" AlternateText="Delete"
+                                        ToolTip="Delete" CommandArgument='<%#Eval("ErrorID") %>' ImageUrl="~/images/delete.png" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="S No.">
+                                <ItemTemplate>
+                                    <div class="itemstyle">
+                                        <%--<%#Container.DataItemIndex+1 %>--%>
+                                        <%# Eval("Sequence") %>
+                                    </div>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Cycle Time" HeaderStyle-ForeColor="#43494F">
+                                <ItemTemplate>
+                                    <div class="itemstyle">
+                                        <asp:TextBox ID="txtProductFeatureAdded1" runat="server" Text='<%# Eval("CycleTime") %>'
+                                            CssClass="AttrTxtFildExcel" Style="width: 136px; margin-right: 0px;" />
+                                    </div>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Work Content" HeaderStyle-ForeColor="#43494F">
+                                <ItemTemplate>
+                                    <div class="itemstyle">
+                                        <asp:TextBox ID="txtProductFeatureAdded2" runat="server" Text='<%# Eval("WorkContent") %>'
+                                            CssClass="AttrTxtFildExcel" Style="width: 136px; margin-right: 0px;" />
+                                       
+                                    </div>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Countermeasure" ItemStyle-CssClass="GrayBg"
+                                HeaderStyle-ForeColor="#43494F">
+                                <ItemTemplate>
+                                    <div class="itemstyle">
+                                        <asp:TextBox ID="txtFunctionProductFeature3" runat="server" Text='<%# Eval("CounterMeasure") %>'
+                                            CssClass="AttrTxtFildExcel" Style="width: 136px; margin-right: 0px;" />
+                                        
+                                    </div>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Countermeasure Strength" ItemStyle-CssClass="GrayBg" HeaderStyle-ForeColor="#43494F">
+                                <ItemTemplate>
+                                    <div class="itemstyle">
+                                        <asp:TextBox ID="txtErrorEvent4" runat="server" Text='<%# Eval("CounterMeasureStrength") %>' CssClass="AttrTxtFildExcel"
+                                            Style="width: 136px; margin-right: 0px;" />
+                                        
+                                    </div>
+                                </ItemTemplate>
+                            </asp:TemplateField> 
+                             
+                           
+                        </Columns>
+                        <EmptyDataTemplate>
+                            <div>
+                                &nbsp;</div>
+                            <div class="msgSucess12">
+                                <p>
+                                    No records found !
+                                </p>
+                            </div>
+                        </EmptyDataTemplate>
+                    </asp:GridView>
+                </div>
+                <div class="RightAt" id="div4" runat="server" visible="true" style="float: left;
+                    margin-top: 10px; margin-left: 330px;">
+                    <asp:Button ID="btnAddNewErrorRecord" runat="server" CssClass="btnNextNew" Text="Add New Row"
+                        OnClick="btnAddNewErrorRecord_Click" Style="width: 127px; margin: 10px 0px 0px 0; float: left;
+                        font-size: 11px; line-height: 14px; height: 24px;" />
+                </div>
+            </asp:Panel>
+
         </ContentTemplate>
+
+
+
     </asp:UpdatePanel>
     <%--<asp:UpdateProgress ID="UpdateProgress1" runat="server" DisplayAfter="0">
         <ProgressTemplate>

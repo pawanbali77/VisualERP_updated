@@ -78,6 +78,8 @@ public partial class Production : System.Web.UI.Page
         else if (Session["SelectedNodeValue"] != null)
             ProcessId = this.CInt32(Session["SelectedNodeValue"]);
 
+
+       //  delParam = new DelMethodWithParam(MethodWithParam);
         //////////////////////////////
 
         foreach (ListItem item in chklstActivitiesFrom.Items)
@@ -166,6 +168,7 @@ public partial class Production : System.Web.UI.Page
         }
     }
 
+   
     public void LoadallControls()
     {
         int sourceType = 1;
@@ -574,7 +577,7 @@ public partial class Production : System.Web.UI.Page
 
         // }
     }
-
+    
     public void loadParallelActivity(string divProcessID, int DBID, int Top, int Left, int width, int height, int type, int ParallelProcessObjID)
     {
         Plst.Clear();
@@ -1697,6 +1700,7 @@ public partial class Production : System.Web.UI.Page
         //PopupModelInventery.Show();
         ////InventryObeject();
     }
+
 
     protected void addInventeryBtn_Click(object sender, EventArgs e)
     {
