@@ -25,30 +25,11 @@
             }, 7000);
 
         }
-<<<<<<< HEAD
-    </script>--%>
-
- 
-
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
-    <script type='text/javascript'  src="//code.jquery.com/jquery-1.9.1.js"></script>
-    <script type='text/javascript'  src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-
-    
-  <%--    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js" type="text/javascript"></script>
-   
-    <script src="http://code.jquery.com/ui/1.8.23/jquery-ui.min.js" type="text/javascript"></script>
-    <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.23/themes/base/jquery-ui.css"
-        type="text/css" media="all" /> --%>
-    
-    <link rel="stylesheet" href="/resources/demos/style.css">
-=======
     </script>--%>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
     <script src="//code.jquery.com/jquery-1.9.1.js"></script>
     <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
     <link rel="stylesheet" href="/resources/demos/style.css">
->>>>>>> f0aeb939c7bffcbbd47a69dcf2294111dbd5e9eb
     <script language="javascript" type="text/javascript">
         $(function showpopup() {
             $("#Panel1").dialog();
@@ -282,44 +263,6 @@
                 $(".isa_success").fadeOut('slow', function () { $('.isa_success').remove() });
             }, 7000);
         }
-<<<<<<< HEAD
-
-            .chkk input {
-                float: left;
-                margin-left: 5px;
-                margin-top: 4px;
-            }
-
-            .chkk label {
-                float: left !important;
-                margin-top: -17px;
-                margin-left: -16px;
-            }
-    </style>
-</asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-    <asp:UpdatePanel ID="Uppnl1" runat="server" UpdateMode="Always">
-        <ContentTemplate>
-            <div class="right_container">
-                <%--<div class="right_top"></div>--%>
-                <div class="right_container_top" id="Title">
-                    <h1>Design View</h1>
-                    <div id="divErrorMsg" runat="server" style="font: bold 12px Arial, Helvetica, sans-serif; color: #555; padding: 7px 0px 0px 10px; height: 30px; float: left; min-width: 450px; max-width: 500px;">
-                        <asp:Label ID="lblMsg" runat="server" />
-                    </div>
-                    <div class="right_nav">
-                        <ul>
-                             <li onclick="return ZoomIn();" id="liZoomIn" runat="server" style="cursor: pointer;
-                                margin-top: 3px;"><a title="Zoom-in" class="ZommIn"></a></li>
-                            <li onclick="return ZoomOut();" id="liZoomOut" runat="server" style="cursor: pointer;
-                                margin-top: 3px;"><a title="Zoom-out" class="ZommOut"></a></li>
-                            <li onclick="return Zoomorg();" id="li5" runat="server" style="height: 50px; cursor: pointer">
-                                <a title="Zoom-reset" class="ZommSet"></a></li>
-
-                            <li runat="server" id="liSavedesign">
-                                <asp:LinkButton ID="lnkbtnSavedesign" runat="server" Text="Save Design" CssClass="DesignBtn"
-                                    OnClick="lnkbtnSavedesign_Click" /></li>
-=======
     </script>
 
     <style type="text/css">
@@ -358,11 +301,16 @@
                     </div>
                     <div class="right_nav">
                         <ul>
+                              <li onclick="return ZoomIn1();" id="liZoomIn" runat="server" style="cursor: pointer;
+                                margin-top: 3px;"><a title="Zoom-in" class="ZommIn"></a></li>
+                            <li onclick="return ZoomOut1();" id="liZoomOut" runat="server" style="cursor: pointer;
+                                margin-top: 3px;"><a title="Zoom-out" class="ZommOut"></a></li>
+                            <li onclick="return Zoomorg1();" id="li5" runat="server" style="height: 50px; cursor: pointer">
+                                <a title="Zoom-reset" class="ZommSet"></a></li>
                             <li runat="server" id="liSavedesign">
                                 <asp:LinkButton ID="lnkbtnSavedesign" runat="server" Text="Save Design"
                                     Style="font: bold 20px Arial; line-height: 44px !important;" CssClass="DesignBtn"
                                     OnClick="lnkbtnSavedesign_Click" /></li>
->>>>>>> f0aeb939c7bffcbbd47a69dcf2294111dbd5e9eb
                             <%-- <li style="display:none"><a href="#">
                                 <img src="images/zoom-in.png" /></a></li>
                             <li style="display:none"><a href="#">
@@ -720,31 +668,6 @@
                                         ValidationGroup="addParallel" ControlToValidate="ddlNexttoActivity" ErrorMessage="*"
                                         ForeColor="Red">
                                     </asp:RequiredFieldValidator>--%>
-<<<<<<< HEAD
-                                </li>
-                                <li>
-                                    <asp:Button ID="btnAddProcessActivity" ValidationGroup="addParallel" runat="server" CssClass="BlueBtnLe"
-                                        Text="Add" TabIndex="4" OnClick="btnAddProcessActivity_Click" />
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="Clear">
-                        </div>
-                    </div>
-                    <div class="Clear">
-                    </div>
-                </div>
-                <div class="Clear">
-                </div>
-                <%--  </div>--%>
-            </asp:Panel>
- 
-
-        </ContentTemplate>
-    </asp:UpdatePanel>
-    <script src="http://code.jquery.com/jquery-migrate-1.2.1.js"></script>
-</asp:Content>
-=======
                                 </li>
                                 <li>
                                     <asp:Button ID="btnAddProcessActivity" ValidationGroup="addParallel" runat="server" CssClass="BlueBtnLe"
@@ -766,5 +689,5 @@
 
         </ContentTemplate>
     </asp:UpdatePanel>
+      <script type="text/javascript" src="http://code.jquery.com/jquery-migrate-1.2.1.js"></script>
 </asp:Content>
->>>>>>> f0aeb939c7bffcbbd47a69dcf2294111dbd5e9eb

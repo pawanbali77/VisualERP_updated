@@ -95,8 +95,8 @@
                     return;
                 }
 
-                $("#ContentPlaceHolder1_MainDiv1").css('MozTransform', 'scale(' + currOtherZoom + ',' + currOtherZoom + ')');
-                $("#ContentPlaceHolder1_MainDiv1").css('transform-origin', '0 0');
+                $("#ContentPlaceHolder1_MainDiv").css('MozTransform', 'scale(' + currOtherZoom + ',' + currOtherZoom + ')');
+                $("#ContentPlaceHolder1_MainDiv").css('transform-origin', '0 0');
             }
             else if (msieversion()) {
                 var step = 0.02;
@@ -106,8 +106,8 @@
                     return;
                 }
                 // alert("ie");
-                jQuery('#ContentPlaceHolder1_MainDiv1').css('-ms-transform', 'scale(' + currOtherZoom + ',' + currOtherZoom + ')');
-                jQuery('#ContentPlaceHolder1_MainDiv1').css('-ms-transform-origin', '0 0');
+                jQuery('#ContentPlaceHolder1_MainDiv').css('-ms-transform', 'scale(' + currOtherZoom + ',' + currOtherZoom + ')');
+                jQuery('#ContentPlaceHolder1_MainDiv').css('-ms-transform-origin', '0 0');
             }
             else {
                 var step = 0.02;
@@ -117,8 +117,8 @@
                     currOtherZoom = 2.079999;
                     return;
                 }
-                $('#ContentPlaceHolder1_MainDiv1').css('-webkit-transform', 'scale(' + currOtherZoom + ',' + currOtherZoom + ')');
-                $('#ContentPlaceHolder1_MainDiv1').css('-webkit-transform-origin', '0 0');
+                $('#ContentPlaceHolder1_MainDiv').css('-webkit-transform', 'scale(' + currOtherZoom + ',' + currOtherZoom + ')');
+                $('#ContentPlaceHolder1_MainDiv').css('-webkit-transform-origin', '0 0');
             }
 
 
@@ -128,8 +128,8 @@
             var maxheight = $("input[id=ContentPlaceHolder1_hdnheight]").val();
             //alert(maxwidth + ',' + maxheight);
 
-            $("#ContentPlaceHolder1_MainDiv1").css("height", maxheight);
-            $("#ContentPlaceHolder1_MainDiv1").css("width", maxwidth);
+            $("#ContentPlaceHolder1_MainDiv").css("height", maxheight);
+            $("#ContentPlaceHolder1_MainDiv").css("width", maxwidth);
             $("input[id=ContentPlaceHolder1_hdnLastZoom]").val(currOtherZoom);
         }
 
@@ -189,6 +189,165 @@
                 currFFZoom = 1;
                 currIEZoom = 1;
                 currOtherZoom = 1;
+                $("#ContentPlaceHolder1_MainDiv").css('MozTransform', 'scale(' + currOtherZoom + ',' + currOtherZoom + ')');
+                $("#ContentPlaceHolder1_MainDiv").css('transform-origin', '0 0');
+            }
+            else if (msieversion()) {
+                currFFZoom = 1;
+                currIEZoom = 1;
+                currOtherZoom = 1;
+                //alert("ie");
+                jQuery('#ContentPlaceHolder1_MainDiv').css('-ms-transform', 'scale(' + currOtherZoom + ',' + currOtherZoom + ')');
+                jQuery('#ContentPlaceHolder1_MainDiv').css('-ms-transform-origin', '0 0');
+            }
+            else {
+                currFFZoom = 1;
+                currIEZoom = 1;
+                currOtherZoom = 1;
+                jQuery('#ContentPlaceHolder1_MainDiv').css('-webkit-transform', 'scale(' + currOtherZoom + ',' + currOtherZoom + ')');
+                jQuery('#ContentPlaceHolder1_MainDiv').css('-webkit-transform-origin', '0 0');
+            }
+
+            $("#ContentPlaceHolder1_MainDiv").css("width", '100%');
+            $("#ContentPlaceHolder1_MainDiv").css("z-index", 1);
+            $("input[id=ContentPlaceHolder1_hdnLastZoom]").val(currOtherZoom);
+           // test();
+        }
+
+
+        function ZoomRefresh() {
+            //alert("hi");
+            if ($('input[id=ContentPlaceHolder1_hdnLastZoom]').val() != '') {
+                currOtherZoom = parseFloat($("input[id=ContentPlaceHolder1_hdnLastZoom]").val());
+            }
+            if ($.browser.mozilla) {
+                $("#ContentPlaceHolder1_MainDiv").css('MozTransform', 'scale(' + currOtherZoom + ',' + currOtherZoom + ')');
+                $("#ContentPlaceHolder1_MainDiv").css('transform-origin', '0 0');
+            }
+            else if (msieversion()) {
+                //alert("ie");
+                jQuery('#ContentPlaceHolder1_MainDiv').css('-ms-transform', 'scale(' + currOtherZoom + ',' + currOtherZoom + ')');
+                jQuery('#ContentPlaceHolder1_MainDiv').css('-ms-transform-origin', '0 0');
+            }
+            else {
+                jQuery('#ContentPlaceHolder1_MainDiv').css('-webkit-transform', 'scale(' + currOtherZoom + ',' + currOtherZoom + ')');
+                jQuery('#ContentPlaceHolder1_MainDiv').css('-webkit-transform-origin', '0 0');
+            }
+
+            $("#ContentPlaceHolder1_MainDiv").css("z-index", 1);
+            var maxwidth = $("input[id=ContentPlaceHolder1_hdnWidth]").val();
+            var maxheight = $("input[id=ContentPlaceHolder1_hdnheight]").val();
+            $("#ContentPlaceHolder1_MainDiv").css("height", maxheight);
+            $("#ContentPlaceHolder1_MainDiv").css("width", maxwidth);
+            $("input[id*='txt']").val(''); // clear textbox validation on closing pop up
+            //  $("input[id=ContentPlaceHolder1_hdnLastZoom]").val(currOtherZoom);           
+        }
+
+
+        function ZoomIn1() {
+
+            if ($.browser.mozilla) {
+                var step = 0.02;
+                currOtherZoom += step;
+                if (currOtherZoom > 2.079999) {
+                    currOtherZoom = 2.079999;
+                    return;
+                }
+
+                $("#ContentPlaceHolder1_MainDiv1").css('MozTransform', 'scale(' + currOtherZoom + ',' + currOtherZoom + ')');
+                $("#ContentPlaceHolder1_MainDiv1").css('transform-origin', '0 0');
+            }
+            else if (msieversion()) {
+                var step = 0.02;
+                currOtherZoom += step;
+                if (currOtherZoom > 2.079999) {
+                    currOtherZoom = 2.079999;
+                    return;
+                }
+                // alert("ie");
+                jQuery('#ContentPlaceHolder1_MainDiv1').css('-ms-transform', 'scale(' + currOtherZoom + ',' + currOtherZoom + ')');
+                jQuery('#ContentPlaceHolder1_MainDiv1').css('-ms-transform-origin', '0 0');
+            }
+            else {
+                var step = 0.02;
+                currOtherZoom = currOtherZoom + step;
+
+                if (currOtherZoom > 2.079999) {
+                    currOtherZoom = 2.079999;
+                    return;
+                }
+                $('#ContentPlaceHolder1_MainDiv1').css('-webkit-transform', 'scale(' + currOtherZoom + ',' + currOtherZoom + ')');
+                $('#ContentPlaceHolder1_MainDiv1').css('-webkit-transform-origin', '0 0');
+            }
+
+
+            //get max width and height of process from hidden field value 
+            var maxwidth = $("input[id=ContentPlaceHolder1_hdnWidth]").val();
+
+            var maxheight = $("input[id=ContentPlaceHolder1_hdnheight]").val();
+            //alert(maxwidth + ',' + maxheight);
+
+            $("#ContentPlaceHolder1_MainDiv1").css("height", maxheight);
+            $("#ContentPlaceHolder1_MainDiv1").css("width", maxwidth);
+            $("input[id=ContentPlaceHolder1_hdnLastZoom]").val(currOtherZoom);
+        }
+
+        function ZoomOut1() {
+            if ($.browser.mozilla) {
+                var step = 0.02;
+                currOtherZoom -= step;
+                if (currOtherZoom < 0.13999) {
+                    currOtherZoom = 0.139999;
+                    return;
+                }
+
+                jQuery('#ContentPlaceHolder1_MainDiv1').css('MozTransform', 'scale(' + currOtherZoom + ',' + currOtherZoom + ')');
+                jQuery('#ContentPlaceHolder1_MainDiv1').css('transform-origin', '0 0');
+            }
+            else if (msieversion()) {
+                var step = 0.02;
+                currOtherZoom -= step;
+                if (currOtherZoom < 0.13999) {
+                    currOtherZoom = 0.139999;
+                    return;
+                }
+                //alert("ie");
+
+                jQuery('#ContentPlaceHolder1_MainDiv1').css('-ms-transform', 'scale(' + currOtherZoom + ',' + currOtherZoom + ')');
+                jQuery('#ContentPlaceHolder1_MainDiv1').css('-ms-transform-origin', '0 0');
+            }
+            else {
+                var step = 0.02;
+                currOtherZoom -= step;
+                if (currOtherZoom < 0.13999) {
+                    currOtherZoom = 0.139999;
+                    return;
+                }
+                jQuery('#ContentPlaceHolder1_MainDiv1').css('-webkit-transform', 'scale(' + currOtherZoom + ',' + currOtherZoom + ')');
+                jQuery('#ContentPlaceHolder1_MainDiv1').css('-webkit-transform-origin', '0 0');
+            }
+            var maxwidth = $("input[id=ContentPlaceHolder1_hdnWidth]").val(); //get max width of process from hidden field value
+            var maxheight = $("input[id=ContentPlaceHolder1_hdnheight]").val(); //get max height of process from hidden field value 
+            // alert(maxwidth + ',' + maxheight);
+
+            $("#ContentPlaceHolder1_MainDiv1").css("height", maxheight);
+            $("#ContentPlaceHolder1_MainDiv1").css("width", maxwidth);
+            //            $("#ContentPlaceHolder1_MainDiv").css("z-index", 1);
+            //            $(".footer").css("z-index", "10");
+            //            $(".grey_strip").css("top", 99);
+            //            $(".right_container_top").css("z-index", "10");
+            //            $(".side_bar").css("z-index", "5");
+            //            $(".side_bar").css("background-color", "#F5F5F5");
+            //            // $("#ContentPlaceHolder1_MainDiv").css("overflow", "hidden");
+            $("input[id=ContentPlaceHolder1_hdnLastZoom]").val(currOtherZoom);
+
+        }
+
+        function Zoomorg1() {
+            if ($.browser.mozilla) {
+                currFFZoom = 1;
+                currIEZoom = 1;
+                currOtherZoom = 1;
                 $("#ContentPlaceHolder1_MainDiv1").css('MozTransform', 'scale(' + currOtherZoom + ',' + currOtherZoom + ')');
                 $("#ContentPlaceHolder1_MainDiv1").css('transform-origin', '0 0');
             }
@@ -211,36 +370,7 @@
             $("#ContentPlaceHolder1_MainDiv1").css("width", '100%');
             $("#ContentPlaceHolder1_MainDiv1").css("z-index", 1);
             $("input[id=ContentPlaceHolder1_hdnLastZoom]").val(currOtherZoom);
-           // test();
-        }
-
-
-        function ZoomRefresh() {
-            //alert("hi");
-            if ($('input[id=ContentPlaceHolder1_hdnLastZoom]').val() != '') {
-                currOtherZoom = parseFloat($("input[id=ContentPlaceHolder1_hdnLastZoom]").val());
-            }
-            if ($.browser.mozilla) {
-                $("#ContentPlaceHolder1_MainDiv1").css('MozTransform', 'scale(' + currOtherZoom + ',' + currOtherZoom + ')');
-                $("#ContentPlaceHolder1_MainDiv1").css('transform-origin', '0 0');
-            }
-            else if (msieversion()) {
-                //alert("ie");
-                jQuery('#ContentPlaceHolder1_MainDiv1').css('-ms-transform', 'scale(' + currOtherZoom + ',' + currOtherZoom + ')');
-                jQuery('#ContentPlaceHolder1_MainDiv1').css('-ms-transform-origin', '0 0');
-            }
-            else {
-                jQuery('#ContentPlaceHolder1_MainDiv1').css('-webkit-transform', 'scale(' + currOtherZoom + ',' + currOtherZoom + ')');
-                jQuery('#ContentPlaceHolder1_MainDiv1').css('-webkit-transform-origin', '0 0');
-            }
-
-            $("#ContentPlaceHolder1_MainDiv1").css("z-index", 1);
-            var maxwidth = $("input[id=ContentPlaceHolder1_hdnWidth]").val();
-            var maxheight = $("input[id=ContentPlaceHolder1_hdnheight]").val();
-            $("#ContentPlaceHolder1_MainDiv1").css("height", maxheight);
-            $("#ContentPlaceHolder1_MainDiv1").css("width", maxwidth);
-            $("input[id*='txt']").val(''); // clear textbox validation on closing pop up
-            //  $("input[id=ContentPlaceHolder1_hdnLastZoom]").val(currOtherZoom);           
+            // test();
         }
     </script>
 
