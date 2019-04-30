@@ -174,12 +174,16 @@ img {
 }
 .filter_strip a {
 	text-decoration:none;
-	font:14px Arial, Helvetica, sans-serif;
+	/*font:14px Arial, Helvetica, sans-serif;*/
 	color:#000;
 	background:url(../images/filter_arrow.png) no-repeat right 3px;
 	padding-left:15px;
 	padding-right:24px;
 	line-height:33px;
+
+    font: 18px Arial, Helvetica, sans-serif !important;
+    line-height: 33px !important;
+    white-space: nowrap !important;
 }
 .bottom_container {
  float: left;
@@ -390,7 +394,8 @@ img {
 }
 .th_fieldsi a {
 	color: #000000;
-	font: 18px/40px Arial, Helvetica, sans-serif;
+	/*font: 18px/40px Arial, Helvetica, sans-serif;*/
+	font: 20px/40px Arial, Helvetica, sans-serif;
 	padding: 0;
 }
 
@@ -842,7 +847,8 @@ background:url(../images/menu_icon28.png) no-repeat left;
 	width:100%;
 	float:left;
 	padding:0 0 4px 0;
-	font:normal 16px Arial, Helvetica, sans-serif;
+	/*font:normal 16px Arial, Helvetica, sans-serif;*/
+	font:normal 20px Arial, Helvetica, sans-serif;
 	color:#555;
 }
 .radioBtn {
@@ -866,7 +872,8 @@ background:url(../images/menu_icon28.png) no-repeat left;
 	line-height:29px;
 }
 .AttrSeFild {
-	width:193px;
+	/*width:193px;*/
+    width:182px;
 	float:left;
 	background:url(../images/txtfild_bg.png) repeat-x;
 	height:29px;
@@ -1026,11 +1033,13 @@ margin:115px 0 0 0;
 .RightAt1 table td {
 	border-left:0px solid #ccc;
 	border-top:0px solid #ccc;
-	font:normal 12px Arial, Helvetica, sans-serif;
+	/*font:normal 12px Arial, Helvetica, sans-serif;*/
 	color:#555;
 	text-align:left;
 	padding:0px 0 12px 15px;
 	vertical-align:middle;
+    font:normal 16px Arial, Helvetica, sans-serif;
+    white-space:nowrap;
 }
 
 .RightAt1 table tr.GrayBg {
@@ -2201,12 +2210,13 @@ color: #555;
 
 .filter_stripArw a {
 	text-decoration:none;
-	font:14px Arial, Helvetica, sans-serif;
+	/*font:14px Arial, Helvetica, sans-serif;*/
 	color:#000;
 	background:url(../images/filter_arrow.png) no-repeat right 3px;
 	padding-left:15px;
 	padding-right:24px;
 	line-height:33px;
+    font:18px Arial, Helvetica, sans-serif;
 }
 
 .filter_stripArw #arw li ul a{

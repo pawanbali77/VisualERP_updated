@@ -295,32 +295,32 @@
             <div class="right_container">
                 <%--<div class="right_top"></div>--%>
                 <div class="right_container_top" id="Title">
-                    <h1>Design View</h1>
+                    <h1 style="font: 20px Arial, Helvetica, sans-serif;">Design View</h1>
                     <div id="divErrorMsg" runat="server" style="font: bold 12px Arial, Helvetica, sans-serif; color: #555; padding: 7px 0px 0px 10px; height: 30px; float: left; min-width: 450px; max-width: 500px;">
                         <asp:Label ID="lblMsg" runat="server" />
                     </div>
                     <div class="right_nav">
                         <ul>
                             <li runat="server" id="liSavedesign">
-                                <asp:LinkButton ID="lnkbtnSavedesign" runat="server" Text="Save Design" CssClass="DesignBtn"
+                                <asp:LinkButton ID="lnkbtnSavedesign" runat="server" Text="Save Design"
+                                    Style="font: bold 20px Arial; line-height: 44px !important;" CssClass="DesignBtn"
                                     OnClick="lnkbtnSavedesign_Click" /></li>
                             <%-- <li style="display:none"><a href="#">
                                 <img src="images/zoom-in.png" /></a></li>
                             <li style="display:none"><a href="#">
                                 <img src="images/zoom-out.png" /></a></li>--%>
 
-<%--                                  <li onclick="return callready();" id="liZoomIn" runat="server" style="cursor: pointer; margin-top: 3px;"><a title="Zoom-in" class="ZommIn"></a></li>
+                            <%--                                  <li onclick="return callready();" id="liZoomIn" runat="server" style="cursor: pointer; margin-top: 3px;"><a title="Zoom-in" class="ZommIn"></a></li>
                             <li onclick="return callready();" id="liZoomOut" runat="server" style="cursor: pointer; margin-top: 3px;"><a title="Zoom-out" class="ZommOut"></a></li>
                             <li onclick="return callready();" id="li5" runat="server" style="height: 50px; cursor: pointer">
                                 <a title="Zoom-reset" class="ZommSet"></a></li>--%>
-
                         </ul>
                     </div>
                 </div>
                 <div class="grey_strip" id="controls" runat="server">
                     <div class="filter_strip" id="Bpmn" runat="server">
                         <ul id="nav">
-                            <li class="bdr_none"><a href="#" class="col_grey">BPMN icon</a>
+                            <li class="bdr_none"><a href="#" class="col_grey" style="font: 20px Arial, Helvetica, sans-serif;line-height: 33px;">BPMN icon</a>
                                 <ul style="z-index: 2; overflow-y: scroll!important;">
                                     <li id="liProcess" runat="server">
                                         <asp:LinkButton ID="lnkBtnProces" runat="server" OnClick="lnkBtnProces_Click"><span class="NaviMidIcon1"></span>Process</asp:LinkButton></li>
@@ -387,7 +387,7 @@
                     </div>
                     <div class="filter_stripArw" id="Div1" runat="server">
                         <ul id="arw">
-                            <li class="bdr_none"><a href="#" class="col_grey">Draw Arrows</a>
+                            <li class="bdr_none"><a href="#" class="col_grey" style="font: 18px Arial, Helvetica, sans-serif;line-height: 38px !important;padding-left: 8px !important;">Draw Arrows</a>
                                 <ul style="z-index: 2; overflow-y: scroll!important; right: 0px">
                                     <li id="li2" runat="server">
                                         <asp:LinkButton ID="lnkbtnArrow1" runat="server" OnClick="lnkbtnArrow1_Click"><span class="ArrowIcon1"></span>Right to Bottom</asp:LinkButton></li>
@@ -679,7 +679,7 @@
                 </div>
                 <%--  </div>--%>
             </asp:Panel>
- 
+
 
         </ContentTemplate>
     </asp:UpdatePanel>

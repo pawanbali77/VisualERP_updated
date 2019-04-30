@@ -366,4 +366,43 @@ public partial class EnterPriseMaster : System.Web.UI.MasterPage
 
         }
     }
+
+    //change
+    protected void tgtBtn_Click(object sender, EventArgs e)
+    {
+        string Email = Session["Email"].ToString();
+        int ID = Convert.ToInt32(Session["ID"].ToString());
+        int ProcessId = Convert.ToInt32(Session["ProcessId"].ToString());
+        int CompanyId = Convert.ToInt32(Session["CompanyID"].ToString());
+        int UserID = Convert.ToInt32(Session["UserID"].ToString());
+
+
+        //int Parent_id = Convert.ToInt32(Session["Parent_id"].ToString());
+        if (TreeView1.SelectedNode != null)
+        {
+            Email = Session["Email"].ToString();
+            ID = Convert.ToInt32(Session["ID"].ToString());
+            ProcessId = Convert.ToInt32(Session["ProcessId"].ToString());
+            CompanyId = Convert.ToInt32(Session["CompanyID"].ToString());
+            UserID = Convert.ToInt32(Session["UserID"].ToString());
+
+            // Parent_id = Convert.ToInt32(Session["Parent_id"].ToString());
+
+            TreeView1.SelectedNode.Selected = false;
+            TreeView1.SelectedNodeStyle.Reset();
+            // TreeView1.SelectedNode.Selected = false;
+            Session["SelectedNode"] = null;
+            Session["SelectedNodeValue"] = null;
+
+            List<ProcessData.ProcessDataProperty> lstreeData = ProcessData.GetAllProcessID_test(Convert.ToInt32(UserID.ToString()), Convert.ToInt32(CompanyId.ToString()));
+
+
+            // List<ProcessData.ProcessDataProperty> lstreeData = ProcessData.GetAllProcessID();
+
+            TreeView1.Nodes.Clear();
+            BindTree(lstreeData, null);
+        }
+        //lblManager.Text = "Process Manager";
+        Response.Redirect("~/TargetManager.aspx");
+    }
 }

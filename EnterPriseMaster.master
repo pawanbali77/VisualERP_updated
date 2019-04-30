@@ -265,15 +265,20 @@
             <li><a href="#"><span class="Enterprize"></span>Enterprise Manager</a></li>--%>
                         <li>
                             <asp:LinkButton ID="LinkButton2" runat="server" OnClick="prsBtn_Click"><span class="Process"></span>Process View</asp:LinkButton></li>
+
+                        <li id="menu_TargetManager" runat="server">
+                            <asp:LinkButton ID="lnkTargetManager" runat="server" OnClick="tgtBtn_Click"><span class="Target"></span>Target View</asp:LinkButton></li>
+
                         <li>
                             <asp:LinkButton ID="enterpriseBtn" runat="server" OnClick="enterpriseBtn_Click" CssClass="enterprize_manager"><span class="Enterprize"></span>Enterprise Manager</asp:LinkButton></li>
-                        <li><a href="#"><span class="Metrics"></span>Metrics Manager</a></li>
+                       <%-- <li><a href="#"><span class="Metrics"></span>Metrics Manager</a></li>--%>
                         <li><a href="ManageReport.aspx"><span class="Report"></span>Report Manager</a></li>
-                        <li><a href="#"><span class="Project"></span>Project Manager</a></li>
+                       <%-- <li><a href="#"><span class="Project"></span>Project Manager</a></li>--%>
                         <li><a href="FormManager.aspx"><span class="Inventory"></span>Form Manager</a></li>
-                        <li><a href="#"><span class="Demand"></span>Demand Manager</a></li>
-                        <li><a href="#"><span class="Variation"></span>Variation Manager</a></li>
-                        <li class="last"><a href="#"><span class="Inventory"></span>Inventory Manager</a></li>
+                       <%-- <li><a href="#"><span class="Demand"></span>Demand Manager</a></li>--%>
+                       <%-- <li><a href="#"><span class="Variation"></span>Variation Manager</a></li>--%>
+                       <%-- <li class="last"><a href="#"><span class="Inventory"></span>Inventory Manager</a></li>--%>
+                        <li class="last"><a href="Logout.aspx"><span class="Process"></span>Logout</a></li>
                     </ul>
                 </li>
             </ul>

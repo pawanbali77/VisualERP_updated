@@ -26,7 +26,9 @@
             <asp:Label ID="lblMsg" runat="server"></asp:Label>
             <div class="AttribMid1">
                 <asp:Panel ID="PanalMch" runat="server">
-                    <div style="height: 30px; font-weight: bold; text-decoration: underline;">
+                    <%--<div style="height: 30px; font-weight: bold; text-decoration: underline;">--%>
+                <div style="height: 50px; font-weight: bold; text-decoration: underline; font-size: 20px;">
+                    <br />
                         <asp:LinkButton ID="lnkbtnOpenDivMachine" runat="server" Text="Add Machine Information"
                             Style="margin: 0px 0px 0px 15px; color: Orange" OnClick="lnkbtnOpenDivMachine_Click" />
                         <div style="height: 100px; display: none;" id="divMachineAdd">

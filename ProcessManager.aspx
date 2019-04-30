@@ -73,7 +73,7 @@
             <div class="right_container">
                 <%--<div class="right_top"></div>--%>
                 <div class="right_container_top" id="Title">
-                    <h1>
+                    <h1 style="font: 22px Arial, Helvetica, sans-serif !important;">
                         Process View</h1>
                     <div id="divErrorMsg" runat="server" style="font: bold 12px Arial, Helvetica, sans-serif;
                         color: #555; padding: 7px 0px 0px 10px; height: 30px; float: left; min-width: 450px; max-width: 500px;">                         
@@ -85,7 +85,7 @@
                  </div>--%>
                     <div class="right_nav">
                         <ul>
-                            <li runat="server" id="liDesignViewBtn"><a href="Production.aspx?src=process" class="DesignBtn">Design View</a></li>
+                            <li runat="server" id="liDesignViewBtn"><a href="Production.aspx?src=process" class="DesignBtn" style="font: bold 20px Arial;line-height: 44px !important;">Design View</a></li>
                             <li onclick="return ZoomIn();" id="liZoomIn" runat="server" style="cursor: pointer;
                                 margin-top: 3px;"><a title="Zoom-in" class="ZommIn"></a></li>
                             <li onclick="return ZoomOut();" id="liZoomOut" runat="server" style="cursor: pointer;
