@@ -176,7 +176,7 @@
 
                                <li style="margin-right: 1px">
                                 <asp:LinkButton ID="lnkbtnErrorRecord" runat="server" ToolTip="Error Record" 
-                                    CssClass="ViewPPESA"
+                                    CssClass="ViewErrorLog"
                                     OnClick="lnkbtnErrorRecord_Click" />
                             </li>
                         </ul>

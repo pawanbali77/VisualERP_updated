@@ -2986,6 +2986,34 @@ background-position:0px top;
 }
 
 
+.ViewErrorLog { }
+
+a.ViewErrorLog{
+width:34px;
+height:41px;
+float:left;
+display:block;
+background:url("../images/view_form.png") no-repeat;
+background-position:0px -41px;
+-webkit-transition-property:background-position;
+-moz-transition-property:background-position;
+-o-transition-property:background-position;
+transition-property:background-position;
+-webkit-transition-duration:.4s;
+-moz-transition-duration:.4s;
+-o-transition-duration:.4s;
+transition-duration:.4s;
+}
+a.ViewErrorLog:hover,
+a.ViewErrorLog.active
+
+{
+background:url("../images/view_form.png") 100% 0 no-repeat;
+background-position:0px top;
+}
+
+
+
 /***************22 july*****************************/
 
 .AttrSeFildExcel {
