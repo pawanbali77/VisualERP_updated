@@ -276,221 +276,180 @@ public partial class FormManager : BasePage
 
     protected void lnkbtnSaveForm_Click(object sender, EventArgs e)
     {
-        //if (PPESAnPDESA.GetDuplicateCheck(txtProductFeatureAdded.Text.Trim(), Convert.ToInt32(ViewState["poid"]), this.EditIDINT)) //// it will check if link name is already exist
-        //{
-        //    tbl_PPESAnPDESA data = new tbl_PPESAnPDESA();
-        //    if (ViewState["FormType"] != null)
-        //        data.FormType = Convert.ToInt32(ViewState["FormType"]);
-        //    data.ProcessID = ProcessId;
-        //    if (ViewState["poid"] != null)
-        //        data.ProcessObjectID = Convert.ToInt32(ViewState["poid"]);
-        //    data.ProductFeatureAdded = txtProductFeatureAdded.Text.Trim();
-        //    data.FunctionofProductFeature = txtFunctionProductFeature.Text.Trim();
-        //    data.ErrorEvent = txtErrorEvent.Text.Trim();
-        //    data.ErrorEventTransferFunction = txtErrorEventTransferFunction.Text.Trim();
-        //    data.Actions = txtActions.Text.Trim();
-        //    data.ActionCriticalParameter = Convert.ToBoolean(drpActionCriticalParameter.SelectedItem.Value);
-        //    data.Conditions = txtConditions.Text.Trim();
-        //    data.ConditonCriticalParameter = Convert.ToBoolean(drpConditonCriticalParameter.Text.Trim());
-        //    data.InitialSeverity = Convert.ToInt32(ddlInitialSeverity.SelectedItem.Value);
-        //    data.InitialFrequency = Convert.ToInt32(ddlInitialFrequency.SelectedItem.Value);
-        //    data.InitialDetection = Convert.ToInt32(ddlInitialDetection.SelectedItem.Value);
-        //    data.IntialRPN = Convert.ToInt32(txtIntialRPN1.Text.Trim());
-        //    data.Countermeasure = txtCountermeasure.Text.Trim();
-        //    data.CountermeasureEffectiveness = Convert.ToInt32(ddlCountermeasureEffectiveness.SelectedItem.Value);
-        //    data.FinalSeverity = Convert.ToInt32(ddlFinalSeverity.Text.Trim());
-        //    data.FinalFrequency = Convert.ToInt32(ddlFinalFrequency.Text.Trim());
-        //    data.FinalDetection = Convert.ToInt32(ddlFinalDetection.Text.Trim());
-        //    data.FinalRPN = Convert.ToInt32(txtFinalRPN1.Text.Trim());
+        SaveRecord();
+    }
 
-        //    if (this.EditIDINT > 0)    //// for edit mode
-        //    {
-        //        data.FormID = this.EditIDINT;
-        //    }
 
-        //    bool result = false;
-        //    // result =
-        //    result = PPESAnPDESA.SavePPESAnPDESAData(data);  ////SaveInputData will dave input link in database table information input
-
-        //    if (result == true)  // if record is updated or inserted
-        //    {
-        //        ResetBinding(Convert.ToInt32(ViewState["FormType"]));
-        //        // pnlActivity.Visible = false;
-        //       // pnlAddForm.Visible = false;
-        //        pnlListPPESA.Visible = true;
-        //        lnkbtnSaveForm.Visible = false;
-        //        lblMsg.Visible = true;
-        //        divErrorMsg.Visible = true;
-        //        lblMsg.Text = "Report saved successfully.";
-        //        lblMsg.Style.Add("color", "green");
-        //        divErrorMsg.Attributes.Add("class", "isa_success");
-
-        //        string cid = string.Empty;
-        //        if (Convert.ToInt32(ViewState["FormType"]) == 0)
-        //            cid = lnkbtnViewPPESAForm.ClientID;
-        //        else
-        //            cid = lnkbtnViewPDESAForm.ClientID;
-
-        //        string script2 = "actvieclassByid(" + cid + ")";
-        //        ScriptManager.RegisterStartupScript(this, this.GetType(),
-        //                      "script", script2, true);
-        //    }
-        //    else
-        //    {
-        //        // pnlActivity.Visible = false;
-        //       // pnlAddForm.Visible = true;
-        //        pnlListPPESA.Visible = false;
-        //        lnkbtnSaveForm.Visible = false;
-        //        lblMsg.Visible = true;
-        //        divErrorMsg.Visible = true;
-        //        lblMsg.Text = "Error on Deleting data.!";
-        //        lblMsg.Style.Add("color", "red");
-        //        divErrorMsg.Attributes.Add("class", "isa_error");
-        //    }
-        //}
-
+    private void SaveRecord(bool isAutoSave=false)
+    {
         int formType = 0;
         if (ViewState["FormType"] != null)
             formType = Convert.ToInt32(ViewState["FormType"]);
 
         if (formType == 2)
         {
-
-          
             foreach (GridViewRow row in grdErrorGrid.Rows)
             {
-                ErrorInfo data = new ErrorInfo();
-                data.ErrorID = Convert.ToInt32((row.FindControl("hdnErrorID") as HiddenField).Value);
-                data.ProcessID = Convert.ToInt32((row.FindControl("hdnProcessID") as HiddenField).Value);
-
-                string error = (row.FindControl("txtError") as TextBox).Text;
-                data.Error = error;
-
-                string cycleTime= (row.FindControl("txtCycleTime") as TextBox).Text;
-                if (string.IsNullOrEmpty(cycleTime))
-                     data.CycleTime = 0;
-                else
-                data.CycleTime = Convert.ToInt32(cycleTime);
-
-
-                string workContent = (row.FindControl("txtWorkContent") as TextBox).Text;
-                if (string.IsNullOrEmpty(workContent))
-                    data.WorkContent = 0;
-                else
-                    data.WorkContent = Convert.ToInt32(workContent);
-
-                string counterMeasure = (row.FindControl("txtCounterMeasure") as TextBox).Text;
-                if (string.IsNullOrEmpty(counterMeasure))
-                    data.CounterMeasure = 0;
-                else
-                    data.CounterMeasure = Convert.ToInt32(counterMeasure);
-
-                string counterMeasureStrength = (row.FindControl("txtCounterMeasureStrength") as TextBox).Text;
-                if (string.IsNullOrEmpty(counterMeasureStrength))
-                    data.CounterMeasureStrength = 0;
-                else
-                    data.CounterMeasureStrength = Convert.ToInt32(counterMeasureStrength);
-               
-                
-
-                new ErrorData().Save(data);
-                lblMsg.Visible = true;
-                divErrorMsg.Visible = true;
-                lblMsg.Text = "Record saved successfully.";
-                lblMsg.Style.Add("color", "green");
-                divErrorMsg.Attributes.Add("class", "isa_success");
+                try
+                { 
+                    SaveErrorLogRecord(row); 
+                }
+                catch (Exception ex)
+                {}
             }
 
         }
         else
         {
             bool updateForm = false;
-            tbl_PPESAnPDESA data = new tbl_PPESAnPDESA();
+            
             foreach (GridViewRow row in gridPPESA.Rows)
             {
-                data.FormID = Convert.ToInt32((row.FindControl("litFormID") as Literal).Text);
-                data.ProcessID = ProcessId;
-                DropDownList ddlProcessObjectID = row.FindControl("ddlProcessObjectID") as DropDownList;
-                if (ddlProcessObjectID.SelectedIndex > 0)
-                {
-                    data.ProcessObjectID = Convert.ToInt32((row.FindControl("ddlProcessObjectID") as DropDownList).SelectedValue);
+                try
+                {               
+                    updateForm = SavePPESAandPDESA(row);
                 }
-                else
-                {
-                    data.ProcessObjectID = null;
+                catch (Exception ex)
+                { 
                 }
-                data.Sequence = Convert.ToInt32((row.FindControl("litSequence") as Literal).Text);
-                data.FormType = Convert.ToInt32((row.FindControl("litFormType") as Literal).Text);
-                data.ProductFeatureAdded = (row.FindControl("txtProductFeatureAdded") as TextBox).Text;
-                data.FunctionofProductFeature = (row.FindControl("txtFunctionProductFeature") as TextBox).Text;
-                data.ErrorEvent = (row.FindControl("txtErrorEvent") as TextBox).Text;
-                data.ErrorEventTransferFunction = (row.FindControl("txtErrorEventTransferFunction") as TextBox).Text;
-                data.Actions = (row.FindControl("txtActions") as TextBox).Text;
-                data.ActionCriticalParameter = Convert.ToBoolean((row.FindControl("drpActionCriticalParameter") as DropDownList).SelectedValue);
-                data.Conditions = (row.FindControl("txtConditions") as TextBox).Text;
-                data.ConditonCriticalParameter = Convert.ToBoolean((row.FindControl("drpConditonCriticalParameter") as DropDownList).SelectedValue);
-                data.InitialSeverity = Convert.ToInt32((row.FindControl("ddlInitialSeverity") as DropDownList).SelectedValue);
-                data.InitialFrequency = Convert.ToInt32((row.FindControl("ddlInitialFrequency") as DropDownList).SelectedValue);
-                data.InitialDetection = Convert.ToInt32((row.FindControl("ddlInitialDetection") as DropDownList).SelectedValue);
-                TextBox txtIntialRPN = row.FindControl("txtIntialRPN") as TextBox;
-                if (txtIntialRPN.Text != "")
-                {
-                    data.IntialRPN = Convert.ToInt32((row.FindControl("txtIntialRPN") as TextBox).Text);
-                }
-                else
-                {
-                    data.IntialRPN = null;
-                }
-                data.Countermeasure = (row.FindControl("txtCountermeasure") as TextBox).Text;
-                data.CountermeasureEffectiveness = Convert.ToInt32((row.FindControl("ddlCountermeasureEffectiveness") as DropDownList).SelectedValue);
-                data.FinalSeverity = Convert.ToInt32((row.FindControl("ddlFinalSeverity") as DropDownList).SelectedValue);
-                data.FinalFrequency = Convert.ToInt32((row.FindControl("ddlFinalFrequency") as DropDownList).SelectedValue);
-                data.FinalDetection = Convert.ToInt32((row.FindControl("ddlFinalDetection") as DropDownList).SelectedValue);
-                TextBox txtFinalRPN = row.FindControl("txtFinalRPN") as TextBox;
-                if (txtFinalRPN.Text != "")
-                {
-                    data.FinalRPN = Convert.ToInt32((row.FindControl("txtFinalRPN") as TextBox).Text);
-                }
-                else
-                {
-                    data.FinalRPN = null;
-                }
-                updateForm = PPESAnPDESA.SavePPESAnPDESAData(data); // update aditional fields in form table                            
             }
-            if (updateForm == true)  // if record is updated or inserted
-            {
-                ResetBinding(Convert.ToInt32(ViewState["FormType"]));
-                pnlListPPESA.Visible = true;
-                //lnkbtnSaveForm.Visible = false;
-                lblMsg.Visible = true;
-                divErrorMsg.Visible = true;
-                lblMsg.Text = "Report saved successfully.";
-                lblMsg.Style.Add("color", "green");
-                divErrorMsg.Attributes.Add("class", "isa_success");
 
-                string cid = string.Empty;
-                if (Convert.ToInt32(ViewState["FormType"]) == 0)
-                    cid = lnkbtnViewPPESAForm.ClientID;
+            if (!isAutoSave)
+            {
+                if (updateForm == true)  // if record is updated or inserted
+                {
+                    ResetBinding(Convert.ToInt32(ViewState["FormType"]));
+                    pnlListPPESA.Visible = true;
+                    //lnkbtnSaveForm.Visible = false;
+                    lblMsg.Visible = true;
+                    divErrorMsg.Visible = true;
+                    lblMsg.Text = "Report saved successfully.";
+                    lblMsg.Style.Add("color", "green");
+                    divErrorMsg.Attributes.Add("class", "isa_success");
+
+                    string cid = string.Empty;
+                    if (Convert.ToInt32(ViewState["FormType"]) == 0)
+                        cid = lnkbtnViewPPESAForm.ClientID;
+                    else
+                        cid = lnkbtnViewPDESAForm.ClientID;
+
+                    string script2 = "actvieclassByid(" + cid + ")";
+                    ScriptManager.RegisterStartupScript(this, this.GetType(),
+                                  "script", script2, true);
+                }
                 else
-                    cid = lnkbtnViewPDESAForm.ClientID;
-
-                string script2 = "actvieclassByid(" + cid + ")";
-                ScriptManager.RegisterStartupScript(this, this.GetType(),
-                              "script", script2, true);
-            }
-            else
-            {
-                pnlListPPESA.Visible = false;
-                lnkbtnSaveForm.Visible = false;
-                lblMsg.Visible = true;
-                divErrorMsg.Visible = true;
-                lblMsg.Text = "Error on Deleting data.!";
-                lblMsg.Style.Add("color", "red");
-                divErrorMsg.Attributes.Add("class", "isa_error");
+                {
+                    pnlListPPESA.Visible = false;
+                    lnkbtnSaveForm.Visible = false;
+                    lblMsg.Visible = true;
+                    divErrorMsg.Visible = true;
+                    lblMsg.Text = "Error on Deleting data.!";
+                    lblMsg.Style.Add("color", "red");
+                    divErrorMsg.Attributes.Add("class", "isa_error");
+                }
             }
         }
     }
 
+    private void SaveErrorLogRecord(GridViewRow row, bool isAutoSave=false)
+    {
+        ErrorInfo data = new ErrorInfo();
+        data.ErrorID = Convert.ToInt32((row.FindControl("hdnErrorID") as HiddenField).Value);
+        data.ProcessID = Convert.ToInt32((row.FindControl("hdnProcessID") as HiddenField).Value);
+
+        string error = (row.FindControl("txtError") as TextBox).Text;
+        data.Error = error;
+
+        string cycleTime = (row.FindControl("txtCycleTime") as TextBox).Text;
+        if (string.IsNullOrEmpty(cycleTime))
+            data.CycleTime = 0;
+        else
+            data.CycleTime = Convert.ToInt32(cycleTime);
+
+
+        string workContent = (row.FindControl("txtWorkContent") as TextBox).Text;
+        if (string.IsNullOrEmpty(workContent))
+            data.WorkContent = 0;
+        else
+            data.WorkContent = Convert.ToInt32(workContent);
+
+        string counterMeasure = (row.FindControl("txtCounterMeasure") as TextBox).Text;
+        if (string.IsNullOrEmpty(counterMeasure))
+            data.CounterMeasure = 0;
+        else
+            data.CounterMeasure = Convert.ToInt32(counterMeasure);
+
+        string counterMeasureStrength = (row.FindControl("txtCounterMeasureStrength") as TextBox).Text;
+        if (string.IsNullOrEmpty(counterMeasureStrength))
+            data.CounterMeasureStrength = 0;
+        else
+            data.CounterMeasureStrength = Convert.ToInt32(counterMeasureStrength);
+
+
+
+        new ErrorData().Save(data);
+        if (!isAutoSave)
+        {
+            lblMsg.Visible = true;
+            divErrorMsg.Visible = true;
+            lblMsg.Text = "Record saved successfully.";
+            lblMsg.Style.Add("color", "green");
+            divErrorMsg.Attributes.Add("class", "isa_success");
+        }
+    }
+
+    private bool  SavePPESAandPDESA(GridViewRow row )
+    {
+        tbl_PPESAnPDESA data = new tbl_PPESAnPDESA();
+        data.FormID = Convert.ToInt32((row.FindControl("litFormID") as Literal).Text);
+        data.ProcessID = ProcessId;
+        DropDownList ddlProcessObjectID = row.FindControl("ddlProcessObjectID") as DropDownList;
+        if (ddlProcessObjectID.SelectedIndex > 0)
+        {
+            data.ProcessObjectID = Convert.ToInt32((row.FindControl("ddlProcessObjectID") as DropDownList).SelectedValue);
+        }
+        else
+        {
+            data.ProcessObjectID = null;
+        }
+        data.Sequence = Convert.ToInt32((row.FindControl("litSequence") as Literal).Text);
+        data.FormType = Convert.ToInt32((row.FindControl("litFormType") as Literal).Text);
+        data.ProductFeatureAdded = (row.FindControl("txtProductFeatureAdded") as TextBox).Text;
+        data.FunctionofProductFeature = (row.FindControl("txtFunctionProductFeature") as TextBox).Text;
+        data.ErrorEvent = (row.FindControl("txtErrorEvent") as TextBox).Text;
+        data.ErrorEventTransferFunction = (row.FindControl("txtErrorEventTransferFunction") as TextBox).Text;
+        data.Actions = (row.FindControl("txtActions") as TextBox).Text;
+        data.ActionCriticalParameter = Convert.ToBoolean((row.FindControl("drpActionCriticalParameter") as DropDownList).SelectedValue);
+        data.Conditions = (row.FindControl("txtConditions") as TextBox).Text;
+        data.ConditonCriticalParameter = Convert.ToBoolean((row.FindControl("drpConditonCriticalParameter") as DropDownList).SelectedValue);
+        data.InitialSeverity = Convert.ToInt32((row.FindControl("ddlInitialSeverity") as DropDownList).SelectedValue);
+        data.InitialFrequency = Convert.ToInt32((row.FindControl("ddlInitialFrequency") as DropDownList).SelectedValue);
+        data.InitialDetection = Convert.ToInt32((row.FindControl("ddlInitialDetection") as DropDownList).SelectedValue);
+        TextBox txtIntialRPN = row.FindControl("txtIntialRPN") as TextBox;
+        if (txtIntialRPN.Text != "")
+        {
+            data.IntialRPN = Convert.ToInt32((row.FindControl("txtIntialRPN") as TextBox).Text);
+        }
+        else
+        {
+            data.IntialRPN = null;
+        }
+        data.Countermeasure = (row.FindControl("txtCountermeasure") as TextBox).Text;
+        data.CountermeasureEffectiveness = Convert.ToInt32((row.FindControl("ddlCountermeasureEffectiveness") as DropDownList).SelectedValue);
+        data.FinalSeverity = Convert.ToInt32((row.FindControl("ddlFinalSeverity") as DropDownList).SelectedValue);
+        data.FinalFrequency = Convert.ToInt32((row.FindControl("ddlFinalFrequency") as DropDownList).SelectedValue);
+        data.FinalDetection = Convert.ToInt32((row.FindControl("ddlFinalDetection") as DropDownList).SelectedValue);
+        TextBox txtFinalRPN = row.FindControl("txtFinalRPN") as TextBox;
+        if (txtFinalRPN.Text != "")
+        {
+            data.FinalRPN = Convert.ToInt32((row.FindControl("txtFinalRPN") as TextBox).Text);
+        }
+        else
+        {
+            data.FinalRPN = null;
+        }
+        return PPESAnPDESA.SavePPESAnPDESAData(data); // update aditional fields in form table  
+    }
     public void ClearControl()
     {
         //txtProductFeatureAdded.Text = string.Empty;
@@ -676,6 +635,7 @@ public partial class FormManager : BasePage
 
     protected void gridPPESA_RowDeleting(object sender, GridViewDeleteEventArgs e)
     {
+        SaveRecord(true);
         int formtyp = 0;
         GridViewRow row = gridPPESA.Rows[e.RowIndex];
         Literal delSequence = (Literal)row.FindControl("litDelSequence");
@@ -909,6 +869,8 @@ public partial class FormManager : BasePage
 
     protected void btnAddNewRow_Click(object sender, EventArgs e)
     {
+        SaveRecord(true);
+
         int formtyp = 0;
         tbl_PPESAnPDESA data = new tbl_PPESAnPDESA();
         if (ViewState["FormType"] != null)
@@ -967,6 +929,7 @@ public partial class FormManager : BasePage
 
     protected void btnAddNewErrorRecord_Click(object sender, EventArgs e)
     {
+        SaveRecord(true);
         int formtyp = 0;
         ErrorInfo data = new ErrorInfo();
         if (ViewState["FormType"] != null)
@@ -1066,6 +1029,7 @@ public partial class FormManager : BasePage
 
             if (increase == true)
             {
+                SaveRecord(true);
                 // sequence updated successfully now add new row add commandargument sequence
 
                 tbl_PPESAnPDESA data = new tbl_PPESAnPDESA();
@@ -1159,6 +1123,7 @@ public partial class FormManager : BasePage
     {
         if (e.CommandName == "Add")
         {
+            SaveRecord(true);
             int formtyp = 0;
             ErrorInfo data = new ErrorInfo();
             if (ViewState["FormType"] != null)
@@ -1205,7 +1170,8 @@ public partial class FormManager : BasePage
         }
         if (e.CommandName == "Remove")
         {
-           int errorID=Convert.ToInt32( e.CommandArgument);
+            SaveRecord(true);
+            int errorID=Convert.ToInt32( e.CommandArgument);
             new ErrorData().Delete(errorID);
             ResetBinding(Convert.ToInt32(ViewState["FormType"]));
             // pnlActivity.Visible = false;
