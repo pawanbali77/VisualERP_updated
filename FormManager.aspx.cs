@@ -21,7 +21,7 @@ public partial class FormManager : BasePage
     List<ProcessData.ProcessDataProperty> activityNode = new List<ProcessData.ProcessDataProperty>();
     int RoleID = 0;
     protected void Page_Load(object sender, EventArgs e)
-    {
+    { 
         if (Session["RoleID"] != null)
         {
             RoleID = Convert.ToInt32(Session["RoleID"].ToString());
