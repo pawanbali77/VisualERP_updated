@@ -461,7 +461,7 @@
                     <div class="Clear">
                     </div>--%>
                  <div id="MainDivOuter" class="bottom_containerZ1" runat="server" style="zoom: 100%">
-                <div class="bottom_containerZ" id="MainDiv1" runat="server" style="zoom: 100%; overflow:unset !important;">
+                <div class="bottom_containerZ" id="MainDiv1" runat="server" style="zoom: 100%;">
                 </div>
                      </div>
                 <%--</div>--%>
