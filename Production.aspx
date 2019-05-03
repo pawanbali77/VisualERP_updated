@@ -3,41 +3,30 @@
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <%@ Register Src="UserControls/ModelPopupBOMUC.ascx" TagName="ModelPopupBOMUC" TagPrefix="uc1" %>
-<%@ Register Src="UserControls/ModelPopupAttributeUC.ascx" TagName="ModelPopupAttributeUC"
-    TagPrefix="uc2" %>
-<%@ Register Src="UserControls/ModelPopupInputUC.ascx" TagName="ModelPopupInputUC"
-    TagPrefix="uc3" %>
+<%@ Register Src="UserControls/ModelPopupAttributeUC.ascx" TagName="ModelPopupAttributeUC" TagPrefix="uc2" %>
+<%@ Register Src="UserControls/ModelPopupInputUC.ascx" TagName="ModelPopupInputUC" TagPrefix="uc3" %>
 <%@ Register Src="UserControls/ModelPopupMchUC.ascx" TagName="ModelPopupMchUC" TagPrefix="uc4" %>
 <%@ Register Src="UserControls/ModelPopupTFGUC.ascx" TagName="ModelPopupTFGUC" TagPrefix="uc5" %>
 <%@ Register Src="UserControls/ProcessObject.ascx" TagName="ProcessObject" TagPrefix="uc6" %>
-<%--<%@ Register Src="UserControls/InventoryUC.ascx" TagName="InventoryUC" TagPrefix="uc7" %>--%>
 <%@ Register Src="UserControls/InventeryObject.ascx" TagName="InventeryObject" TagPrefix="uc8" %>
-<%--<%@ Register Src="UserControls/ModelPopupActivity.ascx" TagName="ModelPopupActivity"
-    TagPrefix="uc9" %>--%>
 <%@ Register Src="UserControls/ImageControl.ascx" TagName="ImageControl" TagPrefix="uc15" %>
 <%@ Register Src="UserControls/ArrowControl.ascx" TagName="ArrowControl" TagPrefix="ucArrow" %>
-<asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="Server">
-    <%--<script type="text/javascript" language="javascript">
-        function test() {
-            window.setTimeout(function () {
-                $(".isa_info").fadeOut('slow', function () { $('.isa_info').remove() });
-                $(".isa_success").fadeOut('slow', function () { $('.isa_success').remove() });
-            }, 7000);
 
-        }
-    </script>--%>
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
-    <script src="//code.jquery.com/jquery-1.9.1.js"></script>
-    <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-    <link rel="stylesheet" href="/resources/demos/style.css">
-    <script language="javascript" type="text/javascript">
+
+<asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="Server">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css" />
+    <script src="//code.jquery.com/jquery-1.9.1.js" type="text/javascript"></script>
+    <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="/resources/demos/style.css" />
+
+     <script language="javascript" type="text/javascript">
         $(function showpopup() {
             $("#Panel1").dialog();
             $("#Panel1").show();
 
         });
     </script>
-    <script language="javascript" type="text/javascript">
+     <script language="javascript" type="text/javascript">
 
         function unloadPopupBox() {	// TO Unload the Popupbox
             // document.getElementById('popup_box').style.display = "block";
@@ -48,7 +37,7 @@
         }
 
     </script>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js" type="text/javascript"></script>
+   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js" type="text/javascript"></script>
     <script src="http://code.jquery.com/ui/1.8.23/jquery-ui.min.js" type="text/javascript"></script>
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.23/themes/base/jquery-ui.css"
         type="text/css" media="all" />
@@ -59,16 +48,40 @@
     <script src="http://code.jquery.com/ui/1.10.1/jquery-ui.js" type="text/javascript"></script>
 
     <script type="text/javascript">
-        function callready() {
+        function test() {
             $(document).ready(function () {
 
                 var contentHeight = $(window).height();
-                var newHeight = contentHeight - $("#header").height() - $("#footer").height() - $("#Title").height() - $("#Bpmn").height() - 52; // + "px";
-                //alert(newHeight);
-                $("#ContentPlaceHolder1_MainDiv1").css("height", newHeight + "px");
+                var newHeight = contentHeight - $("#header").height() - $("#footer").height() - $("#Title").height() - $("#ContentPlaceHolder1_Bpmn").height() - 20; // + "px";
+                console.log(newHeight);
+               
+                
+
+                //$("#ContentPlaceHolder1_MainDiv").css("height", newHeight + "px");
+                var maxheight = $("input[id=ContentPlaceHolder1_hdnheight]").val(); //get max height of process from hidden field value
+                $("#ContentPlaceHolder1_MainDiv1").css("height", newHeight);
+
+                var maxwidth = $("input[id=ContentPlaceHolder1_hdnWidth]").val();
+                $("#ContentPlaceHolder1_MainDiv1").css("width", "100%");
+
+                $("#ContentPlaceHolder1_MainDivOuter").css("height", newHeight + "px");
                 var remainCnt = $("#header").height() + $("#footer").height() + 50;
                 var newHeight1 = contentHeight - remainCnt;
                 $(".TreeView1_0").css("height", newHeight1 + "px");
+                currFFZoom = 1;
+                currIEZoom = 1;
+                currOtherZoom = 1;
+
+                $(window).resize(function () {
+                    var contentHeight = $(window).height();
+                    var newHeight = contentHeight - $("#header").height() - $("#footer").height() - $("#Title").height() - $("#Bpmn").height() - 20; // + "px";
+                    // $("#ContentPlaceHolder1_MainDiv").css("height", newHeight + "px");
+                    $("#ContentPlaceHolder1_MainDivOuter").css("height", newHeight + "px");
+                    var contentHeight = $(window).height();
+                    var remainCnt = $("#header").height() + $("#footer").height() + 50;
+                    var newHeight1 = contentHeight - remainCnt;
+                    $(".TreeView1_0").css("height", newHeight1 + "px");
+                });
 
                 $('div[name ^= aivCArrow]').resizable({
                     stop: function (event, ui) {
@@ -265,12 +278,9 @@
         }
     </script>
 
-    <style type="text/css">
-        .maindiv {
-            min-height: 390px !important;
-            min-width: 80% !important;
-        }
-    </style>
+   
+
+ 
     <style type="text/css">
         .chkk {
             border: solid 1px gray;
@@ -321,8 +331,12 @@
                             <li onclick="return callready();" id="li5" runat="server" style="height: 50px; cursor: pointer">
                                 <a title="Zoom-reset" class="ZommSet"></a></li>--%>
                         </ul>
+                         <asp:HiddenField ID="hdnWidth" runat="server" />
+                        <asp:HiddenField ID="hdnheight" runat="server" />
+                        <asp:HiddenField ID="hdnLastZoom" runat="server" />
                     </div>
                 </div>
+
                 <div class="grey_strip" id="controls" runat="server">
                     <div class="filter_strip" id="Bpmn" runat="server">
                         <ul id="nav">
@@ -446,8 +460,10 @@
                 <%--  <div class="bottom_container">
                     <div class="Clear">
                     </div>--%>
-                <div class="bottom_container" id="MainDiv1" runat="server" style="position: relative; background-color: #fffff; z-index: 50; overflow-y: auto">
+                 <div id="MainDivOuter" class="bottom_containerZ1" runat="server" style="zoom: 100%">
+                <div class="bottom_containerZ" id="MainDiv1" runat="server" style="zoom: 100%; overflow:unset !important;">
                 </div>
+                     </div>
                 <%--</div>--%>
             </div>
             <div style="display: none">

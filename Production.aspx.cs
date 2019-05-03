@@ -28,7 +28,7 @@ public partial class Production : System.Web.UI.Page
     List<int> activityTo = new List<int>();//////////////////
 
     List<ProcessData.ProcessDataProperty> activityNode = new List<ProcessData.ProcessDataProperty>();
-
+    List<TopHeightWidth> maxHeightnWidth = new List<TopHeightWidth>(); // it will contains max height and width for any process
     delegate void DelMethodWithParam(string strProcessObjectId, string strAction);
     delegate void DelMethodWithoutParam();
 
@@ -51,7 +51,7 @@ public partial class Production : System.Web.UI.Page
         Panel2.Visible = false;
         PnlParallelProcess.Visible = false;
         pnlAddProcess.Visible = false;
-        string scriptJq = "callready();";  //call jquery function here on page load
+        string scriptJq = "test();";  //call jquery function here on page load
         ScriptManager.RegisterStartupScript(this, this.GetType(),
                       "ServerControlScript", scriptJq, true);
         
@@ -64,7 +64,7 @@ public partial class Production : System.Web.UI.Page
             lblManager.Text = "Target View";
             lblManager.Attributes.Add("class", "Target");
         }
-       
+      
         string script = "test();";
         ScriptManager.RegisterStartupScript(this, this.GetType(),
                       "ServerControlScript", script, true);
@@ -165,6 +165,20 @@ public partial class Production : System.Web.UI.Page
         {
             //AjaxControlToolkit.ModalPopupExtender PopupModelAttribute = (AjaxControlToolkit.ModalPopupExtender)ModelPopupAttributeUC1.FindControl("mopoExUser");
             //PopupModelAttribute.Hide();           
+        }
+
+        if (ProcessId != 0)
+        {
+            if (maxHeightnWidth.Count > 0)
+            {
+                int maxwidth = maxHeightnWidth.Max(a => a.Width);
+                //find height for max top value from list maxtopProcess
+                int maxheight = maxHeightnWidth.Max(a => a.Height);
+
+                hdnWidth.Value = Convert.ToString(maxwidth);
+                hdnheight.Value = Convert.ToString(maxheight);
+            }
+
         }
     }
 
@@ -439,6 +453,13 @@ public partial class Production : System.Web.UI.Page
         }
         else
             lstpoid = ProcessData.GetAllSingleProcessObjId(ProcessId);  //////////////////////////////        
+
+        if (lstpoid.Count > 0)
+        {
+            int countProcess = lstpoid.Count;
+            int widthlast = (countProcess * 500) + 220; // 220 is extra width to scroll summary table 
+            maxHeightnWidth.Add(new TopHeightWidth() { Width = widthlast, Height = (Top + 400) });
+        }
 
         Table TblFirst = new Table();
         TblFirst.CellPadding = 0;
@@ -717,7 +738,7 @@ public partial class Production : System.Web.UI.Page
             //str2 += sb2.ToString();
             //Session["PosSupplier"] = str2;
             //hdnSupplier.Value = str2;
-
+            maxHeightnWidth.Add(new TopHeightWidth() { Width = (Left + 500 + 220), Height = (Top + 400) }); // 220 is extra width to scroll summary table 
         }
     }
 
@@ -2798,6 +2819,13 @@ public partial class Production : System.Web.UI.Page
             divErrorMsg.Attributes.Add("class", "isa_success");
             }
         }
+    }
+
+    public class TopHeightWidth
+    {
+        //public int Top { get; set; }
+        public int Height { get; set; }
+        public int Width { get; set; }
     }
 
 }
