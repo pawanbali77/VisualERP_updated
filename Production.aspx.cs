@@ -177,6 +177,7 @@ public partial class Production : System.Web.UI.Page
 
                 hdnWidth.Value = Convert.ToString(maxwidth);
                 hdnheight.Value = Convert.ToString(maxheight);
+                //hdnLastZoom.Value=
             }
 
         }

@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css" />
     <script src="//code.jquery.com/jquery-1.9.1.js" type="text/javascript"></script>
     <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js" type="text/javascript"></script>
-    <link rel="stylesheet" href="/resources/demos/style.css" />
+    <link rel="stylesheet" href="css/style.css" />
 
      <script language="javascript" type="text/javascript">
         $(function showpopup() {
@@ -50,16 +50,18 @@
     <script type="text/javascript">
         function test() {
             $(document).ready(function () {
-
+                
                 var contentHeight = $(window).height();
                 var newHeight = contentHeight - $("#header").height() - $("#footer").height() - $("#Title").height() - $("#ContentPlaceHolder1_Bpmn").height() - 20; // + "px";
-                console.log(newHeight);
-               
                 
+               
+               
 
                 //$("#ContentPlaceHolder1_MainDiv").css("height", newHeight + "px");
                 var maxheight = $("input[id=ContentPlaceHolder1_hdnheight]").val(); //get max height of process from hidden field value
                 $("#ContentPlaceHolder1_MainDiv1").css("height", newHeight);
+                $("#ContentPlaceHolder1_hdnNewHeight").val(newHeight);
+                
 
                 var maxwidth = $("input[id=ContentPlaceHolder1_hdnWidth]").val();
                 $("#ContentPlaceHolder1_MainDiv1").css("width", "100%");
@@ -85,6 +87,7 @@
 
                 $('div[name ^= aivCArrow]').resizable({
                     stop: function (event, ui) {
+                      
                         var resized = $(this);
                         resized.queue(function () {
 
@@ -269,6 +272,9 @@
                         $("input[id=ContentPlaceHolder1_hdnSupplier]").val(modified);
                     }
                 });
+                var currOtherZoom = $("input[id=ContentPlaceHolder1_hdnLastZoom]").val();
+                $('#ContentPlaceHolder1_MainDiv1').css('-webkit-transform', 'scale(' + currOtherZoom + ',' + currOtherZoom + ')');
+                $('#ContentPlaceHolder1_MainDiv1').css('-webkit-transform-origin', '0 0');
             });
 
             window.setTimeout(function () {
@@ -334,6 +340,7 @@
                          <asp:HiddenField ID="hdnWidth" runat="server" />
                         <asp:HiddenField ID="hdnheight" runat="server" />
                         <asp:HiddenField ID="hdnLastZoom" runat="server" />
+                        <asp:HiddenField ID="hdnNewHeight" runat="server" />
                     </div>
                 </div>
 
@@ -461,7 +468,7 @@
                     <div class="Clear">
                     </div>--%>
                  <div id="MainDivOuter" class="bottom_containerZ1" runat="server" style="zoom: 100%">
-                <div class="bottom_containerZ" id="MainDiv1" runat="server" style="zoom: 100%;">
+                <div class="bottom_containerZ" id="MainDiv1" runat="server" style="zoom: 100%">
                 </div>
                      </div>
                 <%--</div>--%>
