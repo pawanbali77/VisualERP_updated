@@ -2470,65 +2470,65 @@ public partial class ManageReport : BasePage
     protected void btnTgtValueGap_Click(object sender, EventArgs e)
     {
 
-       // if (PPESAnPDESA.GetIfReportAlreadyExist(ProcessId, (int)ReportTypeID.DCS))  // first check if there PDESA report alredy exist
+        // if (PPESAnPDESA.GetIfReportAlreadyExist(ProcessId, (int)ReportTypeID.DCS))  // first check if there PDESA report alredy exist
         //{
-            Session["CurrentReport"] = (int)ReportTypeID.TGTGAP;
-            this.IsEdit = false;
-            List<PPESAnPDESA.ListPPESAnPDESAData> ESADataR = new List<PPESAnPDESA.ListPPESAnPDESAData>();
+        Session["CurrentReport"] = (int)ReportTypeID.TGTGAP;
+        this.IsEdit = false;
+        List<PPESAnPDESA.ListPPESAnPDESAData> ESADataR = new List<PPESAnPDESA.ListPPESAnPDESAData>();
 
-            ViewState["sortBy"] = "CreatedDate";
-            ViewState["isAsc"] = "1";
+        ViewState["sortBy"] = "CreatedDate";
+        ViewState["isAsc"] = "1";
 
 
-            int ESAtype = 0;
-            int reportid = 0;
-            ESAtype = Convert.ToInt32(FormType.PDESA);
+        int ESAtype = 0;
+        int reportid = 0;
+        ESAtype = Convert.ToInt32(FormType.PDESA);
 
-            // ESADataR.AddRange(PPESAnPDESA.GetPPESAnPDESAReportData(this.CBool(ViewState["isAsc"]), ViewState["sortBy"].ToString(), ESAtype, ProcessId, reportid));
+        // ESADataR.AddRange(PPESAnPDESA.GetPPESAnPDESAReportData(this.CBool(ViewState["isAsc"]), ViewState["sortBy"].ToString(), ESAtype, ProcessId, reportid));
 
-            //if (ESADataR.Count > 0)
-            //{
-            gridTgtValueGap.DataSource = LoadTgtValueGapData();
-            gridTgtValueGap.DataBind();  
+        //if (ESADataR.Count > 0)
+        //{
+        gridTgtValueGap.DataSource = LoadTgtValueGapData();
+        gridTgtValueGap.DataBind();
 
-                pnlTgtValueGap.Visible = true;
-                lnkbtnSaveReport.Visible = true;
-                if (RoleID == 4)
-                {
-                    lnkbtnSaveReport.Visible = false;
-                    txtAttributeReportName.Visible = false;
-                }
-                liSaveReport.Visible = true;
-                //divESAName.Visible = true;
-                //txtESAReportName.Text = "";
-                lblMsg.Text = "";
-                lnkbtnExporttoExcel.Visible = true; // show export to excel button if report grid display
-                liExporttoExcel.Visible = true;
-            //}
-            //else
-            //{
-            //    grdESAReport.DataSource = null;
-            //    grdESAReport.DataBind();
-            //    divESAName.Visible = false;
-            //    lnkbtnSaveReport.Visible = false;
-            //    liSaveReport.Visible = false;
-            //    liSaveReport.Visible = false;
-            //    pnlESAReport.Visible = true;
-            //    lblMsg.Text = "";
-            //    lnkbtnExporttoExcel.Visible = false; // hide export to excel button if report grid is null
-            //    liExporttoExcel.Visible = false;
-            //}
-            pnlReportType.Visible = false;
-            pnlAttribute.Visible = false;
-            pnlBomProcess.Visible = false;
-            pnlAttributeReport.Visible = false;
-            pnlBomReport.Visible = false;
-            pnlTFGReport.Visible = false;
-            pnlMachineReport.Visible = false;
-            pnlListSavedReport.Visible = false;
-            divErrorMsg.Visible = false;
-           // txtTVGReportName.Text = "Target Vale Gap";
-           // txtTVGReportName.Attributes.Add("readonly", "readonly");
+        pnlTgtValueGap.Visible = true;
+        lnkbtnSaveReport.Visible = true;
+        if (RoleID == 4)
+        {
+            lnkbtnSaveReport.Visible = false;
+            txtAttributeReportName.Visible = false;
+        }
+        liSaveReport.Visible = true;
+        //divESAName.Visible = true;
+        //txtESAReportName.Text = "";
+        lblMsg.Text = "";
+        lnkbtnExporttoExcel.Visible = true; // show export to excel button if report grid display
+        liExporttoExcel.Visible = true;
+        //}
+        //else
+        //{
+        //    grdESAReport.DataSource = null;
+        //    grdESAReport.DataBind();
+        //    divESAName.Visible = false;
+        //    lnkbtnSaveReport.Visible = false;
+        //    liSaveReport.Visible = false;
+        //    liSaveReport.Visible = false;
+        //    pnlESAReport.Visible = true;
+        //    lblMsg.Text = "";
+        //    lnkbtnExporttoExcel.Visible = false; // hide export to excel button if report grid is null
+        //    liExporttoExcel.Visible = false;
+        //}
+        pnlReportType.Visible = false;
+        pnlAttribute.Visible = false;
+        pnlBomProcess.Visible = false;
+        pnlAttributeReport.Visible = false;
+        pnlBomReport.Visible = false;
+        pnlTFGReport.Visible = false;
+        pnlMachineReport.Visible = false;
+        pnlListSavedReport.Visible = false;
+        divErrorMsg.Visible = false;
+        // txtTVGReportName.Text = "Target Vale Gap";
+        // txtTVGReportName.Attributes.Add("readonly", "readonly");
         //}
         //else
         //{
@@ -2565,10 +2565,16 @@ public partial class ManageReport : BasePage
                         if (FunctionID == 1)
                         {
                             int sum = processData.Sum(x => Convert.ToInt32(x.AttributeValueSum)); // get Sum here
-                                                                                          // add attributename,value, unitname in list to display it in summary table
+                                                                                                  // add attributename,value, unitname in list to display it in summary table
                             int targetSum = targetData.Sum(x => Convert.ToInt32(x.AttributeValueSum));
-                            summaryResult.Add(new SummaryDetail() { AttributeName = AttributeName, AttributeValueResult = Convert.ToString(sum),
-                                UnitName = unitName, TargetValue= Convert.ToString(targetSum), TargetUnitName= unitName
+                            summaryResult.Add(new SummaryDetail()
+                            {
+                                AttributeName = AttributeName,
+                                AttributeValueResult = Convert.ToString(sum),
+                                UnitName = unitName,
+                                TargetValue = Convert.ToString(targetSum),
+                                TargetUnitName = unitName,
+                                DifferenceValue = Convert.ToString(sum - targetSum),
                             });
                         }
 
@@ -2576,10 +2582,14 @@ public partial class ManageReport : BasePage
                         {
                             double average = processData.Average(x => Convert.ToInt32(x.AttributeValueSum)); // get Average here
                             double targetAverage = targetData.Average(x => Convert.ToInt32(x.AttributeValueSum));
-                            summaryResult.Add(new SummaryDetail() { AttributeName = AttributeName, AttributeValueResult = String.Format("{0:0.00}", average),
+                            summaryResult.Add(new SummaryDetail()
+                            {
+                                AttributeName = AttributeName,
+                                AttributeValueResult = String.Format("{0:0.00}", average),
                                 UnitName = unitName,
                                 TargetValue = String.Format("{0:0.00}", targetAverage),
-                                TargetUnitName = unitName
+                                TargetUnitName = unitName,
+                                DifferenceValue = String.Format("{0:0.00}", average - targetAverage),
                             });
                         }
 
@@ -2613,21 +2623,29 @@ public partial class ManageReport : BasePage
                             }
                             //int total = Convert.ToInt32(median); // get median here
                             // add attributename,value, unitname in list to display it in summary table
-                            summaryResult.Add(new SummaryDetail() { AttributeName = AttributeName,
+                            summaryResult.Add(new SummaryDetail()
+                            {
+                                AttributeName = AttributeName,
                                 AttributeValueResult = String.Format("{0:0.00}", median),
-                                UnitName = unitName , TargetValue = String.Format("{0:0.00}", median),
-                                  TargetUnitName=unitName });
+                                UnitName = unitName,
+                                TargetValue = String.Format("{0:0.00}", median),
+                                TargetUnitName = unitName,
+                                DifferenceValue = String.Format("{0:0.00}", median - median),
+                            });
                         }
 
                         if (FunctionID == 4)
                         {
                             int total = processData.Min(x => Convert.ToInt32(x.AttributeValueSum)); // get min here
                             int targetTotal = targetData.Min(x => Convert.ToInt32(x.AttributeValueSum));
-                            summaryResult.Add(new SummaryDetail() { AttributeName = AttributeName,
+                            summaryResult.Add(new SummaryDetail()
+                            {
+                                AttributeName = AttributeName,
                                 AttributeValueResult = Convert.ToString(total),
                                 UnitName = unitName,
-                                 TargetValue = Convert.ToString(targetTotal),
-                                  TargetUnitName=unitName
+                                TargetValue = Convert.ToString(targetTotal),
+                                TargetUnitName = unitName,
+                                DifferenceValue = Convert.ToString(total- targetTotal),
                             });
                         }
 
@@ -2635,11 +2653,14 @@ public partial class ManageReport : BasePage
                         {
                             int total = processData.Max(x => Convert.ToInt32(x.AttributeValueSum)); // get max here
                             int targetTotal = targetData.Max(x => Convert.ToInt32(x.AttributeValueSum));
-                            summaryResult.Add(new SummaryDetail() { AttributeName = AttributeName,
+                            summaryResult.Add(new SummaryDetail()
+                            {
+                                AttributeName = AttributeName,
                                 AttributeValueResult = Convert.ToString(total),
                                 UnitName = unitName,
                                 TargetValue = Convert.ToString(targetTotal),
-                                TargetUnitName = unitName
+                                TargetUnitName = unitName,
+                                DifferenceValue = Convert.ToString(total - targetTotal),
                             });
                         }
 
@@ -2663,16 +2684,19 @@ public partial class ManageReport : BasePage
                                 ret = Math.Sqrt(sum / count); // ret is result for standard deviation formula
                                                               //int total = Convert.ToInt32(ret);
                                                               // add attributename,value, unitname in list to display it in summary table
-                                summaryResult.Add(new SummaryDetail() { AttributeName = AttributeName,
+                                summaryResult.Add(new SummaryDetail()
+                                {
+                                    AttributeName = AttributeName,
                                     AttributeValueResult = String.Format("{0:0.00}", ret),
                                     UnitName = unitName,
-                                     TargetValue= String.Format("{0:0.00}", ret),
-                                     TargetUnitName =unitName
-                                    });
+                                    TargetValue = String.Format("{0:0.00}", ret),
+                                    TargetUnitName = unitName,
+                                    DifferenceValue = String.Format("{0:0.00}", ret-ret),
+                                });
                             }
                         }
                     }
-                } 
+                }
 
             }
 
@@ -2688,5 +2712,8 @@ public partial class ManageReport : BasePage
         public string UnitName { get; set; }
         public string TargetValue { get; set; }
         public string TargetUnitName { get; set; }
+
+        public string DifferenceValue { get; set; }
+
     }
 }

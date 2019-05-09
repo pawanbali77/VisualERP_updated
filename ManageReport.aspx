@@ -942,7 +942,7 @@
                             </asp:TemplateField>
                             <asp:TemplateField SortExpression="AttributeValue">
                                 <HeaderTemplate>
-                                    <a class="block_arrow" href="#">Value</a>
+                                    <a class="block_arrow" href="#">Process Value</a>
                                 </HeaderTemplate>
                                 <ItemTemplate>
                                     <%#DataBinder.Eval(Container.DataItem, "AttributeValueResult")%>
@@ -980,6 +980,15 @@
                                 </HeaderTemplate>
                                 <ItemTemplate>
                                     <%#DataBinder.Eval(Container.DataItem, "TargetUnitName")%>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+
+                             <asp:TemplateField SortExpression="UnitName">
+                                <HeaderTemplate>
+                                    <a class="block_arrow" href="#">Difference</a>
+                                </HeaderTemplate>
+                                <ItemTemplate>
+                                    <%#DataBinder.Eval(Container.DataItem, "DifferenceValue")%>
                                 </ItemTemplate>
                             </asp:TemplateField>
                         </Columns>
