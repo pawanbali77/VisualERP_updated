@@ -2246,6 +2246,7 @@ public partial class ManageReport : BasePage
                 dt.Columns.Add("Unit");
                 dt.Columns.Add("Target Value");
                 dt.Columns.Add("Target Unit");
+                dt.Columns.Add("Difference Value");
                 //foreach (TableCell cell in gridTgtValueGap.HeaderRow.Cells)
                 //{
                 //    dt.Columns.Add(cell.Text);
@@ -2261,7 +2262,7 @@ public partial class ManageReport : BasePage
                     row["Unit"] = prop.UnitName;
                     row["Target Value"] = prop.TargetValue;
                     row["Target Unit"] = prop.TargetUnitName;
-
+                    row["Difference Value"] = prop.DifferenceValue;
                     dt.Rows.Add(row); // datatable row has been created here 
                 }
             }
