@@ -5,8 +5,13 @@
 
     <script type="text/javascript" language="javascript">
         function test1() {
-
+            var contentWidth = $(window).width();
             var contentHeight = $(window).height();
+            var NewWidth = contentWidth - $("#divSidebar").width() - 20;
+            
+            $("#ContentPlaceHolder1_divReport").css("width", NewWidth + "px");
+            $("#ContentPlaceHolder1_div6").css("width", NewWidth + "px");
+            
             var newHeight = contentHeight - $("#header").height() - $("#footer").height() - $("#Title").height() - $("#Bpmn").height() - 20; // + "px";        
             var remainCnt = $("#header").height() + $("#footer").height() + 50;
             var newHeight1 = contentHeight - remainCnt;
