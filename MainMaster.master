@@ -433,7 +433,7 @@
 
 
                             <li id="menu_Enterprisemanager" runat="server">
-                                <asp:LinkButton ID="enterpriseBtn" runat="server" OnClick="enterpriseBtn_Click" CssClass="enterprize_manager"><span class="Enterprize"></span>Enterprise Manager</asp:LinkButton></li>
+                                <asp:LinkButton ID="enterpriseBtn" runat="server" OnClick="enterpriseBtn_Click" CssClass="enterprize_manager"><span class="Enterprize"></span>Enterprise View</asp:LinkButton></li>
                             <%--<li id="menu_Metricsmanager" runat="server"><a href="#"><span class="Metrics"></span>Metrics Manager</a></li>--%>
                             <li id="menu_Reportmanager" runat="server"><a href="ManageReport.aspx"><span class="Report"></span>Report Manager</a></li>
                             <%--<li id="menu_Projectmanager" runat="server"><a href="#"><span class="Project"></span>Project Manager</a></li>--%>
