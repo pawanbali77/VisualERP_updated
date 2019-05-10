@@ -93,7 +93,7 @@
                             <li onclick="return Zoomorg();" id="li2" runat="server" style="height: 50px; cursor: pointer">
                                 <a title="Zoom-reset" class="ZommSet"></a></li>
                             <li id="liSummary" runat="server" style="height: 44px; margin-top: 6px;"><a title="Summary functions"
-                                class="SummaryIcon" href="SummaryTable.aspx"></a></li>
+                                class="SummaryIcon" href="SummaryTable.aspx?src=process"></a></li>
                         </ul>
                         <asp:HiddenField ID="hdnWidth" runat="server" />
                         <asp:HiddenField ID="hdnheight" runat="server" />

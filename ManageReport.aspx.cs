@@ -2696,6 +2696,40 @@ public partial class ManageReport : BasePage
                                 });
                             }
                         }
+
+                        if(FunctionID == 0)
+                        {
+                            int total = 0;
+                            int targetTotal = 0;
+
+                            if (processData.Count == 0)
+                            {
+                                total = 0;
+                            }
+                            else
+                            {
+                                total = processData.Max(x => Convert.ToInt32(x.AttributeValueSum));
+                            }
+
+                            if (targetData.Count == 0)
+                            {
+                                targetTotal = 0;
+                            }
+                            else
+                            {
+                                targetTotal = targetData.Max(x => Convert.ToInt32(x.AttributeValueSum));
+                            }
+
+                            summaryResult.Add(new SummaryDetail()
+                            {
+                                AttributeName = AttributeName,
+                                AttributeValueResult = Convert.ToString(total),
+                                UnitName = unitName,
+                                TargetValue = Convert.ToString(targetTotal),
+                                TargetUnitName = unitName,
+                                DifferenceValue = Convert.ToString(total - targetTotal),
+                            });
+                        }
                     }
                 }
 
