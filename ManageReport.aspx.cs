@@ -83,6 +83,7 @@ public partial class ManageReport : BasePage
         chkSelectAllActivity.Checked = false; // uncheck select all checkbox on page load
         chkSelectallInventory.Checked = false;
         chkAllAttributes.Checked = false; // uncheck select all checkbox on page load
+        chkAllInventoryAttributes.Checked = false;
         chkSelectAllBom.Checked = false; // uncheck select all checkbox on page load
 
 
@@ -2949,7 +2950,7 @@ public partial class ManageReport : BasePage
             DataTable dt = new DataTable();
             dt = ds.Tables[0];
             DataColumnCollection columns = dt.Columns;
-          
+
 
             objInventoryReportFields = (from DataRow dr in dt.Rows
                                         select new InventoryReportFields()
@@ -2959,8 +2960,36 @@ public partial class ManageReport : BasePage
                                             Time = (!columns.Contains("Time")) ? "" : dr["Time"].ToString(),
                                             Dollar = (!columns.Contains("Doller")) ? "" : dr["Doller"].ToString()
                                         }).ToList();
+            foreach (var item in objInventoryReportFields)
+            {
+                if (item.CT == "")
+                {
+                    GridInventoryReport.Columns[1].Visible = false;
+                }
+                else
+                {
+                    GridInventoryReport.Columns[1].Visible = true;
+                }
 
-            //GridInventoryReport.Columns[1].Visible = false;
+                if (item.Time == "")
+                {
+                    GridInventoryReport.Columns[2].Visible = false;
+                }
+                else
+                {
+                    GridInventoryReport.Columns[2].Visible = true;
+                }
+
+                if (item.Dollar == "")
+                {
+                    GridInventoryReport.Columns[3].Visible = false;
+                }
+                else
+                {
+                    GridInventoryReport.Columns[3].Visible = true;
+                }
+            }
+
 
             if (objInventoryReportFields.Count > 0)
             {
@@ -2976,9 +3005,9 @@ public partial class ManageReport : BasePage
                     txtAttributeReportName.Visible = false;
                 }
                 pnlInventoryReport.Visible = true;
-                lnkbtnExporttoExcel.Visible = true;
-                liSaveReport.Visible = true;
-                liExporttoExcel.Visible = true;
+                lnkbtnExporttoExcel.Visible = false;
+                liSaveReport.Visible = false;
+                liExporttoExcel.Visible = false;
                 pnlInventoryAttribute.Visible = false;
             }
             else
