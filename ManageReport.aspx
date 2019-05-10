@@ -8,10 +8,10 @@
             var contentWidth = $(window).width();
             var contentHeight = $(window).height();
             var NewWidth = contentWidth - $("#divSidebar").width() - 20;
-            
+
             $("#ContentPlaceHolder1_divReport").css("width", NewWidth + "px");
             $("#ContentPlaceHolder1_div6").css("width", NewWidth + "px");
-            
+
             var newHeight = contentHeight - $("#header").height() - $("#footer").height() - $("#Title").height() - $("#Bpmn").height() - 20; // + "px";        
             var remainCnt = $("#header").height() + $("#footer").height() + 50;
             var newHeight1 = contentHeight - remainCnt;
@@ -42,7 +42,18 @@
         }
     </script>
     <script type="text/javascript">
+        function InventorySelectall(chkAllInventoryAttributes) {
+            if ($(chkAllInventoryAttributes).is(":checked")) {
+                $("[id*=chkboxInventoryAttribute] input").attr("checked", "checked");
+            } else {
+                $("[id*=chkboxInventoryAttribute] input").removeAttr("checked");
+            }
+        }
+    </script>
+
+    <script type="text/javascript">
         function SelectallActivity(chkSelectAllActivity) {
+
             if ($(chkSelectAllActivity).is(":checked")) {
                 $("[id*=chkboxActivity] input").attr("checked", "checked");
             } else {
@@ -50,6 +61,18 @@
             }
         }
     </script>
+
+    <script type="text/javascript">
+        function SelectallInventory(chkSelectallInventory) {
+
+            if ($(chkSelectallInventory).is(":checked")) {
+                $("[id*=chkboxInventory] input").attr("checked", "checked");
+            } else {
+                $("[id*=chkboxInventory] input").removeAttr("checked");
+            }
+        }
+    </script>
+
     <script type="text/javascript">
         function SelectAllBomProcess(chkSelectAllBom) {
             if ($(chkSelectAllBom).is(":checked")) {
@@ -180,8 +203,10 @@
                                         <asp:LinkButton ID="btnTgtValueGap" OnClick="btnTgtValueGap_Click" runat="server"
                                             Text="Target Value Gap" Style="font: bold 13px/32px Arial,Helvetica,sans-serif; color: #555555; margin-left: 17px;" /></li>
 
-                                    <%--<li><a href="#"><span class="ReportTag"></span>TFG Report</a></li>
-                                    <li><a href="#"><span class="ReportTag"></span>Machine Report</a></li>--%>
+                                    <li id="liInventory" runat="server"><span style="background: url(images/report.png) no-repeat left top!important; padding-left: 27px; height: 29px; float: left; margin-left: 10px;"></span>
+                                        <asp:LinkButton ID="btnInventoryReport" OnClick="btnTgtInventoryReport_Click" runat="server"
+                                            Text="Inventory Report" Style="font: bold 13px/32px Arial,Helvetica,sans-serif; color: #555555; margin-left: 17px;" /></li>
+
                                 </ul>
                             </div>
                         </div>
@@ -218,6 +243,7 @@
                     </div>
                 </div>
             </asp:Panel>
+
             <asp:Panel ID="pnlAttribute" runat="server" Visible="false">
                 <div class="ActivityPopupTop">
                     <div class="ActivityPopup">
@@ -243,6 +269,63 @@
                     </div>
                 </div>
             </asp:Panel>
+
+            <asp:Panel ID="pnlInventoryAttribute" runat="server" Visible="false">
+                <div class="ActivityPopupTop">
+                    <div class="ActivityPopup">
+                        <h2 style="font: bold 15px/32px Arial,Helvetica,sans-serif!important">Select Attribute</h2>
+                        <div class="ActivitybMid">
+                            <div class="LeftAtActivity">
+                                <ul class="ActivtyNew">
+                                    <li>
+                                        <div class="fixheight" style="height: 150px; margin-top: 15px; overflow-y: scroll; overflow-x: hidden;">
+                                            <asp:CheckBox ID="chkAllInventoryAttributes" Checked="false" Text="Select All" runat="server"
+                                                onclick="InventorySelectall(this)" />
+                                            <asp:CheckBoxList ID="chkboxInventoryAttribute" runat="server" Style="margin-left: 10px">
+                                            </asp:CheckBoxList>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <asp:Button ID="btnNextToInventoryAttribute" Text="Next" runat="server" Style="margin: -38px 90px 0 0!important;"
+                            CssClass="btnNextNew" OnClick="btnNextToInventoryAttribute_Click" />
+                    </div>
+                    <div class="Clear">
+                    </div>
+                </div>
+            </asp:Panel>
+
+            <asp:Panel ID="pnlInventory" runat="server" Visible="false">
+                <div class="ActivityPopupTop">
+                    <div class="ActivityPopup">
+                        <h2 style="font: bold 15px/32px Arial,Helvetica,sans-serif!important" id="headerTitleInventory"
+                            runat="server">Select Inventory</h2>
+                        <div class="ActivitybMid" id="div8" runat="server">
+                            <div class="LeftAtActivity">
+                                <ul class="ActivtyNew">
+                                    <li>
+                                        <div class="fixheight" style="height: 150px; margin-top: 15px; overflow-y: scroll; overflow-x: hidden;">
+                                            <asp:CheckBox ID="chkSelectallInventory" Checked="false" Text="Select All" runat="server"
+                                                onclick="SelectallInventory(this)" />
+                                            <asp:CheckBoxList ID="chkboxInventory" CssClass="checkbox" runat="server">
+                                            </asp:CheckBoxList>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <asp:Button ID="btnNextToInventory" runat="server" Text="Next" CssClass="btnNextNew"
+                                            OnClick="btnNextToActivity_Click" />
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="Clear">
+                    </div>
+                </div>
+            </asp:Panel>
+
+
+
             <asp:Panel ID="pnlBomProcess" runat="server" Visible="false">
                 <div class="ActivityPopupTop">
                     <div class="ActivityPopup" style="height: 237px;">
@@ -270,6 +353,7 @@
                     </div>
                 </div>
             </asp:Panel>
+
             <asp:Panel ID="pnlBomReport" runat="server" Visible="false">
                 <%--<div class="RightAt" id="divBomReport" runat="server" visible="true" style="overflow-y: scroll;
                     max-height: 400px; float: right; margin-top: 99px; width: 1047px!important; margin-right: 5px;">--%>
@@ -983,7 +1067,7 @@
                                 </ItemTemplate>
                             </asp:TemplateField>
 
-                             <asp:TemplateField SortExpression="UnitName">
+                            <asp:TemplateField SortExpression="UnitName">
                                 <HeaderTemplate>
                                     <a class="block_arrow" href="#">Difference</a>
                                 </HeaderTemplate>
@@ -1058,7 +1142,64 @@
                 </div>
             </asp:Panel>
 
+            <asp:Panel ID="pnlInventoryReport" runat="server" Visible="false">
+                <div class="RightAt" id="div9" runat="server" visible="true" style="float: right; margin-right: 10px; margin-top: 110px; width: 1033px !important; overflow-y: scroll; max-height: 300px">
+                    <asp:GridView ID="GridInventoryReport" runat="server" AlternatingRowStyle-CssClass="field_row bg_white"
+                        AutoGenerateColumns="false"
+                        AllowSorting="true" CellSpacing="0"
+                        CellPadding="0" RowStyle-CssClass="field_row" GridLines="None" HeaderStyle-CssClass="block_1_top"
+                        Style="overflow-y: auto; overflow-x: hidden; height: 200px;">
+                        <Columns>
+                            <asp:TemplateField SortExpression="AttributeName">
+                                <HeaderTemplate>
+                                    <a class="block_arrow" href="#">Inventory</a>
+                                </HeaderTemplate>
+                                <ItemTemplate>
+                                    <%#DataBinder.Eval(Container.DataItem, "Inventory")%>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField SortExpression="AttributeValue" >
+                                <HeaderTemplate>
+                                    <a class="block_arrow" href="#">CT</a>
+                                </HeaderTemplate>
+                                <ItemTemplate>
+                                    <%#DataBinder.Eval(Container.DataItem, "CT")%>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField SortExpression="UnitName">
+                                <HeaderTemplate>
+                                    <a class="block_arrow" href="#">Time</a>
+                                </HeaderTemplate>
+                                <ItemTemplate>
+                                    <%#DataBinder.Eval(Container.DataItem, "Time")%>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField SortExpression="AttributeValue">
+                                <HeaderTemplate>
+                                    <a class="block_arrow" href="#">$</a>
+                                </HeaderTemplate>
+                                <ItemTemplate>
+                                    <%#DataBinder.Eval(Container.DataItem, "Dollar")%>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                          
 
+                          
+                        </Columns>
+                        <RowStyle CssClass="field_row" />
+                    </asp:GridView>
+                </div>
+
+                <div style="float: left; margin-left: 330px; margin-top: 50px;">
+                    <span style="color: #40464C; font-size: 14px; font-weight: bold;">Save Report as :</span>
+                    &nbsp;&nbsp;<asp:TextBox ID="txtInventoryAttributeReportName" runat="server" CssClass="AttrTxtFild"
+                        Style="width: 200px!important; float: none!important" placeholder="Report Name" />
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" InitialValue=""
+                        ControlToValidate="txtInventoryAttributeReportName" ErrorMessage="Please enter report Name"
+                        ValidationGroup="addReport" ForeColor="Red" Text="*">
+                    </asp:RequiredFieldValidator>
+                </div>
+            </asp:Panel>
 
         </ContentTemplate>
     </asp:UpdatePanel>

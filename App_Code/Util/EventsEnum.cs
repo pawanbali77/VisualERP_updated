@@ -9,11 +9,11 @@ using System.Web;
 public class ControlsEnum
 {
     public ControlsEnum()
-	{
-		//
-		// TODO: Add constructor logic here
-		//
-	}
+    {
+        //
+        // TODO: Add constructor logic here
+        //
+    }
 }
 public enum ProcessControl
 {
@@ -43,18 +43,19 @@ public enum ProcessControl
     PhysicalPull = 25,
     SequencedPullBall = 26,
     LoadLeveling = 27,
-   // ParallelActivity=28
+    // ParallelActivity=28
 }
 
 public enum ReportTypeID
 {
-    Attribute=1,
-    Bom=2,
-    TFG=3,
-    Machine=4,
-    PCS=5,
-    DCS=6,
-    TGTGAP = 7
+    Attribute = 1,
+    Bom = 2,
+    TFG = 3,
+    Machine = 4,
+    PCS = 5,
+    DCS = 6,
+    TGTGAP = 7,
+    Inventory = 8
 }
 
 public enum ArrowControl
@@ -69,13 +70,13 @@ public enum ArrowControl
     Arrow8 = 37,
     Arrow9 = 38,
     Arrow10 = 39,
-    Arrow11= 40,
+    Arrow11 = 40,
     Arrow12 = 41,
-    Arrow13 =42,
-    Arrow14=43,
-    Arrow15=44,
-    Arrow16=45,
-    Arrow17=46,
+    Arrow13 = 42,
+    Arrow14 = 43,
+    Arrow15 = 44,
+    Arrow16 = 45,
+    Arrow17 = 46,
     Arrow18 = 47,
     Arrow19 = 48,
     Arrow20 = 49,
@@ -84,19 +85,19 @@ public enum ArrowControl
 
 public enum SummaryFunction
 {
-    Sum=1,
-    Average=2,
-    Median=3,
-    Min=4,
-    Max=5,
-    Standard_deviation=6
+    Sum = 1,
+    Average = 2,
+    Median = 3,
+    Min = 4,
+    Max = 5,
+    Standard_deviation = 6
 }
 
 public enum FormType
 {
     PPESA = 0,
     PDESA = 1,
-    ERRORLOG=2
+    ERRORLOG = 2
 }
 
 public enum Actions { True = 1, False = 2 };

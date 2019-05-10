@@ -42,22 +42,7 @@ public partial class EnterPriseMaster : System.Web.UI.MasterPage
         // BindTreeData();
         ///it will check post Back data and then Bind Tree Data
         ///  VisualERPDataContext ObjData = new VisualERPDataContext();
-        string UserImage = "";
 
-        if (Session["CompanyName"] != null)
-        {
-            UserImage = Session["CompanyName"].ToString();
-        }
-        var image = RegisterData.ProfileImage(0, UserImage);
-
-        if (image == null || image == "")
-        {
-            Img_upload.ImageUrl = "~/images/no-image-icon-33.png";
-        }
-        else
-        {
-            Img_upload.ImageUrl = image;
-        }
         if (!IsPostBack)
         {
             List<ProcessData.ProcessDataProperty> lstreeData = ProcessData.GetAllProcessID();

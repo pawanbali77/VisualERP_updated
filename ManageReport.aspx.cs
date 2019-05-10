@@ -11,6 +11,7 @@ using System.ComponentModel;
 using System.IO;
 using ClosedXML.Excel;
 using System.Text.RegularExpressions;
+using System.Reflection;
 
 public partial class ManageReport : BasePage
 {
@@ -18,7 +19,17 @@ public partial class ManageReport : BasePage
     int typeId = 0;
     List<int> activity = new List<int>();
     List<string> activityName = new List<string>();
+
+
+
+
+
+
     Dictionary<int, string> activityDic = new Dictionary<int, string>();
+
+
+
+
     List<string> attribute = new List<string>();
     List<ProcessData.ProcessDataProperty> activityNode = new List<ProcessData.ProcessDataProperty>();
     //List<int> actv = new List<int>();
@@ -52,7 +63,7 @@ public partial class ManageReport : BasePage
         ScriptManager.RegisterStartupScript(this, this.GetType(),
                       "ServerControlScript2", "test1();", true);
 
-        pnlActivity.Visible = false;
+        pnlActivity.Visible = false; pnlInventory.Visible = false;
         pnlAttribute.Visible = false;
         pnlBomProcess.Visible = false;
         pnlAttributeReport.Visible = false;
@@ -60,6 +71,7 @@ public partial class ManageReport : BasePage
         pnlTFGReport.Visible = false;
         pnlMachineReport.Visible = false;
         pnlESAReport.Visible = false;
+        pnlInventoryReport.Visible = false;
         pnlReportType.Visible = false;
         pnlListSavedReport.Visible = false;
         pnlTgtValueGap.Visible = false;
@@ -69,6 +81,7 @@ public partial class ManageReport : BasePage
         liSaveReport.Visible = false;
         liExporttoExcel.Visible = false;
         chkSelectAllActivity.Checked = false; // uncheck select all checkbox on page load
+        chkSelectallInventory.Checked = false;
         chkAllAttributes.Checked = false; // uncheck select all checkbox on page load
         chkSelectAllBom.Checked = false; // uncheck select all checkbox on page load
 
@@ -96,6 +109,21 @@ public partial class ManageReport : BasePage
                 Session["ActivityDictionary"] = activityDic; // it will hold dicectory of both activity and activity name in session
             }
         }
+        foreach (ListItem item in chkboxInventory.Items)
+        {
+            if (item.Selected)
+            {
+                activity.Add(Convert.ToInt32(item.Value));
+                activityName.Add(Convert.ToString(item.Text));
+                string acctivityname = Activity.GetActivityNameByProcessObjId(Convert.ToInt32(item.Value));
+                activityDic.Add(Convert.ToInt32(item.Value), acctivityname);
+                Session["InventoryValue"] = activity; // it hold activity id that is proess object id in session
+                Session["InventoryName"] = activityName; // it hold activity name that is process object name in session
+                Session["InventoryDictionary"] = activityDic; // it will hold dicectory of both activity and activity name in session
+            }
+        }
+
+
 
         foreach (ListItem item in chkboxAttribute.Items)
         {
@@ -103,6 +131,15 @@ public partial class ManageReport : BasePage
             {
                 attribute.Add(Convert.ToString(item.Text)); // on page checkbox will get clear thats why we hold the checked items in list and session
                 Session["AttributeName"] = attribute;
+            }
+        }
+
+        foreach (ListItem item in chkboxInventoryAttribute.Items)
+        {
+            if (item.Selected)
+            {
+                attribute.Add(Convert.ToString(item.Text)); // on page checkbox will get clear thats why we hold the checked items in list and session
+                Session["InventoryAttributeName"] = attribute;
             }
         }
 
@@ -141,7 +178,7 @@ public partial class ManageReport : BasePage
                     if (lstData.Count != 0)
                     {
                         pnlListSavedReport.Visible = true; //saved report grid will show and other will hide
-                        pnlActivity.Visible = false;
+                        pnlActivity.Visible = false; pnlInventory.Visible = false;
                         grdSavedReport.DataSource = lstData; // bind grid generic list as data source
                         grdSavedReport.DataBind();
 
@@ -158,7 +195,7 @@ public partial class ManageReport : BasePage
 
                         //*******************
                         pnlReportType.Visible = true;
-                        pnlActivity.Visible = false;
+                        pnlActivity.Visible = false; pnlInventory.Visible = false;
                         pnlAttribute.Visible = false;
                         pnlBomProcess.Visible = false;
                         pnlAttributeReport.Visible = false;
@@ -207,8 +244,11 @@ public partial class ManageReport : BasePage
                 if (EditId == "liTgtValueGap") // maintain currentreport type of PDESA in session before click on linkbutton
                     Session["CurrentReport"] = (int)ReportTypeID.TGTGAP;
 
-                BindActivityCheckboxList(Convert.ToInt32(mastertreeview.SelectedNode.Value)); // bind activity checkbox
+                if (EditId == "btnNextToInventory") // maintain currentreport type of Inventory Report in session before click on linkbutton
+                    Session["CurrentReport"] = (int)ReportTypeID.Inventory;
 
+                BindActivityCheckboxList(Convert.ToInt32(mastertreeview.SelectedNode.Value)); // bind activity checkbox
+                BindInventoryCheckboxList(Convert.ToInt32(mastertreeview.SelectedNode.Value));
             }
             ProcessId = this.CInt32(mastertreeview.SelectedNode.Value);
             //Session["SelectedNodeValue"] = ProcessId;
@@ -231,7 +271,7 @@ public partial class ManageReport : BasePage
 
             // upto this 
             //PanelReportType.Visible = true;
-            //pnlActivity.Visible = false;
+            //pnlActivity.Visible = false; pnlInventory.Visible = false;
             //pnlAttribute.Visible = false;
             //pnlListSavedReport.Visible = false;
 
@@ -367,7 +407,7 @@ public partial class ManageReport : BasePage
         if (lstData.Count != 0)
         {
             pnlListSavedReport.Visible = true;
-            pnlActivity.Visible = false;
+            pnlActivity.Visible = false; pnlInventory.Visible = false;
             grdSavedReport.DataSource = lstData;
             grdSavedReport.DataBind();
             pnlReportType.Visible = false; //*******************
@@ -380,7 +420,7 @@ public partial class ManageReport : BasePage
 
             //*******************
             pnlReportType.Visible = true;
-            pnlActivity.Visible = false;
+            pnlActivity.Visible = false; pnlInventory.Visible = false;
             pnlAttribute.Visible = false;
             pnlBomProcess.Visible = false;
             pnlAttributeReport.Visible = false;
@@ -427,6 +467,35 @@ public partial class ManageReport : BasePage
         }
     }
 
+
+    public void BindInventoryCheckboxList(int PoID)
+    {
+        List<ProcessData.ProcessDataProperty> activities = ProcessData.GetProcessObjInventories(PoID);
+
+        if (activities.Count != 0)
+        {
+            divAttribute.Visible = true;
+            //
+            activityNode.AddRange(activities);
+            //
+            chkboxInventory.DataSource = activities;
+            chkboxInventory.DataTextField = "ProcessObjectName"; // datatext field
+            chkboxInventory.DataValueField = "ProcessObjID"; // data value field
+            chkboxInventory.DataBind(); // bind checkboxlist            
+            btnNextToInventory.Visible = true;
+            headerTitleInventory.InnerText = "Select Inventory";
+            chkSelectallInventory.Visible = true;
+        }
+        else
+        {
+            headerTitleInventory.InnerText = "No Inventory found under this process";
+            //divAttribute.Visible = false;
+            chkSelectallInventory.Visible = false;
+            btnNextToInventory.Visible = false;
+            chkboxActivity.Items.Clear();
+        }
+    }
+
     /// <summary>
     /// it will call on next button on activity panel will will corresponde data according the current report selected
     /// </summary>
@@ -438,7 +507,7 @@ public partial class ManageReport : BasePage
         if (activity.Count > 0) // activity is list have checkbox selection items on page load
         {
             lblMsg.Text = "";
-            pnlActivity.Visible = false;
+            pnlActivity.Visible = false; pnlInventory.Visible = false;
             pnlListSavedReport.Visible = false;
             pnlAttributeReport.Visible = false;
             pnlBomReport.Visible = false;
@@ -456,6 +525,7 @@ public partial class ManageReport : BasePage
                 //report type 2 for bom report
                 //report type 3 for TFG report
                 //report type 4 for Machine report
+                //report type 8 for Inventory report
                 if (reporttyp == 1)
                 {
                     for (int i = 0; i < activity.Count; i++)
@@ -598,6 +668,32 @@ public partial class ManageReport : BasePage
                         }
                     }
                 }
+
+                if (reporttyp == 8)
+                {
+                    for (int i = 0; i < activity.Count; i++)
+                    {
+                        int prcobjID = Convert.ToInt32(activity[i].ToString()); //proobjId is selected atctivity id
+
+
+                        attribute.AddRange(ProcessData.GetInventoryObjAttributes(prcobjID));
+                        //List.AddRange(attribute);
+                        attribute.Select(x => x.AttributeName).Distinct();
+                        var DistinctItems = attribute.GroupBy(x => x.AttributeName).Select(y => y.First());
+                        // attribute= attribute.Distinct().ToList();
+
+                        if (attribute.Count != 0)
+                        {
+                            chkboxInventoryAttribute.DataSource = DistinctItems;
+                        }
+                        //chkboxInventoryAttribute.DataSource = attribute;
+                    }
+                    chkboxInventoryAttribute.DataTextField = "AttributeName"; // textfield
+                    chkboxInventoryAttribute.DataValueField = "AttributeMenuID"; //value field
+                    chkboxInventoryAttribute.DataBind(); //binding chkboxInventoryAttribute 
+                    pnlInventoryAttribute.Visible = true;
+                }
+
                 //if (reporttyp == 5 || reporttyp == 6)
                 //{
                 //    for (int i = 0; i < activity.Count; i++)
@@ -648,7 +744,7 @@ public partial class ManageReport : BasePage
                 //show add report button
 
                 pnlReportType.Visible = true;
-                pnlActivity.Visible = false;
+                pnlActivity.Visible = false; pnlInventory.Visible = false;
                 pnlAttribute.Visible = false;
                 pnlBomProcess.Visible = false;
                 pnlAttributeReport.Visible = false;
@@ -696,7 +792,7 @@ public partial class ManageReport : BasePage
         if (attribute.Count > 0) // activity is list have checkbox selection items on page load
         {
             pnlAttribute.Visible = false;
-            pnlActivity.Visible = false;
+            pnlActivity.Visible = false; pnlInventory.Visible = false;
             pnlAttributeReport.Visible = true; // attribute report panel will display others will be hide
             pnlListSavedReport.Visible = false;
             txtAttributeReportName.Text = "";
@@ -726,7 +822,51 @@ public partial class ManageReport : BasePage
             divErrorMsg.Attributes.Add("class", "isa_error");
 
             pnlAttribute.Visible = true;
+            pnlActivity.Visible = false; pnlInventory.Visible = false;
+            pnlListSavedReport.Visible = false;
+            pnlReportType.Visible = false;
+        }
+
+    }
+
+    protected void btnNextToInventoryAttribute_Click(object sender, EventArgs e)
+    {
+        if (attribute.Count > 0) // activity is list have checkbox selection items on page load
+        {
+            pnlAttribute.Visible = false;
             pnlActivity.Visible = false;
+            pnlInventory.Visible = false;
+            pnlInventoryReport.Visible = true; // attribute report panel will display others will be hide
+            pnlListSavedReport.Visible = false;
+            txtInventoryAttributeReportName.Text = "";
+            lblMsg.Text = "";
+            GetInventoryAttributeReportData(attribute);
+            //lnkbtnSaveReport.Visible = true;
+            //if (RoleID == 4)
+            //{
+            //    lnkbtnSaveReport.Visible = false;
+            //    txtAttributeReportName.Visible = false;
+            //}
+            //liSaveReport.Visible = true;
+            pnlReportType.Visible = false;
+        }
+        else
+        {
+            lblMsg.Visible = true;
+            divErrorMsg.Visible = true;
+            lblMsg.Text = "Please select at least one Attribute.";
+            lblMsg.Style.Add("color", "red");
+            divErrorMsg.Style.Add("min-width", "231px");
+            divErrorMsg.Style.Add("margin-right", "470px");
+            divErrorMsg.Style.Add("margin-left", "0px");
+            divErrorMsg.Style.Add("float", "right");
+            divErrorMsg.Style.Add("margin-left", "0px");
+            divErrorMsg.Style.Add("padding", "7px 14px 0px 17px");
+            divErrorMsg.Attributes.Add("class", "isa_error");
+
+            pnlAttribute.Visible = true;
+            pnlActivity.Visible = false;
+            pnlInventory.Visible = false;
             pnlListSavedReport.Visible = false;
             pnlReportType.Visible = false;
         }
@@ -743,7 +883,7 @@ public partial class ManageReport : BasePage
         if (bomProcessID.Count > 0) // activity is list have checkbox selection items on page load
         {
             pnlBomProcess.Visible = false;
-            pnlActivity.Visible = false;
+            pnlActivity.Visible = false; pnlInventory.Visible = false;
             pnlListSavedReport.Visible = false;
             pnlBomReport.Visible = true;
             pnlTFGReport.Visible = false;
@@ -777,7 +917,7 @@ public partial class ManageReport : BasePage
             divErrorMsg.Attributes.Add("class", "isa_error");
 
             pnlBomProcess.Visible = true;
-            pnlActivity.Visible = false;
+            pnlActivity.Visible = false; pnlInventory.Visible = false;
             pnlListSavedReport.Visible = false;
             pnlBomReport.Visible = false;
         }
@@ -1071,6 +1211,8 @@ public partial class ManageReport : BasePage
         }
     }
 
+
+
     /// <summary>
     /// run created query using dataset
     /// </summary>
@@ -1102,14 +1244,14 @@ public partial class ManageReport : BasePage
 
     protected void lnkbtnList_Click(object sender, EventArgs e)
     {
-        //pnlActivity.Visible = false;
+        //pnlActivity.Visible = false; pnlInventory.Visible = false;
         //pnlListSavedReport.Visible = true;
         //divErrorMsg.Visible = false;
 
 
 
         //pnlReportType.Visible = true;
-        //pnlActivity.Visible = false;
+        //pnlActivity.Visible = false; pnlInventory.Visible = false;
         //pnlAttribute.Visible = false;
         //pnlListSavedReport.Visible = false;
         //pnlAttributeReport.Visible = false;
@@ -1119,7 +1261,7 @@ public partial class ManageReport : BasePage
     protected void lnkbtnAdd_Click(object sender, EventArgs e)
     {
         pnlReportType.Visible = true;
-        pnlActivity.Visible = false;
+        pnlActivity.Visible = false; pnlInventory.Visible = false;
         pnlAttribute.Visible = false;
         pnlBomProcess.Visible = false;
         pnlAttributeReport.Visible = false;
@@ -1646,11 +1788,11 @@ public partial class ManageReport : BasePage
             {
                 Session["CurrentReport"] = reportTyp;
                 string ProcessObjID = row.ProcessObjID; // processObj ID in string 
-                //string BomProcessIds = row.AttributeName; // attributes name in string 
+                                                        //string BomProcessIds = row.AttributeName; // attributes name in string 
                 string ReportName = row.ReportName;    // get report name
 
                 string[] activityItem = ProcessObjID.Split(','); //split menthod that will split processobID
-                //string[] bomProcessItem = BomProcessIds.Split(',');
+                                                                 //string[] bomProcessItem = BomProcessIds.Split(',');
                 for (int p = 0; p < activityItem.Length - 1; p++)
                 {
                     activity.Add(Convert.ToInt32(activityItem[p])); // getting processobID in list activity list<int>
@@ -1675,11 +1817,11 @@ public partial class ManageReport : BasePage
             {
                 Session["CurrentReport"] = reportTyp;
                 string ProcessObjID = row.ProcessObjID; // processObj ID in string 
-                //string BomProcessIds = row.AttributeName; // attributes name in string 
+                                                        //string BomProcessIds = row.AttributeName; // attributes name in string 
                 string ReportName = row.ReportName;    // get report name
 
                 string[] activityItem = ProcessObjID.Split(','); //split menthod that will split processobID
-                //string[] bomProcessItem = BomProcessIds.Split(',');
+                                                                 //string[] bomProcessItem = BomProcessIds.Split(',');
                 for (int p = 0; p < activityItem.Length - 1; p++)
                 {
                     activity.Add(Convert.ToInt32(activityItem[p])); // getting processobID in list activity list<int>
@@ -1736,7 +1878,7 @@ public partial class ManageReport : BasePage
         {
             // no relavent data found to this report ID
         }
-        pnlActivity.Visible = false;
+        pnlActivity.Visible = false; pnlInventory.Visible = false;
         pnlAttribute.Visible = false;
         pnlBomProcess.Visible = false;
         pnlListSavedReport.Visible = false;
@@ -1826,7 +1968,7 @@ public partial class ManageReport : BasePage
         }
         else
         {
-            pnlActivity.Visible = false;
+            pnlActivity.Visible = false; pnlInventory.Visible = false;
             pnlReportType.Visible = false;
             pnlAttribute.Visible = false;
             pnlBomProcess.Visible = false;
@@ -1845,6 +1987,50 @@ public partial class ManageReport : BasePage
         }
         this.IsEdit = false;
     }
+
+
+    protected void btnTgtInventoryReport_Click(object sender, EventArgs e)
+    {
+        Session["CurrentReport"] = (int)ReportTypeID.Inventory;
+
+        if (ProcessId != 0) // if process is selected activity block will display
+        {
+            pnlActivity.Visible = false;
+            pnlInventory.Visible = true;
+            pnlReportType.Visible = false;
+            pnlAttribute.Visible = false;
+            pnlBomProcess.Visible = false;
+            pnlAttributeReport.Visible = false;
+            pnlBomReport.Visible = false;
+            pnlTFGReport.Visible = false;
+            pnlESAReport.Visible = false;
+            pnlListSavedReport.Visible = false;
+            divErrorMsg.Visible = false;
+
+        }
+        else
+        {
+            pnlActivity.Visible = false;
+            pnlInventory.Visible = false;
+            pnlReportType.Visible = false;
+            pnlAttribute.Visible = false;
+            pnlBomProcess.Visible = false;
+            pnlAttributeReport.Visible = false;
+            pnlBomReport.Visible = false;
+            pnlTFGReport.Visible = false;
+            pnlESAReport.Visible = false;
+            pnlListSavedReport.Visible = false;
+            lblMsg.Visible = true;
+            divErrorMsg.Visible = true;
+            lblMsg.Text = "Please choose the process.!";
+            lblMsg.Style.Add("color", "red");
+            divErrorMsg.Style.Add("min-width", "194px");
+            divErrorMsg.Style.Add("margin-left", "554px");
+            divErrorMsg.Attributes.Add("class", "isa_warning");
+        }
+        this.IsEdit = false;
+    }
+
 
     protected void lnkBtnBOMReport_Click(object sender, EventArgs e)
     {
@@ -1865,7 +2051,7 @@ public partial class ManageReport : BasePage
         }
         else
         {
-            pnlActivity.Visible = false;
+            pnlActivity.Visible = false; pnlInventory.Visible = false;
             pnlReportType.Visible = false;
             pnlAttribute.Visible = false;
             pnlBomProcess.Visible = false;
@@ -1904,7 +2090,7 @@ public partial class ManageReport : BasePage
         }
         else
         {
-            pnlActivity.Visible = false;
+            pnlActivity.Visible = false; pnlInventory.Visible = false;
             pnlReportType.Visible = false;
             pnlAttribute.Visible = false;
             pnlBomProcess.Visible = false;
@@ -1945,7 +2131,7 @@ public partial class ManageReport : BasePage
         }
         else    //else no process selected
         {
-            pnlActivity.Visible = false;
+            pnlActivity.Visible = false; pnlInventory.Visible = false;
             pnlReportType.Visible = false;
             pnlAttribute.Visible = false;
             pnlBomProcess.Visible = false;
@@ -2019,7 +2205,7 @@ public partial class ManageReport : BasePage
                     for (int i = 0; i < bomProcessID.Count; i++)
                     {
                         int BomProcessID = Convert.ToInt32(bomProcessID[i].ToString()); //proobjId is selected atctivity id
-                        // bomProcess.AddRange(ProcessData.GetProcessObjAttributes(BomProcessID));
+                                                                                        // bomProcess.AddRange(ProcessData.GetProcessObjAttributes(BomProcessID));
                         BomProcessData.AddRange(BomData.GetBOMProcessDataByBomProcessID(BomProcessID));
                     }
                 }
@@ -2246,7 +2432,6 @@ public partial class ManageReport : BasePage
                 dt.Columns.Add("Unit");
                 dt.Columns.Add("Target Value");
                 dt.Columns.Add("Target Unit");
-                dt.Columns.Add("Difference Value");
                 //foreach (TableCell cell in gridTgtValueGap.HeaderRow.Cells)
                 //{
                 //    dt.Columns.Add(cell.Text);
@@ -2262,7 +2447,7 @@ public partial class ManageReport : BasePage
                     row["Unit"] = prop.UnitName;
                     row["Target Value"] = prop.TargetValue;
                     row["Target Unit"] = prop.TargetUnitName;
-                    row["Difference Value"] = prop.DifferenceValue;
+
                     dt.Rows.Add(row); // datatable row has been created here 
                 }
             }
@@ -2449,7 +2634,7 @@ public partial class ManageReport : BasePage
         }
         else    //else no process selected
         {
-            pnlActivity.Visible = false;
+            pnlActivity.Visible = false; pnlInventory.Visible = false;
             pnlReportType.Visible = false;
             pnlAttribute.Visible = false;
             pnlBomProcess.Visible = false;
@@ -2467,6 +2652,8 @@ public partial class ManageReport : BasePage
             divErrorMsg.Attributes.Add("class", "isa_warning");
         }
     }
+
+
 
     protected void btnTgtValueGap_Click(object sender, EventArgs e)
     {
@@ -2646,7 +2833,7 @@ public partial class ManageReport : BasePage
                                 UnitName = unitName,
                                 TargetValue = Convert.ToString(targetTotal),
                                 TargetUnitName = unitName,
-                                DifferenceValue = Convert.ToString(total- targetTotal),
+                                DifferenceValue = Convert.ToString(total - targetTotal),
                             });
                         }
 
@@ -2692,43 +2879,9 @@ public partial class ManageReport : BasePage
                                     UnitName = unitName,
                                     TargetValue = String.Format("{0:0.00}", ret),
                                     TargetUnitName = unitName,
-                                    DifferenceValue = String.Format("{0:0.00}", ret-ret),
+                                    DifferenceValue = String.Format("{0:0.00}", ret - ret),
                                 });
                             }
-                        }
-
-                        if(FunctionID == 0)
-                        {
-                            int total = 0;
-                            int targetTotal = 0;
-
-                            if (processData.Count == 0)
-                            {
-                                total = 0;
-                            }
-                            else
-                            {
-                                total = processData.Max(x => Convert.ToInt32(x.AttributeValueSum));
-                            }
-
-                            if (targetData.Count == 0)
-                            {
-                                targetTotal = 0;
-                            }
-                            else
-                            {
-                                targetTotal = targetData.Max(x => Convert.ToInt32(x.AttributeValueSum));
-                            }
-
-                            summaryResult.Add(new SummaryDetail()
-                            {
-                                AttributeName = AttributeName,
-                                AttributeValueResult = Convert.ToString(total),
-                                UnitName = unitName,
-                                TargetValue = Convert.ToString(targetTotal),
-                                TargetUnitName = unitName,
-                                DifferenceValue = Convert.ToString(total - targetTotal),
-                            });
                         }
                     }
                 }
@@ -2738,6 +2891,105 @@ public partial class ManageReport : BasePage
         }
         return summaryResult;
     }
+    List<InventoryReportFields> objInventoryReportFields = new List<InventoryReportFields>();
+    public void GetInventoryAttributeReportData(List<string> ObjAttribute)
+    {
+        VisualERPDataContext Objdata = new VisualERPDataContext();
+
+        string attributeName = "";
+        // var getRecord;
+        if (Session["InventoryDictionary"] != null)
+        {
+            activityDic = (Dictionary<int, string>)Session["InventoryDictionary"];
+            // for multiple activities
+
+            string middle = string.Empty;
+
+            for (int i = 0; i < activityDic.Count; i++)
+            {
+                int actID = Convert.ToInt32(activityDic.ElementAt(i).Key);
+
+                string str = Convert.ToString(activityDic.ElementAt(i).Value);
+
+                if (i == 0)
+                {
+
+                    middle = "'" + actID.ToString() + "',";
+                }
+                else
+                {
+                    middle += "'" + actID.ToString() + "',";
+                }
+            }
+            middle = middle.TrimEnd(',');
+            string ColumnName = string.Empty;
+            foreach (var objAttr in ObjAttribute)
+            {
+                if (objAttr == "$")
+                {
+                    ColumnName += "IT.Doller,";
+                }
+                else
+                {
+                    ColumnName += "IT." + objAttr + ",";
+                }
+            }
+            ColumnName = ColumnName.TrimEnd(',');
+            string query = "SELECT PO.ProcessObjID,PO.ProcessObjID,ProcessObjName as Inventory," + ColumnName + " " +
+                           " FROM tbl_ProcessObject PO " +
+                           " LEFT JOIN[dbo].[tbl_InvantoryTriangle] " +
+                           " IT ON PO.ProcessObjID = IT.ProcessObjID " +
+                           " WHERE PO.ProcessObjID IN (" + middle + ") " +
+                           " ORDER BY PO.ProcessObjName";
+
+            // Declare the query string.
+            // Run the query and bind the resulting DataSet
+            // to the GridView control.
+            DataSet ds = GetData(query);
+            DataTable dt = new DataTable();
+            dt = ds.Tables[0];
+            DataColumnCollection columns = dt.Columns;
+          
+
+            objInventoryReportFields = (from DataRow dr in dt.Rows
+                                        select new InventoryReportFields()
+                                        {
+                                            Inventory = dr["Inventory"].ToString(),
+                                            CT = (!columns.Contains("CT")) ? "" : dr["CT"].ToString(),
+                                            Time = (!columns.Contains("Time")) ? "" : dr["Time"].ToString(),
+                                            Dollar = (!columns.Contains("Doller")) ? "" : dr["Doller"].ToString()
+                                        }).ToList();
+
+            //GridInventoryReport.Columns[1].Visible = false;
+
+            if (objInventoryReportFields.Count > 0)
+            {
+                GridInventoryReport.DataSource = objInventoryReportFields;
+                GridInventoryReport.DataBind();
+
+                pnlListSavedReport.Visible = false;
+                divErrorMsg.Visible = true;
+                lnkbtnSaveReport.Visible = true;
+                if (RoleID == 4)
+                {
+                    lnkbtnSaveReport.Visible = false;
+                    txtAttributeReportName.Visible = false;
+                }
+                pnlInventoryReport.Visible = true;
+                lnkbtnExporttoExcel.Visible = true;
+                liSaveReport.Visible = true;
+                liExporttoExcel.Visible = true;
+                pnlInventoryAttribute.Visible = false;
+            }
+            else
+            {
+                lnkbtnExporttoExcel.Visible = false;
+                liExporttoExcel.Visible = false;
+                //Message.Text = "Unable to connect to the database.";
+            }
+        }
+    }
+
 
     public class SummaryDetail
     {
@@ -2750,5 +3002,16 @@ public partial class ManageReport : BasePage
 
         public string DifferenceValue { get; set; }
 
+    }
+
+
+
+    public class InventoryReportFields
+    {
+        public string Inventory { get; set; }
+        // public int AttributeValueResult { get; set; }
+        public string Dollar { get; set; }
+        public string CT { get; set; }
+        public string Time { get; set; }
     }
 }

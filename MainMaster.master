@@ -242,9 +242,16 @@
             //  $("input[id=ContentPlaceHolder1_hdnLastZoom]").val(currOtherZoom);           
         }
 
+        function CopyPageCode() {
+            var data = $("#ContentPlaceHolder1_MainDiv").clone();
+            console.log(data);
+            var url = "Production.aspx?data=" + data;
+            window.location.href = url;
+
+        }
 
         function ZoomIn1() {
-            
+
             if ($.browser.mozilla) {
                 var step = 0.02;
                 currOtherZoom += step;
@@ -285,9 +292,9 @@
 
             var maxheight = $("input[id=ContentPlaceHolder1_hdnheight]").val();
             //alert(maxwidth + ',' + maxheight);
-            
+
             var NewHeight = $("input[id=ContentPlaceHolder1_hdnNewHeight]").val();
-            
+
             $("#ContentPlaceHolder1_MainDiv1").css("height", NewHeight);
             $("#ContentPlaceHolder1_MainDiv1").css("width", maxwidth);
             $("input[id=ContentPlaceHolder1_hdnLastZoom]").val(currOtherZoom);
@@ -334,7 +341,7 @@
             $("#ContentPlaceHolder1_MainDiv1").css("height", NewHeight);
             //$("#ContentPlaceHolder1_MainDiv1").css("height", maxheight);
             $("#ContentPlaceHolder1_MainDiv1").css("width", maxwidth);
-         
+
             //            $("#ContentPlaceHolder1_MainDiv").css("z-index", 1);
             //            $(".footer").css("z-index", "10");
             //            $(".grey_strip").css("top", 99);
@@ -347,7 +354,7 @@
         }
 
         function Zoomorg1() {
-            
+
             if ($.browser.mozilla) {
                 currFFZoom = 1;
                 currIEZoom = 1;
@@ -433,7 +440,7 @@
 
 
                             <li id="menu_Enterprisemanager" runat="server">
-                                <asp:LinkButton ID="enterpriseBtn" runat="server" OnClick="enterpriseBtn_Click" CssClass="enterprize_manager"><span class="Enterprize"></span>Enterprise View</asp:LinkButton></li>
+                                <asp:LinkButton ID="enterpriseBtn" runat="server" OnClick="enterpriseBtn_Click" CssClass="enterprize_manager"><span class="Enterprize"></span>Enterprise Manager</asp:LinkButton></li>
                             <%--<li id="menu_Metricsmanager" runat="server"><a href="#"><span class="Metrics"></span>Metrics Manager</a></li>--%>
                             <li id="menu_Reportmanager" runat="server"><a href="ManageReport.aspx"><span class="Report"></span>Report Manager</a></li>
                             <%--<li id="menu_Projectmanager" runat="server"><a href="#"><span class="Project"></span>Project Manager</a></li>--%>

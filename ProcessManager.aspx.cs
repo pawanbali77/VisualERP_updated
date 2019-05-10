@@ -56,6 +56,7 @@ public partial class ProcessManager : System.Web.UI.Page
         Label lblManager = (Label)Master.FindControl("lblManager");
         lblManager.Text = "Process View";
         lblManager.Attributes.Add("class", "Process");
+
         string script = "test();";
         ScriptManager.RegisterStartupScript(this, this.GetType(),
                       "ServerControlScript", script, true);
@@ -119,7 +120,7 @@ public partial class ProcessManager : System.Web.UI.Page
             if (ViewState["SelectedValue"] != null)
                 sV = Convert.ToInt32(ViewState["SelectedValue"]);
 
-            var listData = ControlsData.GetAllProcessControlData(ProcessId); // get all controls record from database
+            var listData =  ControlsData.GetAllProcessControlData(ProcessId); // get all controls record from database
 
             if (listData.Count != 0)
             {
@@ -253,6 +254,7 @@ public partial class ProcessManager : System.Web.UI.Page
                 int maxwidth = maxHeightnWidth.Max(a => a.Width);
                 //find height for max top value from list maxtopProcess
                 int maxheight = maxHeightnWidth.Max(a => a.Height);
+                
                 hdnWidth.Value = Convert.ToString(maxwidth);
                 hdnheight.Value = Convert.ToString(maxheight);
             }
@@ -792,7 +794,7 @@ public partial class ProcessManager : System.Web.UI.Page
         bool result = false;
         result = ProcessData.SaveProcessObject(ProcessObj);
         VisualERPDataContext ObjData = new VisualERPDataContext();
-        ObjData.SP_BulkInsertAttribute(this.CInt32(ViewState["ProcessObjID"]), ProcessId, 1);
+        ObjData.SP_BulkInsertAttribute(this.CInt32(ViewState["ProcessObjID"]), ProcessId,1);
         if (result == true)
         {
             lst.Clear();

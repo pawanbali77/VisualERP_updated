@@ -37,6 +37,7 @@
         }
 
     </script>
+   
    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js" type="text/javascript"></script>
     <script src="http://code.jquery.com/ui/1.8.23/jquery-ui.min.js" type="text/javascript"></script>
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.23/themes/base/jquery-ui.css"
@@ -521,6 +522,19 @@
                         <div class="AttribMid">
                             <div id="LeftAtInventery">
                                 <ul class="LeftFrm">
+                                    <li>
+                                        <label style="width: 28%!important">
+                                            Inventory Name</label>
+                                        <asp:TextBox ID="txtInventoryName" runat="server" MaxLength="50" CssClass="AttrTxtFild" TabIndex="1"
+                                            Width="245px"></asp:TextBox>
+                                        
+                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="txtInventoryName" ErrorMessage="Please enter the Inventory name"
+                                            InitialValue="" ValidationGroup="addInventery" ForeColor="Red" EnableClientScript="true"
+                                            Text="*">
+                         
+                                        </asp:RequiredFieldValidator>
+                                    </li>
+
                                     <li>
                                         <label style="width: 28%!important">
                                             CT</label>

@@ -35,7 +35,8 @@ public partial class UserControls_InventeryObject : System.Web.UI.UserControl
             ltrCT.Text = ProcessObjInventory.CT.ToString();
             ltrDoller.Text = ProcessObjInventory.Doller.ToString();
             ltrTime.Text = ProcessObjInventory.Time.ToString();
-            if(SourceType==2)
+            txtInventoryName.Text = ProcessData.GetInventoryName(ProcessObjInventory.ProcessObjID);
+            if (SourceType==2)
                 ViewState["TargetObjID"] = poid;
             else
             ViewState["ProcessObjID"] = poid;

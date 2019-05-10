@@ -43,7 +43,7 @@ public partial class EnterPriseManager : System.Web.UI.Page
         divErrorMsg.Visible = false;
         divSummary.Visible = false;
         Label lblManager = (Label)Master.FindControl("lblManager");
-        lblManager.Text = "Enterprise View";
+        lblManager.Text = "Enterprise Manager";
         lblManager.Attributes.Add("class", "Enterprize");
 
 

@@ -1841,6 +1841,7 @@ public partial class Production : System.Web.UI.Page
         ProcessObjInventery.Height = 0;
         ProcessObjInventery.Title = "";
         ProcessObjInventery.Position = newInventoryPosition;
+        ProcessObjInventery.ProcessObjName = txtInventoryName.Text.Trim();
         bool result = false;
         result = ProcessData.SaveDumyProcessObject(ProcessObjInventery);
 

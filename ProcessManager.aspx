@@ -3,33 +3,50 @@
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <%@ Register Src="UserControls/ModelPopupBOMUC.ascx" TagName="ModelPopupBOMUC" TagPrefix="uc1" %>
-<%@ Register Src="UserControls/ModelPopupAttributeUC.ascx" TagName="ModelPopupAttributeUC"
-    TagPrefix="uc2" %>
-<%@ Register Src="UserControls/ModelPopupInputUC.ascx" TagName="ModelPopupInputUC"
-    TagPrefix="uc3" %>
+<%@ Register Src="UserControls/ModelPopupAttributeUC.ascx" TagName="ModelPopupAttributeUC" TagPrefix="uc2" %>
+<%@ Register Src="UserControls/ModelPopupInputUC.ascx" TagName="ModelPopupInputUC" TagPrefix="uc3" %>
 <%@ Register Src="UserControls/ModelPopupMchUC.ascx" TagName="ModelPopupMchUC" TagPrefix="uc4" %>
 <%@ Register Src="UserControls/ModelPopupTFGUC.ascx" TagName="ModelPopupTFGUC" TagPrefix="uc5" %>
 <%@ Register Src="UserControls/ProcessObject.ascx" TagName="ProcessObject" TagPrefix="uc6" %>
 <%@ Register Src="UserControls/InventoryUC.ascx" TagName="InventoryUC" TagPrefix="uc7" %>
 <%@ Register Src="UserControls/InventeryObject.ascx" TagName="InventeryObject" TagPrefix="uc8" %>
-<%@ Register Src="UserControls/ModelPopupActivity.ascx" TagName="ModelPopupActivity"
-    TagPrefix="uc9" %>
+<%@ Register Src="UserControls/ModelPopupActivity.ascx" TagName="ModelPopupActivity" TagPrefix="uc9" %>
 <%@ Register Src="UserControls/ArrowControl.ascx" TagName="ArrowControl" TagPrefix="uc11" %>
 <%@ Register Src="UserControls/ImageControl.ascx" TagName="ImageControl" TagPrefix="uc10" %>
-<%--<%@ Register Src="UserControls/SummaryTable.ascx" TagName="ModelPopupSummaryTable"
-    TagPrefix="uc21" %>--%>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="Server">
     <script type="text/javascript" language="javascript">
+        var queryString = new Array();
+        $(function () {
+            if (queryString.length == 0) {
+                if (window.location.search.split('?').length > 1) {
+                    var params = window.location.search.split('?')[1].split('&');
+                    for (var i = 0; i < params.length; i++) {
+                        var key = params[i].split('=')[0];
+                        var value = decodeURIComponent(params[i].split('=')[1]);
+                        queryString[key] = value;
+                    }
+                }
+            }
+            if (queryString["data"] != null) {
+              
+                var data = queryString["data"];
+                console.log(data);
+                //$("#ContentPlaceHolder1_MainDiv1").html(data);
+            }
+
+        });
+
         function test() {
 
             var contentHeight = $(window).height();
             var newHeight = contentHeight - $("#header").height() - $("#footer").height() - $("#Title").height() - $("#Bpmn").height() - 20; // + "px";
-            //alert(newHeight);
+
             //$("#ContentPlaceHolder1_MainDiv").css("height", newHeight + "px");
             var maxheight = $("input[id=ContentPlaceHolder1_hdnheight]").val(); //get max height of process from hidden field value
             $("#ContentPlaceHolder1_MainDiv").css("height", maxheight);
 
-            var maxwidth = $("input[id=ContentPlaceHolder1_hdnWidth]").val();            
+            var maxwidth = $("input[id=ContentPlaceHolder1_hdnWidth]").val();
             $("#ContentPlaceHolder1_MainDiv").css("width", maxwidth);
 
             $("#ContentPlaceHolder1_MainDivOuter").css("height", newHeight + "px");
@@ -39,14 +56,14 @@
             currFFZoom = 1;
             currIEZoom = 1;
             currOtherZoom = 1;
-//            $("input[id=ContentPlaceHolder1_hdnLastZoom]").val('');
-//            alert($("input[id=ContentPlaceHolder1_hdnLastZoom]").val());
+            //            $("input[id=ContentPlaceHolder1_hdnLastZoom]").val('');
+            //            alert($("input[id=ContentPlaceHolder1_hdnLastZoom]").val());
 
 
             window.setTimeout(function () {
                 $(".isa_info").fadeOut('slow', function () { $('.isa_info').remove() });
                 $(".isa_success").fadeOut('slow', function () { $('.isa_success').remove() });
-             }, 7000);
+            }, 7000);
 
             //             if (msieversion()) {                
             ////                  alert("ie");
@@ -58,13 +75,13 @@
             location.reload();
         }
 
-//        function minimizeSummaryTable() {
+        //        function minimizeSummaryTable() {
 
-//            $("#imgMinimize").click(function () {
-//                $("#ContentPlaceHolder1_divSummary").slideDown("slow");
-//            });
-//        }
-      
+        //            $("#imgMinimize").click(function () {
+        //                $("#ContentPlaceHolder1_divSummary").slideDown("slow");
+        //            });
+        //        }
+
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
@@ -73,10 +90,8 @@
             <div class="right_container">
                 <%--<div class="right_top"></div>--%>
                 <div class="right_container_top" id="Title">
-                    <h1 style="font: 22px Arial, Helvetica, sans-serif !important;">
-                        Process View</h1>
-                    <div id="divErrorMsg" runat="server" style="font: bold 12px Arial, Helvetica, sans-serif;
-                        color: #555; padding: 7px 0px 0px 10px; height: 30px; float: left; min-width: 450px; max-width: 500px;">                         
+                    <h1 style="font: 22px Arial, Helvetica, sans-serif !important;">Process View</h1>
+                    <div id="divErrorMsg" runat="server" style="font: bold 12px Arial, Helvetica, sans-serif; color: #555; padding: 7px 0px 0px 10px; height: 30px; float: left; min-width: 450px; max-width: 500px;">
                         <asp:Label ID="lblMsg" runat="server" />
                     </div>
                     <%-- <div style="float: left; margin-left: 638px; margin-top: 8px;">
@@ -85,15 +100,14 @@
                  </div>--%>
                     <div class="right_nav">
                         <ul>
-                            <li runat="server" id="liDesignViewBtn"><a href="Production.aspx?src=process" class="DesignBtn" style="font: bold 20px Arial;line-height: 44px !important;">Design View</a></li>
-                            <li onclick="return ZoomIn();" id="liZoomIn" runat="server" style="cursor: pointer;
-                                margin-top: 3px;"><a title="Zoom-in" class="ZommIn"></a></li>
-                            <li onclick="return ZoomOut();" id="liZoomOut" runat="server" style="cursor: pointer;
-                                margin-top: 3px;"><a title="Zoom-out" class="ZommOut"></a></li>
+                            <li runat="server" id="liDesignViewBtn"><a href="Production.aspx?src=process" class="DesignBtn" style="font: bold 20px Arial; line-height: 44px !important;">Design View</a></li>
+                            <li onclick="return ZoomIn();" id="liZoomIn" runat="server" style="cursor: pointer; margin-top: 3px;"><a title="Zoom-in" class="ZommIn"></a></li>
+                            <li onclick="return ZoomOut();" id="liZoomOut" runat="server" style="cursor: pointer; margin-top: 3px;"><a title="Zoom-out" class="ZommOut"></a></li>
                             <li onclick="return Zoomorg();" id="li2" runat="server" style="height: 50px; cursor: pointer">
                                 <a title="Zoom-reset" class="ZommSet"></a></li>
                             <li id="liSummary" runat="server" style="height: 44px; margin-top: 6px;"><a title="Summary functions"
-                                class="SummaryIcon" href="SummaryTable.aspx?src=process"></a></li>
+                                class="SummaryIcon" href="SummaryTable.aspx"></a></li>
+                            <li onclick="return CopyPageCode();" id="li" runat="server" style="cursor: pointer; margin-top: 3px;"><a title="Zoom-out" class="ZommOut"></a></li>
                         </ul>
                         <asp:HiddenField ID="hdnWidth" runat="server" />
                         <asp:HiddenField ID="hdnheight" runat="server" />
@@ -162,11 +176,13 @@ Six month Professional Training in Web Desinging from  Rajiv Nanda Design & Phot
                 <div class="SummryListRi" style="border: 1px solid #cccccc; display: block; opacity: 0.8;"
                     id="divSummary" runat="server" visible="false">
                     <div class="summry_table_th">
-                   <%-- <a href="#" class="MinimizeMinusIcon" id="imgMinimize" onclick="return minimizeSummaryTable();"></a>--%>
+                        <%-- <a href="#" class="MinimizeMinusIcon" id="imgMinimize" onclick="return minimizeSummaryTable();"></a>--%>
                         <span id="">Summary Table</span>
                         <div id="Span1" style="font-size: 12px; color: #FF0000">
                             Critical Path Lead Time -
-                            <asp:Literal ID="ltrMaxCycleTime" runat="server" /></div>
+                           
+                            <asp:Literal ID="ltrMaxCycleTime" runat="server" />
+                        </div>
                     </div>
                     <asp:Panel ID="Panel1" runat="server" Style="height: 200px" ScrollBars="Vertical">
                         <asp:GridView ID="gridProcessSummary" runat="server" AlternatingRowStyle-CssClass="field_row bg_white"
