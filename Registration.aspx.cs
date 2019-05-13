@@ -29,6 +29,7 @@ public partial class Registration : System.Web.UI.Page
         txtMobile.Text = "";
         txtCompanyname.Text = "";
         ddlIndustries.SelectedIndex = 0;
+        chkAgree.Checked = false;
     }
     protected void btnsave_Click(object sender, EventArgs e)
     {
