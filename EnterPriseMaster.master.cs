@@ -42,7 +42,22 @@ public partial class EnterPriseMaster : System.Web.UI.MasterPage
         // BindTreeData();
         ///it will check post Back data and then Bind Tree Data
         ///  VisualERPDataContext ObjData = new VisualERPDataContext();
+        string UserImage = "";
 
+        if (Session["CompanyName"] != null)
+        {
+            UserImage = Session["CompanyName"].ToString();
+        }
+        var image = RegisterData.ProfileImage(0, UserImage);
+
+        if (image == null || image == "")
+        {
+            Img_upload.ImageUrl = "~/images/no-image-icon-33.png";
+        }
+        else
+        {
+            Img_upload.ImageUrl = image;
+        }
         if (!IsPostBack)
         {
             List<ProcessData.ProcessDataProperty> lstreeData = ProcessData.GetAllProcessID();
@@ -267,14 +282,14 @@ public partial class EnterPriseMaster : System.Web.UI.MasterPage
 
     protected void addProcessBtn_Click(object sender, EventArgs e)
     {
-            if (Session["update"].ToString() != null && ViewState["update"].ToString() != null)
+        if (Session["update"].ToString() != null && ViewState["update"].ToString() != null)
+        {
+            if (Session["update"].ToString() == ViewState["update"].ToString())
             {
-                if (Session["update"].ToString() == ViewState["update"].ToString())
-                {
-                    AddSystem();
-                    Session["update"] = Server.UrlEncode(System.DateTime.Now.ToString());
-                }
+                AddSystem();
+                Session["update"] = Server.UrlEncode(System.DateTime.Now.ToString());
             }
+        }
     }
 
     public void AddSystem()

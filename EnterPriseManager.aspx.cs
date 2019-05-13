@@ -43,7 +43,7 @@ public partial class EnterPriseManager : System.Web.UI.Page
         divErrorMsg.Visible = false;
         divSummary.Visible = false;
         Label lblManager = (Label)Master.FindControl("lblManager");
-        lblManager.Text = "Enterprise Manager";
+        lblManager.Text = "Enterprise View";
         lblManager.Attributes.Add("class", "Enterprize");
 
 
@@ -119,7 +119,7 @@ public partial class EnterPriseManager : System.Web.UI.Page
                             {
                                 int countProcess = processData.Count;
                                 int widthlast = (countProcess * 500) + 220;  //220 is extra width to scroll summary table
-                                maxHeightnWidth.Add(new TopHeightWidth() { Width = widthlast, Height = topP + 325 +200 }); //200px is extra height if input output icon present in the end 
+                                maxHeightnWidth.Add(new TopHeightWidth() { Width = widthlast, Height = topP + 325 + 200 }); //200px is extra height if input output icon present in the end 
                             }
                         }
                         else
@@ -127,7 +127,7 @@ public partial class EnterPriseManager : System.Web.UI.Page
                             if (processData.Count > 0)
                             {
                                 int countProcess = processData.Count;
-                                int widthlast = (countProcess * 500)+ 220; //220 is extra width to scroll summary table
+                                int widthlast = (countProcess * 500) + 220; //220 is extra width to scroll summary table
                                 maxHeightnWidth.Add(new TopHeightWidth() { Width = widthlast, Height = topP + 325 + 200 }); //200px is extra height if input output icon present in the end 
                             }
                             maxtopProcess.Add(new TopnHeight() { Top = topP, Height = 325 });
@@ -1104,12 +1104,12 @@ public partial class EnterPriseManager : System.Web.UI.Page
                 var result = (from x in summaryResult
                               group new { x } by new { x.AttributeName, x.FunctionID, x.UnitName } into g
                               select new SummaryDetail
-                               {
-                                   AttributeName = g.Key.AttributeName,
-                                   FunctionID = g.Key.FunctionID,
-                                   UnitName = g.Key.UnitName,
+                              {
+                                  AttributeName = g.Key.AttributeName,
+                                  FunctionID = g.Key.FunctionID,
+                                  UnitName = g.Key.UnitName,
 
-                               }).OrderBy(a => a.AttributeName).ToList();
+                              }).OrderBy(a => a.AttributeName).ToList();
                 if (result.Count > 0)
                 {
                     //for (int p = 0; p < lstCollectProcessIds.Count; p++)

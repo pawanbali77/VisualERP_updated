@@ -73,7 +73,7 @@
             <div class="right_container">
                 <div class="right_container_top TopMarg" id="Title">
                     <h1>
-                        Enterprise Manager</h1>
+                        Enterprise View</h1>
                          <div id="divErrorMsg" runat="server" style="font: bold 12px Arial, Helvetica, sans-serif;
                         color: #555; padding: 7px 0px 0px 10px; height: 30px; float: left; min-width: 450px; max-width: 500px;">                         
                         <asp:Label ID="lblMsg" runat="server" />

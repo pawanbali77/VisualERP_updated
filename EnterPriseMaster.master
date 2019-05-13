@@ -233,6 +233,29 @@
       
 
     </script>
+    
+    <style type="text/css">
+        .a1 {
+            margin-left: 36px;
+            margin-top: -27px;
+            color: white;
+        }
+
+        .img_upd {
+            width: 40px;
+            height: 40px;
+            margin-left: 225px;
+            margin-top: -28px;
+            padding-bottom: 8px;
+        }
+
+        .a2 {
+            margin-left: 276px;
+            margin-top: -40px;
+            color: white;
+        }
+    </style>
+
     <asp:ContentPlaceHolder ID="HeadContent" runat="server">
     </asp:ContentPlaceHolder>
 </head>
@@ -243,9 +266,19 @@
     <div class="main_container" id="container">
         <div class="header" id="header">
             <div class="Logo">
-                <a href="EnterpriseManager.aspx">
-                    <img src="images/logo.png" /></a>
+              <%--  <a href="EnterpriseManager.aspx">
+                    <img src="images/logo.png" /></a>--%>
 <%--                  <img src="images/logo4.png"/><img src="images/logo2.png" /></a>--%>
+
+                  <a href="#">
+                        <%--<img src="images/logo.png" /></a>--%>
+                        <img src="images/logo4.png" /></a>
+                    <%--<a href="#">
+                <img src="images/logo4.png"/><img src="images/logo2.png" /></a>--%>
+
+                    <h1 class="a1">Welcome to the</h1>
+                    <asp:Image ID="Img_upload" runat="server" CssClass="img_upd" />
+                    <h1 class="a2">growth engine.</h1>
             </div>
             <%--<div class="header_right">
                 <ul>
@@ -270,7 +303,7 @@
                             <asp:LinkButton ID="lnkTargetManager" runat="server" OnClick="tgtBtn_Click"><span class="Target"></span>Target View</asp:LinkButton></li>
 
                         <li>
-                            <asp:LinkButton ID="enterpriseBtn" runat="server" OnClick="enterpriseBtn_Click" CssClass="enterprize_manager"><span class="Enterprize"></span>Enterprise Manager</asp:LinkButton></li>
+                            <asp:LinkButton ID="enterpriseBtn" runat="server" OnClick="enterpriseBtn_Click" CssClass="enterprize_manager"><span class="Enterprize"></span>Enterprise View</asp:LinkButton></li>
                        <%-- <li><a href="#"><span class="Metrics"></span>Metrics Manager</a></li>--%>
                         <li><a href="ManageReport.aspx"><span class="Report"></span>Report Manager</a></li>
                        <%-- <li><a href="#"><span class="Project"></span>Project Manager</a></li>--%>

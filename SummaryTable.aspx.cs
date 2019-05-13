@@ -13,12 +13,23 @@ public partial class SummaryTable : System.Web.UI.Page
 {
     int ProcessId = 0;
     string EditId = string.Empty;
-
     protected void Page_Load(object sender, EventArgs e)
     {
         Session["lastZoom"] = null; // last zoom for process manager will be set to zero on this page so user goes back to process page original postion will be shown there
         //divSummaryTable.Visible = false;
         EditId = GetPostBackControlId((Page)sender); // to get postback control id that is clicked//////////////////////////////
+
+
+        Label lblManager = (Label)Master.FindControl("lblManager");
+        lblManager.Text = "Process View";
+        lblManager.Attributes.Add("class", "Process");
+        string src = Request.QueryString["src"];
+        if (!string.IsNullOrEmpty(src) && src == "tgt")
+        {
+            lblManager.Text = "Target View";
+            lblManager.Attributes.Add("class", "Target");
+        }
+
 
         TreeView mastertreeview = (TreeView)Master.FindControl("TreeView1");
         if (mastertreeview.SelectedNode != null)
@@ -34,7 +45,7 @@ public partial class SummaryTable : System.Web.UI.Page
             if (strNode != null)
                 strNode.Select();
         }
-       
+
         if (!IsPostBack)
         {
 
@@ -102,7 +113,7 @@ public partial class SummaryTable : System.Web.UI.Page
                 FillEnumFunction(ddl);
                 //ReportTypeName = Enum.GetName(typeof(SummaryFunction), lblFunctionID);
                 ddl.SelectedValue = lblFunctionID.Text;
-            }           
+            }
         }
     }
 
@@ -152,10 +163,18 @@ public partial class SummaryTable : System.Web.UI.Page
                 }
             }
         }
-       
+
         Session["SelectedNodeValue"] = ProcessId;
-        Response.Redirect("ProcessManager.aspx");
-       
+
+        string src = Request.QueryString["src"];
+        if (!string.IsNullOrEmpty(src) && src == "tgt")
+        {
+            Response.Redirect("TargetManager.aspx");
+        }
+        else
+        {
+            Response.Redirect("ProcessManager.aspx");
+        }
     }
 
     public string GetPostBackControlId(Page page)
@@ -219,6 +238,14 @@ public partial class SummaryTable : System.Web.UI.Page
 
     protected void lnkbtnCancelSummary_Click(object sender, EventArgs e)
     {
-        Response.Redirect("ProcessManager.aspx");
+        string src = Request.QueryString["src"];
+        if (!string.IsNullOrEmpty(src) && src == "tgt")
+        {
+            Response.Redirect("TargetManager.aspx");
+        }
+        else
+        {
+            Response.Redirect("ProcessManager.aspx");
+        }
     }
 }
