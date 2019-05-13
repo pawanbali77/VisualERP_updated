@@ -1152,7 +1152,7 @@
                         <Columns>
                             <asp:TemplateField SortExpression="AttributeName">
                                 <HeaderTemplate>
-                                    <a class="block_arrow" href="#">Inventory</a>
+                                    Inventory
                                 </HeaderTemplate>
                                 <ItemTemplate>
                                     <%#DataBinder.Eval(Container.DataItem, "Inventory")%>
@@ -1160,7 +1160,7 @@
                             </asp:TemplateField>
                             <asp:TemplateField SortExpression="AttributeValue" >
                                 <HeaderTemplate>
-                                    <a class="block_arrow" href="#">CT</a>
+                                    CT
                                 </HeaderTemplate>
                                 <ItemTemplate>
                                     <%#DataBinder.Eval(Container.DataItem, "CT")%>
@@ -1168,7 +1168,7 @@
                             </asp:TemplateField>
                             <asp:TemplateField SortExpression="UnitName">
                                 <HeaderTemplate>
-                                    <a class="block_arrow" href="#">Time</a>
+                                    Time
                                 </HeaderTemplate>
                                 <ItemTemplate>
                                     <%#DataBinder.Eval(Container.DataItem, "Time")%>
@@ -1176,7 +1176,7 @@
                             </asp:TemplateField>
                             <asp:TemplateField SortExpression="AttributeValue">
                                 <HeaderTemplate>
-                                    <a class="block_arrow" href="#">$</a>
+                                    $
                                 </HeaderTemplate>
                                 <ItemTemplate>
                                     <%#DataBinder.Eval(Container.DataItem, "Dollar")%>

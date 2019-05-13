@@ -842,13 +842,13 @@ public partial class ManageReport : BasePage
             txtInventoryAttributeReportName.Text = "";
             lblMsg.Text = "";
             GetInventoryAttributeReportData(attribute);
-            //lnkbtnSaveReport.Visible = true;
-            //if (RoleID == 4)
-            //{
-            //    lnkbtnSaveReport.Visible = false;
-            //    txtAttributeReportName.Visible = false;
-            //}
-            //liSaveReport.Visible = true;
+            lnkbtnSaveReport.Visible = true;
+            if (RoleID == 4)
+            {
+                lnkbtnSaveReport.Visible = false;
+                txtAttributeReportName.Visible = false;
+            }
+            liSaveReport.Visible = true;
             pnlReportType.Visible = false;
         }
         else
@@ -1555,6 +1555,65 @@ public partial class ManageReport : BasePage
                         {
                             SetSaveMessage();
                         }
+
+                    }
+                }
+                else
+                {
+                    SetErrorMessage();
+                }
+            }
+
+            if (reporttyp == 8)
+            {
+                if (Activity.GetDuplicateCheckReportName(txtAttributeReportName.Text.Trim(), ProcessId, (int)ReportTypeID.Attribute, Convert.ToInt32(ViewState["ReportEditID"])))
+                {
+                    tbl_Report reportdata = new tbl_Report();
+                    string activityID = string.Empty;
+                    string attName = string.Empty;
+                    if (Session["InventoryValue"] != null)
+                    {
+                        activity = (List<int>)Session["InventoryValue"]; // getting activity id from session that are selected           
+
+                        for (int i = 0; i < activity.Count; i++)
+                        {
+                            activityID += activity[i].ToString() + ",";
+                        }
+
+                        reportdata.ProcessObjID = activityID.ToString();
+                    }
+
+                    if (Session["InventoryAttributeName"] != null)
+                    {
+                        attribute = (List<string>)Session["InventoryAttributeName"]; // getting activity id from session that are selected           
+
+                        for (int i = 0; i < attribute.Count; i++)
+                        {
+                            attName += attribute[i].ToString() + ",";
+                        }
+
+                        reportdata.AttributeName = attName.ToString();
+                        reportdata.ReportTypeID = (int)ReportTypeID.Attribute;
+                    }
+
+                    if (Session["SelectedNodeValue"] != null)
+                    {
+                        ProcessId = Convert.ToInt32(Session["SelectedNodeValue"]); // getting activity id from session that are selected 
+                        reportdata.ProcessID = ProcessId;
+                        reportdata.ReportName = txtInventoryAttributeReportName.Text;
+                        if (this.IsEdit == true)
+                        {
+                            reportdata.ReportID = EditIDINT;
+                        }
+                    }
+
+                    var listData = Activity.SaveReportData(reportdata);
+                    if (listData == true)
+                    {
+                        pnlAttributeReport.Visible = false;
+                        pnlTFGReport.Visible = false;
+                        pnlListSavedReport.Visible = true;
+                        SetSaveMessage();
 
                     }
                 }
@@ -2452,6 +2511,38 @@ public partial class ManageReport : BasePage
                     dt.Rows.Add(row); // datatable row has been created here 
                 }
             }
+            if (reporttyp == 8)
+            {
+                if (txtInventoryAttributeReportName.Text != "")
+                {
+                    excelReportName = txtInventoryAttributeReportName.Text;
+                }
+                else
+                {
+                    excelReportName = "Inventory Report";
+                }
+                List<InventoryReportFields> objInventoryReportFields = new List<InventoryReportFields>();
+                foreach (TableCell cell in GridInventoryReport.HeaderRow.Cells)
+                {
+                    dt.Columns.Add(cell.Text.Trim());
+                }
+                objInventoryReportFields.AddRange(GetInventoryAttributeReportDataForExport(attribute));
+                
+              
+                foreach (InventoryReportFields prop in objInventoryReportFields)
+                {
+                    DataRow row = dt.NewRow();
+                   
+                   
+                    row["Inventory"] = prop.Inventory;
+                    row["CT"] = prop.CT;
+                    row["Time"] = prop.Time;
+                    row["$"] = prop.Dollar;
+                    
+                    dt.Rows.Add(row); // datatable row has been created here 
+                }
+            }
+
             //"+ excelReportName +" + DateTime.Now.ToString("hh-mm-ss") + ".xlsx"
 
             using (XLWorkbook wb = new XLWorkbook()) // we will add our datatable in workbook and after we will set it in memory stream to make excel file
@@ -3005,9 +3096,9 @@ public partial class ManageReport : BasePage
                     txtAttributeReportName.Visible = false;
                 }
                 pnlInventoryReport.Visible = true;
-                lnkbtnExporttoExcel.Visible = false;
+                lnkbtnExporttoExcel.Visible = true;
                 liSaveReport.Visible = false;
-                liExporttoExcel.Visible = false;
+                liExporttoExcel.Visible = true;
                 pnlInventoryAttribute.Visible = false;
             }
             else
@@ -3019,6 +3110,81 @@ public partial class ManageReport : BasePage
         }
     }
 
+
+    public List<InventoryReportFields> GetInventoryAttributeReportDataForExport(List<string> ObjAttribute)
+    {
+        VisualERPDataContext Objdata = new VisualERPDataContext();
+
+        string attributeName = "";
+        // var getRecord;
+        if (Session["InventoryDictionary"] != null)
+        {
+            activityDic = (Dictionary<int, string>)Session["InventoryDictionary"];
+            // for multiple activities
+
+            string middle = string.Empty;
+
+            for (int i = 0; i < activityDic.Count; i++)
+            {
+                int actID = Convert.ToInt32(activityDic.ElementAt(i).Key);
+
+                string str = Convert.ToString(activityDic.ElementAt(i).Value);
+
+                if (i == 0)
+                {
+
+                    middle = "'" + actID.ToString() + "',";
+                }
+                else
+                {
+                    middle += "'" + actID.ToString() + "',";
+                }
+            }
+            middle = middle.TrimEnd(',');
+            string ColumnName = string.Empty;
+            foreach (var objAttr in ObjAttribute)
+            {
+                if (objAttr == "$")
+                {
+                    ColumnName += "IT.Doller,";
+                }
+                else
+                {
+                    ColumnName += "IT." + objAttr + ",";
+                }
+            }
+            ColumnName = ColumnName.TrimEnd(',');
+            string query = "SELECT PO.ProcessObjID,PO.ProcessObjID,ProcessObjName as Inventory," + ColumnName + " " +
+                           " FROM tbl_ProcessObject PO " +
+                           " LEFT JOIN[dbo].[tbl_InvantoryTriangle] " +
+                           " IT ON PO.ProcessObjID = IT.ProcessObjID " +
+                           " WHERE PO.ProcessObjID IN (" + middle + ") " +
+                           " ORDER BY PO.ProcessObjName";
+
+            // Declare the query string.
+            // Run the query and bind the resulting DataSet
+            // to the GridView control.
+            DataSet ds = GetData(query);
+            DataTable dt = new DataTable();
+            dt = ds.Tables[0];
+            DataColumnCollection columns = dt.Columns;
+
+
+            objInventoryReportFields = (from DataRow dr in dt.Rows
+                                        select new InventoryReportFields()
+                                        {
+                                            Inventory = dr["Inventory"].ToString(),
+                                            CT = (!columns.Contains("CT")) ? "" : dr["CT"].ToString(),
+                                            Time = (!columns.Contains("Time")) ? "" : dr["Time"].ToString(),
+                                            Dollar = (!columns.Contains("Doller")) ? "" : dr["Doller"].ToString()
+                                        }).ToList();
+
+            
+
+
+        }
+        return objInventoryReportFields;
+    }
 
     public class SummaryDetail
     {
