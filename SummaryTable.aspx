@@ -44,9 +44,9 @@
                                         <asp:DropDownList ID="ddlSelectFunction" runat="server" AutoPostBack="false">
                                         </asp:DropDownList>
 
-                                        <asp:RequiredFieldValidator ID="reqddlFunction" runat="server" InitialValue="0" ValidationGroup="addValue"
+                                     <%--   <asp:RequiredFieldValidator ID="reqddlFunction" runat="server" InitialValue="0" ValidationGroup="addValue"
                                             ControlToValidate="ddlSelectFunction" ErrorMessage="Please associate a function" ForeColor="Red">
-                                        </asp:RequiredFieldValidator>
+                                        </asp:RequiredFieldValidator>--%>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Unit">
