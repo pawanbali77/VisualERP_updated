@@ -66,6 +66,15 @@
         }
 
     </script>
+    <script type="text/javascript">
+        function ValidateCheckBox(sender, args) {
+            if (document.getElementById("<%=chkAgree.ClientID %>").checked == true) {
+                args.IsValid = true;
+            } else {
+                args.IsValid = false;
+            }
+        }
+    </script>
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
@@ -104,6 +113,7 @@
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ErrorMessage="*" ControlToValidate="txtPassword" ForeColor="Red"></asp:RequiredFieldValidator>
                 </td>
             </tr>
+
             <tr>
                 <td class="auto-style2">ConfirmPassword</td>
                 <td class="auto-style3">
@@ -132,17 +142,18 @@
             </tr>
 
             <tr>
-                <td class="auto-style2"><label>Upload Photo</label></td>
+                <td class="auto-style2">
+                    <label>Upload Photo</label></td>
                 <td class="auto-style3">
                     <a target="_blank" runat="server" id="hyview" style="cursor: pointer" visible="false">View Image </a>
                     <%-- <asp:HyperLink ID="hyview" CssClass="lightbox" runat="server" Text="View Image" />--%>
                     <asp:FileUpload ID="fileUpComp" runat="server" />
                 </td>
                 <td class="auto-style4">
-                      <asp:RequiredFieldValidator runat="server" ID="imagerequiredField" Display="Dynamic"
+                    <asp:RequiredFieldValidator runat="server" ID="imagerequiredField" Display="Dynamic"
                         ErrorMessage="*" ControlToValidate="fileUpComp" Style="margin: 5px; color: Red" />
                     <asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" ValidationExpression="^.*([^\.][\.](([gG][iI][fF])|([Jj][pP][Gg])|[Jj][Pp][Ee]|([Jj][pP][Ee][Gg])|([Bb][mM][pP])|([Pp][nN][Gg])))"
-                         Display="Dynamic" ErrorMessage="Invalid File" SetFocusOnError="true"
+                        Display="Dynamic" ErrorMessage="Invalid File" SetFocusOnError="true"
                         ControlToValidate="fileUpComp" Style="color: Red;"></asp:RegularExpressionValidator>
                 </td>
 
@@ -160,6 +171,13 @@
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator8" runat="server" ErrorMessage="*" InitialValue="0" ControlToValidate="ddlIndustries" ForeColor="Red"></asp:RequiredFieldValidator>
                 </td>
             </tr>
+
+            <tr>
+                <td colspan="3">
+                    <asp:CheckBox ID="chkAgree" runat="server" Style="margin-left: -92px;"></asp:CheckBox><label style="margin-left: -87px;">I agree to <a href="TermandCondition.aspx" target="_blank">Terms & Condition</a> and <a href="PrivacyPolicy.aspx" target="_blank">Privacy Policy</a>.</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<asp:CustomValidator ID="CustomValidator1" runat="server" ForeColor="Red" ErrorMessage="* Please agree terms & condition." ClientValidationFunction="ValidateCheckBox"></asp:CustomValidator>
+                </td>
+            </tr>
+
 
             <tr>
                 <td class="auto-style2">&nbsp;</td>
