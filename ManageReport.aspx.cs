@@ -2508,6 +2508,7 @@ public partial class ManageReport : BasePage
                 dt.Columns.Add("Unit");
                 dt.Columns.Add("Target Value");
                 dt.Columns.Add("Target Unit");
+                dt.Columns.Add("Difference Value");
                 //foreach (TableCell cell in gridTgtValueGap.HeaderRow.Cells)
                 //{
                 //    dt.Columns.Add(cell.Text);
@@ -2523,7 +2524,7 @@ public partial class ManageReport : BasePage
                     row["Unit"] = prop.UnitName;
                     row["Target Value"] = prop.TargetValue;
                     row["Target Unit"] = prop.TargetUnitName;
-
+                    row["Difference Value"] = prop.DifferenceValue;
                     dt.Rows.Add(row); // datatable row has been created here 
                 }
             }
@@ -2990,6 +2991,40 @@ public partial class ManageReport : BasePage
                                     DifferenceValue = String.Format("{0:0.00}", ret - ret),
                                 });
                             }
+                        }
+
+                        if (FunctionID == 0)
+                        {
+                            int total = 0;
+                            int targetTotal = 0;
+
+                            if (processData.Count == 0)
+                            {
+                                total = 0;
+                            }
+                            else
+                            {
+                                total = processData.Max(x => Convert.ToInt32(x.AttributeValueSum));
+                            }
+
+                            if (targetData.Count == 0)
+                            {
+                                targetTotal = 0;
+                            }
+                            else
+                            {
+                                targetTotal = targetData.Max(x => Convert.ToInt32(x.AttributeValueSum));
+                            }
+
+                            summaryResult.Add(new SummaryDetail()
+                            {
+                                AttributeName = AttributeName,
+                                AttributeValueResult = Convert.ToString(total),
+                                UnitName = unitName,
+                                TargetValue = Convert.ToString(targetTotal),
+                                TargetUnitName = unitName,
+                                DifferenceValue = Convert.ToString(total - targetTotal),
+                            });
                         }
                     }
                 }
