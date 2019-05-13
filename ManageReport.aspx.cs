@@ -2586,9 +2586,18 @@ public partial class ManageReport : BasePage
                     excelReportName = "Inventory Report";
                 }
                 List<InventoryReportFields> objInventoryReportFields = new List<InventoryReportFields>();
+                attribute.Clear();
                 foreach (TableCell cell in GridInventoryReport.HeaderRow.Cells)
                 {
                     dt.Columns.Add(cell.Text.Trim());
+                    if(cell.Text.Trim()=="Inventory")
+                    {
+
+                    }
+                    else
+                    {
+                        attribute.Add(cell.Text.Trim());
+                    }
                 }
                 objInventoryReportFields.AddRange(GetInventoryAttributeReportDataForExport(attribute));
 
