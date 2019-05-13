@@ -126,7 +126,7 @@ public partial class ManageReport : BasePage
 
 
 
-        
+
         foreach (ListItem item in chkboxAttribute.Items)
         {
             if (item.Selected)
@@ -137,13 +137,6 @@ public partial class ManageReport : BasePage
             }
         }
 
-        foreach (ListItem item in chkboxAttribute.Items)
-        {
-            if (item.Selected)
-            {
-                item.Selected = false;
-            }
-        }
 
         foreach (ListItem item in chkboxInventoryAttribute.Items)
         {
@@ -153,13 +146,7 @@ public partial class ManageReport : BasePage
                 Session["InventoryAttributeName"] = attribute;
             }
         }
-        foreach (ListItem item in chkboxInventoryAttribute.Items)
-        {
-            if (item.Selected)
-            {
-                item.Selected = false;
-            }
-        }
+
         // on page checkbox will get clear thats why we hold the checked items in list and session
         foreach (ListItem item in chkboxBomProcess.Items)
         {
@@ -786,7 +773,7 @@ public partial class ManageReport : BasePage
             divErrorMsg.Style.Add("margin-left", "0px");
             divErrorMsg.Style.Add("padding", "7px 14px 0px 17px");
             divErrorMsg.Attributes.Add("class", "isa_error");
-            pnlActivity.Visible = true;
+            pnlActivity.Visible = false;
             pnlReportType.Visible = false;
             pnlAttribute.Visible = false;
             pnlBomProcess.Visible = false;
@@ -881,7 +868,7 @@ public partial class ManageReport : BasePage
             divErrorMsg.Style.Add("padding", "7px 14px 0px 17px");
             divErrorMsg.Attributes.Add("class", "isa_error");
 
-            pnlAttribute.Visible = true;
+            pnlAttribute.Visible = false;
             pnlActivity.Visible = false;
             pnlInventory.Visible = false;
             pnlListSavedReport.Visible = false;
@@ -1277,6 +1264,31 @@ public partial class ManageReport : BasePage
 
     protected void lnkbtnAdd_Click(object sender, EventArgs e)
     {
+        foreach (ListItem item in chkboxActivity.Items)
+        {
+            item.Selected = false;
+        }
+        foreach (ListItem item in chkboxInventory.Items)
+        {
+            item.Selected = false;
+        }
+
+        foreach (ListItem item in chkboxAttribute.Items)
+        {
+            item.Selected = false;
+        }
+
+        foreach (ListItem item in chkboxInventoryAttribute.Items)
+        {
+            item.Selected = false;
+        }
+
+        foreach (ListItem item in chkboxBomProcess.Items)
+        {
+            item.Selected = false;
+        }
+
+
         pnlReportType.Visible = true;
         pnlActivity.Visible = false; pnlInventory.Visible = false;
         pnlAttribute.Visible = false;
@@ -1289,6 +1301,7 @@ public partial class ManageReport : BasePage
         pnlESAReport.Visible = false;
         pnlListSavedReport.Visible = false;
         divErrorMsg.Visible = false;
+        pnlInventoryAttribute.Visible = false;
         this.IsEdit = false;
 
     }
@@ -1582,7 +1595,7 @@ public partial class ManageReport : BasePage
 
             if (reporttyp == 8)
             {
-                if (Activity.GetDuplicateCheckReportName(txtAttributeReportName.Text.Trim(), ProcessId, (int)ReportTypeID.Attribute, Convert.ToInt32(ViewState["ReportEditID"])))
+                if (Activity.GetDuplicateCheckReportName(txtInventoryAttributeReportName.Text.Trim(), ProcessId, (int)ReportTypeID.Attribute, Convert.ToInt32(ViewState["ReportEditID"])))
                 {
                     tbl_Report reportdata = new tbl_Report();
                     string activityID = string.Empty;
@@ -1948,6 +1961,40 @@ public partial class ManageReport : BasePage
                 divESAName.Visible = true;
                 this.IsEdit = true;
 
+            }
+           
+            if (reportTyp == 8)
+            {
+                Session["CurrentReport"] = reportTyp;
+                string ProcessObjID = row.ProcessObjID; // processObj ID in string 
+                string AttributeName = row.AttributeName; // attributes name in string 
+                string ReportName = row.ReportName;    // get report name
+
+                string[] activityItem = ProcessObjID.Split(','); //split menthod that will split processobID
+                string[] attributeItem = AttributeName.Split(',');
+                for (int p = 0; p < activityItem.Length - 1; p++)
+                {
+                    activity.Add(Convert.ToInt32(activityItem[p])); // getting processobID in list activity list<int>
+                    Session["InventoryValue"] = activity;
+                    string acctivityname = Activity.GetActivityNameByProcessObjId(Convert.ToInt32(activityItem[p]));
+                    activityDic.Add(Convert.ToInt32(activityItem[p]), acctivityname);
+                }
+
+                Session["InventoryDictionary"] = activityDic;
+                attribute.Clear();
+                for (int q = 0; q < attributeItem.Length - 1; q++) // getting attributesName in list attributes list<string>
+                {
+                    attribute.Add(Convert.ToString(attributeItem[q]));
+                    Session["InventoryAttributeName"] = attribute;
+                }
+
+                GetInventoryAttributeReportData(attribute); // it will get report for selected reportID
+                txtInventoryAttributeReportName.Text = ReportName;
+                pnlBomReport.Visible = false;
+                pnlTFGReport.Visible = false;
+                pnlAttributeReport.Visible = false;
+                pnlInventoryReport.Visible = true;
+                this.IsEdit = true;
             }
         }
         else
