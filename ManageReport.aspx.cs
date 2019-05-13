@@ -126,12 +126,22 @@ public partial class ManageReport : BasePage
 
 
 
+        
         foreach (ListItem item in chkboxAttribute.Items)
         {
             if (item.Selected)
             {
+
                 attribute.Add(Convert.ToString(item.Text)); // on page checkbox will get clear thats why we hold the checked items in list and session
                 Session["AttributeName"] = attribute;
+            }
+        }
+
+        foreach (ListItem item in chkboxAttribute.Items)
+        {
+            if (item.Selected)
+            {
+                item.Selected = false;
             }
         }
 
@@ -143,7 +153,13 @@ public partial class ManageReport : BasePage
                 Session["InventoryAttributeName"] = attribute;
             }
         }
-
+        foreach (ListItem item in chkboxInventoryAttribute.Items)
+        {
+            if (item.Selected)
+            {
+                item.Selected = false;
+            }
+        }
         // on page checkbox will get clear thats why we hold the checked items in list and session
         foreach (ListItem item in chkboxBomProcess.Items)
         {
@@ -1593,7 +1609,7 @@ public partial class ManageReport : BasePage
                         }
 
                         reportdata.AttributeName = attName.ToString();
-                        reportdata.ReportTypeID = (int)ReportTypeID.Attribute;
+                        reportdata.ReportTypeID = (int)ReportTypeID.Inventory;
                     }
 
                     if (Session["SelectedNodeValue"] != null)
@@ -2527,18 +2543,18 @@ public partial class ManageReport : BasePage
                     dt.Columns.Add(cell.Text.Trim());
                 }
                 objInventoryReportFields.AddRange(GetInventoryAttributeReportDataForExport(attribute));
-                
-              
+
+
                 foreach (InventoryReportFields prop in objInventoryReportFields)
                 {
                     DataRow row = dt.NewRow();
-                   
-                   
+
+
                     row["Inventory"] = prop.Inventory;
                     row["CT"] = prop.CT;
                     row["Time"] = prop.Time;
                     row["$"] = prop.Dollar;
-                    
+
                     dt.Rows.Add(row); // datatable row has been created here 
                 }
             }
@@ -3179,7 +3195,7 @@ public partial class ManageReport : BasePage
                                             Dollar = (!columns.Contains("Doller")) ? "" : dr["Doller"].ToString()
                                         }).ToList();
 
-            
+
 
 
         }
