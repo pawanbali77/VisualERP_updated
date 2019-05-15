@@ -308,6 +308,7 @@
                         <li><a href="ManageReport.aspx"><span class="Report"></span>Report Manager</a></li>
                        <%-- <li><a href="#"><span class="Project"></span>Project Manager</a></li>--%>
                         <li><a href="FormManager.aspx"><span class="Inventory"></span>Form Manager</a></li>
+                        <li id="menu_Training" runat="server"><a href="TrainingVideo.aspx"><span class="Inventory"></span>GroEngine University</a></li>
                        <%-- <li><a href="#"><span class="Demand"></span>Demand Manager</a></li>--%>
                        <%-- <li><a href="#"><span class="Variation"></span>Variation Manager</a></li>--%>
                        <%-- <li class="last"><a href="#"><span class="Inventory"></span>Inventory Manager</a></li>--%>
