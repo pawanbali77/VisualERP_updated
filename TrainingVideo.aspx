@@ -9,6 +9,9 @@
     <div align="center">
         <asp:FileUpload ID="FileUpload1" runat="server" Height="45px" Width="348px" />
         <asp:Button ID="btnUpload" runat="server" Text="Upload" OnClick="btnUpload_Click" Height="31px" Width="91px" />
+        <br />
+        <br />
+        <asp:Label ID="Label1" runat="server" Text="" Font-Size="16px" />
         <hr />
         <br />
         <asp:DataList ID="DataList1" runat="server" AutoGenerateColumns="false"
@@ -20,7 +23,7 @@
             <ItemTemplate>
                 <u><b>
                     <%# Eval("Name") %></b></u>
-                
+
                 <hr />
                 <br />
                 <a class="player" style="height: 300px; width: 300px; display: block" href='<%# Eval("Id", "FileCS.ashx?Id={0}") %>'></a>
