@@ -441,6 +441,7 @@
                             <%--<li id="menu_Demandmanager" runat="server"><a href="#"><span class="Demand"></span>Demand Manager</a></li>--%>
                             <%--<li id="menu_Variationmanager" runat="server"><a href="#"><span class="Variation"></span>Variation Manager</a></li>--%>
                             <%--<li id="menu_Inventorymanager" runat="server"><a href="#"><span class="Inventory"></span>Inventory Manager</a></li>--%>
+                            <li id="menu_Training" runat="server"><a href="TrainingVideo.aspx"><span class="Inventory"></span>GroEngine University</a></li>
                             <li class="last"><a href="Logout.aspx"><span class="Process"></span>Logout</a></li>
                         </ul>
                     </li>
@@ -457,7 +458,7 @@
 
             </div>
             <div class="mid_container">
-                <div class="side_bar" id="divSidebar">
+                <div class="side_bar" id="divSidebar" runat="server">
                     <div style="padding: 5px 0px 0px 0px; background: #ccc; margin: -7px 0 12px 0; width: 100%; float: left;">
                         <div style="float: right;" id="divAddNode" runat="server">
                             <input type="button" name="button" title="Add Node Up" onclick="return ImgbtnUp_click()" class="button" />
