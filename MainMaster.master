@@ -438,10 +438,9 @@
                             <li id="menu_Reportmanager" runat="server"><a href="ManageReport.aspx"><span class="Report"></span>Report Manager</a></li>
                             <%--<li id="menu_Projectmanager" runat="server"><a href="#"><span class="Project"></span>Project Manager</a></li>--%>
                             <li id="menu_Formmanager" runat="server"><a href="FormManager.aspx"><span class="PPESA"></span>Form Manager</a></li>
-                            <li id="menu_Training" runat="server"><a href="TrainingVideo.aspx"><span class="Inventory"></span>GroEngine University</a></li>
-                          <%--  <li id="menu_Demandmanager" runat="server"><a href="#"><span class="Demand"></span>Demand Manager</a></li>
-                            <li id="menu_Variationmanager" runat="server"><a href="#"><span class="Variation"></span>Variation Manager</a></li>
-                            <li id="menu_Inventorymanager" runat="server"><a href="#"><span class="Inventory"></span>Inventory Manager</a></li>--%>
+                            <%--<li id="menu_Demandmanager" runat="server"><a href="#"><span class="Demand"></span>Demand Manager</a></li>--%>
+                            <%--<li id="menu_Variationmanager" runat="server"><a href="#"><span class="Variation"></span>Variation Manager</a></li>--%>
+                            <%--<li id="menu_Inventorymanager" runat="server"><a href="#"><span class="Inventory"></span>Inventory Manager</a></li>--%>
                             <li class="last"><a href="Logout.aspx"><span class="Process"></span>Logout</a></li>
                         </ul>
                     </li>
@@ -458,7 +457,7 @@
 
             </div>
             <div class="mid_container">
-                <div class="side_bar" id="divSidebar" runat="server">
+                <div class="side_bar" id="divSidebar">
                     <div style="padding: 5px 0px 0px 0px; background: #ccc; margin: -7px 0 12px 0; width: 100%; float: left;">
                         <div style="float: right;" id="divAddNode" runat="server">
                             <input type="button" name="button" title="Add Node Up" onclick="return ImgbtnUp_click()" class="button" />
