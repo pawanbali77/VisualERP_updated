@@ -87,6 +87,7 @@ public partial class FormManager : BasePage
             pnlListPPESA.Visible = false;
         }
 
+
         if (ProcessId == 0)
             headerTitle.InnerText = "Form Manager";
     }
@@ -111,7 +112,7 @@ public partial class FormManager : BasePage
                                   "script", script2, true);
                 }
             }
-           else if(formtype==2)
+            else if (formtype == 2)
             {
 
                 headerTitle.InnerText = "Error Log";
@@ -280,7 +281,7 @@ public partial class FormManager : BasePage
     }
 
 
-    private void SaveRecord(bool isAutoSave=false)
+    private void SaveRecord(bool isAutoSave = false)
     {
         int formType = 0;
         if (ViewState["FormType"] != null)
@@ -291,26 +292,27 @@ public partial class FormManager : BasePage
             foreach (GridViewRow row in grdErrorGrid.Rows)
             {
                 try
-                { 
-                    SaveErrorLogRecord(row); 
+                {
+
+                    SaveErrorLogRecord(row);
                 }
                 catch (Exception ex)
-                {}
+                { }
             }
 
         }
         else
         {
             bool updateForm = false;
-            
+
             foreach (GridViewRow row in gridPPESA.Rows)
             {
                 try
-                {               
+                {
                     updateForm = SavePPESAandPDESA(row);
                 }
                 catch (Exception ex)
-                { 
+                {
                 }
             }
 
@@ -351,7 +353,7 @@ public partial class FormManager : BasePage
         }
     }
 
-    private void SaveErrorLogRecord(GridViewRow row, bool isAutoSave=false)
+    private void SaveErrorLogRecord(GridViewRow row, bool isAutoSave = false)
     {
         ErrorInfo data = new ErrorInfo();
         data.ErrorID = Convert.ToInt32((row.FindControl("hdnErrorID") as HiddenField).Value);
@@ -398,7 +400,7 @@ public partial class FormManager : BasePage
         }
     }
 
-    private bool  SavePPESAandPDESA(GridViewRow row )
+    private bool SavePPESAandPDESA(GridViewRow row)
     {
         tbl_PPESAnPDESA data = new tbl_PPESAnPDESA();
         data.FormID = Convert.ToInt32((row.FindControl("litFormID") as Literal).Text);
@@ -489,7 +491,7 @@ public partial class FormManager : BasePage
         ViewState["isAsc"] = "1";
         if (Convert.ToInt32(ViewState["poId"]) > -1)
         {
-            if(formType==2)
+            if (formType == 2)
             {
                 ErrorData errorData = new ErrorData();
                 List<ErrorInfo> listData = errorData.GetAll();
@@ -540,11 +542,11 @@ public partial class FormManager : BasePage
                 pnlListErrorRecord.Visible = false;
             }
 
-           
-            
+
+
         }
 
-       
+
         //pnlActivity.Visible = false;
         //pnlAddForm.Visible = false;
     }
@@ -781,6 +783,11 @@ public partial class FormManager : BasePage
             TextBox txtIntialRPN = (TextBox)e.Row.FindControl("txtIntialRPN");
             TextBox txtFinalRPN = (TextBox)e.Row.FindControl("txtFinalRPN");
 
+            TextBox txtProductFeatureAdded = (TextBox)e.Row.FindControl("txtProductFeatureAdded");
+
+
+
+
             txtIntialRPN.Attributes.Add("readonly", "readonly");
             txtFinalRPN.Attributes.Add("readonly", "readonly");
             //  fill costume ddl
@@ -867,6 +874,29 @@ public partial class FormManager : BasePage
         }
     }
 
+    protected void txtProductFeatureAdded_TextChanged(object sender, EventArgs e)
+    {
+        int Controltype = 0;
+        TextBox objTextBox = new TextBox();
+        DropDownList objDropDownList = new DropDownList();
+        string ClientID = "";
+        if (sender is TextBox)
+        {
+            objTextBox = (TextBox)sender;
+            Controltype = 1;
+            ClientID = objTextBox.ClientID;
+        }
+        if (sender is DropDownList)
+        {
+            objDropDownList = (DropDownList)sender;
+            Controltype = 2;
+            ClientID = objDropDownList.ClientID;
+        }
+
+        SaveRecord(true);
+        ScriptManager.RegisterStartupScript(this, this.GetType(), "ServerControlScript2", "SetFocus(" + ClientID + "," + Controltype + ");", true);
+    }
+
     protected void btnAddNewRow_Click(object sender, EventArgs e)
     {
         SaveRecord(true);
@@ -938,20 +968,20 @@ public partial class FormManager : BasePage
         //data.FormType = formtyp;
 
         int maxSequenceNo = 0;
-        maxSequenceNo =new ErrorData().GetMaxSequenceNo(ProcessId, formtyp);
+        maxSequenceNo = new ErrorData().GetMaxSequenceNo(ProcessId, formtyp);
         ////add row at next sequence 
-         data.ProcessID = ProcessId;
-         data.Error = string.Empty;
-         data.CycleTime = 0;
+        data.ProcessID = ProcessId;
+        data.Error = string.Empty;
+        data.CycleTime = 0;
         data.CounterMeasure = 0;
         data.CounterMeasureStrength = 0;
         data.WorkContent = 0;
-         bool result = false;
-        
-         result = new ErrorData().Save(data);  ////SaveInputData will dave input link in database table information input
+        bool result = false;
 
-         if (result == true)  // if record is updated or inserted
-         {
+        result = new ErrorData().Save(data);  ////SaveInputData will dave input link in database table information input
+
+        if (result == true)  // if record is updated or inserted
+        {
             ResetBinding(Convert.ToInt32(ViewState["FormType"]));
             // pnlActivity.Visible = false;
             //pnlAddForm.Visible = false;
@@ -1116,7 +1146,7 @@ public partial class FormManager : BasePage
             }
 
         }
-         
+
     }
 
     protected void grdErrorGrid_RowCommand(object sender, GridViewCommandEventArgs e)
@@ -1171,7 +1201,7 @@ public partial class FormManager : BasePage
         if (e.CommandName == "Remove")
         {
             SaveRecord(true);
-            int errorID=Convert.ToInt32( e.CommandArgument);
+            int errorID = Convert.ToInt32(e.CommandArgument);
             new ErrorData().Delete(errorID);
             ResetBinding(Convert.ToInt32(ViewState["FormType"]));
             // pnlActivity.Visible = false;

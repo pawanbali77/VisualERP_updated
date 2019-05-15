@@ -405,7 +405,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
-        <asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server" EnablePartialRendering="true" />
+        <asp:ToolkitScriptManager ID="ToolkitScriptManager1" EnablePageMethods='true' runat="server" EnablePartialRendering="true" />
         <div class="main_container" id="container">
             <div class="header" id="header">
                 <div class="Logo">
