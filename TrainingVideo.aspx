@@ -4,7 +4,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <div style="margin-top: 70px; margin-bottom: 20px; text-align: center;">
-        <h1>Upload Videos</h1>
+        <h1>Upload Training Material Videos</h1>
     </div>
     <div align="center">
         <asp:FileUpload ID="FileUpload1" runat="server" Height="45px" Width="348px" />
@@ -18,9 +18,11 @@
             <HeaderStyle BackColor="#4A3C8C" Font-Bold="True" ForeColor="#F7F7F7" />
             <ItemStyle BackColor="#E7E7FF" ForeColor="#4A3C8C" />
             <ItemTemplate>
-                <u>
-                    <%# Eval("Name") %></u>
+                <u><b>
+                    <%# Eval("Name") %></b></u>
+                
                 <hr />
+                <br />
                 <a class="player" style="height: 300px; width: 300px; display: block" href='<%# Eval("Id", "FileCS.ashx?Id={0}") %>'></a>
             </ItemTemplate>
             <SelectedItemStyle BackColor="#738A9C" Font-Bold="True" ForeColor="#F7F7F7" />
