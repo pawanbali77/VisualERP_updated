@@ -472,7 +472,7 @@
                             <asp:TemplateField HeaderText="Final Frequency" ItemStyle-CssClass="GrayBg" HeaderStyle-ForeColor="#43494F">
                                 <ItemTemplate>
 
-                                    <asp:DropDownList class="AttrSeFildExcel" AutoPostBack="true" OnSelectedIndexChanged="txtProductFeatureAdded_TextChanged" ID="ddlFinalFrequency"
+                                    <asp:DropDownList class="AttrSeFildExcel" AutoPostBack="true" OnTextChanged="txtProductFeatureAdded_TextChanged" ID="ddlFinalFrequency"
                                         runat="server">
                                         <asp:ListItem Value="0" Text="--Select--" />
                                         <asp:ListItem Value="1" Text="1" />
@@ -492,7 +492,7 @@
                             <asp:TemplateField HeaderText="Final Detection" ItemStyle-CssClass="GrayBg" HeaderStyle-ForeColor="#43494F">
                                 <ItemTemplate>
 
-                                    <asp:DropDownList class="AttrSeFildExcel" AutoPostBack="true" OnSelectedIndexChanged="txtProductFeatureAdded_TextChanged" ID="ddlFinalDetection"
+                                    <asp:DropDownList class="AttrSeFildExcel" AutoPostBack="true" OnTextChanged="txtProductFeatureAdded_TextChanged" ID="ddlFinalDetection"
                                         runat="server">
                                         <asp:ListItem Value="0" Text="--Select--" />
                                         <asp:ListItem Value="1" Text="1" />
