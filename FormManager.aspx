@@ -189,7 +189,7 @@
         <ContentTemplate>
             <div class="right_container">
                 <div class="right_container_top" id="Title">
-                    <h1 id="headerTitle" runat="server">Form Manager</h1>
+                    <h1 id="headerTitle" runat="server">Error Flow</h1>
                     <div id="divErrorMsg" runat="server" visible="false" style="font: bold 12px Arial, Helvetica, sans-serif; color: #555; padding: 8px 0px 0px 6.000px; height: 30px; float: right; margin-left: 0; margin-right: 600px; width: 290px;">
                         <asp:Label ID="lblMsg" runat="server" />
                     </div>

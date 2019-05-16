@@ -89,7 +89,7 @@ public partial class FormManager : BasePage
 
 
         if (ProcessId == 0)
-            headerTitle.InnerText = "Form Manager";
+            headerTitle.InnerText = "Error Flow";
     }
 
     public void OnTreeNodeChange()
@@ -101,7 +101,7 @@ public partial class FormManager : BasePage
             int formtype = Convert.ToInt32(ViewState["FormType"]);
             if (formtype == 0)
             {
-                headerTitle.InnerText = "List PPESA";
+                headerTitle.InnerText = "Process Error Flow";
                 // lnkbtnAddPDESAForm.Visible = false; 
                 // lnkbtnSaveForm.Visible = false;
                 if (ProcessId > 0)
@@ -128,7 +128,7 @@ public partial class FormManager : BasePage
             }
             else
             {
-                headerTitle.InnerText = "List PDESA";
+                headerTitle.InnerText = "Product Error Flow";
                 // lnkbtnAddPPESAForm.Visible = false;
                 //lnkbtnSaveForm.Visible = false;
                 if (ProcessId > 0)
@@ -145,7 +145,7 @@ public partial class FormManager : BasePage
             //if (EditId != "lnkbtnAddPDESAForm")
             ResetBinding(Convert.ToInt32(FormType.PPESA)); // first time when page will load PPESA list will be display
             pnlListPPESA.Visible = true;
-            headerTitle.InnerHtml = "List PPESA";
+            headerTitle.InnerHtml = "Process Error Flow";
             //lnkbtnSaveForm.Visible = false;
             if (ProcessId > 0)
             {
