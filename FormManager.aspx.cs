@@ -38,7 +38,7 @@ public partial class FormManager : BasePage
         //txtIntialRPN1.Attributes.Add("readonly", "readonly");
         divErrorMsg.Visible = false;
         Label lblManager = (Label)Master.FindControl("lblManager");
-        lblManager.Text = "Form Manager";
+        lblManager.Text = "Error Flow";
         lblManager.Attributes.Add("class", "PPESA");
 
         //foreach (ListItem item in radiobtnlistActivity.Items)
@@ -252,7 +252,7 @@ public partial class FormManager : BasePage
         pnlListErrorRecord.Visible = false;
         //liAddFormP.Visible = true;
         //lnkbtnAddPPESAForm.Visible = true;
-        headerTitle.InnerHtml = "List PPESA";
+        headerTitle.InnerHtml = "Process Error Flow";
         ViewState["FormType"] = Convert.ToInt32(FormType.PPESA);
         ResetBinding(Convert.ToInt32(ViewState["FormType"]));
     }
@@ -270,7 +270,7 @@ public partial class FormManager : BasePage
         pnlListErrorRecord.Visible = false;
         //liAddFormP.Visible = true;
         //lnkbtnAddPPESAForm.Visible = true;
-        headerTitle.InnerHtml = "List PDESA";
+        headerTitle.InnerHtml = "Product Error Flow";
         ViewState["FormType"] = Convert.ToInt32(FormType.PDESA);
         ResetBinding(Convert.ToInt32(ViewState["FormType"]));
     }

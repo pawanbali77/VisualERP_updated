@@ -203,7 +203,7 @@
         }
 
         function ZoomRefresh() {
-           // alert("hello");
+            // alert("hello");
             if ($('input[id=ContentPlaceHolder1_hdnLastZoomE]').val() != '') {
                 currOtherZoom = parseFloat($("input[id=ContentPlaceHolder1_hdnLastZoomE]").val());
             }
@@ -230,10 +230,10 @@
             // $("input[id=ContentPlaceHolder1_hdnLastZoomE]").val(currOtherZoom);
         }
 
-      
+
 
     </script>
-    
+
     <style type="text/css">
         .a1 {
             margin-left: 36px;
@@ -261,16 +261,16 @@
 </head>
 <body>
     <form id="form1" runat="server">
-    <%--<asp:ScriptManager ID="Scm" runat="server"></asp:ScriptManager>--%>
-    <asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server" />
-    <div class="main_container" id="container">
-        <div class="header" id="header">
-            <div class="Logo">
-              <%--  <a href="EnterpriseManager.aspx">
+        <%--<asp:ScriptManager ID="Scm" runat="server"></asp:ScriptManager>--%>
+        <asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server" />
+        <div class="main_container" id="container">
+            <div class="header" id="header">
+                <div class="Logo">
+                    <%--  <a href="EnterpriseManager.aspx">
                     <img src="images/logo.png" /></a>--%>
-<%--                  <img src="images/logo4.png"/><img src="images/logo2.png" /></a>--%>
+                    <%--                  <img src="images/logo4.png"/><img src="images/logo2.png" /></a>--%>
 
-                  <a href="#">
+                    <a href="#">
                         <%--<img src="images/logo.png" /></a>--%>
                         <img src="images/logo4.png" /></a>
                     <%--<a href="#">
@@ -279,8 +279,8 @@
                     <h1 class="a1">Welcome to the</h1>
                     <asp:Image ID="Img_upload" runat="server" CssClass="img_upd" />
                     <h1 class="a2">growth engine.</h1>
-            </div>
-            <%--<div class="header_right">
+                </div>
+                <%--<div class="header_right">
                 <ul>
                     <li>
                         <asp:LinkButton ID="LinkButton2" runat="server" OnClick="prsBtn_Click" CssClass="process_manager">Process Manager</asp:LinkButton>
@@ -289,69 +289,67 @@
                         <asp:LinkButton ID="enterpriseBtn" runat="server" OnClick="enterpriseBtn_Click" CssClass="enterprize_manager">Enterprise Manager</asp:LinkButton></li>
                 </ul>
             </div>--%>
-            <ul id="nav2">
-                <li class="Heading"><a href="#" class="whiteArrow">
-                    <asp:Label ID="lblManager" runat="server" Text="Transport" Style="margin-top: -4px;
-                        margin-left: 2px;" /></a>
-                    <ul>
-                        <%--<li><a href="#"><span class="Process"></span>Process Manager</a> </li>
+                <ul id="nav2">
+                    <li class="Heading"><a href="#" class="whiteArrow">
+                        <asp:Label ID="lblManager" runat="server" Text="Transport" Style="margin-top: -4px; margin-left: 2px;" /></a>
+                        <ul>
+                            <%--<li><a href="#"><span class="Process"></span>Process Manager</a> </li>
             <li><a href="#"><span class="Enterprize"></span>Enterprise Manager</a></li>--%>
-                        <li>
-                            <asp:LinkButton ID="LinkButton2" runat="server" OnClick="prsBtn_Click"><span class="Process"></span>Process View</asp:LinkButton></li>
+                            <li>
+                                <asp:LinkButton ID="LinkButton2" runat="server" OnClick="prsBtn_Click"><span class="Process"></span>Process View</asp:LinkButton></li>
 
-                        <li id="menu_TargetManager" runat="server">
-                            <asp:LinkButton ID="lnkTargetManager" runat="server" OnClick="tgtBtn_Click"><span class="Target"></span>Target View</asp:LinkButton></li>
+                            <li id="menu_TargetManager" runat="server">
+                                <asp:LinkButton ID="lnkTargetManager" runat="server" OnClick="tgtBtn_Click"><span class="Target"></span>Target View</asp:LinkButton></li>
 
-                        <li>
-                            <asp:LinkButton ID="enterpriseBtn" runat="server" OnClick="enterpriseBtn_Click" CssClass="enterprize_manager"><span class="Enterprize"></span>Enterprise View</asp:LinkButton></li>
-                       <%-- <li><a href="#"><span class="Metrics"></span>Metrics Manager</a></li>--%>
-                        <li><a href="ManageReport.aspx"><span class="Report"></span>Report Manager</a></li>
-                       <%-- <li><a href="#"><span class="Project"></span>Project Manager</a></li>--%>
-                        <li><a href="FormManager.aspx"><span class="Inventory"></span>Form Manager</a></li>
-                       <%-- <li><a href="#"><span class="Demand"></span>Demand Manager</a></li>--%>
-                       <%-- <li><a href="#"><span class="Variation"></span>Variation Manager</a></li>--%>
-                       <%-- <li class="last"><a href="#"><span class="Inventory"></span>Inventory Manager</a></li>--%>
-                        <li class="last"><a href="Logout.aspx"><span class="Process"></span>Logout</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-        <div class="mid_container">
-            <div class="side_bar" id="divSidebar">
-                <div id="divSysChoose" runat="server" style="padding: 5px 0px 0px 0px; background: #ccc;
-                    margin: -7px 0 12px 0; width: 100%; float: left;">
-                    <div style="float: right;">
-                        <input type="button" name="button" onclick="return btnChoose_click()" class="buttonChoose" />
-                        <%--input type="button" name="button" value="Search" onclick="showUser()" class="button"/>
+                            <li>
+                                <asp:LinkButton ID="enterpriseBtn" runat="server" OnClick="enterpriseBtn_Click" CssClass="enterprize_manager"><span class="Enterprize"></span>Enterprise View</asp:LinkButton></li>
+                            <%-- <li><a href="#"><span class="Metrics"></span>Metrics Manager</a></li>--%>
+                            <li><a href="ManageReport.aspx"><span class="Report"></span>Report Manager</a></li>
+                            <%-- <li><a href="#"><span class="Project"></span>Project Manager</a></li>--%>
+                            <li><a href="FormManager.aspx"><span class="Inventory"></span>Error Flow</a></li>
+                            <%-- <li><a href="#"><span class="Demand"></span>Demand Manager</a></li>--%>
+                            <%-- <li><a href="#"><span class="Variation"></span>Variation Manager</a></li>--%>
+                            <%-- <li class="last"><a href="#"><span class="Inventory"></span>Inventory Manager</a></li>--%>
+                            <li id="menu_Training" runat="server"><a href="TrainingVideo.aspx"><span class="Inventory"></span>GroEngine University</a></li>
+                            <li class="last"><a href="Logout.aspx"><span class="Process"></span>Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="mid_container">
+                <div class="side_bar" id="divSidebar">
+                    <div id="divSysChoose" runat="server" style="padding: 5px 0px 0px 0px; background: #ccc; margin: -7px 0 12px 0; width: 100%; float: left;">
+                        <div style="float: right;">
+                            <input type="button" name="button" onclick="return btnChoose_click()" class="buttonChoose" />
+                            <%--input type="button" name="button" value="Search" onclick="showUser()" class="button"/>
                     <asp:ImageButton ID="ImgbtnCheckout"  runat="server" ImageUrl="~/images/Very-Basic-Plus-icon.png"
                         OnClick="ImgbtnCheckout_click" ToolTip="Checkout" Style="padding: 0 0 0 0px" />
                     <asp:ImageButton ID="ImgbtnUp" runat="server" ImageUrl="~/images/Arrows-Up-circular-icon.png" OnClick="ImgbtnUp_click"
                         OnClientClick="javascript:return ImgbtnUp_click()"  ToolTip="Make Parent" Style="padding: 0 0 0 45px" />
                     <asp:ImageButton ID="ImgbtnDwn" runat="server" ImageUrl="~/images/Arrows-Down-circular-icon.png"
                         OnClientClick="javascript:return ImgbtnDwn_click()" ToolTip="Make Child" Style="padding: 0 0 0 45px" />--%>
+                        </div>
+                        <div class="Clear">
+                        </div>
                     </div>
-                    <div class="Clear">
-                    </div>
-                </div>
-                <asp:UpdatePanel ID="UpdatepnlTree" runat="server" UpdateMode="Always">
-                    <ContentTemplate>
-                        <asp:TreeView ID="TreeView1" runat="server" CssClass="TreeView1_000" ShowLines="true"
-                            OnTreeNodePopulate="MyTreeView_TreeNodePopulate" ForeColor="#555555" HoverNodeStyle-ForeColor="#000"
-                            OnSelectedNodeChanged="TreeView1_OnSelectedNodeChanged" style="margin-top:-23px">
-                        </asp:TreeView>
-                        <asp:Label ID="lblSysName" runat="server" CssClass="ChooseBg" Style="height: 11px;
-                            left: 5px; margin-top: -49px; position: relative; width: 204px; top: 0px"></asp:Label>
-                    </ContentTemplate>
-                    <%--<Triggers>
+                    <asp:UpdatePanel ID="UpdatepnlTree" runat="server" UpdateMode="Always">
+                        <ContentTemplate>
+                            <asp:TreeView ID="TreeView1" runat="server" CssClass="TreeView1_000" ShowLines="true"
+                                OnTreeNodePopulate="MyTreeView_TreeNodePopulate" ForeColor="#555555" HoverNodeStyle-ForeColor="#000"
+                                OnSelectedNodeChanged="TreeView1_OnSelectedNodeChanged" Style="margin-top: -23px">
+                            </asp:TreeView>
+                            <asp:Label ID="lblSysName" runat="server" CssClass="ChooseBg" Style="height: 11px; left: 5px; margin-top: -49px; position: relative; width: 204px; top: 0px"></asp:Label>
+                        </ContentTemplate>
+                        <%--<Triggers>
                  <asp:AsyncPostBackTrigger ControlID="addProcessBtn" EventName="Click" />
                 </Triggers>--%>
-                </asp:UpdatePanel>
+                    </asp:UpdatePanel>
+                </div>
+                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                </asp:ContentPlaceHolder>
             </div>
-            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
-            </asp:ContentPlaceHolder>
-        </div>
-        <!--Model Popup Add Tree Node-->
-        <%-- <div id="popup_box">
+            <!--Model Popup Add Tree Node-->
+            <%-- <div id="popup_box">
         <!-- OUR PopupBox DIV-->
        
         <asp:TextBox ID="txtNodeName" runat="server"></asp:TextBox>
@@ -359,58 +357,58 @@
         <asp:Button ID="Button1" runat="server" Text="Add" onclick="Button1_Click" />
         <a id="popupBoxClose">Close</a>
     </div>--%>
-        <%-- <uc1:ModelPopupAddProcess ID="ModelPopupAddProcess1" runat="server" />--%>
-        <div class="footer" id="footer">
-            <p>
-                © Copyright GroEngine, LLC 2013. All Rights Reserved</p>
+            <%-- <uc1:ModelPopupAddProcess ID="ModelPopupAddProcess1" runat="server" />--%>
+            <div class="footer" id="footer">
+                <p>
+                    © Copyright GroEngine, LLC 2013. All Rights Reserved
+                </p>
+            </div>
         </div>
-    </div>
-    <div class="AttributeWrpPoupProcess" id="popup_box" runat="server">
-        <div class="AttribWrPoupProcess">
-            <a href="#" class="CloseBtnP" id="popupBoxClose"></a>
-            <h2>
-                Add System
+        <div class="AttributeWrpPoupProcess" id="popup_box" runat="server">
+            <div class="AttribWrPoupProcess">
+                <a href="#" class="CloseBtnP" id="popupBoxClose"></a>
+                <h2>Add System
             </h2>
-            <div class="AttribMid">
-                <div id="LeftAtProcess">
-                    <ul class="LeftFrm">
-                        <li>
-                            <label>
-                                System Name</label>
-                            <asp:DropDownList ID="ddlSystem" runat="server" CssClass="AttrSeFild" Width="245px">
-                            </asp:DropDownList>
-                            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" InitialValue="0"
-                                ValidationGroup="add" ControlToValidate="ddlSystem" ErrorMessage="Please select the System name"
-                                ForeColor="Red" EnableClientScript="true" Text="*">
+                <div class="AttribMid">
+                    <div id="LeftAtProcess">
+                        <ul class="LeftFrm">
+                            <li>
+                                <label>
+                                    System Name</label>
+                                <asp:DropDownList ID="ddlSystem" runat="server" CssClass="AttrSeFild" Width="245px">
+                                </asp:DropDownList>
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" InitialValue="0"
+                                    ValidationGroup="add" ControlToValidate="ddlSystem" ErrorMessage="Please select the System name"
+                                    ForeColor="Red" EnableClientScript="true" Text="*">
                             </asp:RequiredFieldValidator>
-                        </li>
-                        <li>
-                            <asp:Button ID="addProcessBtn" ValidationGroup="add" runat="server" CssClass="BlueBtnLe"
-                                Text="Choose" OnClick="addProcessBtn_Click" />
-                        </li>
-                    </ul>
+                            </li>
+                            <li>
+                                <asp:Button ID="addProcessBtn" ValidationGroup="add" runat="server" CssClass="BlueBtnLe"
+                                    Text="Choose" OnClick="addProcessBtn_Click" />
+                            </li>
+                        </ul>
+                    </div>
+                    <asp:ValidationSummary ID="ValidationSummary1" runat="server" HeaderText="Following error occurs:"
+                        ShowMessageBox="true" DisplayMode="BulletList" ShowSummary="false" ValidationGroup="add"
+                        ForeColor="Red" />
+                    <div class="Clear">
+                    </div>
                 </div>
-                <asp:ValidationSummary ID="ValidationSummary1" runat="server" HeaderText="Following error occurs:"
-                    ShowMessageBox="true" DisplayMode="BulletList" ShowSummary="false" ValidationGroup="add"
-                    ForeColor="Red" />
                 <div class="Clear">
                 </div>
             </div>
             <div class="Clear">
             </div>
         </div>
-        <div class="Clear">
-        </div>
-    </div>
-    <asp:UpdateProgress ID="UpdateProgress1" runat="server" DisplayAfter="0">
-        <ProgressTemplate>
-            <div class="AjaxLoaderOuter123">
-                <div class="AjaxLoaderInner123">
-                    <img src='<%= ResolveUrl("~/images/ajax-loading11.gif") %>' alt="Wait..." style="background-color: Transparent;" />
+        <asp:UpdateProgress ID="UpdateProgress1" runat="server" DisplayAfter="0">
+            <ProgressTemplate>
+                <div class="AjaxLoaderOuter123">
+                    <div class="AjaxLoaderInner123">
+                        <img src='<%= ResolveUrl("~/images/ajax-loading11.gif") %>' alt="Wait..." style="background-color: Transparent;" />
+                    </div>
                 </div>
-            </div>
-        </ProgressTemplate>
-    </asp:UpdateProgress>
+            </ProgressTemplate>
+        </asp:UpdateProgress>
     </form>
 </body>
 </html>

@@ -201,11 +201,11 @@
                             </li>
 
                             <li style="margin-right: 1px">
-                                <asp:LinkButton ID="lnkbtnViewPPESAForm" runat="server" ToolTip="View PPESA" CssClass="ViewPPESA"
+                                <asp:LinkButton ID="lnkbtnViewPPESAForm" runat="server" ToolTip="View Process Error Flow" CssClass="ViewPPESA"
                                     OnClick="lnkbtnViewPPESAForm_Click" />
                             </li>
                             <li style="margin-right: 1px">
-                                <asp:LinkButton ID="lnkbtnViewPDESAForm" runat="server" ToolTip="View PDESA" CssClass="ViewPPESA"
+                                <asp:LinkButton ID="lnkbtnViewPDESAForm" runat="server" ToolTip="View Product Error Flow" CssClass="ViewPPESA"
                                     OnClick="lnkbtnViewPDESAForm_Click" />
                             </li>
 

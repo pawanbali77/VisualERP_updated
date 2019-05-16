@@ -437,7 +437,7 @@
                             <%--<li id="menu_Metricsmanager" runat="server"><a href="#"><span class="Metrics"></span>Metrics Manager</a></li>--%>
                             <li id="menu_Reportmanager" runat="server"><a href="ManageReport.aspx"><span class="Report"></span>Report Manager</a></li>
                             <%--<li id="menu_Projectmanager" runat="server"><a href="#"><span class="Project"></span>Project Manager</a></li>--%>
-                            <li id="menu_Formmanager" runat="server"><a href="FormManager.aspx"><span class="PPESA"></span>Form Manager</a></li>
+                            <li id="menu_Formmanager" runat="server"><a href="FormManager.aspx"><span class="PPESA"></span>Error Flow</a></li>
                             <%--<li id="menu_Demandmanager" runat="server"><a href="#"><span class="Demand"></span>Demand Manager</a></li>--%>
                             <%--<li id="menu_Variationmanager" runat="server"><a href="#"><span class="Variation"></span>Variation Manager</a></li>--%>
                             <%--<li id="menu_Inventorymanager" runat="server"><a href="#"><span class="Inventory"></span>Inventory Manager</a></li>--%>
