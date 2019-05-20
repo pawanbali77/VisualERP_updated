@@ -13,6 +13,7 @@
 <%@ Register Src="UserControls/InventoryUC.ascx" TagName="InventoryUC" TagPrefix="uc7" %>
 <%@ Register Src="UserControls/InventeryObject.ascx" TagName="InventeryObject" TagPrefix="uc8" %>
 <%@ Register src="UserControls/Shipment.ascx" tagname="Shipment" tagprefix="uc9" %>
+<%@ Register Src="UserControls/ModelPopupErrorReportUC.ascx" TagName="ModelPopupErrorReportUC" TagPrefix="uc12" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="Server">
     <%--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js" type="text/javascript"></script>
     <script type="text/javascript">
@@ -235,6 +236,7 @@
             <%--End BOM Manger--%>
             <%----TFG----%>
             <uc5:ModelPopupTFGUC ID="ModelPopupTFGUC1" runat="server" />
+            <uc12:ModelPopupErrorReportUC ID="ModelPopupErrorReportUC1" runat="server" />
             <%----End TFG--%>
             <%---Machine--%>
             <uc4:ModelPopupMchUC ID="ModelPopupMchUC1" runat="server" />

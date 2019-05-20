@@ -11,9 +11,10 @@
 <%@ Register Src="UserControls/InventoryUC.ascx" TagName="InventoryUC" TagPrefix="uc7" %>
 <%@ Register Src="UserControls/InventeryObject.ascx" TagName="InventeryObject" TagPrefix="uc8" %>
 <%@ Register Src="UserControls/ModelPopupActivity.ascx" TagName="ModelPopupActivity" TagPrefix="uc9" %>
-<%@ Register Src="UserControls/ArrowControl.ascx" TagName="ArrowControl" TagPrefix="uc11" %>
 <%@ Register Src="UserControls/ImageControl.ascx" TagName="ImageControl" TagPrefix="uc10" %>
- 
+<%@ Register Src="UserControls/ArrowControl.ascx" TagName="ArrowControl" TagPrefix="uc11" %>
+<%@ Register Src="UserControls/ModelPopupErrorReportUC.ascx" TagName="ModelPopupErrorReportUC" TagPrefix="uc12" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="Server">
     <script type="text/javascript" language="javascript">
         var queryString = new Array();
@@ -29,7 +30,7 @@
                 }
             }
             if (queryString["data"] != null) {
-              
+
                 var data = queryString["data"];
                 console.log(data);
                 //$("#ContentPlaceHolder1_MainDiv1").html(data);
@@ -41,8 +42,6 @@
 
             var contentHeight = $(window).height();
             var newHeight = contentHeight - $("#header").height() - $("#footer").height() - $("#Title").height() - $("#Bpmn").height() - 20; // + "px";
-
-            //$("#ContentPlaceHolder1_MainDiv").css("height", newHeight + "px");
             var maxheight = $("input[id=ContentPlaceHolder1_hdnheight]").val(); //get max height of process from hidden field value
             $("#ContentPlaceHolder1_MainDiv").css("height", maxheight);
 
@@ -56,32 +55,16 @@
             currFFZoom = 1;
             currIEZoom = 1;
             currOtherZoom = 1;
-            //            $("input[id=ContentPlaceHolder1_hdnLastZoom]").val('');
-            //            alert($("input[id=ContentPlaceHolder1_hdnLastZoom]").val());
-
 
             window.setTimeout(function () {
                 $(".isa_info").fadeOut('slow', function () { $('.isa_info').remove() });
                 $(".isa_success").fadeOut('slow', function () { $('.isa_success').remove() });
             }, 7000);
-
-            //             if (msieversion()) {                
-            ////                  alert("ie");
-            ////                 jQuery('#ContentPlaceHolder1_MainDiv1').height('-=1');
-            //             }
         }
 
         function loadProcessManager() {
             location.reload();
         }
-
-        //        function minimizeSummaryTable() {
-
-        //            $("#imgMinimize").click(function () {
-        //                $("#ContentPlaceHolder1_divSummary").slideDown("slow");
-        //            });
-        //        }
-
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
@@ -244,11 +227,12 @@ Six month Professional Training in Web Desinging from  Rajiv Nanda Design & Phot
             <%---Machine--%>
             <uc4:ModelPopupMchUC ID="ModelPopupMchUC1" runat="server" />
             <%--MachineEnd--%>
+             <%----ErrorReport----%>
+            <uc12:ModelPopupErrorReportUC ID="ModelPopupErrorReportUC1" runat="server" />
+            <%----End ErrorReport--%>
             <uc9:ModelPopupActivity ID="ModelPopupActivityUC9" runat="server" />
-            <%--Activity--%>
-            <%-- <uc21:ModelPopupSummaryTable ID="ModelPopupSummaryTableuc21" runat="server" />--%>
+
         </ContentTemplate>
     </asp:UpdatePanel>
-    <%--   <asp:LinkButton ID="lnkBtnInventory12" runat="server"><span class="NaviMidIcon3"></span>Inventory</asp:LinkButton>--%>
-    <%-- <uc8:InventeryObject ID="InventeryObject1" runat="server" />--%>
+
 </asp:Content>

@@ -1,7 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="ModelPopupTFGUC.ascx.cs"
     Inherits="UserControls_ModelPopupTFGUC" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
-<script language="javascript" type="text/javascript">
+<script type="text/javascript">
 
     function OpenPopup(div) {
 
@@ -252,11 +252,7 @@
                                 <%#Container.DataItemIndex+1 %>
                             </ItemTemplate>
                         </asp:TemplateField>
-                        <%--  <asp:TemplateField HeaderText="Process Name" HeaderStyle-ForeColor="#43494F">
-                                <ItemTemplate>
-                                    <%#DataBinder.Eval(Container.DataItem, "ProcessObjectID")%>
-                                </ItemTemplate>
-                            </asp:TemplateField>--%>
+                      
                         <asp:TemplateField HeaderText="Tool/Fixture/Gage Name" ItemStyle-CssClass="GrayBg" SortExpression="Tool_Fixture_GageName"
                             HeaderStyle-ForeColor="#43494F">
                             <ItemTemplate>

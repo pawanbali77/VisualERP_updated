@@ -58,7 +58,7 @@
             </td>
             <td class="th_fieldsi right last">
                 <a href="#" class="">Machine</a>
-            </li>
+            </td>
         </tr>
         <tr>
             <td colspan="5" class="activity_txt">

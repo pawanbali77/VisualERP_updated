@@ -112,20 +112,18 @@ public partial class FormManager : BasePage
                                   "script", script2, true);
                 }
             }
-            else if (formtype == 2)
-            {
+            //else if (formtype == 2)
+            //{
 
-                headerTitle.InnerText = "Error Log";
-                // lnkbtnAddPPESAForm.Visible = false;
-                //lnkbtnSaveForm.Visible = false;
-                if (ProcessId > 0)
-                {
-                    string cid = lnkbtnErrorRecord.ClientID;
-                    string script2 = "actvieclassByid(" + cid + ")";
-                    ScriptManager.RegisterStartupScript(this, this.GetType(),
-                                  "script", script2, true);
-                }
-            }
+            //    headerTitle.InnerText = "Error Log";
+            //    if (ProcessId > 0)
+            //    {
+            //        string cid = lnkbtnErrorRecord.ClientID;
+            //        string script2 = "actvieclassByid(" + cid + ")";
+            //        ScriptManager.RegisterStartupScript(this, this.GetType(),
+            //                      "script", script2, true);
+            //    }
+            //}
             else
             {
                 headerTitle.InnerText = "Product Error Flow";
@@ -245,13 +243,7 @@ public partial class FormManager : BasePage
         string script1 = "actvieclass(" + cid + ")";
         ScriptManager.RegisterStartupScript(this, this.GetType(),
                       "script", script1, true);
-
-        //pnlActivity.Visible = false;
-        //pnlAddForm.Visible = false;
         pnlListPPESA.Visible = true;
-        pnlListErrorRecord.Visible = false;
-        //liAddFormP.Visible = true;
-        //lnkbtnAddPPESAForm.Visible = true;
         headerTitle.InnerHtml = "Process Error Flow";
         ViewState["FormType"] = Convert.ToInt32(FormType.PPESA);
         ResetBinding(Convert.ToInt32(ViewState["FormType"]));
@@ -263,13 +255,7 @@ public partial class FormManager : BasePage
         string script2 = "actvieclass(" + cid + ")";
         ScriptManager.RegisterStartupScript(this, this.GetType(),
                       "script", script2, true);
-
-        // pnlActivity.Visible = false;
-        //pnlAddForm.Visible = false;
         pnlListPPESA.Visible = true;
-        pnlListErrorRecord.Visible = false;
-        //liAddFormP.Visible = true;
-        //lnkbtnAddPPESAForm.Visible = true;
         headerTitle.InnerHtml = "Product Error Flow";
         ViewState["FormType"] = Convert.ToInt32(FormType.PDESA);
         ResetBinding(Convert.ToInt32(ViewState["FormType"]));
@@ -287,118 +273,58 @@ public partial class FormManager : BasePage
         if (ViewState["FormType"] != null)
             formType = Convert.ToInt32(ViewState["FormType"]);
 
-        if (formType == 2)
+
+        bool updateForm = false;
+
+        foreach (GridViewRow row in gridPPESA.Rows)
         {
-            foreach (GridViewRow row in grdErrorGrid.Rows)
+            try
             {
-                try
-                {
-
-                    SaveErrorLogRecord(row);
-                }
-                catch (Exception ex)
-                { }
+                updateForm = SavePPESAandPDESA(row);
             }
-
-        }
-        else
-        {
-            bool updateForm = false;
-
-            foreach (GridViewRow row in gridPPESA.Rows)
+            catch (Exception ex)
             {
-                try
-                {
-                    updateForm = SavePPESAandPDESA(row);
-                }
-                catch (Exception ex)
-                {
-                }
-            }
-
-            if (!isAutoSave)
-            {
-                if (updateForm == true)  // if record is updated or inserted
-                {
-                    ResetBinding(Convert.ToInt32(ViewState["FormType"]));
-                    pnlListPPESA.Visible = true;
-                    //lnkbtnSaveForm.Visible = false;
-                    lblMsg.Visible = true;
-                    divErrorMsg.Visible = true;
-                    lblMsg.Text = "Report saved successfully.";
-                    lblMsg.Style.Add("color", "green");
-                    divErrorMsg.Attributes.Add("class", "isa_success");
-
-                    string cid = string.Empty;
-                    if (Convert.ToInt32(ViewState["FormType"]) == 0)
-                        cid = lnkbtnViewPPESAForm.ClientID;
-                    else
-                        cid = lnkbtnViewPDESAForm.ClientID;
-
-                    string script2 = "actvieclassByid(" + cid + ")";
-                    ScriptManager.RegisterStartupScript(this, this.GetType(),
-                                  "script", script2, true);
-                }
-                else
-                {
-                    pnlListPPESA.Visible = false;
-                    lnkbtnSaveForm.Visible = false;
-                    lblMsg.Visible = true;
-                    divErrorMsg.Visible = true;
-                    lblMsg.Text = "Error on Deleting data.!";
-                    lblMsg.Style.Add("color", "red");
-                    divErrorMsg.Attributes.Add("class", "isa_error");
-                }
             }
         }
-    }
 
-    private void SaveErrorLogRecord(GridViewRow row, bool isAutoSave = false)
-    {
-        ErrorInfo data = new ErrorInfo();
-        data.ErrorID = Convert.ToInt32((row.FindControl("hdnErrorID") as HiddenField).Value);
-        data.ProcessID = Convert.ToInt32((row.FindControl("hdnProcessID") as HiddenField).Value);
-
-        string error = (row.FindControl("txtError") as TextBox).Text;
-        data.Error = error;
-
-        string cycleTime = (row.FindControl("txtCycleTime") as TextBox).Text;
-        if (string.IsNullOrEmpty(cycleTime))
-            data.CycleTime = 0;
-        else
-            data.CycleTime = Convert.ToInt32(cycleTime);
-
-
-        string workContent = (row.FindControl("txtWorkContent") as TextBox).Text;
-        if (string.IsNullOrEmpty(workContent))
-            data.WorkContent = 0;
-        else
-            data.WorkContent = Convert.ToInt32(workContent);
-
-        string counterMeasure = (row.FindControl("txtCounterMeasure") as TextBox).Text;
-        if (string.IsNullOrEmpty(counterMeasure))
-            data.CounterMeasure = 0;
-        else
-            data.CounterMeasure = Convert.ToInt32(counterMeasure);
-
-        string counterMeasureStrength = (row.FindControl("txtCounterMeasureStrength") as TextBox).Text;
-        if (string.IsNullOrEmpty(counterMeasureStrength))
-            data.CounterMeasureStrength = 0;
-        else
-            data.CounterMeasureStrength = Convert.ToInt32(counterMeasureStrength);
-
-
-
-        new ErrorData().Save(data);
         if (!isAutoSave)
         {
-            lblMsg.Visible = true;
-            divErrorMsg.Visible = true;
-            lblMsg.Text = "Record saved successfully.";
-            lblMsg.Style.Add("color", "green");
-            divErrorMsg.Attributes.Add("class", "isa_success");
+            if (updateForm == true)  // if record is updated or inserted
+            {
+                ResetBinding(Convert.ToInt32(ViewState["FormType"]));
+                pnlListPPESA.Visible = true;
+                //lnkbtnSaveForm.Visible = false;
+                lblMsg.Visible = true;
+                divErrorMsg.Visible = true;
+                lblMsg.Text = "Report saved successfully.";
+                lblMsg.Style.Add("color", "green");
+                divErrorMsg.Attributes.Add("class", "isa_success");
+
+                string cid = string.Empty;
+                if (Convert.ToInt32(ViewState["FormType"]) == 0)
+                    cid = lnkbtnViewPPESAForm.ClientID;
+                else
+                    cid = lnkbtnViewPDESAForm.ClientID;
+
+                string script2 = "actvieclassByid(" + cid + ")";
+                ScriptManager.RegisterStartupScript(this, this.GetType(),
+                              "script", script2, true);
+            }
+            else
+            {
+                pnlListPPESA.Visible = false;
+                lnkbtnSaveForm.Visible = false;
+                lblMsg.Visible = true;
+                divErrorMsg.Visible = true;
+                lblMsg.Text = "Error on Deleting data.!";
+                lblMsg.Style.Add("color", "red");
+                divErrorMsg.Attributes.Add("class", "isa_error");
+            }
         }
+
     }
+
+   
 
     private bool SavePPESAandPDESA(GridViewRow row)
     {
@@ -485,70 +411,46 @@ public partial class FormManager : BasePage
 
     public void ResetBinding(int formType)
     {
-        //ViewState["sortBy"] = "ProductFeatureAdded";
-
         ViewState["sortBy"] = "Sequence";
         ViewState["isAsc"] = "1";
         if (Convert.ToInt32(ViewState["poId"]) > -1)
         {
-            if (formType == 2)
-            {
-                ErrorData errorData = new ErrorData();
-                List<ErrorInfo> listData = errorData.GetAll();
-                grdErrorGrid.DataSource = listData;
-                grdErrorGrid.DataBind();
 
-                pnlListPPESA.Visible = false;
-                pnlListErrorRecord.Visible = true;
-            }
-            else
+            List<PPESAnPDESA.ListPPESAnPDESAData> listData = PPESAnPDESA.GetPPESAnPDESAData(this.CBool(ViewState["isAsc"]), ViewState["sortBy"].ToString(), formType, ProcessId);
+            gridPPESA.DataSource = listData;
+            gridPPESA.DataBind();
+            if (listData.Count == 0)
             {
-                List<PPESAnPDESA.ListPPESAnPDESAData> listData = PPESAnPDESA.GetPPESAnPDESAData(this.CBool(ViewState["isAsc"]), ViewState["sortBy"].ToString(), formType, ProcessId);
-                gridPPESA.DataSource = listData;
-                gridPPESA.DataBind();
-                if (listData.Count == 0)
-                {
-                    List<ProcessData.ProcessDataProperty> acty = ProcessData.GetProcessObjActvities(ProcessId);
-                    if (acty.Count > 0)
-                    {
-                        btnAddNewRow.Visible = true;
-                        if (RoleID == 4)
-                        {
-                            btnAddNewRow.Visible = false;
-                        }
-                    }
-                    else
-                    {
-                        btnAddNewRow.Visible = false;
-                    }
-
-                    //btnAddNewRow.Visible = false;
-                    lnkbtnSaveForm.Visible = false;
-                }
-                else
+                List<ProcessData.ProcessDataProperty> acty = ProcessData.GetProcessObjActvities(ProcessId);
+                if (acty.Count > 0)
                 {
                     btnAddNewRow.Visible = true;
                     if (RoleID == 4)
                     {
                         btnAddNewRow.Visible = false;
                     }
-                    lnkbtnSaveForm.Visible = true;
-                    if (RoleID == 4)
-                    {
-                        lnkbtnSaveForm.Visible = false;
-                    }
                 }
-                pnlListPPESA.Visible = true;
-                pnlListErrorRecord.Visible = false;
+                else
+                {
+                    btnAddNewRow.Visible = false;
+                }
+                lnkbtnSaveForm.Visible = false;
             }
-
-
-
+            else
+            {
+                btnAddNewRow.Visible = true;
+                if (RoleID == 4)
+                {
+                    btnAddNewRow.Visible = false;
+                }
+                lnkbtnSaveForm.Visible = true;
+                if (RoleID == 4)
+                {
+                    lnkbtnSaveForm.Visible = false;
+                }
+            }
+            pnlListPPESA.Visible = true;
         }
-
-
-        //pnlActivity.Visible = false;
-        //pnlAddForm.Visible = false;
     }
 
     protected void gridPPESA_Sorting(object sender, GridViewSortEventArgs e)
@@ -957,69 +859,7 @@ public partial class FormManager : BasePage
         }
     }
 
-    protected void btnAddNewErrorRecord_Click(object sender, EventArgs e)
-    {
-        SaveRecord(true);
-        int formtyp = 0;
-        ErrorInfo data = new ErrorInfo();
-        if (ViewState["FormType"] != null)
-            formtyp = Convert.ToInt32(ViewState["FormType"]);
-
-        //data.FormType = formtyp;
-
-        int maxSequenceNo = 0;
-        maxSequenceNo = new ErrorData().GetMaxSequenceNo(ProcessId, formtyp);
-        ////add row at next sequence 
-        data.ProcessID = ProcessId;
-        data.Error = string.Empty;
-        data.CycleTime = 0;
-        data.CounterMeasure = 0;
-        data.CounterMeasureStrength = 0;
-        data.WorkContent = 0;
-        bool result = false;
-
-        result = new ErrorData().Save(data);  ////SaveInputData will dave input link in database table information input
-
-        if (result == true)  // if record is updated or inserted
-        {
-            ResetBinding(Convert.ToInt32(ViewState["FormType"]));
-            // pnlActivity.Visible = false;
-            //pnlAddForm.Visible = false;
-            pnlListPPESA.Visible = false;
-            pnlListErrorRecord.Visible = true;
-            //lnkbtnSaveForm.Visible = false;
-            lblMsg.Visible = true;
-            divErrorMsg.Visible = true;
-            lblMsg.Text = "Row added successfully";
-            lblMsg.Style.Add("color", "green");
-            divErrorMsg.Attributes.Add("class", "isa_success");
-
-            string cid = string.Empty;
-            if (Convert.ToInt32(ViewState["FormType"]) == 0)
-                cid = lnkbtnViewPPESAForm.ClientID;
-            else if (Convert.ToInt32(ViewState["FormType"]) == 2)
-                cid = lnkbtnErrorRecord.ClientID;
-            else
-                cid = lnkbtnViewPDESAForm.ClientID;
-
-            string script2 = "actvieclassByid(" + cid + ")";
-            ScriptManager.RegisterStartupScript(this, this.GetType(),
-                          "script", script2, true);
-        }
-        else
-        {
-            // pnlActivity.Visible = false;
-            //pnlAddForm.Visible = true;
-            pnlListPPESA.Visible = false;
-            pnlListErrorRecord.Visible = false;
-            //lnkbtnSaveForm.Visible = false;
-            lblMsg.Visible = true;
-            divErrorMsg.Visible = true;
-            lblMsg.Text = "Error on adding row!";
-            lblMsg.Style.Add("color", "red");
-            divErrorMsg.Attributes.Add("class", "isa_error");
-        }
-    }
+   
 
     private void FillddlNumbers(DropDownList ddl)
     {
@@ -1117,116 +957,8 @@ public partial class FormManager : BasePage
 
     }
 
-    protected void lnkbtnErrorRecord_Click(object sender, EventArgs e)
-    {
-        ViewState["FormType"] = Convert.ToInt32(FormType.ERRORLOG);
-        pnlListPPESA.Visible = false;
-        pnlListErrorRecord.Visible = true;
-        //ViewState["sortBy"] = "ProductFeatureAdded";
-        ViewState["sortBy"] = "Sequence";
-        ViewState["isAsc"] = "1";
-        headerTitle.InnerText = "Error Log";
-        if (Convert.ToInt32(ViewState["poId"]) > -1)
-        {
-            ErrorData errorData = new ErrorData();
-            List<ErrorInfo> listData = errorData.GetAll();
-            grdErrorGrid.DataSource = listData;
-            grdErrorGrid.DataBind();
+    
 
-
-            btnAddNewRow.Visible = true;
-            if (RoleID == 4)
-            {
-                btnAddNewRow.Visible = false;
-            }
-            lnkbtnSaveForm.Visible = true;
-            if (RoleID == 4)
-            {
-                lnkbtnSaveForm.Visible = false;
-            }
-
-        }
-
-    }
-
-    protected void grdErrorGrid_RowCommand(object sender, GridViewCommandEventArgs e)
-    {
-        if (e.CommandName == "Add")
-        {
-            SaveRecord(true);
-            int formtyp = 0;
-            ErrorInfo data = new ErrorInfo();
-            if (ViewState["FormType"] != null)
-                formtyp = Convert.ToInt32(ViewState["FormType"]);
-
-            //data.FormType = formtyp;
-
-            int maxSequenceNo = 0;
-            maxSequenceNo = new ErrorData().GetMaxSequenceNo(ProcessId, formtyp);
-            ////add row at next sequence 
-            data.ProcessID = ProcessId;
-            data.Error = string.Empty;
-            data.CycleTime = 0;
-            bool result = false;
-
-            result = new ErrorData().Save(data);  ////SaveInputData will dave input link in database table information input
-
-            if (result == true)  // if record is updated or inserted
-            {
-                ResetBinding(Convert.ToInt32(ViewState["FormType"]));
-                // pnlActivity.Visible = false;
-                //pnlAddForm.Visible = false;
-                pnlListPPESA.Visible = false;
-                pnlListErrorRecord.Visible = true;
-                //lnkbtnSaveForm.Visible = false;
-                lblMsg.Visible = true;
-                divErrorMsg.Visible = true;
-                lblMsg.Text = "Row added successfully";
-                lblMsg.Style.Add("color", "green");
-                divErrorMsg.Attributes.Add("class", "isa_success");
-
-                string cid = string.Empty;
-                if (Convert.ToInt32(ViewState["FormType"]) == 0)
-                    cid = lnkbtnViewPPESAForm.ClientID;
-                else if (Convert.ToInt32(ViewState["FormType"]) == 2)
-                    cid = lnkbtnErrorRecord.ClientID;
-                else
-                    cid = lnkbtnViewPDESAForm.ClientID;
-
-                string script2 = "actvieclassByid(" + cid + ")";
-                ScriptManager.RegisterStartupScript(this, this.GetType(),
-                              "script", script2, true);
-            }
-        }
-        if (e.CommandName == "Remove")
-        {
-            SaveRecord(true);
-            int errorID = Convert.ToInt32(e.CommandArgument);
-            new ErrorData().Delete(errorID);
-            ResetBinding(Convert.ToInt32(ViewState["FormType"]));
-            // pnlActivity.Visible = false;
-            //pnlAddForm.Visible = false;
-            pnlListPPESA.Visible = false;
-            pnlListErrorRecord.Visible = true;
-            //lnkbtnSaveForm.Visible = false;
-            lblMsg.Visible = true;
-            divErrorMsg.Visible = true;
-            lblMsg.Text = "Row deleted successfully";
-            lblMsg.Style.Add("color", "green");
-            divErrorMsg.Attributes.Add("class", "isa_success");
-
-            string cid = string.Empty;
-            if (Convert.ToInt32(ViewState["FormType"]) == 0)
-                cid = lnkbtnViewPPESAForm.ClientID;
-            else if (Convert.ToInt32(ViewState["FormType"]) == 2)
-                cid = lnkbtnErrorRecord.ClientID;
-            else
-                cid = lnkbtnViewPDESAForm.ClientID;
-
-            string script2 = "actvieclassByid(" + cid + ")";
-            ScriptManager.RegisterStartupScript(this, this.GetType(),
-                          "script", script2, true);
-        }
-    }
+    
 
 }

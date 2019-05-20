@@ -25,6 +25,24 @@ public class Activity
 
         return Convert.ToString(qry);
     }
+
+    public static List<string> FetchAttributelistForExport(string ReportName)
+    {
+        List<string> strAttributeName = new List<string>();
+        VisualERPDataContext Objdata = new VisualERPDataContext();
+        strAttributeName = (from c in Objdata.tbl_Reports
+                            where c.ReportName.ToLower() == ReportName.ToLower()
+                            select c.AttributeName).ToList();
+
+        return strAttributeName;
+    }
+    public static bool CheckIfReportExist(string ReportName)
+    {
+        VisualERPDataContext Objdata = new VisualERPDataContext();
+        return (from c in Objdata.tbl_Reports
+                where c.ReportName.ToLower() == ReportName.ToLower()
+                select c.ReportName).Count() > 0;
+    }
     public static string GetActivityNameByTargetObjId(int processObjId)
     {
         VisualERPDataContext Objdata = new VisualERPDataContext();
@@ -42,7 +60,7 @@ public class Activity
     /// <param name="Attributename">Attributename hold the Attribute name user entered in textbox</param>
     /// <param name="Attributeid">Attributeid hold Attribute id from base page</param>
     /// <returns>return tru and false </returns>
-    public static bool GetDuplicateCheck(string ProcessObjName, int ProcessObjID, int sourceType=1)
+    public static bool GetDuplicateCheck(string ProcessObjName, int ProcessObjID, int sourceType = 1)
     {
         VisualERPDataContext ObjData = new VisualERPDataContext();
         //countcountry will get AttributeName from table tbl_AttributesMenus on behalf of AttributeName
@@ -54,7 +72,7 @@ public class Activity
                                  && c.TargetObjID == ProcessObjID
                                   select c).ToList();
             return ActivityRecord.Count > 0 ? false : true;
-             
+
         }
         else
         {
@@ -103,7 +121,7 @@ public class Activity
     public static bool UpdateTargetActivityName(tbl_TargetObject data)
     {
         VisualERPDataContext ObjData = new VisualERPDataContext();
-        var qry = (from x in ObjData.tbl_TargetObjects 
+        var qry = (from x in ObjData.tbl_TargetObjects
                    where x.TargetObjID == data.TargetObjID
                    select x).FirstOrDefault();
 
@@ -164,7 +182,7 @@ public class Activity
         return false;
     }
 
-    public static tbl_Report Get1ReportByProcessID(bool inAsc,string SortBy,int poID)
+    public static tbl_Report Get1ReportByProcessID(bool inAsc, string SortBy, int poID)
     {
         VisualERPDataContext ObjData = new VisualERPDataContext();
         tbl_Report report = new tbl_Report();
@@ -201,7 +219,7 @@ public class Activity
     {
         VisualERPDataContext ObjData = new VisualERPDataContext();
         var qry = (from x in ObjData.tbl_Reports
-                   where x.ProcessID == poID 
+                   where x.ProcessID == poID
                    select new ListReportData
                    {
                        ReportID = x.ReportID,
@@ -230,8 +248,8 @@ public class Activity
         bool result = false;
         VisualERPDataContext ObjData = new VisualERPDataContext();
         var ReportVar = (from k in ObjData.tbl_Reports
-                           where k.ReportID == ReportID
-                           select k).ToList();
+                         where k.ReportID == ReportID
+                         select k).ToList();
         if (ReportVar.Count > 0)
         {
             // ObjData.
@@ -263,9 +281,9 @@ public class Activity
     /// <param name="ReportName">ReportName hold the report name user entered in textbox</param>
     /// <param name="ProcessID">ProcessID hold processid of report</param>
     /// <returns>return tru and false </returns>
-    public static bool GetDuplicateCheckReportName(string ReportName, int ProcessID,int ReportType,int editReportID=0)
+    public static bool GetDuplicateCheckReportName(string ReportName, int ProcessID, int ReportType, int editReportID = 0)
     {
-        VisualERPDataContext ObjData = new VisualERPDataContext();  
+        VisualERPDataContext ObjData = new VisualERPDataContext();
         if (editReportID > 0)
         {
             var ReportData = (from c in ObjData.tbl_Reports
@@ -298,7 +316,7 @@ public class Activity
         }
     }
 
-     
+
     public class ListReportData
     {
         public int ReportID { get; set; }
@@ -308,7 +326,7 @@ public class Activity
         public string ReportName { get; set; }
         public int? ReportType { get; set; }
         public string ReportTypeName { get; set; }
-        
+
     }
 
     public static int GetReportType(int ReportID)

@@ -63,7 +63,9 @@ public partial class ManageReport : BasePage
         ScriptManager.RegisterStartupScript(this, this.GetType(),
                       "ServerControlScript2", "test1();", true);
 
-        pnlActivity.Visible = false; pnlInventory.Visible = false;
+        pnlActivity.Visible = false;
+        pnlInventory.Visible = false;
+        pnlEror.Visible = false;
         pnlAttribute.Visible = false;
         pnlBomProcess.Visible = false;
         pnlAttributeReport.Visible = false;
@@ -75,7 +77,7 @@ public partial class ManageReport : BasePage
         pnlReportType.Visible = false;
         pnlListSavedReport.Visible = false;
         pnlTgtValueGap.Visible = false;
-
+        pnlErrorReport.Visible = false;
         lnkbtnSaveReport.Visible = false; //hide save button on load
         lnkbtnExporttoExcel.Visible = false; // hide export to excel button on load
         liSaveReport.Visible = false;
@@ -110,6 +112,20 @@ public partial class ManageReport : BasePage
                 Session["ActivityDictionary"] = activityDic; // it will hold dicectory of both activity and activity name in session
             }
         }
+        foreach (ListItem item in chkboxError.Items)
+        {
+            if (item.Selected)
+            {
+                activity.Add(Convert.ToInt32(item.Value));
+                activityName.Add(Convert.ToString(item.Text));
+                string acctivityname = Activity.GetActivityNameByProcessObjId(Convert.ToInt32(item.Value));
+                activityDic.Add(Convert.ToInt32(item.Value), acctivityname);
+                Session["Error"] = activity; // it hold activity id that is proess object id in session
+                Session["ErrorName"] = activityName; // it hold activity name that is process object name in session
+                Session["ErrorDictionary"] = activityDic; // it will hold dicectory of both activity and activity name in session
+            }
+        }
+
         foreach (ListItem item in chkboxInventory.Items)
         {
             if (item.Selected)
@@ -137,6 +153,15 @@ public partial class ManageReport : BasePage
             }
         }
 
+        foreach (ListItem item in chkboxErrorAttribute.Items)
+        {
+            if (item.Selected)
+            {
+
+                attribute.Add(Convert.ToString(item.Text)); // on page checkbox will get clear thats why we hold the checked items in list and session
+                Session["ErrorAttributeName"] = attribute;
+            }
+        }
 
         foreach (ListItem item in chkboxInventoryAttribute.Items)
         {
@@ -182,7 +207,9 @@ public partial class ManageReport : BasePage
                     if (lstData.Count != 0)
                     {
                         pnlListSavedReport.Visible = true; //saved report grid will show and other will hide
-                        pnlActivity.Visible = false; pnlInventory.Visible = false;
+                        pnlActivity.Visible = false;
+                        pnlInventory.Visible = false;
+                        pnlEror.Visible = false;
                         grdSavedReport.DataSource = lstData; // bind grid generic list as data source
                         grdSavedReport.DataBind();
 
@@ -199,7 +226,8 @@ public partial class ManageReport : BasePage
 
                         //*******************
                         pnlReportType.Visible = true;
-                        pnlActivity.Visible = false; pnlInventory.Visible = false;
+                        pnlActivity.Visible = false;
+                        pnlInventory.Visible = false;
                         pnlAttribute.Visible = false;
                         pnlBomProcess.Visible = false;
                         pnlAttributeReport.Visible = false;
@@ -251,8 +279,12 @@ public partial class ManageReport : BasePage
                 if (EditId == "btnNextToInventory") // maintain currentreport type of Inventory Report in session before click on linkbutton
                     Session["CurrentReport"] = (int)ReportTypeID.Inventory;
 
+                if (EditId == "btnNextToError") // maintain currentreport type of Inventory Report in session before click on linkbutton
+                    Session["CurrentReport"] = (int)ReportTypeID.Error;
+
                 BindActivityCheckboxList(Convert.ToInt32(mastertreeview.SelectedNode.Value)); // bind activity checkbox
                 BindInventoryCheckboxList(Convert.ToInt32(mastertreeview.SelectedNode.Value));
+                BindErrorCheckboxList(Convert.ToInt32(mastertreeview.SelectedNode.Value));
             }
             ProcessId = this.CInt32(mastertreeview.SelectedNode.Value);
             //Session["SelectedNodeValue"] = ProcessId;
@@ -272,13 +304,6 @@ public partial class ManageReport : BasePage
                 liPPESA.Visible = false; //this will hide PPESA report scorecard linkbutton from tree node that is not process
                 liPDESA.Visible = false; //this will hide PDESA report scorecard linkbutton from tree node that is not process
             }
-
-            // upto this 
-            //PanelReportType.Visible = true;
-            //pnlActivity.Visible = false; pnlInventory.Visible = false;
-            //pnlAttribute.Visible = false;
-            //pnlListSavedReport.Visible = false;
-
         }
         else if (Session["SelectedNodeValue"] != null)
         {
@@ -411,7 +436,9 @@ public partial class ManageReport : BasePage
         if (lstData.Count != 0)
         {
             pnlListSavedReport.Visible = true;
-            pnlActivity.Visible = false; pnlInventory.Visible = false;
+            pnlActivity.Visible = false;
+            pnlInventory.Visible = false;
+            pnlEror.Visible = false;
             grdSavedReport.DataSource = lstData;
             grdSavedReport.DataBind();
             pnlReportType.Visible = false; //*******************
@@ -424,7 +451,9 @@ public partial class ManageReport : BasePage
 
             //*******************
             pnlReportType.Visible = true;
-            pnlActivity.Visible = false; pnlInventory.Visible = false;
+            pnlActivity.Visible = false;
+            pnlInventory.Visible = false;
+            pnlEror.Visible = false;
             pnlAttribute.Visible = false;
             pnlBomProcess.Visible = false;
             pnlAttributeReport.Visible = false;
@@ -496,7 +525,35 @@ public partial class ManageReport : BasePage
             //divAttribute.Visible = false;
             chkSelectallInventory.Visible = false;
             btnNextToInventory.Visible = false;
-            chkboxActivity.Items.Clear();
+            chkboxInventory.Items.Clear();
+        }
+    }
+
+    public void BindErrorCheckboxList(int PoID)
+    {
+        List<ProcessData.ProcessDataProperty> Error = ProcessData.GetProcessObjErrors(PoID);
+
+        if (Error.Count != 0)
+        {
+            divAttribute.Visible = true;
+            //
+            activityNode.AddRange(Error);
+            //
+            chkboxError.DataSource = Error;
+            chkboxError.DataTextField = "ProcessObjectName"; // datatext field
+            chkboxError.DataValueField = "ProcessObjID"; // data value field
+            chkboxError.DataBind(); // bind checkboxlist            
+            btnNextToInventory.Visible = true;
+            headerTitleError.InnerText = "Select Error";
+            chkSelectallError.Visible = true;
+        }
+        else
+        {
+            headerTitleError.InnerText = "No Error found under this process";
+            //divAttribute.Visible = false;
+            chkSelectallError.Visible = false;
+            btnNextToInventory.Visible = false;
+            chkboxError.Items.Clear();
         }
     }
 
@@ -511,7 +568,9 @@ public partial class ManageReport : BasePage
         if (activity.Count > 0) // activity is list have checkbox selection items on page load
         {
             lblMsg.Text = "";
-            pnlActivity.Visible = false; pnlInventory.Visible = false;
+            pnlActivity.Visible = false;
+            pnlInventory.Visible = false;
+            pnlEror.Visible = false;
             pnlListSavedReport.Visible = false;
             pnlAttributeReport.Visible = false;
             pnlBomReport.Visible = false;
@@ -697,7 +756,30 @@ public partial class ManageReport : BasePage
                     chkboxInventoryAttribute.DataBind(); //binding chkboxInventoryAttribute 
                     pnlInventoryAttribute.Visible = true;
                 }
+                if (reporttyp == 9)
+                {
+                    for (int i = 0; i < activity.Count; i++)
+                    {
+                        int prcobjID = Convert.ToInt32(activity[i].ToString()); //proobjId is selected atctivity id
 
+
+                        attribute.AddRange(ProcessData.GetErrorObjAttributes(prcobjID));
+                        //List.AddRange(attribute);
+                        attribute.Select(x => x.AttributeName).Distinct();
+                        var DistinctItems = attribute.GroupBy(x => x.AttributeName).Select(y => y.First());
+                        // attribute= attribute.Distinct().ToList();
+
+                        if (attribute.Count != 0)
+                        {
+                            chkboxErrorAttribute.DataSource = DistinctItems;
+                        }
+                        //chkboxInventoryAttribute.DataSource = attribute;
+                    }
+                    chkboxErrorAttribute.DataTextField = "AttributeName"; // textfield
+                    chkboxErrorAttribute.DataValueField = "AttributeMenuID"; //value field
+                    chkboxErrorAttribute.DataBind(); //binding chkboxInventoryAttribute 
+                    pnlErrorAttribute.Visible = true;
+                }
                 //if (reporttyp == 5 || reporttyp == 6)
                 //{
                 //    for (int i = 0; i < activity.Count; i++)
@@ -748,7 +830,9 @@ public partial class ManageReport : BasePage
                 //show add report button
 
                 pnlReportType.Visible = true;
-                pnlActivity.Visible = false; pnlInventory.Visible = false;
+                pnlActivity.Visible = false;
+                pnlInventory.Visible = false;
+                pnlEror.Visible = false;
                 pnlAttribute.Visible = false;
                 pnlBomProcess.Visible = false;
                 pnlAttributeReport.Visible = false;
@@ -796,7 +880,9 @@ public partial class ManageReport : BasePage
         if (attribute.Count > 0) // activity is list have checkbox selection items on page load
         {
             pnlAttribute.Visible = false;
-            pnlActivity.Visible = false; pnlInventory.Visible = false;
+            pnlActivity.Visible = false;
+            pnlInventory.Visible = false;
+            pnlEror.Visible = false;
             pnlAttributeReport.Visible = true; // attribute report panel will display others will be hide
             pnlListSavedReport.Visible = false;
             txtAttributeReportName.Text = "";
@@ -826,7 +912,9 @@ public partial class ManageReport : BasePage
             divErrorMsg.Attributes.Add("class", "isa_error");
 
             pnlAttribute.Visible = true;
-            pnlActivity.Visible = false; pnlInventory.Visible = false;
+            pnlActivity.Visible = false;
+            pnlInventory.Visible = false;
+            pnlEror.Visible = false;
             pnlListSavedReport.Visible = false;
             pnlReportType.Visible = false;
         }
@@ -840,6 +928,7 @@ public partial class ManageReport : BasePage
             pnlAttribute.Visible = false;
             pnlActivity.Visible = false;
             pnlInventory.Visible = false;
+            pnlEror.Visible = false;
             pnlInventoryReport.Visible = true; // attribute report panel will display others will be hide
             pnlListSavedReport.Visible = false;
             txtInventoryAttributeReportName.Text = "";
@@ -871,6 +960,54 @@ public partial class ManageReport : BasePage
             pnlAttribute.Visible = false;
             pnlActivity.Visible = false;
             pnlInventory.Visible = false;
+            pnlEror.Visible = false;
+            pnlListSavedReport.Visible = false;
+            pnlReportType.Visible = false;
+        }
+
+    }
+
+    protected void btnNextToErrorAttribute_Click(object sender, EventArgs e)
+    {
+        if (attribute.Count > 0) // activity is list have checkbox selection items on page load
+        {
+            pnlAttribute.Visible = false;
+            pnlActivity.Visible = false;
+            pnlInventory.Visible = false;
+            pnlEror.Visible = false;
+            pnlInventoryReport.Visible = false;
+            pnlErrorReport.Visible = true;
+            pnlListSavedReport.Visible = false;
+            txtErrorAttributeReportName.Text = "";
+            lblMsg.Text = "";
+            GetErrorAttributeReportData(attribute);
+            lnkbtnSaveReport.Visible = true;
+            if (RoleID == 4)
+            {
+                lnkbtnSaveReport.Visible = false;
+                txtAttributeReportName.Visible = false;
+            }
+            liSaveReport.Visible = true;
+            pnlReportType.Visible = false;
+        }
+        else
+        {
+            lblMsg.Visible = true;
+            divErrorMsg.Visible = true;
+            lblMsg.Text = "Please select at least one Attribute.";
+            lblMsg.Style.Add("color", "red");
+            divErrorMsg.Style.Add("min-width", "231px");
+            divErrorMsg.Style.Add("margin-right", "470px");
+            divErrorMsg.Style.Add("margin-left", "0px");
+            divErrorMsg.Style.Add("float", "right");
+            divErrorMsg.Style.Add("margin-left", "0px");
+            divErrorMsg.Style.Add("padding", "7px 14px 0px 17px");
+            divErrorMsg.Attributes.Add("class", "isa_error");
+            pnlErrorReport.Visible = false;
+            pnlAttribute.Visible = false;
+            pnlActivity.Visible = false;
+            pnlInventory.Visible = false;
+            pnlEror.Visible = false;
             pnlListSavedReport.Visible = false;
             pnlReportType.Visible = false;
         }
@@ -887,7 +1024,9 @@ public partial class ManageReport : BasePage
         if (bomProcessID.Count > 0) // activity is list have checkbox selection items on page load
         {
             pnlBomProcess.Visible = false;
-            pnlActivity.Visible = false; pnlInventory.Visible = false;
+            pnlActivity.Visible = false;
+            pnlInventory.Visible = false;
+            pnlEror.Visible = false;
             pnlListSavedReport.Visible = false;
             pnlBomReport.Visible = true;
             pnlTFGReport.Visible = false;
@@ -921,7 +1060,9 @@ public partial class ManageReport : BasePage
             divErrorMsg.Attributes.Add("class", "isa_error");
 
             pnlBomProcess.Visible = true;
-            pnlActivity.Visible = false; pnlInventory.Visible = false;
+            pnlActivity.Visible = false;
+            pnlInventory.Visible = false;
+            pnlEror.Visible = false;
             pnlListSavedReport.Visible = false;
             pnlBomReport.Visible = false;
         }
@@ -1272,7 +1413,10 @@ public partial class ManageReport : BasePage
         {
             item.Selected = false;
         }
-
+        foreach (ListItem item in chkboxError.Items)
+        {
+            item.Selected = false;
+        }
         foreach (ListItem item in chkboxAttribute.Items)
         {
             item.Selected = false;
@@ -1288,11 +1432,11 @@ public partial class ManageReport : BasePage
             item.Selected = false;
         }
 
-
+        pnlErrorReport.Visible = false;
         pnlReportType.Visible = true;
         pnlActivity.Visible = false; pnlInventory.Visible = false;
         pnlAttribute.Visible = false;
-        pnlBomProcess.Visible = false;
+        pnlBomProcess.Visible = false; pnlEror.Visible = false;
         pnlAttributeReport.Visible = false;
         pnlBomReport.Visible = false;
         pnlTFGReport.Visible = false;
@@ -1302,6 +1446,7 @@ public partial class ManageReport : BasePage
         pnlListSavedReport.Visible = false;
         divErrorMsg.Visible = false;
         pnlInventoryAttribute.Visible = false;
+        pnlErrorAttribute.Visible = false;
         this.IsEdit = false;
 
     }
@@ -1651,6 +1796,69 @@ public partial class ManageReport : BasePage
                     SetErrorMessage();
                 }
             }
+
+            if (reporttyp == 9)
+            {
+                //        Session["Error"]
+                //Session["ErrorName"]
+                //Session["ErrorDictionary"]
+                if (Activity.GetDuplicateCheckReportName(txtErrorAttributeReportName.Text.Trim(), ProcessId, (int)ReportTypeID.Attribute, Convert.ToInt32(ViewState["ReportEditID"])))
+                {
+                    tbl_Report reportdata = new tbl_Report();
+                    string activityID = string.Empty;
+                    string attName = string.Empty;
+                    if (Session["Error"] != null)
+                    {
+                        activity = (List<int>)Session["Error"]; // getting activity id from session that are selected           
+
+                        for (int i = 0; i < activity.Count; i++)
+                        {
+                            activityID += activity[i].ToString() + ",";
+                        }
+
+                        reportdata.ProcessObjID = activityID.ToString();
+                    }
+
+                    if (Session["ErrorAttributeName"] != null)
+                    {
+                        attribute = (List<string>)Session["ErrorAttributeName"]; // getting activity id from session that are selected           
+
+                        for (int i = 0; i < attribute.Count; i++)
+                        {
+                            attName += attribute[i].ToString() + ",";
+                        }
+
+                        reportdata.AttributeName = attName.ToString();
+                        reportdata.ReportTypeID = (int)ReportTypeID.Error;
+                    }
+
+                    if (Session["SelectedNodeValue"] != null)
+                    {
+                        ProcessId = Convert.ToInt32(Session["SelectedNodeValue"]); // getting activity id from session that are selected 
+                        reportdata.ProcessID = ProcessId;
+                        reportdata.ReportName = txtErrorAttributeReportName.Text;
+                        if (this.IsEdit == true)
+                        {
+                            reportdata.ReportID = EditIDINT;
+                        }
+                    }
+
+                    var listData = Activity.SaveReportData(reportdata);
+                    if (listData == true)
+                    {
+                        pnlAttributeReport.Visible = false;
+                        pnlTFGReport.Visible = false;
+                        pnlListSavedReport.Visible = true;
+                        pnlErrorReport.Visible = false;
+                        SetSaveMessage();
+
+                    }
+                }
+                else
+                {
+                    SetErrorMessage();
+                }
+            }
             BindSavedReportGrid(ProcessId);
             this.IsEdit = false;
         }
@@ -1962,7 +2170,7 @@ public partial class ManageReport : BasePage
                 this.IsEdit = true;
 
             }
-           
+
             if (reportTyp == 8)
             {
                 Session["CurrentReport"] = reportTyp;
@@ -1996,13 +2204,46 @@ public partial class ManageReport : BasePage
                 pnlInventoryReport.Visible = true;
                 this.IsEdit = true;
             }
+            if (reportTyp == 9)
+            {
+                Session["CurrentReport"] = reportTyp;
+                string ProcessObjID = row.ProcessObjID; // processObj ID in string 
+                string AttributeName = row.AttributeName; // attributes name in string 
+                string ReportName = row.ReportName;    // get report name
+
+                string[] activityItem = ProcessObjID.Split(','); //split menthod that will split processobID
+                string[] attributeItem = AttributeName.Split(',');
+                for (int p = 0; p < activityItem.Length - 1; p++)
+                {
+                    activity.Add(Convert.ToInt32(activityItem[p])); // getting processobID in list activity list<int>
+                    Session["Error"] = activity;
+                    string acctivityname = Activity.GetActivityNameByProcessObjId(Convert.ToInt32(activityItem[p]));
+                    activityDic.Add(Convert.ToInt32(activityItem[p]), acctivityname);
+                }
+                Session["ErrorDictionary"] = activityDic;
+                attribute.Clear();
+                for (int q = 0; q < attributeItem.Length - 1; q++) // getting attributesName in list attributes list<string>
+                {
+                    attribute.Add(Convert.ToString(attributeItem[q]));
+                    Session["ErrorAttributeName"] = attribute;
+                }
+
+                GetErrorAttributeReportData(attribute); // it will get report for selected reportID
+                txtErrorAttributeReportName.Text = ReportName;
+                pnlBomReport.Visible = false;
+                pnlTFGReport.Visible = false;
+                pnlAttributeReport.Visible = false;
+                pnlInventoryReport.Visible = false;
+                pnlErrorReport.Visible = true;
+                this.IsEdit = true;
+            }
         }
         else
         {
             // no relavent data found to this report ID
         }
         pnlActivity.Visible = false; pnlInventory.Visible = false;
-        pnlAttribute.Visible = false;
+        pnlAttribute.Visible = false; pnlEror.Visible = false;
         pnlBomProcess.Visible = false;
         pnlListSavedReport.Visible = false;
         lnkbtnSaveReport.Visible = true;
@@ -2093,7 +2334,7 @@ public partial class ManageReport : BasePage
         {
             pnlActivity.Visible = false; pnlInventory.Visible = false;
             pnlReportType.Visible = false;
-            pnlAttribute.Visible = false;
+            pnlAttribute.Visible = false; pnlEror.Visible = false;
             pnlBomProcess.Visible = false;
             pnlAttributeReport.Visible = false;
             pnlBomReport.Visible = false;
@@ -2119,7 +2360,7 @@ public partial class ManageReport : BasePage
         if (ProcessId != 0) // if process is selected activity block will display
         {
             pnlActivity.Visible = false;
-            pnlInventory.Visible = true;
+            pnlInventory.Visible = true; pnlEror.Visible = false;
             pnlReportType.Visible = false;
             pnlAttribute.Visible = false;
             pnlBomProcess.Visible = false;
@@ -2133,6 +2374,49 @@ public partial class ManageReport : BasePage
         }
         else
         {
+            pnlActivity.Visible = false;
+            pnlInventory.Visible = false; pnlEror.Visible = false;
+            pnlReportType.Visible = false;
+            pnlAttribute.Visible = false;
+            pnlBomProcess.Visible = false;
+            pnlAttributeReport.Visible = false;
+            pnlBomReport.Visible = false;
+            pnlTFGReport.Visible = false;
+            pnlESAReport.Visible = false;
+            pnlListSavedReport.Visible = false;
+            lblMsg.Visible = true;
+            divErrorMsg.Visible = true;
+            lblMsg.Text = "Please choose the process.!";
+            lblMsg.Style.Add("color", "red");
+            divErrorMsg.Style.Add("min-width", "194px");
+            divErrorMsg.Style.Add("margin-left", "554px");
+            divErrorMsg.Attributes.Add("class", "isa_warning");
+        }
+        this.IsEdit = false;
+    }
+
+    protected void btnTgtErrorReport_Click(object sender, EventArgs e)
+    {
+        Session["CurrentReport"] = (int)ReportTypeID.Error;
+
+        if (ProcessId != 0) // if process is selected activity block will display
+        {
+            pnlActivity.Visible = false;
+            pnlInventory.Visible = false;
+            pnlReportType.Visible = false;
+            pnlAttribute.Visible = false;
+            pnlBomProcess.Visible = false;
+            pnlAttributeReport.Visible = false;
+            pnlBomReport.Visible = false;
+            pnlTFGReport.Visible = false;
+            pnlESAReport.Visible = false;
+            pnlListSavedReport.Visible = false;
+            divErrorMsg.Visible = false;
+            pnlEror.Visible = true;
+        }
+        else
+        {
+            pnlEror.Visible = false;
             pnlActivity.Visible = false;
             pnlInventory.Visible = false;
             pnlReportType.Visible = false;
@@ -2154,7 +2438,6 @@ public partial class ManageReport : BasePage
         this.IsEdit = false;
     }
 
-
     protected void lnkBtnBOMReport_Click(object sender, EventArgs e)
     {
         Session["CurrentReport"] = (int)ReportTypeID.Bom;
@@ -2175,7 +2458,7 @@ public partial class ManageReport : BasePage
         else
         {
             pnlActivity.Visible = false; pnlInventory.Visible = false;
-            pnlReportType.Visible = false;
+            pnlReportType.Visible = false; pnlEror.Visible = false;
             pnlAttribute.Visible = false;
             pnlBomProcess.Visible = false;
             pnlAttributeReport.Visible = false;
@@ -2215,7 +2498,7 @@ public partial class ManageReport : BasePage
         {
             pnlActivity.Visible = false; pnlInventory.Visible = false;
             pnlReportType.Visible = false;
-            pnlAttribute.Visible = false;
+            pnlAttribute.Visible = false; pnlEror.Visible = false;
             pnlBomProcess.Visible = false;
             pnlAttributeReport.Visible = false;
             pnlBomReport.Visible = false;
@@ -2256,7 +2539,7 @@ public partial class ManageReport : BasePage
         {
             pnlActivity.Visible = false; pnlInventory.Visible = false;
             pnlReportType.Visible = false;
-            pnlAttribute.Visible = false;
+            pnlAttribute.Visible = false; pnlEror.Visible = false;
             pnlBomProcess.Visible = false;
             pnlAttributeReport.Visible = false;
             pnlBomReport.Visible = false;
@@ -2586,19 +2869,48 @@ public partial class ManageReport : BasePage
                     excelReportName = "Inventory Report";
                 }
                 List<InventoryReportFields> objInventoryReportFields = new List<InventoryReportFields>();
-                attribute.Clear();
-                foreach (TableCell cell in GridInventoryReport.HeaderRow.Cells)
-                {
-                    dt.Columns.Add(cell.Text.Trim());
-                    if(cell.Text.Trim()=="Inventory")
-                    {
 
-                    }
-                    else
+
+                bool IsReportExist = Activity.CheckIfReportExist(excelReportName);
+                if (IsReportExist)
+                {
+                    attribute.Clear();
+                    attribute = Activity.FetchAttributelistForExport(excelReportName);
+                    dt.Columns.Add("Inventory");
+
+                    foreach (var row in attribute)
                     {
-                        attribute.Add(cell.Text.Trim());
+                        if (row.Contains(','))
+                        {
+                            string[] words;
+                            words = row.Split(new string[] { "," }, StringSplitOptions.None);
+                            foreach (var obj in words)
+                            {
+                                if (obj != "")
+                                {
+                                    dt.Columns.Add(obj);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            string AttrName = row.EndsWith(",") ? row.Substring(0, row.Length - 1) : row;
+                            dt.Columns.Add(AttrName.Trim());
+                        }
                     }
                 }
+                else
+                {
+                    dt.Columns.Add("Inventory");
+                    foreach (var SelectedAttrName in attribute)
+                    {
+
+                        dt.Columns.Add(SelectedAttrName.Trim());
+
+                    }
+                }
+
+
                 objInventoryReportFields.AddRange(GetInventoryAttributeReportDataForExport(attribute));
 
 
@@ -2606,15 +2918,141 @@ public partial class ManageReport : BasePage
                 {
                     DataRow row = dt.NewRow();
 
+                    if (prop.Inventory != "")
+                        row["Inventory"] = prop.Inventory;
 
-                    row["Inventory"] = prop.Inventory;
-                    row["CT"] = prop.CT;
-                    row["Time"] = prop.Time;
-                    row["$"] = prop.Dollar;
+                    if (prop.CT != "")
+                        row["CT"] = prop.CT;
+
+                    if (prop.Time != "")
+                        row["Time"] = prop.Time;
+
+                    if (prop.Dollar != "")
+                        row["$"] = prop.Dollar;
 
                     dt.Rows.Add(row); // datatable row has been created here 
                 }
             }
+
+            if (reporttyp == 9)
+            {
+                if (txtErrorAttributeReportName.Text != "")
+                {
+                    excelReportName = txtErrorAttributeReportName.Text;
+                }
+                else
+                {
+                    excelReportName = "Error Report";
+                }
+                List<ErrorReportFields> objErrorReportFields = new List<ErrorReportFields>();
+
+                bool IsReportExist = Activity.CheckIfReportExist(excelReportName);
+                if (IsReportExist)
+                {
+                    attribute.Clear();
+                    attribute = Activity.FetchAttributelistForExport(excelReportName);
+                    dt.Columns.Add("ErrorName");
+
+                    foreach (var row in attribute)
+                    {
+                        if (row.Contains(','))
+                        {
+                            string[] words;
+                            words = row.Split(new string[] { "," }, StringSplitOptions.None);
+                            foreach (var SelectedAttrName in words)
+                            {
+                                if (SelectedAttrName != "")
+                                {
+                                    if (SelectedAttrName.Trim() == "CycleTime")
+                                    {
+                                        dt.Columns.Add("Cycle Time");
+                                    }
+                                    if (SelectedAttrName.Trim() == "WorkContent")
+                                    {
+                                        dt.Columns.Add("Work Content");
+                                    }
+                                    if (SelectedAttrName.Trim() == "CounterMeasure")
+                                    {
+                                        dt.Columns.Add("Counter Measure");
+                                    }
+                                    if (SelectedAttrName.Trim() == "CounterMeasureStrength")
+                                    {
+                                        dt.Columns.Add("Counter Measure Strength");
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            string SelectedAttrName = row.EndsWith(",") ? row.Substring(0, row.Length - 1) : row;
+                            if (SelectedAttrName.Trim() == "CycleTime")
+                            {
+                                dt.Columns.Add("Cycle Time");
+                            }
+                            if (SelectedAttrName.Trim() == "WorkContent")
+                            {
+                                dt.Columns.Add("Work Content");
+                            }
+                            if (SelectedAttrName.Trim() == "CounterMeasure")
+                            {
+                                dt.Columns.Add("Counter Measure");
+                            }
+                            if (SelectedAttrName.Trim() == "CounterMeasureStrength")
+                            {
+                                dt.Columns.Add("Counter Measure Strength");
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    dt.Columns.Add("ErrorName");
+                    foreach (var SelectedAttrName in attribute)
+                    {
+                        if (SelectedAttrName.Trim() == "CycleTime")
+                        {
+                            dt.Columns.Add("Cycle Time");
+                        }
+                        if (SelectedAttrName.Trim() == "WorkContent")
+                        {
+                            dt.Columns.Add("Work Content");
+                        }
+                        if (SelectedAttrName.Trim() == "CounterMeasure")
+                        {
+                            dt.Columns.Add("Counter Measure");
+                        }
+                        if (SelectedAttrName.Trim() == "CounterMeasureStrength")
+                        {
+                            dt.Columns.Add("Counter Measure Strength");
+                        }
+                    }
+                }
+
+                objErrorReportFields.AddRange(GetErrorAttributeReportDataForExport(attribute));
+
+                foreach (ErrorReportFields prop in objErrorReportFields)
+                {
+                    DataRow row = dt.NewRow();
+
+                    if (prop.CounterMeasure != "")
+                        row["Counter Measure"] = prop.CounterMeasure;
+
+                    if (prop.CounterMeasureStrength != "")
+                        row["Counter Measure Strength"] = prop.CounterMeasureStrength;
+
+                    if (prop.CycleTime != "")
+                        row["Cycle Time"] = prop.CycleTime;
+
+                    if (prop.ErrorName != "")
+                        row["ErrorName"] = prop.ErrorName;
+
+                    if (prop.WorkContent != "")
+                        row["Work Content"] = prop.WorkContent;
+
+                    dt.Rows.Add(row); // datatable row has been created here 
+                }
+            }
+
 
             //"+ excelReportName +" + DateTime.Now.ToString("hh-mm-ss") + ".xlsx"
 
@@ -2800,7 +3238,7 @@ public partial class ManageReport : BasePage
         else    //else no process selected
         {
             pnlActivity.Visible = false; pnlInventory.Visible = false;
-            pnlReportType.Visible = false;
+            pnlReportType.Visible = false; pnlEror.Visible = false;
             pnlAttribute.Visible = false;
             pnlBomProcess.Visible = false;
             pnlAttributeReport.Visible = false;
@@ -3136,7 +3574,7 @@ public partial class ManageReport : BasePage
             ColumnName = ColumnName.TrimEnd(',');
             string query = "SELECT PO.ProcessObjID,PO.ProcessObjID,ProcessObjName as Inventory," + ColumnName + " " +
                            " FROM tbl_ProcessObject PO " +
-                           " LEFT JOIN[dbo].[tbl_InvantoryTriangle] " +
+                           " LEFT JOIN [dbo].[tbl_InvantoryTriangle] " +
                            " IT ON PO.ProcessObjID = IT.ProcessObjID " +
                            " WHERE PO.ProcessObjID IN (" + middle + ") " +
                            " ORDER BY PO.ProcessObjName";
@@ -3218,6 +3656,139 @@ public partial class ManageReport : BasePage
     }
 
 
+    List<ErrorReportFields> objErrorReportFields = new List<ErrorReportFields>();
+    public void GetErrorAttributeReportData(List<string> ObjAttribute)
+    {
+        VisualERPDataContext Objdata = new VisualERPDataContext();
+
+        string attributeName = "";
+        // var getRecord;
+        if (Session["ErrorDictionary"] != null)
+        {
+            activityDic = (Dictionary<int, string>)Session["ErrorDictionary"];
+            // for multiple activities
+
+            string middle = string.Empty;
+
+            for (int i = 0; i < activityDic.Count; i++)
+            {
+                int actID = Convert.ToInt32(activityDic.ElementAt(i).Key);
+
+                string str = Convert.ToString(activityDic.ElementAt(i).Value);
+
+                if (i == 0)
+                {
+
+                    middle = "'" + actID.ToString() + "',";
+                }
+                else
+                {
+                    middle += "'" + actID.ToString() + "',";
+                }
+            }
+            middle = middle.TrimEnd(',');
+            string ColumnName = string.Empty;
+            foreach (var objAttr in ObjAttribute)
+            {
+
+                ColumnName += "EI." + objAttr + ",";
+
+            }
+            ColumnName = ColumnName.TrimEnd(',');
+            string query = "SELECT PO.ProcessObjID, PO.ProcessObjID, Error as ErrorName," + ColumnName + " " +
+                           " FROM tbl_ProcessObject PO  LEFT JOIN ErrorInfos EI ON PO.ProcessObjID = EI.ProcessID" +
+                           " WHERE PO.ProcessObjID IN (" + middle + ") " +
+                           " ORDER BY PO.ProcessObjName";
+
+            // Declare the query string.
+            // Run the query and bind the resulting DataSet
+            // to the GridView control.
+            DataSet ds = GetData(query);
+            DataTable dt = new DataTable();
+            dt = ds.Tables[0];
+            DataColumnCollection columns = dt.Columns;
+
+
+            objErrorReportFields = (from DataRow dr in dt.Rows
+                                    select new ErrorReportFields()
+                                    {
+                                        ErrorName = dr["ErrorName"].ToString(),
+                                        CounterMeasureStrength = (!columns.Contains("CounterMeasureStrength")) ? "" : dr["CounterMeasureStrength"].ToString(),
+                                        CycleTime = (!columns.Contains("CycleTime")) ? "" : dr["CycleTime"].ToString(),
+                                        CounterMeasure = (!columns.Contains("CounterMeasure")) ? "" : dr["CounterMeasure"].ToString(),
+                                        WorkContent = (!columns.Contains("WorkContent")) ? "" : dr["WorkContent"].ToString(),
+                                    }).ToList();
+            foreach (var item in objErrorReportFields)
+            {
+                if (item.WorkContent == "")
+                {
+                    GridErrorReport.Columns[2].Visible = false;
+                }
+                else
+                {
+                    GridErrorReport.Columns[2].Visible = true;
+                }
+
+                if (item.CycleTime == "")
+                {
+                    GridErrorReport.Columns[1].Visible = false;
+                }
+                else
+                {
+                    GridErrorReport.Columns[1].Visible = true;
+                }
+
+                if (item.CounterMeasureStrength == "")
+                {
+                    GridErrorReport.Columns[4].Visible = false;
+                }
+                else
+                {
+                    GridErrorReport.Columns[4].Visible = true;
+                }
+
+                if (item.CounterMeasure == "")
+                {
+                    GridErrorReport.Columns[3].Visible = false;
+                }
+                else
+                {
+                    GridErrorReport.Columns[3].Visible = true;
+                }
+            }
+
+
+            if (objErrorReportFields.Count > 0)
+            {
+                GridErrorReport.DataSource = objErrorReportFields;
+                GridErrorReport.DataBind();
+
+                pnlListSavedReport.Visible = false;
+                divErrorMsg.Visible = true;
+                lnkbtnSaveReport.Visible = true;
+                if (RoleID == 4)
+                {
+                    lnkbtnSaveReport.Visible = false;
+                    txtAttributeReportName.Visible = false;
+                }
+                pnlInventoryReport.Visible = false;
+                pnlErrorAttribute.Visible = false;
+                lnkbtnExporttoExcel.Visible = true;
+                liSaveReport.Visible = false;
+                liExporttoExcel.Visible = true;
+                pnlInventoryAttribute.Visible = false;
+                pnlErrorReport.Visible = true;
+            }
+            else
+            {
+                lnkbtnExporttoExcel.Visible = false;
+                liExporttoExcel.Visible = false;
+                //Message.Text = "Unable to connect to the database.";
+            }
+        }
+    }
+
+
     public List<InventoryReportFields> GetInventoryAttributeReportDataForExport(List<string> ObjAttribute)
     {
         VisualERPDataContext Objdata = new VisualERPDataContext();
@@ -3249,15 +3820,41 @@ public partial class ManageReport : BasePage
             }
             middle = middle.TrimEnd(',');
             string ColumnName = string.Empty;
+
+
             foreach (var objAttr in ObjAttribute)
             {
-                if (objAttr == "$")
+                if (objAttr.Contains(','))
                 {
-                    ColumnName += "IT.Doller,";
+                    string[] words;
+                    words = objAttr.Split(new string[] { "," }, StringSplitOptions.None);
+                    foreach (var obj in words)
+                    {
+                        if (obj != "")
+                        {
+                            if (obj == "$")
+                            {
+                                ColumnName += "IT.Doller,";
+                            }
+                            else
+                            {
+                                ColumnName += "IT." + obj + ",";
+                            }
+                        }
+                    }
                 }
                 else
                 {
-                    ColumnName += "IT." + objAttr + ",";
+
+
+                    if (objAttr == "$")
+                    {
+                        ColumnName += "IT.Doller,";
+                    }
+                    else
+                    {
+                        ColumnName += "IT." + objAttr + ",";
+                    }
                 }
             }
             ColumnName = ColumnName.TrimEnd(',');
@@ -3293,6 +3890,79 @@ public partial class ManageReport : BasePage
         return objInventoryReportFields;
     }
 
+
+    public List<ErrorReportFields> GetErrorAttributeReportDataForExport(List<string> ObjAttribute)
+    {
+        VisualERPDataContext Objdata = new VisualERPDataContext();
+
+        string attributeName = "";
+        // var getRecord;
+        if (Session["ErrorDictionary"] != null)
+        {
+            activityDic = (Dictionary<int, string>)Session["ErrorDictionary"];
+            // for multiple activities
+
+            string middle = string.Empty;
+
+            for (int i = 0; i < activityDic.Count; i++)
+            {
+                int actID = Convert.ToInt32(activityDic.ElementAt(i).Key);
+
+                string str = Convert.ToString(activityDic.ElementAt(i).Value);
+
+                if (i == 0)
+                {
+
+                    middle = "'" + actID.ToString() + "',";
+                }
+                else
+                {
+                    middle += "'" + actID.ToString() + "',";
+                }
+            }
+            middle = middle.TrimEnd(',');
+            string ColumnName = string.Empty;
+            foreach (var objAttr in ObjAttribute)
+            {
+                if (objAttr != "S No.")
+                {
+                    ColumnName += "EI." + Regex.Replace(objAttr, @"\s", "") + ",";
+
+                }
+
+            }
+            ColumnName = ColumnName.TrimEnd(',');
+            string query = "SELECT PO.ProcessObjID, PO.ProcessObjID, Error as ErrorName," + ColumnName + " " +
+                           " FROM tbl_ProcessObject PO  LEFT JOIN ErrorInfos EI ON PO.ProcessObjID = EI.ProcessID" +
+                           " WHERE PO.ProcessObjID IN (" + middle + ") " +
+                           " ORDER BY PO.ProcessObjName";
+
+            // Declare the query string.
+            // Run the query and bind the resulting DataSet
+            // to the GridView control.
+            DataSet ds = GetData(query);
+            DataTable dt = new DataTable();
+            dt = ds.Tables[0];
+            DataColumnCollection columns = dt.Columns;
+
+
+            objErrorReportFields = (from DataRow dr in dt.Rows
+                                    select new ErrorReportFields()
+                                    {
+                                        ErrorName = dr["ErrorName"].ToString(),
+                                        CounterMeasureStrength = (!columns.Contains("CounterMeasureStrength")) ? "" : dr["CounterMeasureStrength"].ToString(),
+                                        CycleTime = (!columns.Contains("CycleTime")) ? "" : dr["CycleTime"].ToString(),
+                                        CounterMeasure = (!columns.Contains("CounterMeasure")) ? "" : dr["CounterMeasure"].ToString(),
+                                        WorkContent = (!columns.Contains("WorkContent")) ? "" : dr["WorkContent"].ToString(),
+                                    }).ToList();
+
+
+
+
+        }
+        return objErrorReportFields;
+    }
+
     public class SummaryDetail
     {
         public string AttributeName { get; set; }
@@ -3311,9 +3981,17 @@ public partial class ManageReport : BasePage
     public class InventoryReportFields
     {
         public string Inventory { get; set; }
-        // public int AttributeValueResult { get; set; }
         public string Dollar { get; set; }
         public string CT { get; set; }
         public string Time { get; set; }
+    }
+
+    public class ErrorReportFields
+    {
+        public string ErrorName { get; set; }
+        public string CycleTime { get; set; }
+        public string WorkContent { get; set; }
+        public string CounterMeasure { get; set; }
+        public string CounterMeasureStrength { get; set; }
     }
 }

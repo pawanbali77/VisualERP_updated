@@ -120,7 +120,7 @@ public partial class ProcessManager : System.Web.UI.Page
             if (ViewState["SelectedValue"] != null)
                 sV = Convert.ToInt32(ViewState["SelectedValue"]);
 
-            var listData =  ControlsData.GetAllProcessControlData(ProcessId); // get all controls record from database
+            var listData = ControlsData.GetAllProcessControlData(ProcessId); // get all controls record from database
 
             if (listData.Count != 0)
             {
@@ -254,7 +254,7 @@ public partial class ProcessManager : System.Web.UI.Page
                 int maxwidth = maxHeightnWidth.Max(a => a.Width);
                 //find height for max top value from list maxtopProcess
                 int maxheight = maxHeightnWidth.Max(a => a.Height);
-                
+
                 hdnWidth.Value = Convert.ToString(maxwidth);
                 hdnheight.Value = Convert.ToString(maxheight);
             }
@@ -327,7 +327,16 @@ public partial class ProcessManager : System.Web.UI.Page
                 PopupModelTFG.Hide();
             }
         }
-
+        if (strAction == "ErrorReport")
+        {
+            ModelPopupErrorReportUC1.ProcessObjectId = Convert.ToInt32(strProcessObjectId);
+            AjaxControlToolkit.ModalPopupExtender PopupModelErrorReport = (AjaxControlToolkit.ModalPopupExtender)ModelPopupErrorReportUC1.FindControl("ModelErrorReport");
+            PopupModelErrorReport.Show();
+            if (RoleID == 4)
+            {
+                PopupModelErrorReport.Hide();
+            }
+        }
         if (strAction == "Machine")
         {
             ModelPopupMchUC1.ProcessObjectId = Convert.ToInt32(strProcessObjectId);
@@ -794,7 +803,7 @@ public partial class ProcessManager : System.Web.UI.Page
         bool result = false;
         result = ProcessData.SaveProcessObject(ProcessObj);
         VisualERPDataContext ObjData = new VisualERPDataContext();
-        ObjData.SP_BulkInsertAttribute(this.CInt32(ViewState["ProcessObjID"]), ProcessId,1);
+        ObjData.SP_BulkInsertAttribute(this.CInt32(ViewState["ProcessObjID"]), ProcessId, 1);
         if (result == true)
         {
             lst.Clear();

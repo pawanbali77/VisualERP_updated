@@ -11,7 +11,7 @@ public class TFGData
     #region
     VisualERPDataContext ObjData = new VisualERPDataContext();
     #endregion
-
+    
     public TFGData()
     {
         //

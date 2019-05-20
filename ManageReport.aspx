@@ -31,8 +31,7 @@
             location.reload();
         }
 
-    </script>
-    <script type="text/javascript">
+
         function Selectall(chkAllAttributes) {
             if ($(chkAllAttributes).is(":checked")) {
                 $("[id*=chkboxAttribute] input").attr("checked", "checked");
@@ -40,8 +39,7 @@
                 $("[id*=chkboxAttribute] input").removeAttr("checked");
             }
         }
-    </script>
-    <script type="text/javascript">
+
         function InventorySelectall(chkAllInventoryAttributes) {
             if ($(chkAllInventoryAttributes).is(":checked")) {
                 $("[id*=chkboxInventoryAttribute] input").attr("checked", "checked");
@@ -49,9 +47,15 @@
                 $("[id*=chkboxInventoryAttribute] input").removeAttr("checked");
             }
         }
-    </script>
 
-    <script type="text/javascript">
+        function ErrorSelectall(chkAllErrorAttributes) {
+            if ($(chkAllErrorAttributes).is(":checked")) {
+                $("[id*=chkboxErrorAttribute] input").attr("checked", "checked");
+            } else {
+                $("[id*=chkboxErrorAttribute] input").removeAttr("checked");
+            }
+        }
+
         function SelectallActivity(chkSelectAllActivity) {
 
             if ($(chkSelectAllActivity).is(":checked")) {
@@ -60,9 +64,7 @@
                 $("[id*=chkboxActivity] input").removeAttr("checked");
             }
         }
-    </script>
 
-    <script type="text/javascript">
         function SelectallInventory(chkSelectallInventory) {
 
             if ($(chkSelectallInventory).is(":checked")) {
@@ -71,9 +73,16 @@
                 $("[id*=chkboxInventory] input").removeAttr("checked");
             }
         }
-    </script>
 
-    <script type="text/javascript">
+        function SelectallError(chkSelectallError) {
+
+            if ($(chkSelectallError).is(":checked")) {
+                $("[id*=chkboxError] input").attr("checked", "checked");
+            } else {
+                $("[id*=chkboxError] input").removeAttr("checked");
+            }
+        }
+
         function SelectAllBomProcess(chkSelectAllBom) {
             if ($(chkSelectAllBom).is(":checked")) {
                 $("[id*=chkboxBomProcess] input").attr("checked", "checked");
@@ -81,8 +90,7 @@
                 $("[id*=chkboxBomProcess] input").removeAttr("checked");
             }
         }
-    </script>
-    <script type="text/javascript">
+
         function loadProcessManager() {
             location.reload();
         }
@@ -191,18 +199,18 @@
                                     <li><span style="background: url(images/report.png) no-repeat left top!important; padding-left: 27px; height: 29px; float: left; margin-left: 10px;"></span>
                                         <asp:LinkButton ID="lnkBtnMachineReport" OnClick="lnkBtnMachineReport_Click" runat="server"
                                             Text="Machine Report" Style="font: bold 13px/32px Arial,Helvetica,sans-serif; color: #555555; margin-left: 17px;" /></li>
+                                    <li id="liError" runat="server"><span style="background: url(images/report.png) no-repeat left top!important; padding-left: 27px; height: 29px; float: left; margin-left: 10px;"></span>
+                                        <asp:LinkButton ID="btnErrorReport" OnClick="btnTgtErrorReport_Click" runat="server"
+                                            Text="Error Report" Style="font: bold 13px/32px Arial,Helvetica,sans-serif; color: #555555; margin-left: 17px;" /></li>
                                     <li id="liPPESA" runat="server"><span style="background: url(images/report.png) no-repeat left top!important; padding-left: 27px; height: 29px; float: left; margin-left: 10px;"></span>
                                         <asp:LinkButton ID="lnkBtnPPESAReport" OnClick="lnkBtnPPESAReport_Click" runat="server"
                                             Text="Process Capability Scorecard" Style="font: bold 13px/32px Arial,Helvetica,sans-serif; color: #555555; margin-left: 17px;" /></li>
                                     <li id="liPDESA" runat="server"><span style="background: url(images/report.png) no-repeat left top!important; padding-left: 27px; height: 29px; float: left; margin-left: 10px;"></span>
                                         <asp:LinkButton ID="lnkBtnPDESAReport" OnClick="lnkBtnPDESAReport_Click" runat="server"
                                             Text="Design Capability Scorecard" Style="font: bold 13px/32px Arial,Helvetica,sans-serif; color: #555555; margin-left: 17px;" /></li>
-
-
                                     <li id="liTgtValueGap" runat="server"><span style="background: url(images/report.png) no-repeat left top!important; padding-left: 27px; height: 29px; float: left; margin-left: 10px;"></span>
                                         <asp:LinkButton ID="btnTgtValueGap" OnClick="btnTgtValueGap_Click" runat="server"
                                             Text="Target Value Gap" Style="font: bold 13px/32px Arial,Helvetica,sans-serif; color: #555555; margin-left: 17px;" /></li>
-
                                     <li id="liInventory" runat="server"><span style="background: url(images/report.png) no-repeat left top!important; padding-left: 27px; height: 29px; float: left; margin-left: 10px;"></span>
                                         <asp:LinkButton ID="btnInventoryReport" OnClick="btnTgtInventoryReport_Click" runat="server"
                                             Text="Inventory Report" Style="font: bold 13px/32px Arial,Helvetica,sans-serif; color: #555555; margin-left: 17px;" /></li>
@@ -296,6 +304,33 @@
                 </div>
             </asp:Panel>
 
+
+            <asp:Panel ID="pnlErrorAttribute" runat="server" Visible="false">
+                <div class="ActivityPopupTop">
+                    <div class="ActivityPopup">
+                        <h2 style="font: bold 15px/32px Arial,Helvetica,sans-serif!important">Select Attribute</h2>
+                        <div class="ActivitybMid">
+                            <div class="LeftAtActivity">
+                                <ul class="ActivtyNew">
+                                    <li>
+                                        <div class="fixheight" style="height: 150px; margin-top: 15px; overflow-y: scroll; overflow-x: hidden;">
+                                            <asp:CheckBox ID="chkAllErrorAttributes" Checked="false" Text="Select All" runat="server"
+                                                onclick="ErrorSelectall(this)" />
+                                            <asp:CheckBoxList ID="chkboxErrorAttribute" runat="server" Style="margin-left: 10px">
+                                            </asp:CheckBoxList>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <asp:Button ID="btnNextToErrorAttribute" Text="Next" runat="server" Style="margin: -38px 90px 0 0!important;"
+                            CssClass="btnNextNew" OnClick="btnNextToErrorAttribute_Click" />
+                    </div>
+                    <div class="Clear">
+                    </div>
+                </div>
+            </asp:Panel>
+
             <asp:Panel ID="pnlInventory" runat="server" Visible="false">
                 <div class="ActivityPopupTop">
                     <div class="ActivityPopup">
@@ -323,6 +358,35 @@
                     </div>
                 </div>
             </asp:Panel>
+
+            <asp:Panel ID="pnlEror" runat="server" Visible="false">
+                <div class="ActivityPopupTop">
+                    <div class="ActivityPopup">
+                        <h2 style="font: bold 15px/32px Arial,Helvetica,sans-serif!important" id="headerTitleError"
+                            runat="server">Select Error</h2>
+                        <div class="ActivitybMid" id="div10" runat="server">
+                            <div class="LeftAtActivity">
+                                <ul class="ActivtyNew">
+                                    <li>
+                                        <div class="fixheight" style="height: 150px; margin-top: 15px; overflow-y: scroll; overflow-x: hidden;">
+                                            <asp:CheckBox ID="chkSelectallError" Checked="false" Text="Select All" runat="server"
+                                                onclick="SelectallError(this)" />
+                                            <asp:CheckBoxList ID="chkboxError" CssClass="checkbox" runat="server">
+                                            </asp:CheckBoxList>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <asp:Button ID="btnNextToError" runat="server" Text="Next" CssClass="btnNextNew"
+                                            OnClick="btnNextToActivity_Click" />
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="Clear">
+                    </div>
+                </div>
+            </asp:Panel>
+
 
 
 
@@ -1150,7 +1214,7 @@
                         CellPadding="0" RowStyle-CssClass="field_row" GridLines="None" HeaderStyle-CssClass="block_1_top"
                         Style="overflow-y: auto; overflow-x: hidden; height: 200px;">
                         <Columns>
-                            <asp:TemplateField SortExpression="AttributeName">
+                            <asp:TemplateField SortExpression="AttributeName" Visible="true">
                                 <HeaderTemplate>
                                     Inventory
                                 </HeaderTemplate>
@@ -1158,7 +1222,7 @@
                                     <%#DataBinder.Eval(Container.DataItem, "Inventory")%>
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:TemplateField SortExpression="AttributeValue" >
+                            <asp:TemplateField SortExpression="AttributeValue" Visible="true">
                                 <HeaderTemplate>
                                     CT
                                 </HeaderTemplate>
@@ -1166,7 +1230,7 @@
                                     <%#DataBinder.Eval(Container.DataItem, "CT")%>
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:TemplateField SortExpression="UnitName">
+                            <asp:TemplateField SortExpression="UnitName" Visible="true">
                                 <HeaderTemplate>
                                     Time
                                 </HeaderTemplate>
@@ -1174,7 +1238,7 @@
                                     <%#DataBinder.Eval(Container.DataItem, "Time")%>
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:TemplateField SortExpression="AttributeValue">
+                            <asp:TemplateField SortExpression="AttributeValue" Visible="true">
                                 <HeaderTemplate>
                                     $
                                 </HeaderTemplate>
@@ -1182,9 +1246,9 @@
                                     <%#DataBinder.Eval(Container.DataItem, "Dollar")%>
                                 </ItemTemplate>
                             </asp:TemplateField>
-                          
 
-                          
+
+
                         </Columns>
                         <RowStyle CssClass="field_row" />
                     </asp:GridView>
@@ -1196,6 +1260,61 @@
                         Style="width: 200px!important; float: none!important" placeholder="Report Name" />
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" InitialValue=""
                         ControlToValidate="txtInventoryAttributeReportName" ErrorMessage="Please enter report Name"
+                        ValidationGroup="addReport" ForeColor="Red" Text="*">
+                    </asp:RequiredFieldValidator>
+                </div>
+            </asp:Panel>
+
+
+            <asp:Panel ID="pnlErrorReport" runat="server" Visible="false">
+                <div class="RightAt" id="div11" runat="server" visible="true" style="float: right; margin-right: 10px; margin-top: 110px; width: 1033px !important; overflow-y: scroll; max-height: 300px">
+                    <asp:GridView ID="GridErrorReport" runat="server" AlternatingRowStyle-CssClass="field_row bg_white"
+                        AutoGenerateColumns="false"
+                        AllowSorting="true" CellSpacing="0"
+                        CellPadding="0" RowStyle-CssClass="field_row" GridLines="None" HeaderStyle-CssClass="block_1_top"
+                        Style="overflow-y: auto; overflow-x: hidden; height: 200px;">
+                        <Columns>
+                            <asp:TemplateField HeaderText="ErrorName" ItemStyle-CssClass="GrayBg" HeaderStyle-ForeColor="#43494F">
+                                <ItemTemplate>
+                                    <%# Eval("ErrorName") %>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+
+                            <asp:TemplateField HeaderText="Cycle Time" ItemStyle-CssClass="GrayBg" HeaderStyle-ForeColor="#43494F">
+                                <ItemTemplate>
+                                    <%# Eval("CycleTime") %>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+
+                            <asp:TemplateField HeaderText="Work Content" ItemStyle-CssClass="GrayBg" HeaderStyle-ForeColor="#43494F">
+                                <ItemTemplate>
+                                    <%# Eval("WorkContent") %>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+
+                            <asp:TemplateField HeaderText="Counter Measure" ItemStyle-CssClass="GrayBg" HeaderStyle-ForeColor="#43494F">
+                                <ItemTemplate>
+                                    <%# Eval("CounterMeasure") %>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Counter Measure Strength" ItemStyle-CssClass="GrayBg" HeaderStyle-ForeColor="#43494F">
+                                <ItemTemplate>
+                                    <%# Eval("CounterMeasureStrength") %>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+
+
+                        </Columns>
+                        <RowStyle CssClass="field_row" />
+                    </asp:GridView>
+                </div>
+
+                <div style="float: left; margin-left: 330px; margin-top: 50px;">
+                    <span style="color: #40464C; font-size: 14px; font-weight: bold;">Save Report as :</span>
+                    &nbsp;&nbsp;<asp:TextBox ID="txtErrorAttributeReportName" runat="server" CssClass="AttrTxtFild"
+                        Style="width: 200px!important; float: none!important" placeholder="Report Name" />
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" InitialValue=""
+                        ControlToValidate="txtErrorAttributeReportName" ErrorMessage="Please enter report Name"
                         ValidationGroup="addReport" ForeColor="Red" Text="*">
                     </asp:RequiredFieldValidator>
                 </div>

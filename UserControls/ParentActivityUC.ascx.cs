@@ -34,4 +34,9 @@ public partial class UserControls_ParentActivityUC : System.Web.UI.UserControl
     {
 
     }
+    protected void lnkbtnErrorReport_Click(object sender, EventArgs e)
+    {
+
+    }
+     
 }

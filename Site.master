@@ -11,20 +11,20 @@
     <script src="Scripts/Popup.js" type="text/javascript"></script>
     <asp:ContentPlaceHolder ID="HeadContent" runat="server">
     </asp:ContentPlaceHolder>
-    <script language="javascript" type="text/javascript">
-// <![CDATA[
+    <script type="text/javascript">
+
 
         function Button2_onclick() {
             $("#txtpo").val("Up");
             loadPopupBox();
         }
-
+       
         function Button3_onclick() {
             $("#txtpo").val("Down");
             loadPopupBox();
         }
 
-// ]]>
+
     </script>
     <script type="text/javascript" language="javascript">
         function DynamicDiv() {

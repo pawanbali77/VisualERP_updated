@@ -324,6 +324,13 @@ public partial class EnterPriseManager : System.Web.UI.Page
             AjaxControlToolkit.ModalPopupExtender PopupModelHandOff = (AjaxControlToolkit.ModalPopupExtender)HandOffUC1.FindControl("ModelPopupHandOff123");
             PopupModelHandOff.Show();
         }
+        if (strAction == "ErrorReport")
+        {
+            ModelPopupErrorReportUC1.ProcessObjectId = Convert.ToInt32(strProcessObjectId);
+            AjaxControlToolkit.ModalPopupExtender PopupModelErrorReport = (AjaxControlToolkit.ModalPopupExtender)ModelPopupErrorReportUC1.FindControl("ModelErrorReport");
+            PopupModelErrorReport.Show();
+          
+        }
         if (strAction == "HandOffInput")
         {
             HandOffUC1.TypeIO = 0;

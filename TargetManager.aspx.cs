@@ -332,6 +332,17 @@ public partial class TargetManager : System.Web.UI.Page
             }
         }
 
+        if (strAction == "ErrorReport")
+        {
+            ModelPopupErrorReportUC1.ProcessObjectId = Convert.ToInt32(strProcessObjectId);
+            AjaxControlToolkit.ModalPopupExtender PopupModelErrorReport = (AjaxControlToolkit.ModalPopupExtender)ModelPopupErrorReportUC1.FindControl("ModelErrorReport");
+            PopupModelErrorReport.Show();
+            if (RoleID == 4)
+            {
+                PopupModelErrorReport.Hide();
+            }
+        }
+
         if (strAction == "Machine")
         {
             ModelPopupBOMUC1.SourceType = 2;

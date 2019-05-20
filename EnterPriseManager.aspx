@@ -18,6 +18,7 @@
 <%@ Register Src="UserControls/HandOffUC.ascx" TagName="HandOffUC" TagPrefix="uc12" %>
 <%@ Register Src="UserControls/ModelPopupActivity.ascx" TagName="ModelPopupActivity"
     TagPrefix="ucA" %>
+<%@ Register Src="UserControls/ModelPopupErrorReportUC.ascx" TagName="ModelPopupErrorReportUC" TagPrefix="uc12" %>
 <%@ Register src="UserControls/ImageControl.ascx" tagname="ImageControl" tagprefix="uc13" %>
 <%@ Register src="UserControls/ArrowControl.ascx" tagname="ArrowControl" tagprefix="uc14" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="Server">
@@ -189,6 +190,7 @@
             <%--End BOM Manger--%>
             <%----TFG----%>
             <uc5:ModelPopupTFGUC ID="ModelPopupTFGUC1" runat="server" />
+            <uc12:ModelPopupErrorReportUC ID="ModelPopupErrorReportUC1" runat="server" />
             <%----End TFG--%>
             <%---Machine--%>
             <uc12:HandOffUC ID="HandOffUC1" runat="server" />

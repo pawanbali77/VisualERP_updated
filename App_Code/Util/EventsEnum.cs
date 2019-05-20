@@ -55,7 +55,8 @@ public enum ReportTypeID
     PCS = 5,
     DCS = 6,
     TGTGAP = 7,
-    Inventory = 8
+    Inventory = 8,
+    Error=9
 }
 
 public enum ArrowControl

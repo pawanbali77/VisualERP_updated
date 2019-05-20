@@ -20,6 +20,9 @@
                 <asp:LinkButton ID="lnkBtnMachine" runat="server" 
                     onclick="lnkBtnMachine_Click" >Machine</asp:LinkButton>
             </td>
+             <td class="th_fieldsi right last" id="ErrorReport" runat="server">
+            <asp:LinkButton ID="lnkbtnErrorReport" runat="server" OnClick="lnkbtnErrorReport_Click">Error Report</asp:LinkButton>
+        </td>
         </tr>
         <tr>
             <td colspan="5" class="activity_txt">

@@ -1,10 +1,14 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="ModelPopupInputUC.ascx.cs"
     Inherits="UserControls_ModelPopupInputUC" %>
+
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
+
 <asp:ModalPopupExtender ID="modelInput" PopupControlID="pnllist2" TargetControlID="Button2"
     runat="server" BackgroundCssClass="AjaxLoaderOuter1" BehaviorID="modelInput" CancelControlID="imgClose1">
 </asp:ModalPopupExtender>
+
 <asp:Button ID="Button2" runat="server" Style="display: none" />
+
 <asp:Panel ID="pnllist2" runat="server" Style="display: none; z-index: 9999999!important; display:none">
     <div class="AttributeWrp" id="InputDiv">
         <div class="AttribWrpIn">

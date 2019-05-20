@@ -15,7 +15,7 @@ public partial class ProcessIntrgrate : System.Web.UI.Page
     int ProcessId = 0;
     int typeId = 0;
     #endregion
-   
+
     string str2 = string.Empty;
 
     delegate void DelMethodWithParam(string strProcessObjectId, string strAction);
@@ -65,7 +65,7 @@ public partial class ProcessIntrgrate : System.Web.UI.Page
         //liProcess.Visible = true;
         load();
 
-       
+
         if (hdnSupplier.Value != string.Empty)
         {
 
@@ -137,6 +137,13 @@ public partial class ProcessIntrgrate : System.Web.UI.Page
             /// UserControl UcTFG = (UserControl)Page.FindControl("ModelPopupTFGUC.ascx");
             AjaxControlToolkit.ModalPopupExtender PopupModelTFG = (AjaxControlToolkit.ModalPopupExtender)ModelPopupTFGUC1.FindControl("ModelTFG");
             PopupModelTFG.Show();
+        }
+
+        if (strAction == "ErrorReport")
+        {
+            ModelPopupErrorReportUC1.ProcessObjectId = Convert.ToInt32(strProcessObjectId);
+            AjaxControlToolkit.ModalPopupExtender PopupModelErrorReport = (AjaxControlToolkit.ModalPopupExtender)ModelPopupErrorReportUC1.FindControl("ModelErrorReport");
+            PopupModelErrorReport.Show();
         }
 
         if (strAction == "Machine")
@@ -353,7 +360,7 @@ public partial class ProcessIntrgrate : System.Web.UI.Page
         bool result = false;
         result = ProcessData.SaveProcessObject(ProcessObj);
         VisualERPDataContext ObjData = new VisualERPDataContext();
-        ObjData.SP_BulkInsertAttribute(this.CInt32(ViewState["ProcessObjID"]), ProcessId,1);
+        ObjData.SP_BulkInsertAttribute(this.CInt32(ViewState["ProcessObjID"]), ProcessId, 1);
         if (result == true)
         {
             lst.Clear();

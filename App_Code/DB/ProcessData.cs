@@ -682,6 +682,19 @@ public class ProcessData
         return qry.ToList();
     }
 
+    public static List<ProcessDataProperty> GetProcessObjErrors(int ProcessId)
+    {
+        VisualERPDataContext Objdata = new VisualERPDataContext();
+        var qry = (from x in Objdata.tbl_ProcessObjects
+                   where x.ProcessID == ProcessId && x.Type == 0
+                   select new ProcessDataProperty
+                   {
+                       ProcessObjID = x.ProcessObjID,
+                       ProcessObjectName = x.ProcessObjName
+                   }).ToList();
+        return qry.ToList();
+    }
+
     public static List<ProcessDataProperty> GetTargetObjActvities(int ProcessId)
     {
         VisualERPDataContext Objdata = new VisualERPDataContext();
@@ -785,6 +798,19 @@ public class ProcessData
              new ProcessDataProperty { AttributeName = "CT"},
              new ProcessDataProperty { AttributeName = "$" },
              new ProcessDataProperty { AttributeName = "Time"}
+        };
+        return qry.ToList();
+    }
+
+    public static List<ProcessDataProperty> GetErrorObjAttributes(int ProcessObjId)
+    {
+
+        List<ProcessDataProperty> qry = new List<ProcessDataProperty>
+        {
+             new ProcessDataProperty { AttributeName = "CycleTime" },
+             new ProcessDataProperty { AttributeName = "WorkContent" },
+             new ProcessDataProperty { AttributeName = "CounterMeasure" },
+             new ProcessDataProperty { AttributeName = "CounterMeasureStrength"}
         };
         return qry.ToList();
     }

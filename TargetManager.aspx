@@ -16,6 +16,7 @@
     TagPrefix="uc9" %>
 <%@ Register Src="UserControls/ArrowControl.ascx" TagName="ArrowControl" TagPrefix="uc11" %>
 <%@ Register Src="UserControls/ImageControl.ascx" TagName="ImageControl" TagPrefix="uc10" %>
+<%@ Register Src="UserControls/ModelPopupErrorReportUC.ascx" TagName="ModelPopupErrorReportUC" TagPrefix="uc12" %>
 <%--<%@ Register Src="UserControls/SummaryTable.ascx" TagName="ModelPopupSummaryTable"
     TagPrefix="uc21" %>--%>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="Server">
@@ -229,6 +230,7 @@ Six month Professional Training in Web Desinging from  Rajiv Nanda Design & Phot
             <uc4:ModelPopupMchUC ID="ModelPopupMchUC1" SourceType="2" runat="server" />
             <%--MachineEnd--%>
             <uc9:ModelPopupActivity ID="ModelPopupActivityUC9" SourceType="2" runat="server" />
+            <uc12:ModelPopupErrorReportUC ID="ModelPopupErrorReportUC1" runat="server" />
             <%--Activity--%>
             <%-- <uc21:ModelPopupSummaryTable ID="ModelPopupSummaryTableuc21" runat="server" />--%>
         </ContentTemplate>

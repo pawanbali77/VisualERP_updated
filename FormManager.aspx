@@ -209,11 +209,11 @@
                                     OnClick="lnkbtnViewPDESAForm_Click" />
                             </li>
 
-                            <li style="margin-right: 1px">
+                            <%--<li style="margin-right: 1px">
                                 <asp:LinkButton ID="lnkbtnErrorRecord" runat="server" ToolTip="Error Record"
                                     CssClass="ViewErrorLog"
                                     OnClick="lnkbtnErrorRecord_Click" />
-                            </li>
+                            </li>--%>
                         </ul>
                     </div>
                 </div>
@@ -540,105 +540,7 @@
 
 
 
-            <asp:Panel ID="pnlListErrorRecord" runat="server" Visible="false">
-                <div class="RightAtExcel" id="div3" runat="server" visible="true" style="float: right; margin-right: 10px; margin-top: 110px; width: 1030px !important; overflow-y: scroll; max-height: 400px;">
-                    <asp:GridView ID="grdErrorGrid" runat="server" AlternatingRowStyle-CssClass="GrayBg"
-                        AutoGenerateColumns="false" AllowPaging="false"
-                        OnRowCommand="grdErrorGrid_RowCommand"
-                        AllowSorting="true">
-                        <Columns>
-                            <asp:TemplateField HeaderText="Insert Row" ItemStyle-Width="5%">
-                                <ItemTemplate>
-                                    <div class="itemstyle">
-
-                                        <asp:ImageButton ID="imgbtnAddrow" runat="server" CommandName="Add" AlternateText="Add Row"
-                                            ToolTip="Add Row" CommandArgument="0" ImageUrl="~/images/plus.png" />
-                                    </div>
-                                </ItemTemplate>
-                            </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Delete Row" ItemStyle-Width="5%" ItemStyle-CssClass="GrayBg">
-                                <ItemTemplate>
-                                    <asp:Literal ID="litFormID" runat="server" Visible="false" Text='<%#Eval("ErrorID") %>' />
-                                    <asp:Literal ID="litpoid" runat="server" Visible="false" Text='<%#Eval("ErrorID") %>' />
-                                    <asp:Literal ID="litFormType" runat="server" Visible="false" Text='<%#Eval("ErrorID") %>' />
-
-                                    <asp:HiddenField ID="hdnErrorID" Value='<%#Eval("ErrorID") %>' runat="server" />
-                                    <asp:HiddenField ID="hdnProcessID" Value='<%#Eval("ProcessID") %>' runat="server" />
-                                    <%-- <asp:Literal ID="litDelSequence" runat="server" Visible="false" Text='<%#Eval("Sequence") %>' />--%>
-                                    <%--<asp:ImageButton ID="editBtn" runat="server" CommandName="Edit" CommandArgument='<%#Eval("FormID")%>'
-                                        ImageUrl="~/images/Edit.png" AlternateText="Edit" ToolTip="Edit" />--%>
-                                    <asp:ImageButton ID="deleteBtn" runat="server" CommandName="Remove" AlternateText="Delete"
-                                        ToolTip="Delete" CommandArgument='<%#Eval("ErrorID") %>' ImageUrl="~/images/delete.png" />
-                                </ItemTemplate>
-                            </asp:TemplateField>
-
-                            <asp:TemplateField HeaderText="Error" ItemStyle-Width="50%" HeaderStyle-ForeColor="#43494F">
-                                <ItemTemplate>
-
-                                    <asp:TextBox ID="txtError" runat="server" Text='<%# Eval("Error") %>'
-                                        CssClass="AttrTxtFildExcel" Style="width: 100%" />
-
-                                </ItemTemplate>
-                            </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Cycle Time" ItemStyle-Width="5%" HeaderStyle-ForeColor="#43494F">
-                                <ItemTemplate>
-
-                                    <asp:TextBox ID="txtCycleTime" runat="server" Text='<%# Eval("CycleTime") %>'
-                                        CssClass="AttrTxtFildExcel" Style="width: 100px" />
-
-                                </ItemTemplate>
-                            </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Work Content" ItemStyle-Width="5%" HeaderStyle-ForeColor="#43494F">
-                                <ItemTemplate>
-
-                                    <asp:TextBox ID="txtWorkContent" runat="server" Text='<%# Eval("WorkContent") %>'
-                                        CssClass="AttrTxtFildExcel" Style="width: 100px" />
-
-
-                                </ItemTemplate>
-                            </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Counter Measure" ItemStyle-Width="5%" ItemStyle-CssClass="GrayBg"
-                                HeaderStyle-ForeColor="#43494F">
-                                <ItemTemplate>
-
-                                    <asp:TextBox ID="txtCounterMeasure" runat="server" Text='<%# Eval("CounterMeasure") %>'
-                                        CssClass="AttrTxtFildExcel" Style="width: 100px" />
-
-
-                                </ItemTemplate>
-                            </asp:TemplateField>
-                            <asp:TemplateField HeaderText="CounterMeasure Strength" ItemStyle-Width="5%"
-                                ItemStyle-CssClass="GrayBg" HeaderStyle-ForeColor="#43494F">
-                                <ItemTemplate>
-                                    <div class="itemstyle">
-                                        <asp:TextBox ID="txtCounterMeasureStrength" runat="server"
-                                            Style="width: 100px"
-                                            Text='<%# Eval("CounterMeasureStrength") %>' CssClass="AttrTxtFildExcel" />
-
-                                    </div>
-                                </ItemTemplate>
-                            </asp:TemplateField>
-
-
-                        </Columns>
-                        <EmptyDataTemplate>
-                            <div>
-                                &nbsp;
-                            </div>
-                            <div class="msgSucess12">
-                                <p>
-                                    No records found !
-                               
-                                </p>
-                            </div>
-                        </EmptyDataTemplate>
-                    </asp:GridView>
-                </div>
-                <div class="RightAt" id="div4" runat="server" visible="true" style="float: left; margin-top: 10px; margin-left: 330px;">
-                    <asp:Button ID="btnAddNewErrorRecord" runat="server" CssClass="btnNextNew" Text="Add New Row"
-                        OnClick="btnAddNewErrorRecord_Click" Style="width: 127px; margin: 10px 0px 0px 0; float: left; font-size: 11px; line-height: 14px; height: 24px;" />
-                </div>
-            </asp:Panel>
+            
 
         </ContentTemplate>
 

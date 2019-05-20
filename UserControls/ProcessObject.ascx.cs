@@ -57,8 +57,11 @@ public partial class UserControls_ProcessObject : System.Web.UI.UserControl
             lnkBtnTFG.Enabled = false;
             TFG.Attributes.Add("class", "th_fieldsiPro");  //disable attribute link button and remove hover class 
             lnkBtnMachine.Enabled = false;
-            Machine.Attributes.Add("class", "th_fieldsiPro right last");  //disable attribute link button and remove hover class 
-            lblOrderNo.Enabled = false;            
+            Machine.Attributes.Add("class", "th_fieldsiPro");  //disable attribute link button and remove hover class 
+            lblOrderNo.Enabled = false;
+            ErrorReport.Attributes.Add("class", "th_fieldsiPro right last");  //disable attribute link button and remove hover class 
+            lnkbtnErrorReport.Enabled = false;
+            
         }
         if ((returnurl == "ProcessManager.aspx") || (returnurl == "EnterPriseManager.aspx") || (returnurl == "TargetManager.aspx"))
         {
@@ -73,6 +76,7 @@ public partial class UserControls_ProcessObject : System.Web.UI.UserControl
             lnkBtnTFG.Enabled = true;
             lnkBtnMachine.Enabled = true;
             lblOrderNo.Enabled = true;
+            lnkbtnErrorReport.Enabled = true;
         }
 
        
@@ -274,6 +278,20 @@ public partial class UserControls_ProcessObject : System.Web.UI.UserControl
         else
             obj[0] = ViewState["ProcessObjID"].ToString();
         obj[1] = "TFG";
+        _delWithParam.DynamicInvoke(obj);
+    }
+
+    protected void lnkbtnErrorReport_Click(object sender, EventArgs e)
+    {
+        //Parameter to a method is being made ready
+        object[] obj = new object[2];
+        if (SourceType == 2)  //2: Target
+        {
+            obj[0] = ViewState["TargetObjID"].ToString();
+        }
+        else
+            obj[0] = ViewState["ProcessObjID"].ToString();
+        obj[1] = "ErrorReport";
         _delWithParam.DynamicInvoke(obj);
     }
 
