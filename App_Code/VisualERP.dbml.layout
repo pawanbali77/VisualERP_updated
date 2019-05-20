@@ -2,12 +2,6 @@
 <ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 24, 25.5" name="VisualERP">
   <DataContextMoniker Name="/VisualERPDataContext" />
   <nestedChildShapes>
-    <classShape Id="8438b5cd-e329-43d8-bb1d-452e2a788be2" absoluteBounds="0.75, 0.75, 2, 2.1554996744791666">
-      <DataClassMoniker Name="/VisualERPDataContext/ErrorInfo" />
-      <nestedChildShapes>
-        <elementListCompartment Id="26e89ea4-f3a2-4719-9a3d-2e4998b546ea" absoluteBounds="0.765, 1.21, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
-      </nestedChildShapes>
-    </classShape>
     <classShape Id="176f339a-57e1-4f2e-a60c-85f3065bcba6" absoluteBounds="3.75, 0.75, 2, 1.9631982421875">
       <DataClassMoniker Name="/VisualERPDataContext/tbl_Assembly" />
       <nestedChildShapes>
@@ -264,6 +258,12 @@
       <DataClassMoniker Name="/VisualERPDataContext/tbl_Unit" />
       <nestedChildShapes>
         <elementListCompartment Id="4bf44244-9324-4194-ae38-5d15e7c0fa5d" absoluteBounds="21.765, 19.21, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="43d2c49c-3dec-43b4-abb5-3330ea65393e" absoluteBounds="1, 0.75, 2, 2.7324039713541666">
+      <DataClassMoniker Name="/VisualERPDataContext/ErrorInfo" />
+      <nestedChildShapes>
+        <elementListCompartment Id="957030b5-93f4-49fc-b427-da23f4c9d4a8" absoluteBounds="1.0149999999999997, 1.21, 1.9700000000000002, 2.1724039713541665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
   </nestedChildShapes>
