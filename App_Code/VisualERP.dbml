@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="NewVisualERP" Class="VisualERPDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="WebSettings" ConnectionString="Data Source=RAVIS\SQLEXPRESS2014;Initial Catalog=NewVisualERP;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="NewVisualERPConnectionString" Provider="System.Data.SqlClient" />
+  <Connection Mode="WebSettings" ConnectionString="Data Source=192.168.1.99,55321;Initial Catalog=NewVisualERP;User ID=dotnet_new" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="NewVisualERPConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.tbl_Assembly" Member="tbl_Assemblies">
     <Type Name="tbl_Assembly">
       <Column Name="AssemblyID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
