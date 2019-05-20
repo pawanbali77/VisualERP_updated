@@ -39,23 +39,53 @@
         });
 
         function test() {
+            $(document).ready(function () {
+                var contentHeight = $(window).height();
+                var newHeight = contentHeight - $("#header").height() - $("#footer").height() - $("#Title").height() - $("#Bpmn").height() - 20; // + "px";
+                var maxheight = $("input[id=ContentPlaceHolder1_hdnheight]").val(); //get max height of process from hidden field value
 
-            var contentHeight = $(window).height();
-            var newHeight = contentHeight - $("#header").height() - $("#footer").height() - $("#Title").height() - $("#Bpmn").height() - 20; // + "px";
-            var maxheight = $("input[id=ContentPlaceHolder1_hdnheight]").val(); //get max height of process from hidden field value
-            $("#ContentPlaceHolder1_MainDiv").css("height", maxheight);
+                $("#ContentPlaceHolder1_MainDiv").css("height", newHeight);
 
-            var maxwidth = $("input[id=ContentPlaceHolder1_hdnWidth]").val();
-            $("#ContentPlaceHolder1_MainDiv").css("width", maxwidth);
+                var maxwidth = $("input[id=ContentPlaceHolder1_hdnWidth]").val();
+                $("#ContentPlaceHolder1_MainDiv").css("width", maxwidth);
 
-            $("#ContentPlaceHolder1_MainDivOuter").css("height", newHeight + "px");
-            var remainCnt = $("#header").height() + $("#footer").height() + 50;
-            var newHeight1 = contentHeight - remainCnt;
-            $(".TreeView1_0").css("height", newHeight1 + "px");
-            currFFZoom = 1;
-            currIEZoom = 1;
-            currOtherZoom = 1;
+                $("#ContentPlaceHolder1_MainDivOuter").css("height", newHeight + "px");
+                var remainCnt = $("#header").height() + $("#footer").height() + 50;
+                var newHeight1 = contentHeight - remainCnt;
+                $(".TreeView1_0").css("height", newHeight1 + "px");
+                currFFZoom = 1;
+                currIEZoom = 1;
+                currOtherZoom = 1;
 
+                var contentWidth = $(window).width();
+
+
+                $("#MaximiseIconClick").click(function () {
+                    $(".BackgroundDiv").addClass("overlay");
+                    $(".BackgroundDiv").css("height", newHeight).css("width", maxwidth);
+                    $("#ContentPlaceHolder1_divSummary").removeClass("SummryListRi");
+                    $("#ContentPlaceHolder1_divSummary").addClass("SummaryListNewClass");
+                    $("#ContentPlaceHolder1_Panel1").css("height", "100vh");
+                    $("#ContentPlaceHolder1_gridProcessSummary").removeClass("summry_table");
+                    $("#ContentPlaceHolder1_gridProcessSummary").css("width", "100vw");
+                    $("#MinimizeIconClick").css("display", "block");
+                    $("#MaximiseIconClick").css("display", "none");
+
+                });
+                $("#MinimizeIconClick").click(function () {
+                    $("#ContentPlaceHolder1_divSummary").addClass("SummryListRi");
+                    $("#ContentPlaceHolder1_divSummary").removeClass("SummaryListNewClass");
+                    $("#ContentPlaceHolder1_Panel1").css("height", "200px");
+                    $("#ContentPlaceHolder1_gridProcessSummary").addClass("summry_table");
+                    $("#ContentPlaceHolder1_gridProcessSummary").css("width", "300px");
+                    $("#MinimizeIconClick").css("display", "none");
+                    $("#MaximiseIconClick").css("display", "block");
+                    $(".BackgroundDiv").removeClass("overlay");
+                    $(".BackgroundDiv").hide();
+                });
+
+
+            });
             window.setTimeout(function () {
                 $(".isa_info").fadeOut('slow', function () { $('.isa_info').remove() });
                 $(".isa_success").fadeOut('slow', function () { $('.isa_success').remove() });
@@ -156,8 +186,11 @@ Six month Professional Training in Web Desinging from  Rajiv Nanda Design & Phot
      Photoshop, Illustrator)        
 
 </div>--%>
-                <div class="SummryListRi" style="border: 1px solid #cccccc; display: block; opacity: 0.8;"
+                <div class="BackgroundDiv"></div>
+                <div class="SummryListRi" style="border: 1px solid #cccccc; display: block;"
                     id="divSummary" runat="server" visible="false">
+                    <a href="javascript:;" id="MaximiseIconClick" class="MaximizeIcon"></a>
+                    <a href="javascript:;" id="MinimizeIconClick" class="MinimizeIcon" style="display: none;"></a>
                     <div class="summry_table_th">
                         <%-- <a href="#" class="MinimizeMinusIcon" id="imgMinimize" onclick="return minimizeSummaryTable();"></a>--%>
                         <span id="">Summary Table</span>
@@ -227,7 +260,7 @@ Six month Professional Training in Web Desinging from  Rajiv Nanda Design & Phot
             <%---Machine--%>
             <uc4:ModelPopupMchUC ID="ModelPopupMchUC1" runat="server" />
             <%--MachineEnd--%>
-             <%----ErrorReport----%>
+            <%----ErrorReport----%>
             <uc12:ModelPopupErrorReportUC ID="ModelPopupErrorReportUC1" runat="server" />
             <%----End ErrorReport--%>
             <uc9:ModelPopupActivity ID="ModelPopupActivityUC9" runat="server" />

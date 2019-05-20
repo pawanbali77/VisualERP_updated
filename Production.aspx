@@ -59,7 +59,8 @@
                
 
                 //$("#ContentPlaceHolder1_MainDiv").css("height", newHeight + "px");
-                var maxheight = $("input[id=ContentPlaceHolder1_hdnheight]").val(); //get max height of process from hidden field value
+                var maxheight = $("input[id=ContentPlaceHolder1_hdnheight]").val();//get max height of process from hidden field value
+               
                 $("#ContentPlaceHolder1_MainDiv1").css("height", newHeight);
                 $("#ContentPlaceHolder1_hdnNewHeight").val(newHeight);
                 

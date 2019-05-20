@@ -120,14 +120,14 @@
                 $('#ContentPlaceHolder1_MainDiv').css('-webkit-transform-origin', '0 0');
             }
 
-
+            var newHeight = contentHeight - $("#header").height() - $("#footer").height() - $("#Title").height() - $("#Bpmn").height() - 20; // + "px";
             //get max width and height of process from hidden field value 
             var maxwidth = $("input[id=ContentPlaceHolder1_hdnWidth]").val();
 
             var maxheight = $("input[id=ContentPlaceHolder1_hdnheight]").val();
             //alert(maxwidth + ',' + maxheight);
 
-            $("#ContentPlaceHolder1_MainDiv").css("height", maxheight);
+            $("#ContentPlaceHolder1_MainDiv").css("height", newHeight);
             $("#ContentPlaceHolder1_MainDiv").css("width", maxwidth);
             $("input[id=ContentPlaceHolder1_hdnLastZoom]").val(currOtherZoom);
         }
@@ -169,8 +169,8 @@
             var maxwidth = $("input[id=ContentPlaceHolder1_hdnWidth]").val(); //get max width of process from hidden field value
             var maxheight = $("input[id=ContentPlaceHolder1_hdnheight]").val(); //get max height of process from hidden field value 
             // alert(maxwidth + ',' + maxheight);
-
-            $("#ContentPlaceHolder1_MainDiv").css("height", maxheight);
+            var newHeight = contentHeight - $("#header").height() - $("#footer").height() - $("#Title").height() - $("#Bpmn").height() - 20; // + "px";
+            $("#ContentPlaceHolder1_MainDiv").css("height", newHeight);
             $("#ContentPlaceHolder1_MainDiv").css("width", maxwidth);
             //            $("#ContentPlaceHolder1_MainDiv").css("z-index", 1);
             //            $(".footer").css("z-index", "10");

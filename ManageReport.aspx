@@ -152,6 +152,7 @@
                 <div id="divErrorMsg" runat="server" style="font: bold 12px Arial, Helvetica, sans-serif; color: #555; padding: 7px 0px 0px 10px; height: 30px; float: left; min-width: 450px; max-width: 500px;">
                     <asp:Label ID="lblMsg" runat="server" />
                 </div>
+              
                 <div class="right_nav">
                     <ul>
                         <li id="liSaveReport" runat="server">

@@ -3773,7 +3773,12 @@ public partial class ManageReport : BasePage
             {
                 lnkbtnExporttoExcel.Visible = false;
                 liExporttoExcel.Visible = false;
-                //Message.Text = "Unable to connect to the database.";
+                divErrorMsg.Visible = true;
+                lblMsg.Text = "No error found for this process..!";
+                lblMsg.Style.Add("color", "red");
+                divErrorMsg.Style.Add("min-width", "194px");
+                divErrorMsg.Style.Add("margin-left", "500px");
+                divErrorMsg.Attributes.Add("class", "isa_warning");
             }
         }
     }
