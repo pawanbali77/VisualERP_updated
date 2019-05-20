@@ -19,17 +19,7 @@ public partial class ManageReport : BasePage
     int typeId = 0;
     List<int> activity = new List<int>();
     List<string> activityName = new List<string>();
-
-
-
-
-
-
     Dictionary<int, string> activityDic = new Dictionary<int, string>();
-
-
-
-
     List<string> attribute = new List<string>();
     List<ProcessData.ProcessDataProperty> activityNode = new List<ProcessData.ProcessDataProperty>();
     //List<int> actv = new List<int>();
@@ -3698,7 +3688,7 @@ public partial class ManageReport : BasePage
             string query = "SELECT PO.ProcessObjID, PO.ProcessObjID, Error as ErrorName," + ColumnName + " " +
                            " FROM tbl_ProcessObject PO  LEFT JOIN ErrorInfos EI ON PO.ProcessObjID = EI.ProcessID" +
                            " WHERE PO.ProcessObjID IN (" + middle + ") " +
-                           " ORDER BY PO.ProcessObjName";
+                           " and Error <>''  ORDER BY PO.ProcessObjName";
 
             // Declare the query string.
             // Run the query and bind the resulting DataSet
@@ -3935,7 +3925,7 @@ public partial class ManageReport : BasePage
             string query = "SELECT PO.ProcessObjID, PO.ProcessObjID, Error as ErrorName," + ColumnName + " " +
                            " FROM tbl_ProcessObject PO  LEFT JOIN ErrorInfos EI ON PO.ProcessObjID = EI.ProcessID" +
                            " WHERE PO.ProcessObjID IN (" + middle + ") " +
-                           " ORDER BY PO.ProcessObjName";
+                           " and Error <>''  ORDER BY PO.ProcessObjName";
 
             // Declare the query string.
             // Run the query and bind the resulting DataSet
