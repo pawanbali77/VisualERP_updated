@@ -62,12 +62,11 @@
 
                 $("#MaximiseIconClick").click(function () {
                     $(".BackgroundDiv").addClass("overlay");
-                    $(".BackgroundDiv").css("height", newHeight).css("width", maxwidth);
+
                     $("#ContentPlaceHolder1_divSummary").removeClass("SummryListRi");
                     $("#ContentPlaceHolder1_divSummary").addClass("SummaryListNewClass");
                     $("#ContentPlaceHolder1_Panel1").css("height", "100vh");
-                    $("#ContentPlaceHolder1_gridProcessSummary").removeClass("summry_table");
-                    $("#ContentPlaceHolder1_gridProcessSummary").css("width", "100vw");
+                    $("#ContentPlaceHolder1_gridProcessSummary").removeClass("summry_table").css("width", "100vw").css("height", "100vh");
                     $("#MinimizeIconClick").css("display", "block");
                     $("#MaximiseIconClick").css("display", "none");
 
@@ -76,8 +75,7 @@
                     $("#ContentPlaceHolder1_divSummary").addClass("SummryListRi");
                     $("#ContentPlaceHolder1_divSummary").removeClass("SummaryListNewClass");
                     $("#ContentPlaceHolder1_Panel1").css("height", "200px");
-                    $("#ContentPlaceHolder1_gridProcessSummary").addClass("summry_table");
-                    $("#ContentPlaceHolder1_gridProcessSummary").css("width", "300px");
+                    $("#ContentPlaceHolder1_gridProcessSummary").addClass("summry_table").css("width", "300px").css("height", "200px");
                     $("#MinimizeIconClick").css("display", "none");
                     $("#MaximiseIconClick").css("display", "block");
                     $(".BackgroundDiv").removeClass("overlay");
