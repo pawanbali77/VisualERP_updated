@@ -189,8 +189,10 @@ Six month Professional Training in Web Desinging from  Rajiv Nanda Design & Phot
                 <div class="BackgroundDiv"></div>
                 <div class="SummryListRi" style="border: 1px solid #cccccc; display: block;"
                     id="divSummary" runat="server" visible="false">
-                    <a href="javascript:;" id="MaximiseIconClick" class="MaximizeIcon"></a>
-                    <a href="javascript:;" id="MinimizeIconClick" class="MinimizeIcon" style="display: none;"></a>
+                    <div>
+                        <a href="javascript:;" id="MaximiseIconClick" class="MaximizeIcon"></a>
+                        <a href="javascript:;" id="MinimizeIconClick" class="MinimizeIcon" style="display: none;"></a>
+                    </div>
                     <div class="summry_table_th">
                         <%-- <a href="#" class="MinimizeMinusIcon" id="imgMinimize" onclick="return minimizeSummaryTable();"></a>--%>
                         <span id="">Summary Table</span>

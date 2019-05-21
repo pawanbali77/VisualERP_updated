@@ -3355,7 +3355,7 @@ public partial class ManageReport : BasePage
                                 UnitName = unitName,
                                 TargetValue = Convert.ToString(targetSum),
                                 TargetUnitName = unitName,
-                                DifferenceValue = Convert.ToString(sum - targetSum),
+                                DifferenceValue = Convert.ToString(sum - targetSum)
                             });
                         }
 
@@ -3370,7 +3370,7 @@ public partial class ManageReport : BasePage
                                 UnitName = unitName,
                                 TargetValue = String.Format("{0:0.00}", targetAverage),
                                 TargetUnitName = unitName,
-                                DifferenceValue = String.Format("{0:0.00}", average - targetAverage),
+                                DifferenceValue = String.Format("{0:0.00}", average - targetAverage)
                             });
                         }
 
@@ -3411,7 +3411,7 @@ public partial class ManageReport : BasePage
                                 UnitName = unitName,
                                 TargetValue = String.Format("{0:0.00}", median),
                                 TargetUnitName = unitName,
-                                DifferenceValue = String.Format("{0:0.00}", median - median),
+                                DifferenceValue = String.Format("{0:0.00}", median - median)
                             });
                         }
 
@@ -3426,7 +3426,7 @@ public partial class ManageReport : BasePage
                                 UnitName = unitName,
                                 TargetValue = Convert.ToString(targetTotal),
                                 TargetUnitName = unitName,
-                                DifferenceValue = Convert.ToString(total - targetTotal),
+                                DifferenceValue = Convert.ToString(total - targetTotal)
                             });
                         }
 
@@ -3441,7 +3441,7 @@ public partial class ManageReport : BasePage
                                 UnitName = unitName,
                                 TargetValue = Convert.ToString(targetTotal),
                                 TargetUnitName = unitName,
-                                DifferenceValue = Convert.ToString(total - targetTotal),
+                                DifferenceValue = Convert.ToString(total - targetTotal)
                             });
                         }
 
@@ -3472,7 +3472,7 @@ public partial class ManageReport : BasePage
                                     UnitName = unitName,
                                     TargetValue = String.Format("{0:0.00}", ret),
                                     TargetUnitName = unitName,
-                                    DifferenceValue = String.Format("{0:0.00}", ret - ret),
+                                    DifferenceValue = String.Format("{0:0.00}", ret - ret)
                                 });
                             }
                         }
@@ -3507,14 +3507,12 @@ public partial class ManageReport : BasePage
                                 UnitName = unitName,
                                 TargetValue = Convert.ToString(targetTotal),
                                 TargetUnitName = unitName,
-                                DifferenceValue = Convert.ToString(total - targetTotal),
+                                DifferenceValue = Convert.ToString(total - targetTotal)
                             });
                         }
                     }
                 }
-
             }
-
         }
         return summaryResult;
     }

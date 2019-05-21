@@ -1632,8 +1632,8 @@ img {
     height: 52px;
     float: right;
     position: absolute;
-    right: -32px;
-    top: 0;
+    right: -21px;
+    top: 10px;
 }
 
 .MinimizeIcon {
@@ -1642,8 +1642,8 @@ img {
     height: 52px;
     float: right;
     position: absolute;
-    right: -32px;
-    top: 0;
+    right: -21px;
+    top: 10px;
 }
 
 #ContentPlaceHolder1_popup_box_Inventery {
