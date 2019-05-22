@@ -86,7 +86,7 @@ public class RegisterData
             obj.CompanyName = sp_new.CompanyName;
             obj.CreatedDate = sp_new.CreatedDate;
             obj.Status = sp_new.Status;
-            obj.Industries= sp_new.Industries;
+            obj.Industries = sp_new.Industries;
             obj.Role = sp_new.Role;
             obj.IsDeleted = sp_new.IsDeleted;
             obj.ParentID = sp_new.ParentID;
@@ -168,7 +168,7 @@ public class RegisterData
                                   }).ToList();
         return data;
     }
-    public static List<GridUserdata> EditUser(int id , int Parent_id)
+    public static List<GridUserdata> EditUser(int id, int Parent_id)
     {
         VisualERPDataContext db = new VisualERPDataContext();
         List<GridUserdata> gridData = (from reg in db.tbl_Registrations
@@ -188,28 +188,30 @@ public class RegisterData
                                        }).ToList();
         return gridData;
     }
-    public static List<GridUserdata2> EditUser2(int id , int Parent_id)
+    public static List<GridUserdata2> EditUser2(int id, int Parent_id)
     {
         VisualERPDataContext db = new VisualERPDataContext();
         List<GridUserdata2> gridData = (from reg in db.tbl_Registrations
-                                       where reg.RegisterID == id && reg.IsDeleted == false && reg.ParentID == Parent_id
+                                        where reg.RegisterID == id && reg.IsDeleted == false && reg.ParentID == Parent_id
                                         select new GridUserdata2()
-                                       {
-                                           RegisterID = reg.RegisterID,
-                                           mobile = reg.Mobile,
-                                           status = reg.Status,
-                                           username = reg.Username
-                                         
-                                       }).ToList();
+                                        {
+                                            RegisterID = reg.RegisterID,
+                                            mobile = reg.Mobile,
+                                            status = reg.Status,
+                                            username = reg.Username
+
+                                        }).ToList();
         return gridData;
     }
     public static string ProfileImage(int id, string ComapnyName)
     {
         using (VisualERPDataContext db = new VisualERPDataContext())
         {
-            var profileLogo = db.tbl_Registrations.FirstOrDefault(s => s.CompanyName.Contains(ComapnyName) && s.ParentID == 0).UploadPhoto;                                      
+            var profileLogo = db.tbl_Registrations.Where(s => s.CompanyName == ComapnyName && s.ParentID == 0).Select(u => u.UploadPhoto).FirstOrDefault();
+            //var profileLogo = db.tbl_Registrations.FirstOrDefault(s => s.CompanyName.Contains(ComapnyName) && s.ParentID == 0).UploadPhoto;
+
             return profileLogo;
-        }           
+        }
     }
     public static tbl_Registration Check_Email(string email)
     {
@@ -219,22 +221,22 @@ public class RegisterData
                 where k.Email == email && k.Status == true && k.IsDeleted == false
                 select k).FirstOrDefault();
     }
-    public static tbl_Registration Update_UniqueCode(string email , string uniquecode)
+    public static tbl_Registration Update_UniqueCode(string email, string uniquecode)
     {
         VisualERPDataContext db = new VisualERPDataContext();
-        var  data = db.tbl_Registrations.Single(x => x.Email == email);
+        var data = db.tbl_Registrations.Single(x => x.Email == email);
         data.UniqueCode = uniquecode;
         db.SubmitChanges();
         return data;
     }
-   public static tbl_Registration Check_EmailandUniqueCode(string email , string uniquecode)
+    public static tbl_Registration Check_EmailandUniqueCode(string email, string uniquecode)
     {
         VisualERPDataContext db = new VisualERPDataContext();
         return (from k in db.tbl_Registrations
                 where k.Email == email && k.UniqueCode == uniquecode && k.Status == true && k.IsDeleted == false
                 select k).FirstOrDefault();
     }
-    public static tbl_Registration Update_Password(string email, string uniquecode , string password)
+    public static tbl_Registration Update_Password(string email, string uniquecode, string password)
     {
         VisualERPDataContext db = new VisualERPDataContext();
         var data = db.tbl_Registrations.Single(x => x.Email == email && x.UniqueCode == uniquecode);
@@ -267,8 +269,8 @@ public class GridUserdata
     public string mobile { get; set; }
     public bool? status { get; set; }
     public string Industry { get; set; }
-    public string username { get; set;}
-    public string UploadPhoto { get; set;}
+    public string username { get; set; }
+    public string UploadPhoto { get; set; }
     public string Companyname { get; set; }
     public string Companyimage { get; set; }
 }
