@@ -149,6 +149,9 @@ public partial class VisualERPDataContext : System.Data.Linq.DataContext
   partial void InsertErrorInfo(ErrorInfo instance);
   partial void UpdateErrorInfo(ErrorInfo instance);
   partial void DeleteErrorInfo(ErrorInfo instance);
+  partial void Inserttbl_ProcessBlockHeader(tbl_ProcessBlockHeader instance);
+  partial void Updatetbl_ProcessBlockHeader(tbl_ProcessBlockHeader instance);
+  partial void Deletetbl_ProcessBlockHeader(tbl_ProcessBlockHeader instance);
   #endregion
 	
 	public VisualERPDataContext() : 
@@ -530,6 +533,14 @@ public partial class VisualERPDataContext : System.Data.Linq.DataContext
 		get
 		{
 			return this.GetTable<ErrorInfo>();
+		}
+	}
+	
+	public System.Data.Linq.Table<tbl_ProcessBlockHeader> tbl_ProcessBlockHeaders
+	{
+		get
+		{
+			return this.GetTable<tbl_ProcessBlockHeader>();
 		}
 	}
 	
@@ -10989,6 +11000,188 @@ public partial class ErrorInfo : INotifyPropertyChanging, INotifyPropertyChanged
 				this._ModifiedDate = value;
 				this.SendPropertyChanged("ModifiedDate");
 				this.OnModifiedDateChanged();
+			}
+		}
+	}
+	
+	public event PropertyChangingEventHandler PropertyChanging;
+	
+	public event PropertyChangedEventHandler PropertyChanged;
+	
+	protected virtual void SendPropertyChanging()
+	{
+		if ((this.PropertyChanging != null))
+		{
+			this.PropertyChanging(this, emptyChangingEventArgs);
+		}
+	}
+	
+	protected virtual void SendPropertyChanged(String propertyName)
+	{
+		if ((this.PropertyChanged != null))
+		{
+			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+		}
+	}
+}
+
+[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.tbl_ProcessBlockHeader")]
+public partial class tbl_ProcessBlockHeader : INotifyPropertyChanging, INotifyPropertyChanged
+{
+	
+	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+	
+	private int _Id;
+	
+	private System.Nullable<int> _ProcessId;
+	
+	private string _Headerlblname;
+	
+	private System.Nullable<int> _SequanceOrder;
+	
+	private System.Nullable<System.DateTime> _CreatedDate;
+	
+	private System.Nullable<System.DateTime> _UpdatedDate;
+	
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnProcessIdChanging(System.Nullable<int> value);
+    partial void OnProcessIdChanged();
+    partial void OnHeaderlblnameChanging(string value);
+    partial void OnHeaderlblnameChanged();
+    partial void OnSequanceOrderChanging(System.Nullable<int> value);
+    partial void OnSequanceOrderChanged();
+    partial void OnCreatedDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnCreatedDateChanged();
+    partial void OnUpdatedDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnUpdatedDateChanged();
+    #endregion
+	
+	public tbl_ProcessBlockHeader()
+	{
+		OnCreated();
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+	public int Id
+	{
+		get
+		{
+			return this._Id;
+		}
+		set
+		{
+			if ((this._Id != value))
+			{
+				this.OnIdChanging(value);
+				this.SendPropertyChanging();
+				this._Id = value;
+				this.SendPropertyChanged("Id");
+				this.OnIdChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProcessId", DbType="Int")]
+	public System.Nullable<int> ProcessId
+	{
+		get
+		{
+			return this._ProcessId;
+		}
+		set
+		{
+			if ((this._ProcessId != value))
+			{
+				this.OnProcessIdChanging(value);
+				this.SendPropertyChanging();
+				this._ProcessId = value;
+				this.SendPropertyChanged("ProcessId");
+				this.OnProcessIdChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Headerlblname", DbType="NVarChar(500)")]
+	public string Headerlblname
+	{
+		get
+		{
+			return this._Headerlblname;
+		}
+		set
+		{
+			if ((this._Headerlblname != value))
+			{
+				this.OnHeaderlblnameChanging(value);
+				this.SendPropertyChanging();
+				this._Headerlblname = value;
+				this.SendPropertyChanged("Headerlblname");
+				this.OnHeaderlblnameChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SequanceOrder", DbType="Int")]
+	public System.Nullable<int> SequanceOrder
+	{
+		get
+		{
+			return this._SequanceOrder;
+		}
+		set
+		{
+			if ((this._SequanceOrder != value))
+			{
+				this.OnSequanceOrderChanging(value);
+				this.SendPropertyChanging();
+				this._SequanceOrder = value;
+				this.SendPropertyChanged("SequanceOrder");
+				this.OnSequanceOrderChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedDate", DbType="DateTime")]
+	public System.Nullable<System.DateTime> CreatedDate
+	{
+		get
+		{
+			return this._CreatedDate;
+		}
+		set
+		{
+			if ((this._CreatedDate != value))
+			{
+				this.OnCreatedDateChanging(value);
+				this.SendPropertyChanging();
+				this._CreatedDate = value;
+				this.SendPropertyChanged("CreatedDate");
+				this.OnCreatedDateChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UpdatedDate", DbType="DateTime")]
+	public System.Nullable<System.DateTime> UpdatedDate
+	{
+		get
+		{
+			return this._UpdatedDate;
+		}
+		set
+		{
+			if ((this._UpdatedDate != value))
+			{
+				this.OnUpdatedDateChanging(value);
+				this.SendPropertyChanging();
+				this._UpdatedDate = value;
+				this.SendPropertyChanged("UpdatedDate");
+				this.OnUpdatedDateChanged();
 			}
 		}
 	}

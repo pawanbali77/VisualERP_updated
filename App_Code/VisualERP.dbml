@@ -546,6 +546,16 @@
       <Column Name="ModifiedDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
     </Type>
   </Table>
+  <Table Name="dbo.tbl_ProcessBlockHeader" Member="tbl_ProcessBlockHeaders">
+    <Type Name="tbl_ProcessBlockHeader">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ProcessId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Headerlblname" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="SequanceOrder" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CreatedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="UpdatedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
   <Function Name="dbo.DeleteAttributeDataByID" Method="DeleteAttributeDataByID">
     <Parameter Name="AttributemenuId" Parameter="attributemenuId" Type="System.Int32" DbType="Int" />
     <Return Type="System.Int32" />
