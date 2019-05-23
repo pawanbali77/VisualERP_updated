@@ -118,7 +118,7 @@
                                 <a title="Zoom-reset" class="ZommSet"></a></li>
                             <li id="liSummary" runat="server" style="height: 44px; margin-top: 6px;"><a title="Summary functions"
                                 class="SummaryIcon" href="SummaryTable.aspx"></a></li>
-                            <li onclick="return CopyPageCode();" id="li" runat="server" style="cursor: pointer; margin-top: 3px;"><a title="Zoom-out" class="ZommOut"></a></li>
+                            <%--<li onclick="return CopyPageCode();" id="li" runat="server" style="cursor: pointer; margin-top: 3px;"><a title="Zoom-out" class="ZommOut"></a></li>--%>
                         </ul>
                         <asp:HiddenField ID="hdnWidth" runat="server" />
                         <asp:HiddenField ID="hdnheight" runat="server" />
