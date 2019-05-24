@@ -40,31 +40,40 @@
             currFFZoom = 1;
             currIEZoom = 1;
             currOtherZoom = 1;
-//            $("input[id=ContentPlaceHolder1_hdnLastZoom]").val('');
-//            alert($("input[id=ContentPlaceHolder1_hdnLastZoom]").val());
 
+            $("#MaximiseIconClick").click(function () {
+                $(".BackgroundDiv").addClass("overlay");
+
+                $("#ContentPlaceHolder1_divSummary").removeClass("SummryListRi");
+                $("#ContentPlaceHolder1_divSummary").addClass("SummaryListNewClass");
+                $("#ContentPlaceHolder1_Panel1").css("height", "100vh");
+                $("#ContentPlaceHolder1_gridProcessSummary").removeClass("summry_table").css("width", "100vw").css("height", "100vh");
+                $("#MinimizeIconClick").css("display", "block");
+                $("#MaximiseIconClick").css("display", "none");
+
+            });
+            $("#MinimizeIconClick").click(function () {
+                $("#ContentPlaceHolder1_divSummary").addClass("SummryListRi");
+                $("#ContentPlaceHolder1_divSummary").removeClass("SummaryListNewClass");
+                $("#ContentPlaceHolder1_Panel1").css("height", "200px");
+                $("#ContentPlaceHolder1_gridProcessSummary").addClass("summry_table").css("width", "300px").css("height", "200px");
+                $("#MinimizeIconClick").css("display", "none");
+                $("#MaximiseIconClick").css("display", "block");
+                $(".BackgroundDiv").removeClass("overlay");
+                $(".BackgroundDiv").hide();
+            });
 
             window.setTimeout(function () {
                 $(".isa_info").fadeOut('slow', function () { $('.isa_info').remove() });
                 $(".isa_success").fadeOut('slow', function () { $('.isa_success').remove() });
              }, 7000);
-
-            //             if (msieversion()) {                
-            ////                  alert("ie");
-            ////                 jQuery('#ContentPlaceHolder1_MainDiv1').height('-=1');
-            //             }
         }
 
         function loadProcessManager() {
             location.reload();
         }
 
-//        function minimizeSummaryTable() {
 
-//            $("#imgMinimize").click(function () {
-//                $("#ContentPlaceHolder1_divSummary").slideDown("slow");
-//            });
-//        }
       
     </script>
 </asp:Content>
@@ -160,8 +169,13 @@ Six month Professional Training in Web Desinging from  Rajiv Nanda Design & Phot
      Photoshop, Illustrator)        
 
 </div>--%>
-                <div class="SummryListRi" style="border: 1px solid #cccccc; display: block; opacity: 0.8;"
+                <div class="BackgroundDiv"></div>
+                <div class="SummryListRi" style="border: 1px solid #cccccc; display: block;"
                     id="divSummary" runat="server" visible="false">
+                    <div>
+                        <a href="javascript:;" id="MaximiseIconClick" class="MaximizeIcon"></a>
+                        <a href="javascript:;" id="MinimizeIconClick" class="MinimizeIcon" style="display: none;"></a>
+                    </div>
                     <div class="summry_table_th">
                    <%-- <a href="#" class="MinimizeMinusIcon" id="imgMinimize" onclick="return minimizeSummaryTable();"></a>--%>
                         <span id="">Summary Table</span>
@@ -173,7 +187,7 @@ Six month Professional Training in Web Desinging from  Rajiv Nanda Design & Phot
                         <asp:GridView ID="gridProcessSummary" runat="server" AlternatingRowStyle-CssClass="field_row bg_white"
                             CssClass="summry_table" AutoGenerateColumns="false" OnSorting="gridProcessSummary_Sorting"
                             AllowSorting="true" OnRowCreated="gridProcessSummary_RowCreated" CellSpacing="0"
-                            CellPadding="0" RowStyle-CssClass="field_row" GridLines="None" HeaderStyle-CssClass="block_1_top"
+                            CellPadding="0" RowStyle-CssClass="field_row" GridLines="None" HeaderStyle-CssClass="block_1_top bg_white"
                             Style="overflow-y: auto; overflow-x: hidden; height: 200px; width: 300px;">
                             <Columns>
                                 <asp:TemplateField SortExpression="AttributeName" HeaderStyle-CssClass="attributes"

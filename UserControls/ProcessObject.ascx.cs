@@ -43,10 +43,8 @@ public partial class UserControls_ProcessObject : System.Web.UI.UserControl
     }
     protected void Page_Load(object sender, EventArgs e)
     {
-
         //ResetBinding();
-      
-            string absolutepath = Request.Url.AbsolutePath;
+        string absolutepath = Request.Url.AbsolutePath;
         string returnurl = absolutepath.Substring(absolutepath.LastIndexOf('/') + 1);
         if (returnurl == "Production.aspx")
         {
@@ -80,26 +78,14 @@ public partial class UserControls_ProcessObject : System.Web.UI.UserControl
             lblOrderNo.Enabled = true;
             lnkbtnErrorReport.Enabled = true;
         }
-    }
 
-    private void BindColName(int pId)
-    {
-        IEnumerable<tbl_ProcessBlockHeader> processHeaders = ProcessHeaderColumns.GetProcessHeader(pId).ToList();
-        if (processHeaders.Count() > 0)
-        {
-            lnkbtn.Text = processHeaders.Where(x => x.SequanceOrder == 1).Select(x => x.Headerlblname).FirstOrDefault();
-            lnkBtnInput.Text = processHeaders.Where(x => x.SequanceOrder == 2).Select(x => x.Headerlblname).FirstOrDefault();
-            lnkBtnBOM.Text = processHeaders.Where(x => x.SequanceOrder == 3).Select(x => x.Headerlblname).FirstOrDefault();
-            lnkBtnTFG.Text = processHeaders.Where(x => x.SequanceOrder == 4).Select(x => x.Headerlblname).FirstOrDefault();
-            lnkBtnMachine.Text = processHeaders.Where(x => x.SequanceOrder == 5).Select(x => x.Headerlblname).FirstOrDefault();
-            lnkbtnErrorReport.Text = processHeaders.Where(x => x.SequanceOrder == 6).Select(x => x.Headerlblname).FirstOrDefault();
-        }
+       
     }
 
     public void BindDataOrderGrid(int poId)
     {
+        
 
-        int processId = 0;
         if (SourceType == 2)  //2: Target
         {
           ViewState["TargetObjID"] = poId;
@@ -123,7 +109,6 @@ public partial class UserControls_ProcessObject : System.Web.UI.UserControl
                 //ProcessObj.ProcessObjName = "Activity-" + ViewState["Index"].ToString();
                 TargetObj.TargetObjName = Activity.GetActivityNameByTargetObjId(this.CInt32(poId));
                 TargetObj.TargetObjID = this.CInt32(poId);
-                processId = tblProcessObj.ProcessID ?? 0;
                 bool result = false;
                 result = TargetData.SaveProcessObject(TargetObj);
 
@@ -139,7 +124,6 @@ public partial class UserControls_ProcessObject : System.Web.UI.UserControl
         else
         { 
             tbl_ProcessObject ProcessObj = ProcessData.ProcessObjectByID(poId);////AttributeById will get Attribute by its id that is EditIDINT
-            processId = ProcessObj.ProcessID ?? 0;
 
             if (ProcessObj != null)
             {
@@ -152,7 +136,6 @@ public partial class UserControls_ProcessObject : System.Web.UI.UserControl
                 //ProcessObj.ProcessObjName = "Activity-" + ViewState["Index"].ToString();
                 ProcessObj.ProcessObjName = Activity.GetActivityNameByProcessObjId(this.CInt32(poId));
                 ProcessObj.ProcessObjID = this.CInt32(poId);
-                
                 bool result = false;
                 result = ProcessData.SaveProcessObject(ProcessObj);
 
@@ -164,8 +147,7 @@ public partial class UserControls_ProcessObject : System.Web.UI.UserControl
 
 
             }
-      }
-      BindColName(processId);
+    }
     }
     protected void lnkbtn_Click(object sender, EventArgs e)
     {

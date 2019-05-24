@@ -177,17 +177,8 @@ public partial class MyProcess : System.Web.UI.Page
         Session.Add("Email", Email);
         Session.Add("Parent_id", ParentID);
         Session.Add("ProcessId", ProcessId);
+        Session.Add("CompanyId", ParentID);
         Session.Add("UserID", ID);
-
-        if(CompanyId == 0)
-        {
-            Session.Add("CompanyId", UserID);
-        }
-        else
-        {
-            Session.Add("CompanyId", ParentID);
-        }
-
         Response.Redirect("~/Default.aspx");
     }
     protected void gv_process_RowCreated(object sender, GridViewRowEventArgs e)

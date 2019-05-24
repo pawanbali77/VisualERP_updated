@@ -20,8 +20,22 @@ public partial class ManageReport : BasePage
     List<int> activity = new List<int>();
     List<string> activityName = new List<string>();
     Dictionary<int, string> activityDic = new Dictionary<int, string>();
+
+
+    List<int> AllExistingReports = new List<int>();
+    List<string> AllExistingReportsName = new List<string>();
+    Dictionary<int, string> AllExistingReportsDic = new Dictionary<int, string>();
+
+    List<int> AllExistingReports_Process = new List<int>();
+    List<string> AllExistingReportsName_Process = new List<string>();
+    Dictionary<int, string> AllExistingReportsDic_Process = new Dictionary<int, string>();
+
     List<string> attribute = new List<string>();
+
+    List<string> ExistingReports_Attribute_Attribute = new List<string>();
+
     List<ProcessData.ProcessDataProperty> activityNode = new List<ProcessData.ProcessDataProperty>();
+    List<ProcessData.AllReports> ObjAllExistingReports = new List<ProcessData.AllReports>();
     //List<int> actv = new List<int>();
     //List<NodeItem> actv = new List<NodeItem>();
     Dictionary<int, string> actv = new Dictionary<int, string>();
@@ -54,7 +68,7 @@ public partial class ManageReport : BasePage
                       "ServerControlScript2", "test1();", true);
 
         pnlActivity.Visible = false;
-        pnlInventory.Visible = false;
+        pnlInventory.Visible = false; pnlCustomStandardReport.Visible = false;
         pnlEror.Visible = false;
         pnlAttribute.Visible = false;
         pnlBomProcess.Visible = false;
@@ -65,6 +79,7 @@ public partial class ManageReport : BasePage
         pnlESAReport.Visible = false;
         pnlInventoryReport.Visible = false;
         pnlReportType.Visible = false;
+        pnlCustomStandardReport_Process.Visible = false;
         pnlListSavedReport.Visible = false;
         pnlTgtValueGap.Visible = false;
         pnlErrorReport.Visible = false;
@@ -74,12 +89,15 @@ public partial class ManageReport : BasePage
         liExporttoExcel.Visible = false;
         chkSelectAllActivity.Checked = false; // uncheck select all checkbox on page load
         chkSelectallInventory.Checked = false;
+        chkExistingReports_Category_Attribute.Checked = false;
         chkAllAttributes.Checked = false; // uncheck select all checkbox on page load
         chkAllInventoryAttributes.Checked = false;
         chkSelectAllBom.Checked = false; // uncheck select all checkbox on page load
+        chkSelectallExistingReports.Checked = false;
+        pnlCustomStandardReport_Process_attribute.Visible = false;
+        pnlCustomStandardReport_Selected.Visible = false;
+        chkExistingReports_Attribute_Attribute.Checked = false;
 
-
-        //PanelReportType.Visible = true;
         //divErrorMsg.Visible = false;
 
         Label lblManager = (Label)Master.FindControl("lblManager");
@@ -130,6 +148,33 @@ public partial class ManageReport : BasePage
             }
         }
 
+        foreach (ListItem item in chkboxExistingReports.Items)
+        {
+            if (item.Selected)
+            {
+                AllExistingReports.Add(Convert.ToInt32(item.Value));
+                AllExistingReportsName.Add(Convert.ToString(item.Text));
+                string ExistingReportsName = item.Text;
+                AllExistingReportsDic.Add(Convert.ToInt32(item.Value), ExistingReportsName);
+                Session["ExistingReportsValue"] = AllExistingReports; // it hold activity id that is proess object id in session
+                Session["ExistingReportsName"] = AllExistingReportsName; // it hold activity name that is process object name in session
+                Session["ExistingReportsDictionary"] = AllExistingReportsDic; // it will hold dicectory of both activity and activity name in session
+            }
+        }
+
+        foreach (ListItem item in chkboxExistingReports_Category_Attribute.Items)
+        {
+            if (item.Selected)
+            {
+                AllExistingReports_Process.Add(Convert.ToInt32(item.Value));
+                AllExistingReportsName_Process.Add(Convert.ToString(item.Text));
+                string ExistingReportsName_Process = item.Text;
+                AllExistingReportsDic_Process.Add(Convert.ToInt32(item.Value), ExistingReportsName_Process);
+                Session["ExistingReportsValue_process"] = AllExistingReports_Process; // it hold activity id that is proess object id in session
+                Session["ExistingReportsName_process"] = AllExistingReportsName_Process; // it hold activity name that is process object name in session
+                Session["ExistingReportsDictionary_process"] = AllExistingReportsDic_Process; // it will hold dicectory of both activity and activity name in session
+            }
+        }
 
 
 
@@ -152,7 +197,14 @@ public partial class ManageReport : BasePage
                 Session["ErrorAttributeName"] = attribute;
             }
         }
-
+        foreach (ListItem item in chkboxExistingReports_Attribute_Attribute.Items)
+        {
+            if (item.Selected)
+            {
+                ExistingReports_Attribute_Attribute.Add(Convert.ToString(item.Text)); // on page checkbox will get clear thats why we hold the checked items in list and session
+                Session["ExistingReports_Attribute_Attribute"] = ExistingReports_Attribute_Attribute;
+            }
+        }
         foreach (ListItem item in chkboxInventoryAttribute.Items)
         {
             if (item.Selected)
@@ -198,7 +250,7 @@ public partial class ManageReport : BasePage
                     {
                         pnlListSavedReport.Visible = true; //saved report grid will show and other will hide
                         pnlActivity.Visible = false;
-                        pnlInventory.Visible = false;
+                        pnlInventory.Visible = false; pnlCustomStandardReport.Visible = false;
                         pnlEror.Visible = false;
                         grdSavedReport.DataSource = lstData; // bind grid generic list as data source
                         grdSavedReport.DataBind();
@@ -217,7 +269,7 @@ public partial class ManageReport : BasePage
                         //*******************
                         pnlReportType.Visible = true;
                         pnlActivity.Visible = false;
-                        pnlInventory.Visible = false;
+                        pnlInventory.Visible = false; pnlCustomStandardReport.Visible = false;
                         pnlAttribute.Visible = false;
                         pnlBomProcess.Visible = false;
                         pnlAttributeReport.Visible = false;
@@ -272,9 +324,14 @@ public partial class ManageReport : BasePage
                 if (EditId == "btnNextToError") // maintain currentreport type of Inventory Report in session before click on linkbutton
                     Session["CurrentReport"] = (int)ReportTypeID.Error;
 
+                if (EditId == "btnNextToExistingReports") // maintain currentreport type of Inventory Report in session before click on linkbutton
+                    Session["CurrentReport"] = (int)ReportTypeID.CustomStandardReport;
+
                 BindActivityCheckboxList(Convert.ToInt32(mastertreeview.SelectedNode.Value)); // bind activity checkbox
                 BindInventoryCheckboxList(Convert.ToInt32(mastertreeview.SelectedNode.Value));
                 BindErrorCheckboxList(Convert.ToInt32(mastertreeview.SelectedNode.Value));
+                BindAllExistingReportCheckboxList(Convert.ToInt32(mastertreeview.SelectedNode.Value));
+
             }
             ProcessId = this.CInt32(mastertreeview.SelectedNode.Value);
             //Session["SelectedNodeValue"] = ProcessId;
@@ -427,7 +484,7 @@ public partial class ManageReport : BasePage
         {
             pnlListSavedReport.Visible = true;
             pnlActivity.Visible = false;
-            pnlInventory.Visible = false;
+            pnlInventory.Visible = false; pnlCustomStandardReport.Visible = false;
             pnlEror.Visible = false;
             grdSavedReport.DataSource = lstData;
             grdSavedReport.DataBind();
@@ -442,7 +499,7 @@ public partial class ManageReport : BasePage
             //*******************
             pnlReportType.Visible = true;
             pnlActivity.Visible = false;
-            pnlInventory.Visible = false;
+            pnlInventory.Visible = false; pnlCustomStandardReport.Visible = false;
             pnlEror.Visible = false;
             pnlAttribute.Visible = false;
             pnlBomProcess.Visible = false;
@@ -518,6 +575,34 @@ public partial class ManageReport : BasePage
             chkboxInventory.Items.Clear();
         }
     }
+    public void BindAllExistingReportCheckboxList(int PoID)
+    {
+        List<ProcessData.AllReports> objAllExistingReports = ProcessData.GetAllExistingReportsName(PoID);
+
+        if (objAllExistingReports.Count != 0)
+        {
+            divAllExistingReports.Visible = true;
+            //
+            ObjAllExistingReports.AddRange(objAllExistingReports);
+            //
+            chkboxExistingReports.DataSource = objAllExistingReports;
+            chkboxExistingReports.DataTextField = "ReportsName"; // datatext field
+            chkboxExistingReports.DataValueField = "ReportsID"; // data value field
+            chkboxExistingReports.DataBind(); // bind checkboxlist            
+            //btnNextToExistingReports.Visible = true;
+            headerTitleAllreports.InnerText = "Select Report";
+            chkSelectallExistingReports.Visible = true;
+        }
+        else
+        {
+            headerTitleAllreports.InnerText = "No Report found under this process";
+            //divAttribute.Visible = false;
+            chkSelectallExistingReports.Visible = false;
+            //btnNextToExistingReports.Visible = false;
+            chkboxExistingReports.Items.Clear();
+        }
+    }
+
 
     public void BindErrorCheckboxList(int PoID)
     {
@@ -560,6 +645,7 @@ public partial class ManageReport : BasePage
             lblMsg.Text = "";
             pnlActivity.Visible = false;
             pnlInventory.Visible = false;
+            pnlCustomStandardReport.Visible = false;
             pnlEror.Visible = false;
             pnlListSavedReport.Visible = false;
             pnlAttributeReport.Visible = false;
@@ -579,6 +665,8 @@ public partial class ManageReport : BasePage
                 //report type 3 for TFG report
                 //report type 4 for Machine report
                 //report type 8 for Inventory report
+                //report type 9 for Error report
+                //report type 10 for Custom Standard report
                 if (reporttyp == 1)
                 {
                     for (int i = 0; i < activity.Count; i++)
@@ -727,19 +815,13 @@ public partial class ManageReport : BasePage
                     for (int i = 0; i < activity.Count; i++)
                     {
                         int prcobjID = Convert.ToInt32(activity[i].ToString()); //proobjId is selected atctivity id
-
-
                         attribute.AddRange(ProcessData.GetInventoryObjAttributes(prcobjID));
-                        //List.AddRange(attribute);
                         attribute.Select(x => x.AttributeName).Distinct();
                         var DistinctItems = attribute.GroupBy(x => x.AttributeName).Select(y => y.First());
-                        // attribute= attribute.Distinct().ToList();
-
                         if (attribute.Count != 0)
                         {
                             chkboxInventoryAttribute.DataSource = DistinctItems;
                         }
-                        //chkboxInventoryAttribute.DataSource = attribute;
                     }
                     chkboxInventoryAttribute.DataTextField = "AttributeName"; // textfield
                     chkboxInventoryAttribute.DataValueField = "AttributeMenuID"; //value field
@@ -751,77 +833,26 @@ public partial class ManageReport : BasePage
                     for (int i = 0; i < activity.Count; i++)
                     {
                         int prcobjID = Convert.ToInt32(activity[i].ToString()); //proobjId is selected atctivity id
-
-
                         attribute.AddRange(ProcessData.GetErrorObjAttributes(prcobjID));
-                        //List.AddRange(attribute);
                         attribute.Select(x => x.AttributeName).Distinct();
                         var DistinctItems = attribute.GroupBy(x => x.AttributeName).Select(y => y.First());
-                        // attribute= attribute.Distinct().ToList();
-
                         if (attribute.Count != 0)
                         {
                             chkboxErrorAttribute.DataSource = DistinctItems;
                         }
-                        //chkboxInventoryAttribute.DataSource = attribute;
                     }
                     chkboxErrorAttribute.DataTextField = "AttributeName"; // textfield
                     chkboxErrorAttribute.DataValueField = "AttributeMenuID"; //value field
                     chkboxErrorAttribute.DataBind(); //binding chkboxInventoryAttribute 
                     pnlErrorAttribute.Visible = true;
                 }
-                //if (reporttyp == 5 || reporttyp == 6)
-                //{
-                //    for (int i = 0; i < activity.Count; i++)
-                //    {
-                //        int prcobjID = Convert.ToInt32(activity[i].ToString()); //proobjId is selected atctivity id
-                //        ViewState["sortBy"] = "FormID";
-                //        ViewState["isAsc"] = "1";
-
-                //        int ESAtype = 0;
-                //        if (Convert.ToInt32(Session["CurrentReport"]) == 5)
-                //            ESAtype = Convert.ToInt32(FormType.PPESA);
-                //        else if (Convert.ToInt32(Session["CurrentReport"]) == 6)
-                //            ESAtype = Convert.ToInt32(FormType.PDESA);
-
-                //        ESADataR.AddRange(PPESAnPDESA.GetPPESAnPDESADataByPobjID(this.CBool(ViewState["isAsc"]), ViewState["sortBy"].ToString(), ESAtype, prcobjID));
-
-                //        if (ESADataR.Count > 0)
-                //        {
-                //            grdESAReport.DataSource = ESADataR;
-                //            grdESAReport.DataBind();
-                //            pnlESAReport.Visible = true;
-                //            lnkbtnSaveReport.Visible = true;
-                //            liSaveReport.Visible = true;
-                //            divESAName.Visible = true;
-                //            txtESAReportName.Text = "";
-                //            lblMsg.Text = "";
-                //            lnkbtnExporttoExcel.Visible = true; // show export to excel button if report grid display
-                //            liExporttoExcel.Visible = true;
-                //        }
-                //        else
-                //        {
-                //            grdESAReport.DataSource = null;
-                //            grdESAReport.DataBind();
-                //            divESAName.Visible = false;
-                //            lnkbtnSaveReport.Visible = false;
-                //            liSaveReport.Visible = false;
-                //            liSaveReport.Visible = false;
-                //            pnlESAReport.Visible = true;
-                //            lblMsg.Text = "";
-                //            lnkbtnExporttoExcel.Visible = false; // hide export to excel button if report grid is null
-                //            liExporttoExcel.Visible = false;
-                //        }
-                //    }
-                //}
             }
             else
             {
                 //show add report button
-
                 pnlReportType.Visible = true;
                 pnlActivity.Visible = false;
-                pnlInventory.Visible = false;
+                pnlInventory.Visible = false; pnlCustomStandardReport.Visible = false;
                 pnlEror.Visible = false;
                 pnlAttribute.Visible = false;
                 pnlBomProcess.Visible = false;
@@ -860,6 +891,191 @@ public partial class ManageReport : BasePage
         pnlReportType.Visible = false;
     }
 
+
+
+    protected void btnNextToExistingReports_Click(object sender, EventArgs e)
+    {
+        ViewState["ReportEditID"] = 0;
+        if (AllExistingReports.Count > 0) // activity is list have checkbox selection items on page load
+        {
+            List<ProcessData.AllReports> objReportsName = new List<ProcessData.AllReports>();
+            lblMsg.Text = "";
+            pnlActivity.Visible = false;
+            pnlInventory.Visible = false;
+            pnlCustomStandardReport.Visible = false;
+            pnlEror.Visible = false;
+            pnlListSavedReport.Visible = false;
+            pnlAttributeReport.Visible = false;
+            pnlBomReport.Visible = false;
+            if (Session["CurrentReport"] != null) // session current report contains the selected report that is whatever Attribute,Bom,Tfg,machine
+            {
+                //report type 1 for attribute report
+                //report type 2 for bom report
+                //report type 3 for TFG report
+                //report type 4 for Machine report
+                //report type 5 for PCS report
+                //report type 6 for DCS report
+                //report type 7 for TGTGAP report
+                //report type 8 for Inventory report
+                //report type 9 for Error report
+                //report type 10 for Custom Standard report
+                int CurrentReport = Convert.ToInt32(Session["CurrentReport"]); // get report type 
+                TreeView mastertreeview = (TreeView)Master.FindControl("TreeView1");
+                List<ProcessData.ProcessDataProperty> Process_attribute = new List<ProcessData.ProcessDataProperty>();
+                List<ProcessData.ProcessDataProperty> Process_Bom = new List<ProcessData.ProcessDataProperty>();
+                List<ProcessData.ProcessDataProperty> Process_TFG = new List<ProcessData.ProcessDataProperty>();
+                List<ProcessData.ProcessDataProperty> Process_Machine = new List<ProcessData.ProcessDataProperty>();
+                List<ProcessData.ProcessDataProperty> Process_Error = new List<ProcessData.ProcessDataProperty>();
+                List<ProcessData.ProcessDataProperty> Process_Inventory = new List<ProcessData.ProcessDataProperty>();
+                int VisibleStatus = 0;
+                if (CurrentReport == Convert.ToInt32(ReportTypeID.CustomStandardReport))
+                {
+                    foreach (var row in AllExistingReports)
+                    {
+
+                        if (row == Convert.ToInt32(ReportTypeID.Attribute))
+                        {
+                            Process_attribute = ProcessData.GetProcessObjActvities(Convert.ToInt32(mastertreeview.SelectedNode.Value));
+                            VisibleStatus = 1;
+                        }
+                        if (row == Convert.ToInt32(ReportTypeID.Bom))
+                        {
+                            Process_Bom = ProcessData.GetProcessObjActvities(Convert.ToInt32(mastertreeview.SelectedNode.Value));
+                            VisibleStatus = 1;
+                        }
+                        if (row == Convert.ToInt32(ReportTypeID.TFG))
+                        {
+                            Process_TFG = ProcessData.GetProcessObjActvities(Convert.ToInt32(mastertreeview.SelectedNode.Value));
+                            VisibleStatus = 1;
+                        }
+                        if (row == Convert.ToInt32(ReportTypeID.Machine))
+                        {
+                            Process_Machine = ProcessData.GetProcessObjActvities(Convert.ToInt32(mastertreeview.SelectedNode.Value));
+                            VisibleStatus = 1;
+                        }
+                        if (row == Convert.ToInt32(ReportTypeID.Error))
+                        {
+                            Process_Error = ProcessData.GetProcessObjActvities(Convert.ToInt32(mastertreeview.SelectedNode.Value));
+                            VisibleStatus = 1;
+                        }
+                        if (row == Convert.ToInt32(ReportTypeID.Inventory))
+                        {
+                            Process_Inventory = ProcessData.GetProcessObjInventories(Convert.ToInt32(mastertreeview.SelectedNode.Value));
+                            VisibleStatus = 1;
+                        }
+                        else if (row == Convert.ToInt32(ReportTypeID.PCS) || row == Convert.ToInt32(ReportTypeID.DCS) || row == Convert.ToInt32(ReportTypeID.TGTGAP))
+                        {
+                            divErrorMsg.Visible = true;
+                            lblMsg.Text = "Further Selection is not available for PCS, DCS and TGTGAP";
+                            lblMsg.Style.Add("color", "red");
+                            divErrorMsg.Style.Add("min-width", "231px");
+                            divErrorMsg.Style.Add("margin-right", "470px");
+                            divErrorMsg.Style.Add("margin-left", "0px");
+                            divErrorMsg.Style.Add("float", "right");
+                            divErrorMsg.Style.Add("margin-left", "0px");
+                            divErrorMsg.Style.Add("padding", "7px 14px 0px 17px");
+                            divErrorMsg.Attributes.Add("class", "isa_error");
+                        }
+                    }
+                    if (VisibleStatus == 1)
+                    {
+                        pnlCustomStandardReport_Process.Visible = true;
+                        if (Process_attribute.Count > 0)
+                        {
+                            pnl_Allreports_Category_Attribute.Visible = true;
+                            Allreports_Category_Attribute.InnerText = "Attribute's processes";
+                            Allreports_Category_Attribute.Visible = true;
+                            chkboxExistingReports_Category_Attribute.DataSource = Process_attribute;
+                            chkboxExistingReports_Category_Attribute.DataTextField = "ProcessObjectName"; // textfield
+                            chkboxExistingReports_Category_Attribute.DataValueField = "ProcessObjID"; //value field
+                            chkboxExistingReports_Category_Attribute.DataBind();
+                        }
+                        if (Process_Bom.Count > 0)
+                        {
+                            pnl_Allreports_Category_BOM.Visible = true;
+                            Allreports_Category_BOM.InnerText = "BOM's processes";
+                            Allreports_Category_BOM.Visible = true;
+                            chkboxExistingReports_Category_BOM.DataSource = Process_Bom;
+                            chkboxExistingReports_Category_BOM.DataTextField = "ProcessObjectName"; // textfield
+                            chkboxExistingReports_Category_BOM.DataValueField = "ProcessObjID"; //value field
+                            chkboxExistingReports_Category_BOM.DataBind();
+                        }
+
+                        if (Process_TFG.Count > 0)
+                        {
+                            pnl_Allreports_Category_TFG.Visible = true;
+                            Allreports_Category_TFG.InnerText = "TFG's processes";
+                            Allreports_Category_TFG.Visible = true;
+                            chkboxExistingReports_Category_TFG.DataSource = Process_TFG;
+                            chkboxExistingReports_Category_TFG.DataTextField = "ProcessObjectName"; // textfield
+                            chkboxExistingReports_Category_TFG.DataValueField = "ProcessObjID"; //value field
+                            chkboxExistingReports_Category_TFG.DataBind();
+                        }
+
+                        if (Process_Machine.Count > 0)
+                        {
+                            pnl_Allreports_Category_Machine.Visible = true;
+                            Allreports_Category_Machine.InnerText = "Machine's processes";
+                            Allreports_Category_Machine.Visible = true;
+                            chkboxExistingReports_Category_Machine.DataSource = Process_Machine;
+                            chkboxExistingReports_Category_Machine.DataTextField = "ProcessObjectName"; // textfield
+                            chkboxExistingReports_Category_Machine.DataValueField = "ProcessObjID"; //value field
+                            chkboxExistingReports_Category_Machine.DataBind();
+                        }
+
+                        if (Process_Error.Count > 0)
+                        {
+                            pnl_Allreports_Category_Error.Visible = true;
+                            Allreports_Category_Error.InnerText = "Error's processes";
+                            Allreports_Category_Error.Visible = true;
+                            chkboxExistingReports_Category_Error.DataSource = Process_Error;
+                            chkboxExistingReports_Category_Error.DataTextField = "ProcessObjectName"; // textfield
+                            chkboxExistingReports_Category_Error.DataValueField = "ProcessObjID"; //value field
+                            chkboxExistingReports_Category_Error.DataBind();
+                        }
+
+                        if (Process_Inventory.Count > 0)
+                        {
+                            pnl_Allreports_Category_Inventory.Visible = true;
+                            Allreports_Category_Inventory.InnerText = "Inventory's processes";
+                            Allreports_Category_Inventory.Visible = true;
+                            chkboxExistingReports_Category_Inventory.DataSource = Process_Inventory;
+                            chkboxExistingReports_Category_Inventory.DataTextField = "ProcessObjectName"; // textfield
+                            chkboxExistingReports_Category_Inventory.DataValueField = "ProcessObjID"; //value field
+                            chkboxExistingReports_Category_Inventory.DataBind();
+                        }
+                    }
+                }
+            }
+        }
+        else
+        {
+            lblMsg.Visible = true;
+            divErrorMsg.Visible = true;
+            lblMsg.Text = "Please select at least one Activity.";
+            lblMsg.Style.Add("color", "red");
+            divErrorMsg.Style.Add("min-width", "231px");
+            divErrorMsg.Style.Add("margin-right", "470px");
+            divErrorMsg.Style.Add("margin-left", "0px");
+            divErrorMsg.Style.Add("float", "right");
+            divErrorMsg.Style.Add("margin-left", "0px");
+            divErrorMsg.Style.Add("padding", "7px 14px 0px 17px");
+            divErrorMsg.Attributes.Add("class", "isa_error");
+            pnlActivity.Visible = false;
+            pnlReportType.Visible = false;
+            pnlAttribute.Visible = false;
+            pnlCustomStandardReport.Visible = false;
+            pnlBomProcess.Visible = false;
+            pnlAttributeReport.Visible = false;
+            pnlBomReport.Visible = false;
+            pnlTFGReport.Visible = false;
+            pnlESAReport.Visible = false;
+            pnlListSavedReport.Visible = false;
+            pnlInventoryAttribute.Visible = false;
+        }
+        pnlReportType.Visible = false;
+    }
+
     /// <summary>
     /// it will get the report according attributes those are selected in checkboxlist
     /// </summary>
@@ -872,12 +1088,13 @@ public partial class ManageReport : BasePage
             pnlAttribute.Visible = false;
             pnlActivity.Visible = false;
             pnlInventory.Visible = false;
+            pnlCustomStandardReport.Visible = false;
             pnlEror.Visible = false;
             pnlAttributeReport.Visible = true; // attribute report panel will display others will be hide
             pnlListSavedReport.Visible = false;
             txtAttributeReportName.Text = "";
             lblMsg.Text = "";
-            GetAttributeReportData();
+            GetAttributeReportData(false, false, "");
             lnkbtnSaveReport.Visible = true;
             if (RoleID == 4)
             {
@@ -903,11 +1120,139 @@ public partial class ManageReport : BasePage
 
             pnlAttribute.Visible = true;
             pnlActivity.Visible = false;
-            pnlInventory.Visible = false;
+            pnlInventory.Visible = false; pnlCustomStandardReport.Visible = false;
             pnlEror.Visible = false;
             pnlListSavedReport.Visible = false;
             pnlReportType.Visible = false;
         }
+
+    }
+
+    protected void btnCustomStandardReport_NextToAttribute_Click(object sender, EventArgs e)
+    {
+        ViewState["ReportEditID"] = 0;
+        if (AllExistingReports_Process.Count > 0) // activity is list have checkbox selection items on page load
+        {
+            lblMsg.Text = "";
+            pnlActivity.Visible = false;
+            pnlInventory.Visible = false;
+            pnlCustomStandardReport.Visible = false;
+            pnlEror.Visible = false;
+            pnlListSavedReport.Visible = false;
+            pnlAttributeReport.Visible = false;
+            pnlBomReport.Visible = false;
+            ArrayList List = new ArrayList();
+            List<ProcessData.ProcessDataProperty> attribute = new List<ProcessData.ProcessDataProperty>();
+            List<BomData.BomDataProcessProperty> bomDataR = new List<BomData.BomDataProcessProperty>();
+            List<TFGData.ListTFGData> TFGDataR = new List<TFGData.ListTFGData>();
+            List<MachineData.ListMachineData> MachineDataR = new List<MachineData.ListMachineData>();
+            List<PPESAnPDESA.ListPPESAnPDESAData> ESADataR = new List<PPESAnPDESA.ListPPESAnPDESAData>();
+            if (Session["CurrentReport"] != null) // session current report contains the selected report that is whatever Attribute,Bom,Tfg,machine
+            {
+
+                int CurrentReport = Convert.ToInt32(Session["CurrentReport"]);
+                //report type 1 for attribute report
+                //report type 2 for bom report
+                //report type 3 for TFG report
+                //report type 4 for Machine report
+                //report type 8 for Inventory report
+                //report type 9 for Error report
+                //report type 10 for Custom Standard report
+                if (CurrentReport == Convert.ToInt32(ReportTypeID.CustomStandardReport))
+                {
+                    AllExistingReports = (List<int>)Session["ExistingReportsValue"];
+                    if (AllExistingReports.Count > 0)
+                    {
+                        foreach (var row in AllExistingReports)
+                        {
+                            if (row == Convert.ToInt32(ReportTypeID.Attribute))
+                            {
+                                for (int i = 0; i < AllExistingReports_Process.Count; i++)
+                                {
+                                    int prcobjID = Convert.ToInt32(AllExistingReports_Process[i].ToString()); //proobjId is selected atctivity id
+                                    attribute.AddRange(ProcessData.GetProcessObjAttributes(prcobjID));
+                                    attribute.Select(x => x.AttributeName).Distinct();
+                                    var DistinctItems = attribute.GroupBy(x => x.AttributeName).Select(y => y.First());
+                                    if (attribute.Count != 0)
+                                    {
+                                        chkboxExistingReports_Attribute_Attribute.DataSource = DistinctItems;
+                                    }
+                                }
+                                chkboxExistingReports_Attribute_Attribute.DataTextField = "AttributeName"; // textfield
+                                chkboxExistingReports_Attribute_Attribute.DataValueField = "AttributeMenuID"; //value field
+                                chkboxExistingReports_Attribute_Attribute.DataBind(); //binding chkboxInventoryAttribute 
+                                pnlCustomStandardReport_Process_attribute.Visible = true;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        lblMsg.Visible = true;
+                        divErrorMsg.Visible = true;
+                        lblMsg.Text = "Please select at least one Report.";
+                        lblMsg.Style.Add("color", "red");
+                        divErrorMsg.Style.Add("min-width", "231px");
+                        divErrorMsg.Style.Add("margin-right", "470px");
+                        divErrorMsg.Style.Add("margin-left", "0px");
+                        divErrorMsg.Style.Add("float", "right");
+                        divErrorMsg.Style.Add("margin-left", "0px");
+                        divErrorMsg.Style.Add("padding", "7px 14px 0px 17px");
+                        divErrorMsg.Attributes.Add("class", "isa_error");
+                        pnlActivity.Visible = false;
+                        pnlReportType.Visible = false;
+                        pnlAttribute.Visible = false;
+                        pnlBomProcess.Visible = false;
+                        pnlAttributeReport.Visible = false;
+                        pnlBomReport.Visible = false;
+                        pnlTFGReport.Visible = false;
+                        pnlESAReport.Visible = false;
+                        pnlListSavedReport.Visible = false;
+                    }
+                }
+            }
+            else
+            {
+                //show add report button
+                pnlReportType.Visible = true;
+                pnlActivity.Visible = false;
+                pnlInventory.Visible = false; pnlCustomStandardReport.Visible = false;
+                pnlEror.Visible = false;
+                pnlAttribute.Visible = false;
+                pnlBomProcess.Visible = false;
+                pnlAttributeReport.Visible = false;
+                pnlBomReport.Visible = false;
+                pnlTFGReport.Visible = false;
+                pnlMachineReport.Visible = false;
+                pnlCustomStandardReport_Process_attribute.Visible = false;
+                pnlESAReport.Visible = false;
+                pnlListSavedReport.Visible = false;
+                divErrorMsg.Visible = false;
+            }
+        }
+        else
+        {
+            lblMsg.Visible = true;
+            divErrorMsg.Visible = true;
+            lblMsg.Text = "Please select at least one Process.";
+            lblMsg.Style.Add("color", "red");
+            divErrorMsg.Style.Add("min-width", "231px");
+            divErrorMsg.Style.Add("margin-right", "470px");
+            divErrorMsg.Style.Add("margin-left", "0px");
+            divErrorMsg.Style.Add("float", "right");
+            divErrorMsg.Style.Add("margin-left", "0px");
+            divErrorMsg.Style.Add("padding", "7px 14px 0px 17px");
+            divErrorMsg.Attributes.Add("class", "isa_error");
+            pnlActivity.Visible = false;
+            pnlReportType.Visible = false;
+            pnlAttribute.Visible = false;
+            pnlBomProcess.Visible = false;
+            pnlAttributeReport.Visible = false;
+            pnlBomReport.Visible = false;
+            pnlTFGReport.Visible = false;
+            pnlESAReport.Visible = false;
+            pnlListSavedReport.Visible = false;
+        }
+        pnlReportType.Visible = false;
 
     }
 
@@ -917,7 +1262,7 @@ public partial class ManageReport : BasePage
         {
             pnlAttribute.Visible = false;
             pnlActivity.Visible = false;
-            pnlInventory.Visible = false;
+            pnlInventory.Visible = false; pnlCustomStandardReport.Visible = false;
             pnlEror.Visible = false;
             pnlInventoryReport.Visible = true; // attribute report panel will display others will be hide
             pnlListSavedReport.Visible = false;
@@ -949,7 +1294,7 @@ public partial class ManageReport : BasePage
 
             pnlAttribute.Visible = false;
             pnlActivity.Visible = false;
-            pnlInventory.Visible = false;
+            pnlInventory.Visible = false; pnlCustomStandardReport.Visible = false;
             pnlEror.Visible = false;
             pnlListSavedReport.Visible = false;
             pnlReportType.Visible = false;
@@ -963,7 +1308,7 @@ public partial class ManageReport : BasePage
         {
             pnlAttribute.Visible = false;
             pnlActivity.Visible = false;
-            pnlInventory.Visible = false;
+            pnlInventory.Visible = false; pnlCustomStandardReport.Visible = false;
             pnlEror.Visible = false;
             pnlInventoryReport.Visible = false;
             pnlErrorReport.Visible = true;
@@ -996,7 +1341,57 @@ public partial class ManageReport : BasePage
             pnlErrorReport.Visible = false;
             pnlAttribute.Visible = false;
             pnlActivity.Visible = false;
+            pnlInventory.Visible = false; pnlCustomStandardReport.Visible = false;
+            pnlEror.Visible = false;
+            pnlListSavedReport.Visible = false;
+            pnlReportType.Visible = false;
+        }
+
+    }
+
+
+
+    protected void btnNextToCustomStandardReport_Click(object sender, EventArgs e)
+    {
+        if (ExistingReports_Attribute_Attribute.Count > 0) // activity is list have checkbox selection items on page load
+        {
+            pnlAttribute.Visible = false;
+            pnlActivity.Visible = false;
             pnlInventory.Visible = false;
+            pnlCustomStandardReport.Visible = false;
+            pnlEror.Visible = false;
+            pnlAttributeReport.Visible = false; // attribute report panel will display others will be hide
+            pnlListSavedReport.Visible = false;
+            pnlCustomStandardReport_Selected.Visible = true;
+            txtAttributeReportName.Text = "";
+            lblMsg.Text = "";
+            GetAttributeReportData(true, false, "");
+            lnkbtnSaveReport.Visible = true;
+            if (RoleID == 4)
+            {
+                lnkbtnSaveReport.Visible = false;
+                txtAttributeReportName.Visible = false;
+            }
+            liSaveReport.Visible = true;
+            pnlReportType.Visible = false;
+        }
+        else
+        {
+            lblMsg.Visible = true;
+            divErrorMsg.Visible = true;
+            lblMsg.Text = "Please select at least one Attribute.";
+            lblMsg.Style.Add("color", "red");
+            divErrorMsg.Style.Add("min-width", "231px");
+            divErrorMsg.Style.Add("margin-right", "470px");
+            divErrorMsg.Style.Add("margin-left", "0px");
+            divErrorMsg.Style.Add("float", "right");
+            divErrorMsg.Style.Add("margin-left", "0px");
+            divErrorMsg.Style.Add("padding", "7px 14px 0px 17px");
+            divErrorMsg.Attributes.Add("class", "isa_error");
+
+            pnlAttribute.Visible = true;
+            pnlActivity.Visible = false;
+            pnlInventory.Visible = false; pnlCustomStandardReport.Visible = false;
             pnlEror.Visible = false;
             pnlListSavedReport.Visible = false;
             pnlReportType.Visible = false;
@@ -1015,7 +1410,7 @@ public partial class ManageReport : BasePage
         {
             pnlBomProcess.Visible = false;
             pnlActivity.Visible = false;
-            pnlInventory.Visible = false;
+            pnlInventory.Visible = false; pnlCustomStandardReport.Visible = false;
             pnlEror.Visible = false;
             pnlListSavedReport.Visible = false;
             pnlBomReport.Visible = true;
@@ -1051,7 +1446,7 @@ public partial class ManageReport : BasePage
 
             pnlBomProcess.Visible = true;
             pnlActivity.Visible = false;
-            pnlInventory.Visible = false;
+            pnlInventory.Visible = false; pnlCustomStandardReport.Visible = false;
             pnlEror.Visible = false;
             pnlListSavedReport.Visible = false;
             pnlBomReport.Visible = false;
@@ -1260,88 +1655,221 @@ public partial class ManageReport : BasePage
 
         }
     }
-
+    protected void btnAddNewColumn_Click(object sender, EventArgs e)
+    {
+        string ColumnName = txtCustomStandardColumnName.Text;
+        GetAttributeReportData(true, true, ColumnName);
+    }
     /// <summary>
     /// attrbute report will be create here ..dynamic query will be generated also
     /// </summary>
-    public void GetAttributeReportData()
+    public void GetAttributeReportData(bool MixReport, bool AddnewRow, string ColumnName)
     {
         VisualERPDataContext Objdata = new VisualERPDataContext();
-
-        string attributeName = "";
-        // var getRecord;
-        if (Session["ActivityDictionary"] != null)
+        DataTable dtSpecificOrders = new DataTable();
+        if (AddnewRow)
         {
-            activityDic = (Dictionary<int, string>)Session["ActivityDictionary"];
-            // for multiple activities
-            string prefix = string.Empty;
-            string middle = string.Empty;
-            string postfix = string.Empty;
-
-            for (int i = 0; i < activityDic.Count; i++)
-            {
-                int actID = Convert.ToInt32(activityDic.ElementAt(i).Key);
-                string str = Convert.ToString(activityDic.ElementAt(i).Value);
-                //string str = "welcome@to-aspdotnet#sueresh.com";
-                string actName = Regex.Replace(str, "[^a-zA-Z0-9_]+", ""); // actName will be used in sql query as column thats why we need to remove all special characters here
-                if (i == 0)
-                {
-                    prefix = "tab0.AttributeName";
-                    middle = ",tab0.AttributeValue as [" + actName + "]";
-                    //postfix = " from (SELECT AttributeName,AttributeValue FROM [NewVisualERP].[dbo].[tbl_AttributesMenu] where ProcessObjectID ='" + actID.ToString() + "') as tab0";
-                    postfix = " from (SELECT AttributeName,AttributeValue FROM tbl_AttributesMenu where ProcessObjectID ='" + actID.ToString() + "') as tab0";
-                }
-                else
-                {
-                    prefix = "ISNULL(" + prefix + ",tab" + i.ToString() + ".AttributeName)";
-                    middle += ",tab" + i + ".AttributeValue as [" + actName + "]";
-                    //postfix += " FULL OUTER JOIN (SELECT AttributeName,AttributeValue FROM [NewVisualERP].[dbo].[tbl_AttributesMenu] where ProcessObjectID ='" + actID.ToString() + "') as tab" + i.ToString() + " on tab0.AttributeName = tab" + i + ".AttributeName";
-                    postfix += " FULL OUTER JOIN (SELECT AttributeName,AttributeValue FROM tbl_AttributesMenu where ProcessObjectID ='" + actID.ToString() + "') as tab" + i.ToString() + " on tab0.AttributeName = tab" + i + ".AttributeName";
-                }
-            }
-
-            string query = "Select distinct " + prefix + " as Attribute" + middle + postfix;
-
-            // Declare the query string.
-            // Run the query and bind the resulting DataSet
-            // to the GridView control.
-            DataSet ds = GetData(query);
-            DataTable dt = new DataTable();
-            dt = ds.Tables[0];
-            DataTable dtSpecificOrders = dt.Clone();
-            for (int j = 0; j < attribute.Count; j++)
-            {
-                attributeName = Convert.ToString(attribute[j].ToString());
-                DataRow[] orderRows = dt.Select("Attribute = '" + attributeName + "'");
-
-                foreach (DataRow dr in orderRows)
-                {
-                    dtSpecificOrders.ImportRow(dr);
-                }
-            }
+            dtSpecificOrders = (DataTable)Session["GridviewCustomStandardReport"];
             if (dtSpecificOrders.Rows.Count > 0)
             {
-                GridView1.DataSource = dtSpecificOrders;
-                GridView1.DataBind();
+                dtSpecificOrders.Columns.Add(new DataColumn(ColumnName, typeof(string)));
+                GridviewCustomStandardReport.DataSource = dtSpecificOrders;
+                GridviewCustomStandardReport.DataBind();
+
+
+                int cellCount = this.GridviewCustomStandardReport.Rows[0].Cells.Count;
+                int rowsCount = this.GridviewCustomStandardReport.Rows.Count;
+
+                for (int j = 0; j < rowsCount; j++)
+                {
+                    //here i am adding a control.
+                    TextBox textBox = new TextBox();
+                    textBox.ID = "txtDynamicText" + j.ToString();
+                    textBox.Attributes.Add("runat", "server");
+                    textBox.CssClass = "Color";
+                    this.GridviewCustomStandardReport.Rows[j].Cells[cellCount - 1].Controls.Add(textBox);
+                }
+               
+               
                 pnlListSavedReport.Visible = false;
-                //ltrTotalRecord.Text = dtSpecificOrders.Rows.Count.ToString();
                 divErrorMsg.Visible = true;
-                lnkbtnSaveReport.Visible = true;
                 if (RoleID == 4)
                 {
-                    lnkbtnSaveReport.Visible = false;
+
                     txtAttributeReportName.Visible = false;
                 }
-                pnlAttributeReport.Visible = true;
-                lnkbtnExporttoExcel.Visible = true;
-                liSaveReport.Visible = true;
-                liExporttoExcel.Visible = true;
+                pnlAttributeReport.Visible = false;
+                pnlCustomStandardReport_Process_attribute.Visible = false;
+                pnlCustomStandardReport_Selected.Visible = true;
+                btnAddNewColumn.Visible = true;
+                pnlReportType.Visible = false;
+                txtCustomStandardColumnName.Text = "";
+            }
+        }
+        else
+        {
+            Session["GridviewCustomStandardReport"] = "";
+            if (MixReport)
+            {
+                string attributeName = "";
+                if (Session["ExistingReportsDictionary_process"] != null)
+                {
+                    AllExistingReportsDic = (Dictionary<int, string>)Session["ExistingReportsDictionary_process"];
+                    // for multiple activities
+                    string prefix = string.Empty;
+                    string middle = string.Empty;
+                    string postfix = string.Empty;
+
+                    for (int i = 0; i < AllExistingReportsDic.Count; i++)
+                    {
+                        int actID = Convert.ToInt32(AllExistingReportsDic.ElementAt(i).Key);
+                        string str = Convert.ToString(AllExistingReportsDic.ElementAt(i).Value);
+                        //string str = "welcome@to-aspdotnet#sueresh.com";
+                        string actName = Regex.Replace(str, "[^a-zA-Z0-9_]+", ""); // actName will be used in sql query as column thats why we need to remove all special characters here
+                        if (i == 0)
+                        {
+                            prefix = "tab0.AttributeName";
+                            middle = ",tab0.AttributeValue as [" + actName + "]";
+                            //postfix = " from (SELECT AttributeName,AttributeValue FROM [NewVisualERP].[dbo].[tbl_AttributesMenu] where ProcessObjectID ='" + actID.ToString() + "') as tab0";
+                            postfix = " from (SELECT AttributeName,AttributeValue FROM tbl_AttributesMenu where ProcessObjectID ='" + actID.ToString() + "') as tab0";
+                        }
+                        else
+                        {
+                            prefix = "ISNULL(" + prefix + ",tab" + i.ToString() + ".AttributeName)";
+                            middle += ",tab" + i + ".AttributeValue as [" + actName + "]";
+                            //postfix += " FULL OUTER JOIN (SELECT AttributeName,AttributeValue FROM [NewVisualERP].[dbo].[tbl_AttributesMenu] where ProcessObjectID ='" + actID.ToString() + "') as tab" + i.ToString() + " on tab0.AttributeName = tab" + i + ".AttributeName";
+                            postfix += " FULL OUTER JOIN (SELECT AttributeName,AttributeValue FROM tbl_AttributesMenu where ProcessObjectID ='" + actID.ToString() + "') as tab" + i.ToString() + " on tab0.AttributeName = tab" + i + ".AttributeName";
+                        }
+                    }
+
+                    string query = "Select distinct " + prefix + " as Attribute" + middle + postfix;
+
+                    // Declare the query string.
+                    // Run the query and bind the resulting DataSet
+                    // to the GridView control.
+                    DataSet ds = GetData(query);
+                    DataTable dt = new DataTable();
+                    dt = ds.Tables[0];
+                    dtSpecificOrders = dt.Clone();
+                    for (int j = 0; j < ExistingReports_Attribute_Attribute.Count; j++)
+                    {
+                        attributeName = Convert.ToString(ExistingReports_Attribute_Attribute[j].ToString());
+                        DataRow[] orderRows = dt.Select("Attribute = '" + attributeName + "'");
+
+                        foreach (DataRow dr in orderRows)
+                        {
+                            dtSpecificOrders.ImportRow(dr);
+                        }
+                    }
+                    if (dtSpecificOrders.Rows.Count > 0)
+                    {
+                        Session["GridviewCustomStandardReport"] = dtSpecificOrders;
+                        GridviewCustomStandardReport.DataSource = dtSpecificOrders;
+                        GridviewCustomStandardReport.DataBind();
+                        pnlListSavedReport.Visible = false;
+                        //ltrTotalRecord.Text = dtSpecificOrders.Rows.Count.ToString();
+                        divErrorMsg.Visible = true;
+                        //lnkbtnSaveReport.Visible = true;
+                        if (RoleID == 4)
+                        {
+                            //lnkbtnSaveReport.Visible = false;
+                            txtAttributeReportName.Visible = false;
+                        }
+                        pnlAttributeReport.Visible = false;
+                        pnlCustomStandardReport_Process_attribute.Visible = false;
+                        //lnkbtnExporttoExcel.Visible = true;
+                        //liSaveReport.Visible = true;
+                        pnlCustomStandardReport_Selected.Visible = true;
+                        btnAddNewColumn.Visible = true;
+                        //liExporttoExcel.Visible = true;
+                    }
+                    else
+                    {
+                        lnkbtnExporttoExcel.Visible = false;
+                        liExporttoExcel.Visible = false;
+                        //Message.Text = "Unable to connect to the database.";
+                    }
+                }
             }
             else
             {
-                lnkbtnExporttoExcel.Visible = false;
-                liExporttoExcel.Visible = false;
-                //Message.Text = "Unable to connect to the database.";
+                string attributeName = "";
+                // var getRecord;
+                if (Session["ActivityDictionary"] != null)
+                {
+                    activityDic = (Dictionary<int, string>)Session["ActivityDictionary"];
+                    // for multiple activities
+                    string prefix = string.Empty;
+                    string middle = string.Empty;
+                    string postfix = string.Empty;
+
+                    for (int i = 0; i < activityDic.Count; i++)
+                    {
+                        int actID = Convert.ToInt32(activityDic.ElementAt(i).Key);
+                        string str = Convert.ToString(activityDic.ElementAt(i).Value);
+                        //string str = "welcome@to-aspdotnet#sueresh.com";
+                        string actName = Regex.Replace(str, "[^a-zA-Z0-9_]+", ""); // actName will be used in sql query as column thats why we need to remove all special characters here
+                        if (i == 0)
+                        {
+                            prefix = "tab0.AttributeName";
+                            middle = ",tab0.AttributeValue as [" + actName + "]";
+                            //postfix = " from (SELECT AttributeName,AttributeValue FROM [NewVisualERP].[dbo].[tbl_AttributesMenu] where ProcessObjectID ='" + actID.ToString() + "') as tab0";
+                            postfix = " from (SELECT AttributeName,AttributeValue FROM tbl_AttributesMenu where ProcessObjectID ='" + actID.ToString() + "') as tab0";
+                        }
+                        else
+                        {
+                            prefix = "ISNULL(" + prefix + ",tab" + i.ToString() + ".AttributeName)";
+                            middle += ",tab" + i + ".AttributeValue as [" + actName + "]";
+                            //postfix += " FULL OUTER JOIN (SELECT AttributeName,AttributeValue FROM [NewVisualERP].[dbo].[tbl_AttributesMenu] where ProcessObjectID ='" + actID.ToString() + "') as tab" + i.ToString() + " on tab0.AttributeName = tab" + i + ".AttributeName";
+                            postfix += " FULL OUTER JOIN (SELECT AttributeName,AttributeValue FROM tbl_AttributesMenu where ProcessObjectID ='" + actID.ToString() + "') as tab" + i.ToString() + " on tab0.AttributeName = tab" + i + ".AttributeName";
+                        }
+                    }
+
+                    string query = "Select distinct " + prefix + " as Attribute" + middle + postfix;
+
+                    // Declare the query string.
+                    // Run the query and bind the resulting DataSet
+                    // to the GridView control.
+                    DataSet ds = GetData(query);
+                    DataTable dt = new DataTable();
+                    dt = ds.Tables[0];
+                    dtSpecificOrders = dt.Clone();
+                    for (int j = 0; j < attribute.Count; j++)
+                    {
+                        attributeName = Convert.ToString(attribute[j].ToString());
+                        DataRow[] orderRows = dt.Select("Attribute = '" + attributeName + "'");
+
+                        foreach (DataRow dr in orderRows)
+                        {
+                            dtSpecificOrders.ImportRow(dr);
+                        }
+                    }
+                    if (dtSpecificOrders.Rows.Count > 0)
+                    {
+                        Session["GridviewCustomStandardReport"] = dtSpecificOrders;
+                        GridView1.DataSource = dtSpecificOrders;
+                        GridView1.DataBind();
+                        pnlListSavedReport.Visible = false;
+                        //ltrTotalRecord.Text = dtSpecificOrders.Rows.Count.ToString();
+                        divErrorMsg.Visible = true;
+                        lnkbtnSaveReport.Visible = true;
+                        if (RoleID == 4)
+                        {
+                            lnkbtnSaveReport.Visible = false;
+                            txtAttributeReportName.Visible = false;
+                        }
+                        pnlAttributeReport.Visible = true;
+                        lnkbtnExporttoExcel.Visible = true;
+                        liSaveReport.Visible = true;
+                        liExporttoExcel.Visible = true;
+                    }
+                    else
+                    {
+                        lnkbtnExporttoExcel.Visible = false;
+                        liExporttoExcel.Visible = false;
+                        //Message.Text = "Unable to connect to the database.";
+                    }
+                }
             }
         }
     }
@@ -1379,14 +1907,14 @@ public partial class ManageReport : BasePage
 
     protected void lnkbtnList_Click(object sender, EventArgs e)
     {
-        //pnlActivity.Visible = false; pnlInventory.Visible = false;
+        //pnlActivity.Visible = false; pnlInventory.Visible = false; pnlCustomStandardReport.Visible = false;
         //pnlListSavedReport.Visible = true;
         //divErrorMsg.Visible = false;
 
 
 
         //pnlReportType.Visible = true;
-        //pnlActivity.Visible = false; pnlInventory.Visible = false;
+        //pnlActivity.Visible = false; pnlInventory.Visible = false; pnlCustomStandardReport.Visible = false;
         //pnlAttribute.Visible = false;
         //pnlListSavedReport.Visible = false;
         //pnlAttributeReport.Visible = false;
@@ -1424,7 +1952,7 @@ public partial class ManageReport : BasePage
 
         pnlErrorReport.Visible = false;
         pnlReportType.Visible = true;
-        pnlActivity.Visible = false; pnlInventory.Visible = false;
+        pnlActivity.Visible = false; pnlInventory.Visible = false; pnlCustomStandardReport.Visible = false;
         pnlAttribute.Visible = false;
         pnlBomProcess.Visible = false; pnlEror.Visible = false;
         pnlAttributeReport.Visible = false;
@@ -2031,7 +2559,7 @@ public partial class ManageReport : BasePage
                     Session["AttributeName"] = attribute;
                 }
 
-                GetAttributeReportData(); // it will get report for selected reportID
+                GetAttributeReportData(false, false, ""); // it will get report for selected reportID
                 txtAttributeReportName.Text = ReportName;
                 pnlBomReport.Visible = false;
                 pnlTFGReport.Visible = false;
@@ -2232,7 +2760,7 @@ public partial class ManageReport : BasePage
         {
             // no relavent data found to this report ID
         }
-        pnlActivity.Visible = false; pnlInventory.Visible = false;
+        pnlActivity.Visible = false; pnlInventory.Visible = false; pnlCustomStandardReport.Visible = false;
         pnlAttribute.Visible = false; pnlEror.Visible = false;
         pnlBomProcess.Visible = false;
         pnlListSavedReport.Visible = false;
@@ -2322,7 +2850,7 @@ public partial class ManageReport : BasePage
         }
         else
         {
-            pnlActivity.Visible = false; pnlInventory.Visible = false;
+            pnlActivity.Visible = false; pnlInventory.Visible = false; pnlCustomStandardReport.Visible = false;
             pnlReportType.Visible = false;
             pnlAttribute.Visible = false; pnlEror.Visible = false;
             pnlBomProcess.Visible = false;
@@ -2365,7 +2893,51 @@ public partial class ManageReport : BasePage
         else
         {
             pnlActivity.Visible = false;
-            pnlInventory.Visible = false; pnlEror.Visible = false;
+            pnlInventory.Visible = false; pnlCustomStandardReport.Visible = false; pnlEror.Visible = false;
+            pnlReportType.Visible = false;
+            pnlAttribute.Visible = false;
+            pnlBomProcess.Visible = false;
+            pnlAttributeReport.Visible = false;
+            pnlBomReport.Visible = false;
+            pnlTFGReport.Visible = false;
+            pnlESAReport.Visible = false;
+            pnlListSavedReport.Visible = false;
+            lblMsg.Visible = true;
+            divErrorMsg.Visible = true;
+            lblMsg.Text = "Please choose the process.!";
+            lblMsg.Style.Add("color", "red");
+            divErrorMsg.Style.Add("min-width", "194px");
+            divErrorMsg.Style.Add("margin-left", "554px");
+            divErrorMsg.Attributes.Add("class", "isa_warning");
+        }
+        this.IsEdit = false;
+    }
+
+    protected void btnTgtCustomStandardReport_Click(object sender, EventArgs e)
+    {
+        Session["CurrentReport"] = (int)ReportTypeID.CustomStandardReport;
+
+        if (ProcessId != 0) // if process is selected activity block will display
+        {
+            pnlActivity.Visible = false;
+            pnlInventory.Visible = false;
+            pnlCustomStandardReport.Visible = true;
+            pnlEror.Visible = false;
+            pnlReportType.Visible = false;
+            pnlAttribute.Visible = false;
+            pnlBomProcess.Visible = false;
+            pnlAttributeReport.Visible = false;
+            pnlBomReport.Visible = false;
+            pnlTFGReport.Visible = false;
+            pnlESAReport.Visible = false;
+            pnlListSavedReport.Visible = false;
+            divErrorMsg.Visible = false;
+
+        }
+        else
+        {
+            pnlActivity.Visible = false;
+            pnlInventory.Visible = false; pnlCustomStandardReport.Visible = false; pnlEror.Visible = false;
             pnlReportType.Visible = false;
             pnlAttribute.Visible = false;
             pnlBomProcess.Visible = false;
@@ -2392,7 +2964,7 @@ public partial class ManageReport : BasePage
         if (ProcessId != 0) // if process is selected activity block will display
         {
             pnlActivity.Visible = false;
-            pnlInventory.Visible = false;
+            pnlInventory.Visible = false; pnlCustomStandardReport.Visible = false;
             pnlReportType.Visible = false;
             pnlAttribute.Visible = false;
             pnlBomProcess.Visible = false;
@@ -2408,7 +2980,7 @@ public partial class ManageReport : BasePage
         {
             pnlEror.Visible = false;
             pnlActivity.Visible = false;
-            pnlInventory.Visible = false;
+            pnlInventory.Visible = false; pnlCustomStandardReport.Visible = false;
             pnlReportType.Visible = false;
             pnlAttribute.Visible = false;
             pnlBomProcess.Visible = false;
@@ -2447,7 +3019,7 @@ public partial class ManageReport : BasePage
         }
         else
         {
-            pnlActivity.Visible = false; pnlInventory.Visible = false;
+            pnlActivity.Visible = false; pnlInventory.Visible = false; pnlCustomStandardReport.Visible = false;
             pnlReportType.Visible = false; pnlEror.Visible = false;
             pnlAttribute.Visible = false;
             pnlBomProcess.Visible = false;
@@ -2486,7 +3058,7 @@ public partial class ManageReport : BasePage
         }
         else
         {
-            pnlActivity.Visible = false; pnlInventory.Visible = false;
+            pnlActivity.Visible = false; pnlInventory.Visible = false; pnlCustomStandardReport.Visible = false;
             pnlReportType.Visible = false;
             pnlAttribute.Visible = false; pnlEror.Visible = false;
             pnlBomProcess.Visible = false;
@@ -2527,7 +3099,7 @@ public partial class ManageReport : BasePage
         }
         else    //else no process selected
         {
-            pnlActivity.Visible = false; pnlInventory.Visible = false;
+            pnlActivity.Visible = false; pnlInventory.Visible = false; pnlCustomStandardReport.Visible = false;
             pnlReportType.Visible = false;
             pnlAttribute.Visible = false; pnlEror.Visible = false;
             pnlBomProcess.Visible = false;
@@ -3227,7 +3799,7 @@ public partial class ManageReport : BasePage
         }
         else    //else no process selected
         {
-            pnlActivity.Visible = false; pnlInventory.Visible = false;
+            pnlActivity.Visible = false; pnlInventory.Visible = false; pnlCustomStandardReport.Visible = false;
             pnlReportType.Visible = false; pnlEror.Visible = false;
             pnlAttribute.Visible = false;
             pnlBomProcess.Visible = false;

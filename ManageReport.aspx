@@ -73,7 +73,36 @@
                 $("[id*=chkboxInventory] input").removeAttr("checked");
             }
         }
+        function SelectallExistingReports(chkSelectallExistingReports) {
 
+            if ($(chkSelectallExistingReports).is(":checked")) {
+                $("[id*=chkboxExistingReports] input").attr("checked", "checked");
+            } else {
+                $("[id*=chkboxExistingReports] input").removeAttr("checked");
+            }
+        }
+
+        function SelectallExistingReports_Attribute_Attribute(chkExistingReports_Attribute_Attribute) {
+
+            if ($(chkExistingReports_Attribute_Attribute).is(":checked")) {
+                $("[id*=chkboxExistingReports_Attribute_Attribute] input").attr("checked", "checked");
+            } else {
+                $("[id*=chkboxExistingReports_Attribute_Attribute] input").removeAttr("checked");
+            }
+        }
+       
+
+
+        function SelectallExistingReports_Category_Attribute(chkExistingReports_Category_Attribute) {
+
+            if ($(chkExistingReports_Category_Attribute).is(":checked")) {
+                $("[id*=chkboxExistingReports_Category_Attribute] input").attr("checked", "checked");
+            } else {
+                $("[id*=chkboxExistingReports_Category_Attribute] input").removeAttr("checked");
+            }
+        }
+        
+        
         function SelectallError(chkSelectallError) {
 
             if ($(chkSelectallError).is(":checked")) {
@@ -152,7 +181,7 @@
                 <div id="divErrorMsg" runat="server" style="font: bold 12px Arial, Helvetica, sans-serif; color: #555; padding: 7px 0px 0px 10px; height: 30px; float: left; min-width: 450px; max-width: 500px;">
                     <asp:Label ID="lblMsg" runat="server" />
                 </div>
-              
+
                 <div class="right_nav">
                     <ul>
                         <li id="liSaveReport" runat="server">
@@ -215,7 +244,9 @@
                                     <li id="liInventory" runat="server"><span style="background: url(images/report.png) no-repeat left top!important; padding-left: 27px; height: 29px; float: left; margin-left: 10px;"></span>
                                         <asp:LinkButton ID="btnInventoryReport" OnClick="btnTgtInventoryReport_Click" runat="server"
                                             Text="Inventory Report" Style="font: bold 13px/32px Arial,Helvetica,sans-serif; color: #555555; margin-left: 17px;" /></li>
-
+                                    <%--<li id="liCustomStandardReport" runat="server"><span style="background: url(images/report.png) no-repeat left top!important; padding-left: 27px; height: 29px; float: left; margin-left: 10px;"></span>
+                                        <asp:LinkButton ID="btnCustomStandardReport" OnClick="btnTgtCustomStandardReport_Click" runat="server"
+                                            Text="Custom Standard Report" Style="font: bold 13px/32px Arial,Helvetica,sans-serif; color: #555555; margin-left: 17px;" /></li>--%>
                                 </ul>
                             </div>
                         </div>
@@ -360,6 +391,175 @@
                 </div>
             </asp:Panel>
 
+            <asp:Panel ID="pnlCustomStandardReport" runat="server" Visible="false">
+                <div class="ActivityPopupTop">
+                    <div class="ActivityPopup">
+                        <h2 style="font: bold 15px/32px Arial,Helvetica,sans-serif!important" id="headerTitleAllreports"
+                            runat="server">Select Existing Report</h2>
+                        <div class="ActivitybMid" id="divAllExistingReports" runat="server">
+                            <div class="LeftAtActivity">
+                                <ul class="ActivtyNew">
+                                    <li>
+                                        <div class="fixheight" style="height: 150px; margin-top: 15px; overflow-y: scroll; overflow-x: hidden;">
+                                            <asp:CheckBox ID="chkSelectallExistingReports" Checked="false" Text="Select All" runat="server"
+                                                onclick="SelectallExistingReports(this)" />
+                                            <asp:CheckBoxList ID="chkboxExistingReports" CssClass="checkbox" runat="server">
+                                            </asp:CheckBoxList>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <asp:Button ID="btnNextToExistingReports" runat="server" Text="Next" CssClass="btnNextNew"
+                                            OnClick="btnNextToExistingReports_Click" />
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="Clear">
+                    </div>
+                </div>
+            </asp:Panel>
+
+
+            <asp:Panel ID="pnlCustomStandardReport_Process" runat="server" Visible="false">
+                <div class="ActivityPopupTop">
+                    <div class="ActivityPopup">
+                        <h2 style="font: bold 15px/32px Arial,Helvetica,sans-serif!important" id="headerTitleAllreports_Process"
+                            runat="server">Select Report's Processes</h2>
+                        <div class="ActivitybMid" id="div12" runat="server">
+
+                            <div class="LeftAtActivity">
+
+                                <h3 style="font: bold 15px/32px Arial,Helvetica,sans-serif!important" id="Allreports_Category_Attribute"
+                                    runat="server" visible="false"></h3>
+                                <ul class="ActivtyNew" id="pnl_Allreports_Category_Attribute" runat="server" visible="false">
+                                    <li>
+                                        <div class="fixheight" style="height: 150px; margin-top: 15px; overflow-y: scroll; overflow-x: hidden;">
+                                            <asp:CheckBox ID="chkExistingReports_Category_Attribute" Checked="false" Text="Select All" runat="server"
+                                                onclick="SelectallExistingReports_Category_Attribute(this)" />
+                                            <asp:CheckBoxList ID="chkboxExistingReports_Category_Attribute" CssClass="checkbox" runat="server">
+                                            </asp:CheckBoxList>
+                                        </div>
+                                    </li>
+                                </ul>
+                                
+
+                                <h3 style="font: bold 15px/32px Arial,Helvetica,sans-serif!important" id="Allreports_Category_BOM"
+                                    runat="server" visible="false"></h3>
+                                <ul class="ActivtyNew" id="pnl_Allreports_Category_BOM" runat="server" visible="false">
+                                    <li>
+                                        <div class="fixheight" style="height: 150px; margin-top: 15px; overflow-y: scroll; overflow-x: hidden;">
+                                            <asp:CheckBoxList ID="chkboxExistingReports_Category_BOM" CssClass="checkbox" runat="server">
+                                            </asp:CheckBoxList>
+                                        </div>
+                                    </li>
+                                </ul>
+
+                                <h3 style="font: bold 15px/32px Arial,Helvetica,sans-serif!important" id="Allreports_Category_TFG"
+                                    runat="server" visible="false"></h3>
+                                <ul class="ActivtyNew" id="pnl_Allreports_Category_TFG" runat="server" visible="false">
+                                    <li>
+                                        <div class="fixheight" style="height: 150px; margin-top: 15px; overflow-y: scroll; overflow-x: hidden;">
+                                            <asp:CheckBoxList ID="chkboxExistingReports_Category_TFG" CssClass="checkbox" runat="server">
+                                            </asp:CheckBoxList>
+                                        </div>
+                                    </li>
+                                </ul>
+
+                                <h3 style="font: bold 15px/32px Arial,Helvetica,sans-serif!important" id="Allreports_Category_Machine"
+                                    runat="server" visible="false"></h3>
+                                <ul class="ActivtyNew" id="pnl_Allreports_Category_Machine" runat="server" visible="false">
+                                    <li>
+                                        <div class="fixheight" style="height: 150px; margin-top: 15px; overflow-y: scroll; overflow-x: hidden;">
+                                            <asp:CheckBoxList ID="chkboxExistingReports_Category_Machine" CssClass="checkbox" runat="server">
+                                            </asp:CheckBoxList>
+                                        </div>
+                                    </li>
+                                </ul>
+
+
+                                <h3 style="font: bold 15px/32px Arial,Helvetica,sans-serif!important" id="Allreports_Category_Error"
+                                    runat="server" visible="false"></h3>
+                                <ul class="ActivtyNew" id="pnl_Allreports_Category_Error" runat="server" visible="false">
+                                    <li>
+                                        <div class="fixheight" style="height: 150px; margin-top: 15px; overflow-y: scroll; overflow-x: hidden;">
+                                            <asp:CheckBoxList ID="chkboxExistingReports_Category_Error" CssClass="checkbox" runat="server">
+                                            </asp:CheckBoxList>
+                                        </div>
+                                    </li>
+                                </ul>
+
+
+                                <h3 style="font: bold 15px/32px Arial,Helvetica,sans-serif!important" id="Allreports_Category_Inventory"
+                                    runat="server" visible="false"></h3>
+                                <ul class="ActivtyNew" id="pnl_Allreports_Category_Inventory" runat="server" visible="false">
+                                    <li>
+                                        <div class="fixheight" style="height: 150px; margin-top: 15px; overflow-y: scroll; overflow-x: hidden;">
+                                            <asp:CheckBoxList ID="chkboxExistingReports_Category_Inventory" CssClass="checkbox" runat="server">
+                                            </asp:CheckBoxList>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <asp:Button ID="btnCustomStandardReport_NextToAttribute" Text="Next" runat="server" Style="margin: -38px 90px 0 0!important;"
+                            CssClass="btnNextNew" OnClick="btnCustomStandardReport_NextToAttribute_Click" />
+                    </div>
+                    <div class="Clear">
+                    </div>
+                </div>
+            </asp:Panel>
+
+            <asp:Panel ID="pnlCustomStandardReport_Process_attribute" runat="server" Visible="false">
+                <div class="ActivityPopupTop">
+                    <div class="ActivityPopup">
+                        <h2 style="font: bold 15px/32px Arial,Helvetica,sans-serif!important">Select Attribute</h2>
+                        <div class="ActivitybMid">
+                            <div class="LeftAtActivity">
+                                <ul class="ActivtyNew">
+                                    <li>
+                                        <div class="fixheight" style="height: 150px; margin-top: 15px; overflow-y: scroll; overflow-x: hidden;">
+                                             <asp:CheckBox ID="chkExistingReports_Attribute_Attribute" Checked="false" Text="Select All" runat="server"
+                                                onclick="SelectallExistingReports_Attribute_Attribute(this)" />
+                                            <asp:CheckBoxList ID="chkboxExistingReports_Attribute_Attribute" runat="server" Style="margin-left: 10px">
+                                            </asp:CheckBoxList>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <asp:Button ID="btnNextToCustomStandardReport" Text="Next" runat="server" Style="margin: -38px 90px 0 0!important;"
+                            CssClass="btnNextNew" OnClick="btnNextToCustomStandardReport_Click" />
+                    </div>
+                    <div class="Clear">
+                    </div>
+                </div>
+            </asp:Panel>
+
+            <asp:Panel ID="pnlCustomStandardReport_Selected" runat="server" Visible="false">
+                <div class="RightAt" id="div13" runat="server" visible="true" style="float: right; margin-right: 10px; margin-top: 110px; width: 1033px !important; overflow-y: scroll; max-height: 300px">
+                    <asp:GridView ID="GridviewCustomStandardReport" runat="server">
+                        <AlternatingRowStyle BackColor="#EEEEEE" />
+                    </asp:GridView>
+
+                </div>
+              
+                   
+            
+                <div style="float: left; margin-left: 330px; margin-top: 50px;">
+                   <span style="color: #40464C; font-size: 14px; font-weight: bold;">Save Report as :</span>
+                    &nbsp;&nbsp;<asp:TextBox ID="txtCustomStandardColumnName" runat="server" CssClass="AttrTxtFild"
+                        Style="width: 200px!important; float: none!important" placeholder="Column Name" />
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator8" runat="server" InitialValue=""
+                        ControlToValidate="txtCustomStandardColumnName" ErrorMessage="Please enter report Name"
+                        ValidationGroup="addReport" ForeColor="Red" Text="*">
+                    </asp:RequiredFieldValidator>
+                    <asp:Button ID="btnAddNewColumn" Text="Add new column" runat="server"
+                            CssClass="btnNextNew" OnClick="btnAddNewColumn_Click" style="width: auto;
+    margin: 0;"/>
+                </div>
+            </asp:Panel>
+
             <asp:Panel ID="pnlEror" runat="server" Visible="false">
                 <div class="ActivityPopupTop">
                     <div class="ActivityPopup">
@@ -387,9 +587,6 @@
                     </div>
                 </div>
             </asp:Panel>
-
-
-
 
             <asp:Panel ID="pnlBomProcess" runat="server" Visible="false">
                 <div class="ActivityPopupTop">

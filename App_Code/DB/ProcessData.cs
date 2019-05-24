@@ -655,6 +655,12 @@ public class ProcessData
         public int? SourceType { get; set; }
 
     }
+    public class AllReports
+    {
+
+        public string ReportsName { get; set; }
+        public int ReportsID { get; set; }
+    }
 
     public static List<ProcessDataProperty> GetProcessObjActvities(int ProcessId)
     {
@@ -681,6 +687,25 @@ public class ProcessData
                    }).ToList();
         return qry.ToList();
     }
+
+    public static List<ProcessData.AllReports> GetAllExistingReportsName(int ProcessId)
+    {
+
+        List<ProcessData.AllReports> objGetAllExistingReportsName = new List<ProcessData.AllReports>
+        {
+             new ProcessData.AllReports { ReportsID =1,ReportsName= "Attribute Report"}
+             //new ProcessData.AllReports { ReportsID =2,ReportsName= "BOM Report"},
+             //new ProcessData.AllReports { ReportsID =3,ReportsName= "TFG Report"},
+             //new ProcessData.AllReports { ReportsID =4,ReportsName= "Machine Report"},
+             //new ProcessData.AllReports { ReportsID =9,ReportsName= "Error Report"},
+             //new ProcessData.AllReports { ReportsID =5,ReportsName= "Process Capability Scorecard"},
+             //new ProcessData.AllReports { ReportsID =6,ReportsName= "Design Capability Scorecard"},
+             //new ProcessData.AllReports { ReportsID =7,ReportsName= "Target Value Gap"},
+             //new ProcessData.AllReports { ReportsID =8,ReportsName= "Inventory Report"},
+
+        };
+        return objGetAllExistingReportsName.ToList();
+    }  
 
     public static List<ProcessDataProperty> GetProcessObjErrors(int ProcessId)
     {
@@ -815,38 +840,7 @@ public class ProcessData
         return qry.ToList();
     }
 
-    //public static List<ProcessData.ProcessDataProperty> SelectedItemReport(bool inAsc, string SortBy, int processId, string attributeName,int processObjID)
-    //{
-    //    VisualERPDataContext ObjData = new VisualERPDataContext();
-
-    //    var data = (from x in ObjData.tbl_AttributesMenus
-    //                    select x).Distinct().ToList();
-
-    //    var distinct = Enumerable.Distinct(data);
-
-    //    var qry = (from x in distinct
-    //               join z in ObjData.tbl_Processes on x.ProcessID equals z.ProcessID
-    //               join y in ObjData.tbl_Units on x.UnitID equals y.UnitID
-    //               join p in ObjData.tbl_ProcessObjects on x.ProcessObjectID equals p.ProcessObjID                   
-    //               where x.ProcessID == processId && x.IncludeOnMap == true && x.AttributeName == attributeName && x.ProcessObjectID == processObjID
-
-    //               select new ProcessDataProperty
-    //               {
-    //                   AttributeName = x.AttributeName,
-    //                   AttributeMenuID = x.AttributeMenuID,
-    //                   AttributeValue = x.AttributeValue,
-    //                   UnitName = y.UnitName,
-    //                   NodeName = z.ProcessName,
-    //                   ActivityName = p.ProcessObjName
-
-    //               }).Distinct().ToList();
-    //    if (inAsc)
-    //    {
-    //        return qry.OrderByDescending(x => x.GetType().GetProperty(SortBy).GetValue(x, null)).ToList();
-    //    }
-
-    //    return qry.OrderBy(x => x.GetType().GetProperty(SortBy).GetValue(x, null)).ToList();
-    //}
+  
 
     public static List<ProcessData.ProcessDataProperty> SelectedItemReport(bool inAsc, string SortBy, int processId, string attributeName, int processObjID)
     {

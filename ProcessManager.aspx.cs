@@ -1427,23 +1427,4 @@ public partial class ProcessManager : System.Web.UI.Page
         public int Height { get; set; }
         public int Width { get; set; }
     }
-
-
-
-    protected void lnkEditHeader_ServerClick(object sender, EventArgs e)
-    {
-        //int FormType = Convert.ToInt32(ViewState["FormType"]);
-        TreeView mastertreeview = (TreeView)Master.FindControl("TreeView1");
-        if (mastertreeview.SelectedNode != null)
-        {
-            ProcessId = this.CInt32(mastertreeview.SelectedNode.Value);
-        }
-        else if (Session["SelectedNodeValue"] != null)
-        {
-            ProcessId = this.CInt32(Session["SelectedNodeValue"]);
-        }
-        Response.Redirect("~/Default2.aspx?src=process&&processId="+ProcessId);
-
-       
-    }
 }
