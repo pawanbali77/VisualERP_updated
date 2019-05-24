@@ -28,10 +28,10 @@
             //alert(newHeight);
             //$("#ContentPlaceHolder1_MainDiv").css("height", newHeight + "px");
             var maxheight = $("input[id=ContentPlaceHolder1_hdnheight]").val(); //get max height of process from hidden field value
-            $("#ContentPlaceHolder1_MainDiv").css("height", maxheight);
+            //$("#ContentPlaceHolder1_MainDiv").css("height", maxheight);
 
             var maxwidth = $("input[id=ContentPlaceHolder1_hdnWidth]").val();            
-            $("#ContentPlaceHolder1_MainDiv").css("width", maxwidth);
+            //$("#ContentPlaceHolder1_MainDiv").css("width", maxwidth);
 
             $("#ContentPlaceHolder1_MainDivOuter").css("height", newHeight + "px");
             var remainCnt = $("#header").height() + $("#footer").height() + 50;
