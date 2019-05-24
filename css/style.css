@@ -317,12 +317,11 @@ img {
 .activity_block {
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
-    float: left;
-    width: 393px;
     border-bottom: none;
-    margin-right: 6px;
+    margin-right: 0;
     box-shadow: 4px 5px 4px #F3F3F3;
     border: 1px solid #ccc;
+    width:100%; 
 }
 
 .activity_block12 {
@@ -344,7 +343,7 @@ img {
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     border: 1px solid #cccccc;
-    width: 391px;
+    /*width: 391px;*/
 }
 
     .activity_block_top ul li {
@@ -1400,24 +1399,15 @@ img {
 }
 
 .FirstCloseBtnTab {
-    position: relative;
-    float: right;
-    height: 1px;
-}
-
-.SecondCloseBtnTab {
-    position: absolute;
-    background: url(../images/close_btn12.png) no-repeat;
-    width: 52px;
-    height: 52px;
-    float: right;
-    position: absolute;
-    right: -30px;
-    top: -30px;
-    width: 50px;
-    height: 55px;
+    position: ABSOLUTE;
     top: -20px;
-    right: -120px;
+    right: -20px;
+}
+.SecondCloseBtnTab {
+    background: url(../images/close_btn12.png) no-repeat;
+    width: 40px;
+    display: block;
+    height:40px; 
 }
 
 .SecondCloseBtnTabTri {
@@ -2834,34 +2824,20 @@ left:0;*/
 /******************1 May********************/
 
 .bottom_containerZ {
-    float: left;
-    margin: 0px 0 0; /*145px 0 0;*/
-    /*max-height:400px;*/
-    overflow: auto;
     width: 100%;
-    position: relative;
-    background-color: #fffff;
-    z-index: 50;
-    /*-webkit-transform-origin: 0 0;
-    -ms-transform-origin: 0 0;
-    transform-origin: 0 0; */
 }
 
 .bottom_containerZ1 {
     float: left;
-    margin: 145px 0 0;
-    /*max-height:400px;*/
-    overflow: auto;
-    width: 100%;
+    margin: 165px 0 0;
+    width: calc(100% - 370px);
     position: relative;
-    background-color: #fffff;
     z-index: 50;
-    /*-webkit-transform-origin: 0 0;
-    -ms-transform-origin: 0 0;
-    transform-origin: 0 0; */
 }
 
-
+td {
+    position: relative;
+}
 /*-------------------------6/5/2014---------------------------------*/
 .ZommIn1 {
     background: url("../images/zoom-in.png") no-repeat scroll left 0px;
