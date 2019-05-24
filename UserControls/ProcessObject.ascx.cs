@@ -34,12 +34,12 @@ public partial class UserControls_ProcessObject : System.Web.UI.UserControl
         set { ViewState["Index"] = value; }
     }
 
-    private int _sourceTypeID=1;
+    private int _sourceTypeID = 1;
     [BrowsableAttribute(true)]
     public int SourceType
     {
         get { return _sourceTypeID; }
-        set { _sourceTypeID=value; }
+        set { _sourceTypeID = value; }
     }
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -61,7 +61,7 @@ public partial class UserControls_ProcessObject : System.Web.UI.UserControl
             lblOrderNo.Enabled = false;
             ErrorReport.Attributes.Add("class", "th_fieldsiPro right last");  //disable attribute link button and remove hover class 
             lnkbtnErrorReport.Enabled = false;
-            
+
         }
         if ((returnurl == "ProcessManager.aspx") || (returnurl == "EnterPriseManager.aspx") || (returnurl == "TargetManager.aspx"))
         {
@@ -79,16 +79,29 @@ public partial class UserControls_ProcessObject : System.Web.UI.UserControl
             lnkbtnErrorReport.Enabled = true;
         }
 
-       
+
     }
 
+    private void BindColName(int pId)
+    {
+        IEnumerable<tbl_ProcessBlockHeader> processHeaders = ProcessHeaderColumns.GetProcessHeader(pId).ToList();
+        if (processHeaders.Count() > 0)
+        {
+            lnkbtn.Text = processHeaders.Where(x => x.SequanceOrder == 1).Select(x => x.Headerlblname).FirstOrDefault();
+            lnkBtnInput.Text = processHeaders.Where(x => x.SequanceOrder == 2).Select(x => x.Headerlblname).FirstOrDefault();
+            lnkBtnBOM.Text = processHeaders.Where(x => x.SequanceOrder == 3).Select(x => x.Headerlblname).FirstOrDefault();
+            lnkBtnTFG.Text = processHeaders.Where(x => x.SequanceOrder == 4).Select(x => x.Headerlblname).FirstOrDefault();
+            lnkBtnMachine.Text = processHeaders.Where(x => x.SequanceOrder == 5).Select(x => x.Headerlblname).FirstOrDefault();
+            lnkbtnErrorReport.Text = processHeaders.Where(x => x.SequanceOrder == 6).Select(x => x.Headerlblname).FirstOrDefault();
+        }
+    }
     public void BindDataOrderGrid(int poId)
     {
-        
+        int processId = 0;
 
         if (SourceType == 2)  //2: Target
         {
-          ViewState["TargetObjID"] = poId;
+            ViewState["TargetObjID"] = poId;
         }
         else
             ViewState["ProcessObjID"] = poId;
@@ -98,7 +111,7 @@ public partial class UserControls_ProcessObject : System.Web.UI.UserControl
         if (SourceType == 2)  //2: Target
         {
             tbl_TargetObject TargetObj = TargetData.ProcessObjectByID(poId);
-                if (TargetObj != null)
+            if (TargetObj != null)
             {
 
                 // lblOrderNo.Text = ProcessObj.ProcessObjName;
@@ -109,6 +122,7 @@ public partial class UserControls_ProcessObject : System.Web.UI.UserControl
                 //ProcessObj.ProcessObjName = "Activity-" + ViewState["Index"].ToString();
                 TargetObj.TargetObjName = Activity.GetActivityNameByTargetObjId(this.CInt32(poId));
                 TargetObj.TargetObjID = this.CInt32(poId);
+                processId = tblProcessObj.ProcessID ?? 0;
                 bool result = false;
                 result = TargetData.SaveProcessObject(TargetObj);
 
@@ -122,9 +136,9 @@ public partial class UserControls_ProcessObject : System.Web.UI.UserControl
             }
         }
         else
-        { 
+        {
             tbl_ProcessObject ProcessObj = ProcessData.ProcessObjectByID(poId);////AttributeById will get Attribute by its id that is EditIDINT
-
+            processId = ProcessObj.ProcessID ?? 0;
             if (ProcessObj != null)
             {
 
@@ -147,7 +161,8 @@ public partial class UserControls_ProcessObject : System.Web.UI.UserControl
 
 
             }
-    }
+        }
+        BindColName(processId);
     }
     protected void lnkbtn_Click(object sender, EventArgs e)
     {
@@ -213,7 +228,7 @@ public partial class UserControls_ProcessObject : System.Web.UI.UserControl
             BindDataOrderGrid(this.CInt32(ViewState["ProcessObjID"]));
         }
 
-            
+
     }
     public void ResetBinding(int poId)
     {
