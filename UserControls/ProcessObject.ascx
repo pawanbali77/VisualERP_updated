@@ -1,6 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="ProcessObject.ascx.cs" Inherits="UserControls_ProcessObject" %>
 
-<table class="activity_block" cellpadding="0" cellspacing="0" style="width:500px;">
+<table class="activity_block" cellpadding="0" cellspacing="0">
     <tr class="activity_block_top">
         <td class="th_fieldsi left" id="attribute" runat="server">
             <asp:LinkButton ID="lnkbtn" runat="server" OnClick="lnkbtn_Click1">Attributes</asp:LinkButton>
@@ -17,14 +17,15 @@
         <td class="th_fieldsi" id="Machine" runat="server">
             <asp:LinkButton ID="lnkBtnMachine" runat="server"
                 OnClick="lnkBtnMachine_Click">Machine</asp:LinkButton>
+
+        </td>
+        <td class="th_fieldsi right last" id="ErrorReport" runat="server">
+            <asp:LinkButton ID="lnkbtnErrorReport" runat="server" OnClick="lnkbtnErrorReport_Click">Error Report</asp:LinkButton>
             <div class="FirstCloseBtnTab">
                 <div style="cursor: pointer;">
                     <asp:LinkButton ID="deleteBtnPoid" runat="server" CssClass="SecondCloseBtnTab"></asp:LinkButton>
                 </div>
             </div>
-        </td>
-        <td class="th_fieldsi right last" id="ErrorReport" runat="server">
-            <asp:LinkButton ID="lnkbtnErrorReport" runat="server" OnClick="lnkbtnErrorReport_Click">Error Report</asp:LinkButton>
         </td>
     </tr>
     <tr>
