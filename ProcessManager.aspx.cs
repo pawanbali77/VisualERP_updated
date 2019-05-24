@@ -639,7 +639,7 @@ public partial class ProcessManager : System.Web.UI.Page
             div1.ID = divProcessID; // creating div id that will be unique every time when we add process control
             div1.Attributes["name"] = "ContentPlaceHolder1_" + divProcessID;
             div1.Attributes["name"] = divProcessID;  // id will maintain by div name
-            div1.Attributes["style"] = "Position:relative;width:400px;height:350px;top: " + Top + "px; left: " + Left + "px;"; // add div style with given postion
+            //div1.Attributes["style"] = "Position:relative;width:400px;height:350px;top: " + Top + "px; left: " + Left + "px;"; // add div style with given postion
             div1.Controls.Add(TblFirst);
 
             MainDiv.Controls.Add(div1);
