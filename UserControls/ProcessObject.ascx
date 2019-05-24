@@ -1,6 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="ProcessObject.ascx.cs" Inherits="UserControls_ProcessObject" %>
 
-<table class="activity_block" cellpadding="0" cellspacing="0" style="width:500px;">
+<table class="activity_block" cellpadding="0" cellspacing="0" >
     <tr class="activity_block_top">
         <td class="th_fieldsi left" id="attribute" runat="server">
             <asp:LinkButton ID="lnkbtn" runat="server" OnClick="lnkbtn_Click1">Attributes</asp:LinkButton>
