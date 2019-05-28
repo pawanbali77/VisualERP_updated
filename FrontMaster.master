@@ -25,8 +25,8 @@
                 <div class="Logo">
                     <a href="#">
                         <%--<img src="images/logo.png" /></a>--%>
-                               <a href="#">
-                <img src="images/logo4.png"/><img src="images/logo22.png" /></a>
+                        <a href="#">
+                            <img src="images/logo4.png" /><img src="images/logo22.png" /></a>
                 </div>
                 <div class="header_right">
                     <ul>
@@ -43,24 +43,16 @@
                 <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
                 </asp:ContentPlaceHolder>
             </div>
-
             <div class="footer">
                 <p>
                     © Copyright GroEngine, LLC 2013. All Rights Reserved
+               
+                </p>
+                <p style="position:absolute;top:4px;right:250px;">
+                    <a href="HelpVideos.aspx" style="color: white;" id="help"><span style="font-size: 20px;vertical-align: super;">Help </span><img alt="" src="images/HelpIcon.png" /></a>
                 </p>
             </div>
-
         </div>
-
-        <%--        <asp:UpdateProgress ID="UpdateProgress1" runat="server" DisplayAfter="0">
-            <ProgressTemplate>
-                <div class="AjaxLoaderOuter123">
-                    <div class="AjaxLoaderInner123">
-                        <img src='<%= ResolveUrl("~/images/ajax-loading11.gif") %>' alt="Wait..." style="background-color: Transparent;" />
-                    </div>
-                </div>
-            </ProgressTemplate>
-        </asp:UpdateProgress>--%>
     </form>
 </body>
 </html>

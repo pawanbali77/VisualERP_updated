@@ -362,6 +362,9 @@
                 <p>
                     © Copyright GroEngine, LLC 2013. All Rights Reserved
                 </p>
+                <p style="position: absolute; top: 0; right: 118px;">
+                    <a href="HelpVideos.aspx" style="color: white;" id="help">Help</a>
+                </p>
             </div>
         </div>
         <div class="AttributeWrpPoupProcess" id="popup_box" runat="server">
