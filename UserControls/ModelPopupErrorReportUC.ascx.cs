@@ -183,7 +183,7 @@ public partial class UserControls_ModelPopupErrorReportUC : System.Web.UI.UserCo
             ErrorInfo objErrorData = new ErrorInfo();
             objErrorData.Error = txtErrorName.Text.Trim();
             objErrorData.WorkContent = Convert.ToInt32(txtWorkContentValue.Text.Trim());
-            objErrorData.CounterMeasure = Convert.ToInt32(txtCounterMeasureValue.Text.Trim());
+            objErrorData.CounterMeasure = txtCounterMeasureValue.Text.Trim();
             objErrorData.CounterMeasureStrength = Convert.ToInt32(txtCounterMeasureStrengthValue.Text.Trim());
             objErrorData.CycleTime = Convert.ToInt32(txtCycleTimeValue.Text.Trim());
             objErrorData.CreatedDate= DateTime.Now;

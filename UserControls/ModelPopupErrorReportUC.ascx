@@ -61,8 +61,6 @@
                                 ErrorMessage="Only numeric allowed" ValidationGroup="addErrorLink" ControlToValidate="txtCycleTimeValue"
                                 ForeColor="Red"></asp:RegularExpressionValidator>
                         </li>
-
-
                         <li>
                             <label>
                                 Work Content</label>
@@ -76,8 +74,6 @@
                                 ErrorMessage="Only numeric allowed" ValidationGroup="addErrorLink" ControlToValidate="txtWorkContentValue"
                                 ForeColor="Red"></asp:RegularExpressionValidator>
                         </li>
-
-
                         <li>
                             <label>
                                 Counter Measure</label>
@@ -87,11 +83,10 @@
                                 ForeColor="Red" Text="*">
                             </asp:RequiredFieldValidator>
                             <asp:RegularExpressionValidator ID="RegularExpressionValidator4" Style="width: 100%;"
-                                Display="Dynamic" ValidationExpression="^[0-9]{1,100}$" runat="server"
-                                ErrorMessage="Only numeric allowed" ValidationGroup="addErrorLink" ControlToValidate="txtCounterMeasureValue"
+                                Display="Dynamic" ValidationExpression="^[a-zA-Z0-9\s]{1,100}$" runat="server"
+                                ErrorMessage="Special symbols not allowed" ValidationGroup="addErrorLink" ControlToValidate="txtCounterMeasureValue"
                                 ForeColor="Red"></asp:RegularExpressionValidator>
                         </li>
-
                         <li>
                             <label>
                                 CounterMeasure Strength</label>
