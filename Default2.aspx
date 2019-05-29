@@ -61,13 +61,13 @@
                                     </ItemTemplate>
                                 </asp:TemplateField>
                            
-                                 <asp:TemplateField HeaderText="Current Labal Name" HeaderStyle-HorizontalAlign="left">
+                                 <asp:TemplateField HeaderText="Current label Name" HeaderStyle-HorizontalAlign="left">
                                     <ItemTemplate>
                                         <asp:Label ID="lblCName" runat="server" Text='<%# Eval("Headerlblname") %>'>
                                         </asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Change Labal Name" HeaderStyle-HorizontalAlign="left">
+                                <asp:TemplateField HeaderText="Change label Name" HeaderStyle-HorizontalAlign="left">
                                     <ItemTemplate>
                                         <asp:TextBox ID="txtchangename" runat="server"></asp:TextBox>
                                     </ItemTemplate>

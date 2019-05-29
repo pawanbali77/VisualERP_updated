@@ -13,7 +13,10 @@
     </style>
 </head>
 <body>
-    <table style="width: 100%; border: 1px solid black;">
+    <table style="    width: 70%;
+    border: 1px solid black;
+    margin: 0 auto;
+    padding: 0;">
         <tr style="background: black; color: white;">
             <th>Video's Name</th>
             <th>Video</th>

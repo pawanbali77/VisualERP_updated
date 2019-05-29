@@ -532,20 +532,6 @@
       <Column Name="ModifiedDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
     </Type>
   </Table>
-  <Table Name="dbo.ErrorInfos" Member="ErrorInfos">
-    <Type Name="ErrorInfo">
-      <Column Name="ErrorID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Error" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
-      <Column Name="CycleTime" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="CounterMeasureStrength" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="CounterMeasure" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="WorkContent" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="ProcessID" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="IncludeOnMap" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="CreatedDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
-      <Column Name="ModifiedDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.tbl_ProcessBlockHeader" Member="tbl_ProcessBlockHeaders">
     <Type Name="tbl_ProcessBlockHeader">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -554,6 +540,20 @@
       <Column Name="SequanceOrder" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="CreatedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="UpdatedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ErrorInfos" Member="ErrorInfos">
+    <Type Name="ErrorInfo">
+      <Column Name="ErrorID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Error" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="CycleTime" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CounterMeasureStrength" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CounterMeasure" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="WorkContent" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ProcessID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IncludeOnMap" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="CreatedDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="ModifiedDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
     </Type>
   </Table>
   <Function Name="dbo.DeleteAttributeDataByID" Method="DeleteAttributeDataByID">

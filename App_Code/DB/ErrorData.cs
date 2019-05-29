@@ -22,7 +22,7 @@ public class ErrorData
         public string Error { get; set; }
         public int CycleTime { get; set; }
         public int CounterMeasureStrength { get; set; }
-        public int CounterMeasure { get; set; }
+        public string CounterMeasure { get; set; }
         public int WorkContent { get; set; }
         public int ProcessID { get; set; }
         public DateTime ModifiedDate { get; set; }
@@ -153,7 +153,7 @@ public class ErrorData
         VisualERPDataContext objdata = new VisualERPDataContext();
         var qry = objdata.ErrorInfos.Where(x => x.ProcessID == poid).Select(e => new ListErrorData
         {
-            CounterMeasure = Convert.ToInt32(e.CounterMeasure),
+            CounterMeasure = e.CounterMeasure,
             CounterMeasureStrength = Convert.ToInt32(e.CounterMeasureStrength),
             CycleTime = Convert.ToInt32(e.CycleTime),
             Error = e.Error,
