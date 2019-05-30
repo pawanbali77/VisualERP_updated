@@ -46,12 +46,11 @@
             <div class="footer">
                 <p>
                     © Copyright GroEngine, LLC 2013. All Rights Reserved
-               
                 </p>
-                <p style="position: absolute; top: 4px; right: 250px;">
+                <p style="position: absolute; top: 3px; right: 250px;">
                     <a href="HelpVideos.aspx" style="color: white;" id="help">
                         <span style="font-size: 20px; vertical-align: super;">Help </span>
-                        <img alt="" src="images/HelpIcon.png" /></a>
+                        <img height="23" alt="" src="images/HelpIcon.png" /></a>
                 </p>
             </div>
         </div>

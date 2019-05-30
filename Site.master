@@ -88,9 +88,9 @@
         <div class="footer">
             <p>
                 © Copyright GroEngine, LLC 2013. All Rights Reserved</p>
-            <p style="position: absolute; top: 0; right: 118px;">
+          <%--  <p style="position: absolute; top: 0; right: 118px;">
                     <a href="HelpVideos.aspx" style="color: white;" id="help">Help</a>
-                </p>
+                </p>--%>
         </div>
     </div>
     
