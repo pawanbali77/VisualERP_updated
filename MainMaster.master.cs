@@ -229,6 +229,20 @@ public partial class MainMaster : System.Web.UI.MasterPage
             BindTree(list, newNode);
         }
     }
+
+    public void btnDeleteNode_Click(object sender, EventArgs e)
+    {
+        if (TreeView1.SelectedNode != null)
+        {
+            TreeNode Parent = TreeView1.SelectedNode.Parent;
+
+
+            if (Parent == null)
+                TreeView1.Nodes.Remove(TreeView1.SelectedNode);
+            else
+                Parent.ChildNodes.Remove(TreeView1.SelectedNode);
+        }
+    }
     /// <summary>
     /// on page load this code will run.(both function fillTri and MyTreeView_TreeNodePopulate it is not using.)
     /// </summary>

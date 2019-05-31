@@ -5,7 +5,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
 
     <div style="margin-top: 70px; margin-bottom: 20px; text-align: center;">
-        <h1>Process List</h1>
+        <h1>Systems</h1>
     </div>
 
     <div align="center">
@@ -37,7 +37,7 @@
                         <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" Style="text-align: center;" />
                     </ItemTemplate>
                 </asp:TemplateField>
-                <asp:TemplateField ItemStyle-HorizontalAlign="Left" HeaderText="Process Name">
+                <asp:TemplateField ItemStyle-HorizontalAlign="Left" HeaderText="System Name">
                     <ItemTemplate>
                         <asp:Label ID="lblProcessName" Style="text-align: left" runat="server" Text='<%#Eval("ProcessName") %>' />
                         <asp:Label ID="lblProcessId" Style="text-align: left" runat="server" Visible="false" Text='<%#Eval("ProcessId") %>' />
@@ -46,7 +46,7 @@
                     </ItemTemplate>
                 </asp:TemplateField>
 
-                <asp:TemplateField HeaderText="View Process">
+                <asp:TemplateField HeaderText="View System">
                     <ItemTemplate>
                         <asp:LinkButton Text="View" runat="server" CommandName="View" CommandArgument="<%# Container.DataItemIndex %>" Height="18px" Width="60px" />
                     </ItemTemplate>

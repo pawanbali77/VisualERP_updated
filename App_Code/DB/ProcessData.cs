@@ -364,6 +364,7 @@ public class ProcessData
     public static List<ProcessDataProperty> GetAllProcessID_test(int UserID, int CompanyId)
     {
         VisualERPDataContext Objdata = new VisualERPDataContext();
+
         //qry will return GetTypeID details according our search query
         var qry = (from x in Objdata.tbl_Processes
                        // where x.ProcessID == Id && (x.ParentID == null || x.ParentID == 0)
@@ -377,6 +378,15 @@ public class ProcessData
 
                    }).Distinct().ToList();
 
+        foreach (var row in qry)
+        {
+            bool isData = Objdata.tbl_TargetObjects.Where(po => po.TargetID == row.ProcessID).Any();
+            if (isData)
+            {
+                row.ProcessName = row.ProcessName + "_TV";
+            }
+
+        }
         return qry.ToList();
     }
 
@@ -705,7 +715,7 @@ public class ProcessData
 
         };
         return objGetAllExistingReportsName.ToList();
-    }  
+    }
 
     public static List<ProcessDataProperty> GetProcessObjErrors(int ProcessId)
     {
@@ -840,7 +850,7 @@ public class ProcessData
         return qry.ToList();
     }
 
-  
+
 
     public static List<ProcessData.ProcessDataProperty> SelectedItemReport(bool inAsc, string SortBy, int processId, string attributeName, int processObjID)
     {

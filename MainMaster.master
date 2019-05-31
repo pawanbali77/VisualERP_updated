@@ -215,7 +215,7 @@
 
 
         function ZoomRefresh() {
-            
+
             if ($('input[id=ContentPlaceHolder1_hdnLastZoom]').val() != '') {
                 currOtherZoom = parseFloat($("input[id=ContentPlaceHolder1_hdnLastZoom]").val());
             }
@@ -244,7 +244,7 @@
 
 
         function ZoomIn1() {
-            
+
             if ($.browser.mozilla) {
                 var step = 0.02;
                 currOtherZoom += step;
@@ -285,9 +285,9 @@
 
             var maxheight = $("input[id=ContentPlaceHolder1_hdnheight]").val();
             //alert(maxwidth + ',' + maxheight);
-            
+
             var NewHeight = $("input[id=ContentPlaceHolder1_hdnNewHeight]").val();
-            
+
             $("#ContentPlaceHolder1_MainDiv1").css("height", NewHeight);
             $("#ContentPlaceHolder1_MainDiv1").css("width", maxwidth);
             $("input[id=ContentPlaceHolder1_hdnLastZoom]").val(currOtherZoom);
@@ -334,7 +334,7 @@
             $("#ContentPlaceHolder1_MainDiv1").css("height", NewHeight);
             //$("#ContentPlaceHolder1_MainDiv1").css("height", maxheight);
             $("#ContentPlaceHolder1_MainDiv1").css("width", maxwidth);
-         
+
             //            $("#ContentPlaceHolder1_MainDiv").css("z-index", 1);
             //            $(".footer").css("z-index", "10");
             //            $(".grey_strip").css("top", 99);
@@ -347,7 +347,7 @@
         }
 
         function Zoomorg1() {
-            
+
             if ($.browser.mozilla) {
                 currFFZoom = 1;
                 currIEZoom = 1;
@@ -463,13 +463,7 @@
                         <div style="float: right;" id="divAddNode" runat="server">
                             <input type="button" name="button" title="Add Node Up" onclick="return ImgbtnUp_click()" class="button" />
                             <input type="button" name="button" title="Add Node Down" onclick="return ImgbtnDwn_click()" class="button1" />
-                            <%--input type="button" name="button" value="Search" onclick="showUser()" class="button"/>
-                    <asp:ImageButton ID="ImgbtnCheckout"  runat="server" ImageUrl="~/images/Very-Basic-Plus-icon.png"
-                        OnClick="ImgbtnCheckout_click" ToolTip="Checkout" Style="padding: 0 0 0 0px" />
-                    <asp:ImageButton ID="ImgbtnUp" runat="server" ImageUrl="~/images/Arrows-Up-circular-icon.png" OnClick="ImgbtnUp_click"
-                        OnClientClick="javascript:return ImgbtnUp_click()"  ToolTip="Make Parent" Style="padding: 0 0 0 45px" />
-                    <asp:ImageButton ID="ImgbtnDwn" runat="server" ImageUrl="~/images/Arrows-Down-circular-icon.png"
-                        OnClientClick="javascript:return ImgbtnDwn_click()" ToolTip="Make Child" Style="padding: 0 0 0 45px" />--%>
+                            <%--<asp:Button ID="btnDeleteNode" runat="server" Text="" OnClick="btnDeleteNode_Click" CssClass="btnDeleteNode"/>--%>
                             <asp:TextBox ID="txtpo" Style="display: none" runat="server"></asp:TextBox>
                         </div>
                         <div class="Clear">
@@ -482,9 +476,6 @@
                                 SelectedNodeStyle-ForeColor="#000" SelectedNodeStyle-Font-Bold="true" SelectedNodeStyle-Font-Size="Larger">
                             </asp:TreeView>
                         </ContentTemplate>
-                        <%--<Triggers>
-                 <asp:AsyncPostBackTrigger ControlID="addProcessBtn" EventName="Click" />
-                </Triggers>--%>
                     </asp:UpdatePanel>
                 </div>
                 <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
@@ -504,7 +495,7 @@
                 <p>
                     © Copyright GroEngine, LLC 2013. All Rights Reserved
                 </p>
-               <%-- <p style="position: absolute; top: 0; right: 118px;">
+                <%-- <p style="position: absolute; top: 0; right: 118px;">
                     <a href="HelpVideos.aspx" style="color: white;" id="help">Help</a>
                 </p>--%>
             </div>
@@ -527,18 +518,18 @@
                                     ErrorMessage="Please enter the node name" InitialValue="" ValidationGroup="add"
                                     ForeColor="Red" EnableClientScript="true" Text="*">
                          
-                            </asp:RequiredFieldValidator>
+                                </asp:RequiredFieldValidator>
                             </li>
                             <li id="liFunction" runat="server" visible="false">
                                 <label>
-                                    Fuction Name</label>
+                                    Function Name</label>
                                 <asp:TextBox ID="txtFunctionName" runat="server" CssClass="AttrTxtFild" TabIndex="1"
                                     MaxLength="14" Width="245px"></asp:TextBox>
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtFunctionName"
                                     ErrorMessage="Please enter the function name" InitialValue="" ValidationGroup="add"
                                     ForeColor="Red" EnableClientScript="true" Text="*">
                          
-                            </asp:RequiredFieldValidator>
+                                </asp:RequiredFieldValidator>
                             </li>
                             <li>
                                 <label>
@@ -549,7 +540,7 @@
                                 <asp:RequiredFieldValidator ID="reqddlType" runat="server" InitialValue="0" ValidationGroup="add"
                                     ControlToValidate="ddlType" ErrorMessage="Please select the type" ForeColor="Red"
                                     EnableClientScript="true" Text="*">
-                            </asp:RequiredFieldValidator>
+                                </asp:RequiredFieldValidator>
                             </li>
                             <li>
                                 <asp:Button ID="addProcessBtn" ValidationGroup="add" runat="server" CssClass="BlueBtnLe"

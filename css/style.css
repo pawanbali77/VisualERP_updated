@@ -1358,6 +1358,14 @@ img {
     height: 35px;
 }
 
+.btnDeleteNode {
+    background: url(../images/clsbtn.png) no-repeat;
+    cursor: pointer;
+    border: none;
+    padding: 0 0 0 45px;
+    height: 31px;
+}
+
 .button2 {
     background: url(../images/Copy_icon.png) no-repeat;
     cursor: pointer;
@@ -2030,7 +2038,7 @@ img {
     line-height: 1.5em;
     border-radius: 10px;
     background: #000;
-    border: 2px solid #ef705b;
+    border: 2px solid #41c841;
     float: left;
 }
 
@@ -2039,9 +2047,9 @@ img {
 .Heading {
     position: relative;
     width: 232px !important;
-    margin: /*1*/ 5px 2px 0 auto;
+    margin: /*1*/ 4.5px 2px 0 auto;
     padding: 11px 10px 10px;
-    background: url(../images/ldivider_bg.png) no-repeat left top #000;
+    /*background: url(../images/ldivider_bg.png) no-repeat left top #000;*/
     border: 1px solid rgba(0,0,0,0.15);
     box-shadow: 0 1px 1px rgba(50,50,50,0.1);
     cursor: pointer;
@@ -2078,7 +2086,7 @@ img {
     display: none;
     top: 37px;
     width: 234px; /*234px*/
-    width: 247px\0/;
+    width: 247px;
     height: 200px;
     overflow: auto;
     right: -6px;
