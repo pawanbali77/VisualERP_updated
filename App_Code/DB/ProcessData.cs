@@ -25,7 +25,38 @@ public class ProcessData
 
         return Convert.ToString(qry);
     }
+    public static bool DeleteProcessNodeFromTree(int ProcessID)
+    {
+        bool result = false;
+        VisualERPDataContext ObjData = new VisualERPDataContext();
 
+        if (ProcessID > 0)
+        {
+            ObjData.DeleteProcessNodeFromTree(ProcessID);
+            result = true;
+        }
+        else
+        {
+            result = false;
+        }
+        return result;
+    }
+    public static bool UpdateProcessNodeFromTree(string ProcessName, int ProcessID)
+    {
+        bool result = false;
+        VisualERPDataContext ObjData = new VisualERPDataContext();
+
+        if (ProcessID > 0)
+        {
+            ObjData.UpdateProcessNodeName(ProcessID, ProcessName);
+            result = true;
+        }
+        else
+        {
+            result = false;
+        }
+        return result;
+    }
     public static string GetProcessNameByPoid(int poid)
     {
         VisualERPDataContext Objdata = new VisualERPDataContext();
