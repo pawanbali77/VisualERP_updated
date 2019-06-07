@@ -690,7 +690,19 @@ public partial class MainMaster : System.Web.UI.MasterPage
             TreeNode Parent = TreeView1.SelectedNode.Parent;
             divEditNodeErrorMsg.Visible = false;
             lblEditNodeMsg.Visible = false;
-            string script = "ImgEditNode('" + TreeView1.SelectedNode.Text + "');";
+            var NodeLabelText = TreeView1.SelectedNode.Text;
+            char[] chars = { '_' };
+            int indexOf = NodeLabelText.IndexOfAny(chars);
+            if (indexOf == -1)
+            {
+                
+            }
+            else
+            {
+                string[] values=  NodeLabelText.Split('_');
+                NodeLabelText = values[0];
+            }
+            string script = "ImgEditNode('" + NodeLabelText + "');";
             ScriptManager.RegisterStartupScript(this, this.GetType(),
                       "ServerControlScript", script, true);
 
