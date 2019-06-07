@@ -136,11 +136,11 @@ public partial class ProcessManager : System.Web.UI.Page
                     divId = GetDivid(type, DBID, ProcessId, ParallelProcessObjID);
                     top = Convert.ToInt32(listData[i].XTop.ToString()); // get top position
                     left = Convert.ToInt32(listData[i].YLeft.ToString()); // get left position
-                   
-                        width = listData[i].Width != null? Convert.ToInt32(listData[i].Width.ToString()):0; // get width
-                  
-                    
-                        height = listData[i].Height!=null? Convert.ToInt32(listData[i].Height.ToString()):0; // get height 
+
+                    width = listData[i].Width != null ? Convert.ToInt32(listData[i].Width.ToString()) : 0; // get width
+
+
+                    height = listData[i].Height != null ? Convert.ToInt32(listData[i].Height.ToString()) : 0; // get height 
 
                     ControlPosition(divId, DBID, top, left, width, height, i, title, type, ParallelProcessObjID); // call function to creae control on last position
 
@@ -1404,9 +1404,9 @@ public partial class ProcessManager : System.Web.UI.Page
     {
         str1 += poidfor.ToString() + "-";  // append process object id to and making path 
         string splitStr = str1.TrimEnd('-'); // trim las char that is "-"
-
+        
         List<ProcessData.ProcessDataProperty> Fromparallelpoid = ProcessData.GetFromParallelProcessObjId(poidfor, ProcessId); // it will get next or To process object id for given processobj id
-        if (Fromparallelpoid.Count != 0)
+        if (Fromparallelpoid.Count != 0 && Fromparallelpoid != null)
         {
             for (int i = 0; i < Fromparallelpoid.Count; i++)
             {

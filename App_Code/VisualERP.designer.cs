@@ -689,6 +689,20 @@ public partial class VisualERPDataContext : System.Data.Linq.DataContext
 		IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), errorID);
 		return ((int)(result.ReturnValue));
 	}
+	
+	[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.DeleteProcessNodeFromTree")]
+	public int DeleteProcessNodeFromTree([global::System.Data.Linq.Mapping.ParameterAttribute(Name="ProcessId", DbType="Int")] System.Nullable<int> processId)
+	{
+		IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), processId);
+		return ((int)(result.ReturnValue));
+	}
+	
+	[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.UpdateProcessNodeName")]
+	public int UpdateProcessNodeName([global::System.Data.Linq.Mapping.ParameterAttribute(Name="ProcessID", DbType="Int")] System.Nullable<int> processID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="ProcessName", DbType="NVarChar(100)")] string processName)
+	{
+		IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), processID, processName);
+		return ((int)(result.ReturnValue));
+	}
 }
 
 [global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.tbl_Assembly")]

@@ -32,6 +32,16 @@ function unloadPopupBox() {	// TO Unload the Popupbox
     });
 }
 
+function loadEditPopupBox(NodeName) {
+    // document.getElementById('popup_box').style.display = "block"; // To Load the Popupbox
+    $('#txtNodeName_Edit').val(NodeName);
+    $('#popupEdit_box').fadeIn("slow");
+    console.log(NodeName);
+    $("#container").css({ // this is just for style
+        "opacity": "0.3"
+    });
+}
+
 function loadPopupBox() {
    // document.getElementById('popup_box').style.display = "block"; // To Load the Popupbox
     $('#popup_box').fadeIn("slow");

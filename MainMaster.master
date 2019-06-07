@@ -61,6 +61,10 @@
             loadPopupBox();
         }
 
+        function ImgEditNode(NodeName) {
+            loadEditPopupBox(NodeName);
+        }
+
         function unloadPopupBox() {	// TO Unload the Popupbox
             // document.getElementById('popup_box').style.display = "block";
             $('#popup_box').fadeOut("slow");
@@ -68,7 +72,13 @@
                 "opacity": "1"
             });
         }
-
+        function EditPopupBox() {	// TO Unload the Popupbox
+            // document.getElementById('popup_box').style.display = "block";
+            $('#popupEdit_box').fadeOut("slow");
+            $("#container").css({ // this is just for style		
+                "opacity": "1"
+            });
+        }
     </script>
     <script type="text/javascript">
         function msieversion() {
@@ -419,7 +429,9 @@
                     <asp:Image ID="Img_upload" runat="server" CssClass="img_upd" />
                     <h1 class="a2">growth engine.</h1>
                 </div>
-
+                <div id="divEditNodeErrorMsg" runat="server" visible="false" style="font: bold 12px Arial, Helvetica, sans-serif; color: #ffffff; padding: 18px 0px 0px 184px; height: 30px; float: left; width: 30%;">
+                    <asp:Label ID="lblEditNodeMsg" visible="false" runat="server" />
+                </div>
                 <ul id="nav2" runat="server">
                     <li class="Heading"><a href="#" class="whiteArrow">
                         <asp:Label ID="lblManager" runat="server" Text="Models" Style="margin-top: -4px" /></a>
@@ -463,7 +475,8 @@
                         <div style="float: right;" id="divAddNode" runat="server">
                             <input type="button" name="button" title="Add Node Up" onclick="return ImgbtnUp_click()" class="button" />
                             <input type="button" name="button" title="Add Node Down" onclick="return ImgbtnDwn_click()" class="button1" />
-                            <%--<asp:Button ID="btnDeleteNode" runat="server" Text="" OnClick="btnDeleteNode_Click" CssClass="btnDeleteNode"/>--%>
+                            <asp:Button ID="btnDeleteNode" runat="server" Text="" OnClick="btnDeleteNode_Click" CssClass="btnDeleteNode" />
+                            <asp:Button runat="server" ID="EditPopupBox" Text="" OnClick="EditPopupBox_Click" CssClass="btnEditNode" />
                             <asp:TextBox ID="txtpo" Style="display: none" runat="server"></asp:TextBox>
                         </div>
                         <div class="Clear">
@@ -569,6 +582,53 @@
                 </div>
             </ProgressTemplate>
         </asp:UpdateProgress>
+
+
+
+
+        <div class="AttributeWrpPoupProcess" id="popupEdit_box" runat="server">
+            <div class="AttribWrPoupProcess">
+                <%--    <a href="#" class="CloseBtnP" id="popupBoxClose"></a>--%>
+                <asp:ImageButton ID="imgCloseTree_NodeEdit" runat="server" CssClass="CloseBtnP" OnClick="imgCloseTree_NodeEdit_OnClick"
+                    ImageUrl="~/images/close_btn.png" />
+                <h2>Edit Node Name</h2>
+                <div class="AttribMid">
+                    <div id="EditLeftAtProcess">
+                        <ul class="LeftFrm">
+                            <li>
+                                <label>
+                                    Node Name</label>
+                                <asp:TextBox ID="txtNodeName_Edit" runat="server" CssClass="AttrTxtFild" TabIndex="1"
+                                    Width="245px"></asp:TextBox>
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtNodeName_Edit"
+                                    ErrorMessage="Please enter the node name" InitialValue="" ValidationGroup="Edit"
+                                    ForeColor="Red" EnableClientScript="true" Text="*">
+                         
+                                </asp:RequiredFieldValidator>
+                            </li>
+                            <li>
+                                <asp:Button ID="btnEditNodeName" ValidationGroup="Edit" runat="server" CssClass="BlueBtnLe"
+                                    Text="Update" OnClick="btnEditNodeName_Click" />
+                            </li>
+                        </ul>
+                    </div>
+                    <asp:ValidationSummary ID="ValidationSummary2" runat="server" HeaderText="Following error occurs:"
+                        ShowMessageBox="true" DisplayMode="BulletList" ShowSummary="false" ValidationGroup="Edit"
+                        ForeColor="Red" />
+                    <div class="Clear">
+                    </div>
+                </div>
+                <div class="Clear">
+                </div>
+            </div>
+            <div class="Clear">
+            </div>
+        </div>
+
+
+
+
+
     </form>
 </body>
 </html>

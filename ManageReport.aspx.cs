@@ -54,6 +54,7 @@ public partial class ManageReport : BasePage
             RoleID = Convert.ToInt32(Session["RoleID"].ToString());
         }
 
+        
         divErrorMsg.Visible = false;
         string EditId = GetPostBackControlId((Page)sender); // to get postback control id that is clicked
         VisualERPDataContext obj = new VisualERPDataContext();
@@ -76,6 +77,8 @@ public partial class ManageReport : BasePage
         pnlBomReport.Visible = false;
         pnlTFGReport.Visible = false;
         pnlMachineReport.Visible = false;
+        pnlErrorAttribute.Visible = false;
+        chkAllErrorAttributes.Checked = false;
         pnlESAReport.Visible = false;
         pnlInventoryReport.Visible = false;
         pnlReportType.Visible = false;
@@ -97,7 +100,7 @@ public partial class ManageReport : BasePage
         pnlCustomStandardReport_Process_attribute.Visible = false;
         pnlCustomStandardReport_Selected.Visible = false;
         chkExistingReports_Attribute_Attribute.Checked = false;
-
+        chkSelectallError.Checked = false;
         //divErrorMsg.Visible = false;
 
         Label lblManager = (Label)Master.FindControl("lblManager");
@@ -280,6 +283,7 @@ public partial class ManageReport : BasePage
                         pnlListSavedReport.Visible = false;
                         pnlTgtValueGap.Visible = false;
                         divErrorMsg.Visible = false;
+                        pnlEror.Visible = false;
                         //*******************
                     }
                 }
@@ -329,10 +333,11 @@ public partial class ManageReport : BasePage
 
                 BindActivityCheckboxList(Convert.ToInt32(mastertreeview.SelectedNode.Value)); // bind activity checkbox
                 BindInventoryCheckboxList(Convert.ToInt32(mastertreeview.SelectedNode.Value));
-                BindErrorCheckboxList(Convert.ToInt32(mastertreeview.SelectedNode.Value));
+               
                 BindAllExistingReportCheckboxList(Convert.ToInt32(mastertreeview.SelectedNode.Value));
 
             }
+            BindErrorCheckboxList(Convert.ToInt32(mastertreeview.SelectedNode.Value));
             ProcessId = this.CInt32(mastertreeview.SelectedNode.Value);
             //Session["SelectedNodeValue"] = ProcessId;
             ViewState["PreviousValue"] = ProcessId; // previous process id hold in view state but now not in used
@@ -364,7 +369,7 @@ public partial class ManageReport : BasePage
             btnNextToActivity.Visible = false;
         }
         // BindActivityCheckboxList(Convert.ToInt32(mastertreeview.SelectedNode.Value));
-
+        
     }
 
     //it will create child report on multiple level of tree. we are creating dynamic query here which will return activitynode with its actual path in tree
@@ -619,12 +624,12 @@ public partial class ManageReport : BasePage
             chkboxError.DataValueField = "ProcessObjID"; // data value field
             chkboxError.DataBind(); // bind checkboxlist            
             btnNextToInventory.Visible = true;
-            headerTitleError.InnerText = "Select Error";
+            headerTitleError.InnerText = "Select Process";
             chkSelectallError.Visible = true;
         }
         else
         {
-            headerTitleError.InnerText = "No Error found under this process";
+            headerTitleError.InnerText = "No Process found under this process";
             //divAttribute.Visible = false;
             chkSelectallError.Visible = false;
             btnNextToInventory.Visible = false;
@@ -1689,8 +1694,8 @@ public partial class ManageReport : BasePage
                     textBox.CssClass = "Color";
                     this.GridviewCustomStandardReport.Rows[j].Cells[cellCount - 1].Controls.Add(textBox);
                 }
-               
-               
+
+
                 pnlListSavedReport.Visible = false;
                 divErrorMsg.Visible = true;
                 if (RoleID == 4)

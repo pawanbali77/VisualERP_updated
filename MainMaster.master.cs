@@ -127,9 +127,9 @@ public partial class MainMaster : System.Web.UI.MasterPage
                 RoleID = Convert.ToInt32(Session["RoleID"].ToString());
                 //Parent_id = Convert.ToInt32(Session["Parent_id"].ToString());
 
-                if(RoleID == 1)
+                if (RoleID == 1)
                 {
-                   
+
                 }
                 else if (RoleID == 2)
                 {
@@ -235,14 +235,60 @@ public partial class MainMaster : System.Web.UI.MasterPage
         if (TreeView1.SelectedNode != null)
         {
             TreeNode Parent = TreeView1.SelectedNode.Parent;
-
-
-            if (Parent == null)
-                TreeView1.Nodes.Remove(TreeView1.SelectedNode);
-            else
-                Parent.ChildNodes.Remove(TreeView1.SelectedNode);
+            ProcessData.DeleteProcessNodeFromTree(Convert.ToInt32(TreeView1.SelectedNode.Value));
+            //if (Parent == null)
+            //{
+            //    TreeView1.Nodes.Remove(TreeView1.SelectedNode);
+            //    ProcessData.DeleteProcessNodeFromTree(Convert.ToInt32(Parent.Value));
+            //}
+            //else
+            //{
+            //    Parent.ChildNodes.Remove(TreeView1.SelectedNode);
+            //    ProcessData.DeleteProcessNodeFromTree(Convert.ToInt32(Parent.Value));
+            //}
         }
+        Response.Redirect(Request.RawUrl);
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     /// <summary>
     /// on page load this code will run.(both function fillTri and MyTreeView_TreeNodePopulate it is not using.)
     /// </summary>
@@ -578,6 +624,17 @@ public partial class MainMaster : System.Web.UI.MasterPage
         }
     }
 
+    protected void btnEditNodeName_Click(object sender, EventArgs e)
+    {
+        if (TreeView1.SelectedNode != null)
+        {
+            TreeNode Parent = TreeView1.SelectedNode.Parent;
+            var EditxtNodeName = txtNodeName_Edit.Text;
+            ProcessData.UpdateProcessNodeFromTree(EditxtNodeName,Convert.ToInt32(TreeView1.SelectedNode.Value));
+        }
+        Response.Redirect(Request.RawUrl);
+    }
+
     /// <summary>
     /// I have mange the function name li on belhalf of Process type selection
     /// </summary>
@@ -617,5 +674,32 @@ public partial class MainMaster : System.Web.UI.MasterPage
         string script = "unloadPopupBox();";
         ScriptManager.RegisterStartupScript(this, this.GetType(),
                       "ServerControlScript", script, true);
+    }
+
+    protected void imgCloseTree_NodeEdit_OnClick(object sender, ImageClickEventArgs e)
+    {
+        ClearControl();
+        string script = "EditPopupBox();";
+        ScriptManager.RegisterStartupScript(this, this.GetType(),
+                      "ServerControlScript", script, true);
+    }
+    public void EditPopupBox_Click(object sender, EventArgs e)
+    {
+        if (TreeView1.SelectedNode != null)
+        {
+            TreeNode Parent = TreeView1.SelectedNode.Parent;
+            divEditNodeErrorMsg.Visible = false;
+            lblEditNodeMsg.Visible = false;
+            string script = "ImgEditNode('" + TreeView1.SelectedNode.Text + "');";
+            ScriptManager.RegisterStartupScript(this, this.GetType(),
+                      "ServerControlScript", script, true);
+
+        }
+        else
+        {
+            divEditNodeErrorMsg.Visible = true;
+            lblEditNodeMsg.Visible = true;
+            lblEditNodeMsg.Text = "Please select at least one process";
+        }
     }
 }
