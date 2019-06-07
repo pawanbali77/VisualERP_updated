@@ -1231,6 +1231,7 @@ public class ProcessData
 
     public static List<ProcessDataProperty> GetFromParallelProcessObjId(string fromPoid, int ProcessId)
     {
+        List<ProcessDataProperty> objProcessDataProperty = new List<ProcessDataProperty>();
         if (fromPoid == string.Empty)
         {
             fromPoid = "0";
@@ -1238,6 +1239,7 @@ public class ProcessData
         int Nxtposition = 0;
         VisualERPDataContext Objdata = new VisualERPDataContext();
         //qry will return GetTypeID details according our search query
+
         var qry = (from x in Objdata.tbl_ParallelRelationships
                    where (x.NeighbourActivityID == Convert.ToInt32(fromPoid) && x.Type == 0)
                    select new ProcessDataProperty
@@ -1275,13 +1277,24 @@ public class ProcessData
 
 
 
+        if (qry.Count > 0)
+        {
+            var result = qry.Union(qry1).ToList();
+            if (result.Count > 0)
+            {
+                objProcessDataProperty = result.Union(qry3).ToList();
+                if (objProcessDataProperty.Count > 0)
+                {
+                    return objProcessDataProperty.OrderBy(p => p.ProcessObjIDParl).ToList();
+                }
+            }
+        }
 
-        var result = qry.Union(qry1).ToList();
-        var result1 = result.Union(qry3).ToList();
 
 
 
-        return result1.OrderBy(p => p.ProcessObjIDParl).ToList();
+
+        return objProcessDataProperty;
     }
 
     public static List<ProcessDataProperty> GetToParallelProcessObjId(string ToPoid)
