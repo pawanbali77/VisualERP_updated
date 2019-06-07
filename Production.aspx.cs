@@ -183,6 +183,7 @@ public partial class Production : System.Web.UI.Page
         }
     }
 
+
    
     public void LoadallControls()
     {
@@ -253,17 +254,17 @@ public partial class Production : System.Web.UI.Page
                         }
                         catch
                         {
-                            top = Convert.ToInt32(listData[i].XTop.ToString());
-                            left = Convert.ToInt32(listData[i].YLeft.ToString());
-                            
+                            top = Convert.ToInt32(listData[i].XTop == null ? 0 : listData[i].XTop);
+                            left = Convert.ToInt32(listData[i].YLeft == null ? 0 : listData[i].YLeft);
+
                         }
                     }
                     else
                     {
-                        top = Convert.ToInt32(listData[i].XTop.ToString());
-                        left = Convert.ToInt32(listData[i].YLeft.ToString());
-                        width = Convert.ToInt32(listData[i].Width.ToString());
-                        height = Convert.ToInt32(listData[i].Height.ToString());
+                        top = Convert.ToInt32(listData[i].XTop == null ? 0 : listData[i].XTop);
+                        left = Convert.ToInt32(listData[i].YLeft == null ? 0 : listData[i].YLeft);
+                        width = Convert.ToInt32(listData[i].Width == null ? 0 : listData[i].Width);
+                        height = Convert.ToInt32(listData[i].Height == null ? 0 : listData[i].Height);
                     }
 
                     newList.Add(new Supplier() { SupplierID = divId, EditID = DBID, Top = top, Left = left, Width = width, Height = height, Type = type, Title = title, ParallelProcessID = ParallelProcessObjID });
@@ -2829,5 +2830,4 @@ public partial class Production : System.Web.UI.Page
         public int Height { get; set; }
         public int Width { get; set; }
     }
-
 }
