@@ -360,7 +360,7 @@
             <%-- <uc1:ModelPopupAddProcess ID="ModelPopupAddProcess1" runat="server" />--%>
             <div class="footer" id="footer">
                 <p>
-                    © Copyright GroEngine, LLC 2013. All Rights Reserved
+                    © 2013-2019, GroEngine, Inc.  All Rights Reserved
                 </p>
                <%-- <p style="position: absolute; top: 0; right: 118px;">
                     <a href="HelpVideos.aspx" style="color: white;" id="help">Help</a>

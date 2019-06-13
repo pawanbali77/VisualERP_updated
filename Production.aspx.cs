@@ -44,7 +44,7 @@ public partial class Production : System.Web.UI.Page
         if (ViewState["SelectedType"] != null)
             SelectedType = this.CStr(ViewState["SelectedType"]);
 
-       
+
 
 
         Panel1.Visible = false;
@@ -54,17 +54,17 @@ public partial class Production : System.Web.UI.Page
         string scriptJq = "test();";  //call jquery function here on page load
         ScriptManager.RegisterStartupScript(this, this.GetType(),
                       "ServerControlScript", scriptJq, true);
-        
+
         Label lblManager = (Label)Master.FindControl("lblManager");
         lblManager.Text = "Process View";
         lblManager.Attributes.Add("class", "Process");
         string src = Request.QueryString["src"];
-        if (!string.IsNullOrEmpty(src) && src=="tgt")
+        if (!string.IsNullOrEmpty(src) && src == "tgt")
         {
             lblManager.Text = "Target View";
             lblManager.Attributes.Add("class", "Target");
         }
-      
+
         string script = "test();";
         ScriptManager.RegisterStartupScript(this, this.GetType(),
                       "ServerControlScript", script, true);
@@ -79,7 +79,7 @@ public partial class Production : System.Web.UI.Page
             ProcessId = this.CInt32(Session["SelectedNodeValue"]);
 
 
-       //  delParam = new DelMethodWithParam(MethodWithParam);
+        //  delParam = new DelMethodWithParam(MethodWithParam);
         //////////////////////////////
 
         foreach (ListItem item in chklstActivitiesFrom.Items)
@@ -151,7 +151,7 @@ public partial class Production : System.Web.UI.Page
         {
             DeleteInventory();
         }
-        
+
         if (this.Page.Request.Params["__EVENTTARGET"] != null && this.Page.Request.Params["__EVENTTARGET"].Contains("DeleteProcess"))
         {
             DeleteProcess();
@@ -159,7 +159,7 @@ public partial class Production : System.Web.UI.Page
 
         // to stop post back while adding controls
         if (EditId != "lnkBtnProces" && EditId != "lnkBtnparallelProcess" && EditId != "lnkBtnSupplier" && EditId != "lnkBtnInventory" && EditId != "lnkBtnShipment" && EditId != "lnkBtnForcast" && EditId != "lnkBtnArrow" && EditId != "lnkBtnDSchedule" && EditId != "lnkBtnProduction" && EditId != "lnkBtnElectronic" && EditId != "lnkBtnDataTable" && EditId != "lnkBtnTimelineSegment" && EditId != "lnkBtnTimelinetotal" && EditId != "lnkBtnSupermarket" && EditId != "lnkbtnSafetyStock" && EditId != "lnkbtnSignalKanban" && EditId != "lnkbtnWithdrawalkanban" && EditId != "lnkbtnWithdrawalBatch" && EditId != "lnkbtnProductionKanban" && EditId != "lnkbtnBatchKanban" && EditId != "lnkbtnKanbanPost" && EditId != "lnkbtnFIFOLane" && EditId != "lnkbtnKaizenBurst" && EditId != "lnkbtnPullArrow1" && EditId != "lnkbtnPullArrow2" && EditId != "lnkbtnPullArrow3" && EditId != "lnkbtnPhysicalPull" && EditId != "lnkbtnSequencedPullBall" && EditId != "lnkbtnLoadLeveling")
-        LoadallControls();
+            LoadallControls();
 
         if (!IsPostBack)
         {
@@ -184,7 +184,7 @@ public partial class Production : System.Web.UI.Page
     }
 
 
-   
+
     public void LoadallControls()
     {
         int sourceType = 1;
@@ -205,11 +205,11 @@ public partial class Production : System.Web.UI.Page
             List<ControlsData.ProcessObjectData> listData = new List<ControlsData.ProcessObjectData>();
             if (!string.IsNullOrEmpty(src) && src == "tgt")
             {
-                   sourceType = 2;
-                   listData =   TargetControlsData.GetAllProcessControlData(ProcessId);
+                sourceType = 2;
+                listData = TargetControlsData.GetAllProcessControlData(ProcessId);
             }
             else
-              listData = ControlsData.GetAllProcessControlData(ProcessId);
+                listData = ControlsData.GetAllProcessControlData(ProcessId);
 
             if (listData.Count != 0)
             {
@@ -269,7 +269,7 @@ public partial class Production : System.Web.UI.Page
 
                     newList.Add(new Supplier() { SupplierID = divId, EditID = DBID, Top = top, Left = left, Width = width, Height = height, Type = type, Title = title, ParallelProcessID = ParallelProcessObjID });
                     ControlPosition(divId, DBID, top, left, width, height, i, title, type, ParallelProcessObjID, sourceType); // call function to creae control on last position
-                     
+                    Session["Supplier"] = newList;
 
                     if (type != 0 || type != 1)
                     {
@@ -429,8 +429,8 @@ public partial class Production : System.Web.UI.Page
     public void load(string divProcessID, int DBID, int Top, int Left, int type)
     {
         string src = Request.QueryString["src"];
-      
-            lst.Clear();
+
+        lst.Clear();
         MainDiv1.Controls.Clear();
 
         string ValuePath = "";
@@ -482,7 +482,7 @@ public partial class Production : System.Web.UI.Page
                 UserControls_ProcessObject xx = LoadControl("UserControls/ProcessObject.ascx") as UserControls_ProcessObject;
                 //ModelPopupBOMUC1.Index = j;               
                 xx.Index = j;
-               
+
                 if (!string.IsNullOrEmpty(src) && src == "tgt")
                 {
                     xx.SourceType = 2;
@@ -600,7 +600,7 @@ public partial class Production : System.Web.UI.Page
 
         // }
     }
-    
+
     public void loadParallelActivity(string divProcessID, int DBID, int Top, int Left, int width, int height, int type, int ParallelProcessObjID)
     {
         Plst.Clear();
@@ -626,7 +626,8 @@ public partial class Production : System.Web.UI.Page
 
         List<ProcessData.ProcessDataProperty> lstpoidParallel = new List<ProcessData.ProcessDataProperty>();
         if (!string.IsNullOrEmpty(src) && src == "tgt")
-        { lstpoidParallel = ProcessData.GetAllParallelTargetObjId(ProcessId);
+        {
+            lstpoidParallel = ProcessData.GetAllParallelTargetObjId(ProcessId);
         }
         else
             lstpoidParallel = ProcessData.GetAllParallelProcessObjId(ProcessId);  //////////////////////////////
@@ -658,7 +659,7 @@ public partial class Production : System.Web.UI.Page
                 {
                     xx.SourceType = 2;
                 }
-                    xx.ProcessObjectId = DBID;
+                xx.ProcessObjectId = DBID;
                 //xx.PageMethodWithParamRef = delParam;
                 if (i == 0)
                 {
@@ -975,9 +976,9 @@ public partial class Production : System.Web.UI.Page
         hdnSupplier.Value = str2;
     }
 
-    public void ControlPosition(string id, int DBID, int top, int left, int width, int height, int i, string title, int type, int ParallelProcessObjID, int sourceType=1) // added ParallelProcessObjID
+    public void ControlPosition(string id, int DBID, int top, int left, int width, int height, int i, string title, int type, int ParallelProcessObjID, int sourceType = 1) // added ParallelProcessObjID
     {
-        if (id.Contains("divProcess") && ParallelProcessObjID == 0 && (type == 0 || type==1))
+        if (id.Contains("divProcess") && ParallelProcessObjID == 0 && (type == 0 || type == 1))
         {
             load(id, DBID, top, left, type);
         }
@@ -1064,7 +1065,7 @@ public partial class Production : System.Web.UI.Page
             Session["Supplier"] = newList;
         }
 
-      
+
 
     }
 
@@ -1076,49 +1077,50 @@ public partial class Production : System.Web.UI.Page
         ScriptManager.RegisterStartupScript(this, this.GetType(),
                       "ServerControlScript", scriptJq, true);
         string src = Request.QueryString["src"];
+       
+        Session["SelectedNodeValue"] = ProcessId;
+        string title = "";
+        int top, left, type;
+        if (Session["Supplier"] != null)
+        {
+            newList = (List<Supplier>)Session["Supplier"];
+            for (int i = 0; i < newList.Count; i++)
+            {
+                title = newList[i].Title.ToString();
+                type = Convert.ToInt32(newList[i].Type.ToString());
+                top = Convert.ToInt32(newList[i].Top.ToString());
+                left = Convert.ToInt32(newList[i].Left.ToString());
+
+                VisualERPDataContext ObjData = new VisualERPDataContext();
+                tbl_ProcessObject controldata = new tbl_ProcessObject();
+                controldata.ProcessObjID = Convert.ToInt32(newList[i].EditID);
+                controldata.XTop = top;
+                controldata.YLeft = left;
+                controldata.Width = 0;
+                controldata.Height = 0;
+                controldata.Type = type;
+                controldata.Title = title;
+
+                int returnid;
+
+                returnid = ControlsData.SaveControlData(controldata);
+                if (returnid != 0)
+                {
+                    //successfully inserted
+                }
+                else
+                {
+                    ////error while saving
+                }
+            }
+
+        }
         if (!string.IsNullOrEmpty(src) && src == "tgt")
         {
             Response.Redirect("TargetManager.aspx");
         }
         else
-        Response.Redirect("ProcessManager.aspx");
-        // Session["SelectedNodeValue"] = ProcessId;
-        //string title = "";
-        //int top, left, type;
-        //if (Session["Supplier"] != null)
-        //{
-        //    newList = (List<Supplier>)Session["Supplier"];
-        //    for (int i = 0; i < newList.Count; i++)
-        //    {
-        //        title = newList[i].Title.ToString();
-        //        type = Convert.ToInt32(newList[i].Type.ToString());
-        //        top = Convert.ToInt32(newList[i].Top.ToString());
-        //        left = Convert.ToInt32(newList[i].Left.ToString());
-
-        //        VisualERPDataContext ObjData = new VisualERPDataContext();
-        //        tbl_ProcessObject controldata = new tbl_ProcessObject();
-        //        //controldata.ProcessObjID = id;
-        //        controldata.XTop = top;
-        //        controldata.YLeft = left;
-        //        controldata.Width = 0;
-        //        controldata.Height = 0;
-        //        controldata.Type = type;
-        //        controldata.Title = title;
-
-        //        int returnid;
-
-        //        //returnid = ControlsData.SaveControlData(controldata);
-        //        //if (returnid != 0)
-        //        //{
-        //        //    //successfully inserted
-        //        //}
-        //        //else
-        //        //{
-        //        //    ////error while saving
-        //        //}
-        //    }
-
-        //}
+            Response.Redirect("ProcessManager.aspx");
     }
 
     protected void btnAddTitle_Click1(object sender, EventArgs e)
@@ -1130,133 +1132,133 @@ public partial class Production : System.Web.UI.Page
         {
             sourceType = 2;
         }
-            //if (SelectedType == Convert.ToString(ProcessControl.Supplier))
-            //{
-            //    Panel1.Visible = false;
-            //    string title = txtTitleName.Text.Trim();
-            //    txtTitleName.Text = "";
-            //    //ModalPopupExtender1.Hide();
-            //    InsertedID = InsertControlData(2, title);
-            //    if (InsertedID != 0)
-            //    {
-            //        UserControls_Supplier supplierNew = LoadControl("UserControls/Supplier.ascx") as UserControls_Supplier; //load supplier control
-            //        //string id = "divSupplier" + Guid.NewGuid(); // create control id that is unique by giving its id with guid
-            //        //supplierNew.SupplierId = id;
-            //        //supplierNew.Top = 50;
-            //        //supplierNew.Left = 50;
-            //        supplierNew.Title = title;
-            //        supplierNew.SupplierId = "divSupplier" + InsertedID;
-            //        supplierNew.ProcessObjectId = InsertedID;
-            //        //MainDiv1.Controls.Add(supplierNew);
-            //        //successfully inserted
+        //if (SelectedType == Convert.ToString(ProcessControl.Supplier))
+        //{
+        //    Panel1.Visible = false;
+        //    string title = txtTitleName.Text.Trim();
+        //    txtTitleName.Text = "";
+        //    //ModalPopupExtender1.Hide();
+        //    InsertedID = InsertControlData(2, title);
+        //    if (InsertedID != 0)
+        //    {
+        //        UserControls_Supplier supplierNew = LoadControl("UserControls/Supplier.ascx") as UserControls_Supplier; //load supplier control
+        //        //string id = "divSupplier" + Guid.NewGuid(); // create control id that is unique by giving its id with guid
+        //        //supplierNew.SupplierId = id;
+        //        //supplierNew.Top = 50;
+        //        //supplierNew.Left = 50;
+        //        supplierNew.Title = title;
+        //        supplierNew.SupplierId = "divSupplier" + InsertedID;
+        //        supplierNew.ProcessObjectId = InsertedID;
+        //        //MainDiv1.Controls.Add(supplierNew);
+        //        //successfully inserted
 
-            //        HtmlGenericControl div1 = new HtmlGenericControl("div"); // create a html div that will contains above table with id
+        //        HtmlGenericControl div1 = new HtmlGenericControl("div"); // create a html div that will contains above table with id
 
-            //        div1.ID = "divSupplier" + InsertedID;  // creating div id that will be unique every time when we add process control
-            //        //div1.Attributes["name"] = "ContentPlaceHolder1_" + id;
-            //        div1.Attributes["name"] = "divSupplier" + InsertedID;   // id will maintain by div name
-            //        // div1.Attributes["style"] = "Position:absoulte;width:"+width +"px;height:"+ height+"px;top: " + top + "px; left: " + left + "px;"; // add div style with given postion
-            //        div1.Attributes["style"] = "position: absolute; top:10px; left:20px; width: 200px!important; height: 200px!important;"; // add div style with given postion                
+        //        div1.ID = "divSupplier" + InsertedID;  // creating div id that will be unique every time when we add process control
+        //        //div1.Attributes["name"] = "ContentPlaceHolder1_" + id;
+        //        div1.Attributes["name"] = "divSupplier" + InsertedID;   // id will maintain by div name
+        //        // div1.Attributes["style"] = "Position:absoulte;width:"+width +"px;height:"+ height+"px;top: " + top + "px; left: " + left + "px;"; // add div style with given postion
+        //        div1.Attributes["style"] = "position: absolute; top:10px; left:20px; width: 200px!important; height: 200px!important;"; // add div style with given postion                
 
-            //        div1.Controls.Add(supplierNew);
-            //        MainDiv1.Controls.Add(div1);
-            //    }
-            //    else
-            //    {
-            //        ////error while saving
-            //    }
-
-
-            //    newList.Add(new Supplier() { SupplierID = "divSupplier" + InsertedID, EditID = InsertedID, Top = 50, Left = 50, Type = 2, Title = title });
-            //    Session["Supplier"] = newList;
+        //        div1.Controls.Add(supplierNew);
+        //        MainDiv1.Controls.Add(div1);
+        //    }
+        //    else
+        //    {
+        //        ////error while saving
+        //    }
 
 
-            //    int top = 50, left = 50;
-            //    string script = "callready();";
-            //    ScriptManager.RegisterStartupScript(this, this.GetType(),
-            //                  "ServerControlScript", script, true);
-
-            //    StringBuilder sb2 = new StringBuilder();
-            //    string str2 = string.Empty;
-            //    //if (Session["PosSupplier"] != null)
-            //    //{
-            //    //    str2 += Convert.ToString(Session["PosSupplier"]);
-            //    //}
-            //    if (!string.IsNullOrEmpty(hdnSupplier.Value))
-            //    {
-            //        //str2 += Convert.ToString(Session["PosSupplier"]);
-            //        str2 += hdnSupplier.Value;
-            //    }
-
-            //    sb2.Append("divSupplier" + InsertedID + "@" + top + "~" + left + ",");
-            //    str2 += sb2.ToString();
-            //    Session["PosSupplier"] = str2;
-            //    hdnSupplier.Value = str2;
-            //}
-
-            //if (SelectedType == Convert.ToString(ProcessControl.Shipment))
-            //{
-
-            //    Panel1.Visible = false;
-            //    string title = txtTitleName.Text.Trim();
-            //    txtTitleName.Text = "";
-            //    //ModalPopupExtender1.Hide();
+        //    newList.Add(new Supplier() { SupplierID = "divSupplier" + InsertedID, EditID = InsertedID, Top = 50, Left = 50, Type = 2, Title = title });
+        //    Session["Supplier"] = newList;
 
 
-            //    InsertedID = InsertControlData(3, title);
-            //    if (InsertedID != 0)
-            //    {
-            //        UserControls_Shipment shipmentNew = LoadControl("UserControls/Shipment.ascx") as UserControls_Shipment; //load supplier control
-            //        //string id = "divSupplier" + Guid.NewGuid(); // create control id that is unique by giving its id with guid
-            //        //supplierNew.SupplierId = id;
-            //        //shipmentNew.Top = 50;
-            //        //shipmentNew.Left = 50;
-            //        shipmentNew.Title = title;
-            //        shipmentNew.SupplierId = "divShipment" + InsertedID;
-            //        shipmentNew.ProcessObjectId = InsertedID;
-            //       // MainDiv1.Controls.Add(shipmentNew);
-            //        //successfully inserted
+        //    int top = 50, left = 50;
+        //    string script = "callready();";
+        //    ScriptManager.RegisterStartupScript(this, this.GetType(),
+        //                  "ServerControlScript", script, true);
 
-            //        HtmlGenericControl div1 = new HtmlGenericControl("div"); // create a html div that will contains above table with id
+        //    StringBuilder sb2 = new StringBuilder();
+        //    string str2 = string.Empty;
+        //    //if (Session["PosSupplier"] != null)
+        //    //{
+        //    //    str2 += Convert.ToString(Session["PosSupplier"]);
+        //    //}
+        //    if (!string.IsNullOrEmpty(hdnSupplier.Value))
+        //    {
+        //        //str2 += Convert.ToString(Session["PosSupplier"]);
+        //        str2 += hdnSupplier.Value;
+        //    }
 
-            //        div1.ID = "divShipment" + InsertedID;  // creating div id that will be unique every time when we add process control
-            //        //div1.Attributes["name"] = "ContentPlaceHolder1_" + id;
-            //        div1.Attributes["name"] = "divShipment" + InsertedID;   // id will maintain by div name
-            //        // div1.Attributes["style"] = "Position:absoulte;width:"+width +"px;height:"+ height+"px;top: " + top + "px; left: " + left + "px;"; // add div style with given postion
-            //        div1.Attributes["style"] = "position: absolute; top:20px; left:20px;  width: 200px!important; height: 200px!important;"; // add div style with given postion                
+        //    sb2.Append("divSupplier" + InsertedID + "@" + top + "~" + left + ",");
+        //    str2 += sb2.ToString();
+        //    Session["PosSupplier"] = str2;
+        //    hdnSupplier.Value = str2;
+        //}
 
-            //        div1.Controls.Add(shipmentNew);
-            //        MainDiv1.Controls.Add(div1);
-            //    }
-            //    else
-            //    {
-            //        ////error while saving
-            //    }
+        //if (SelectedType == Convert.ToString(ProcessControl.Shipment))
+        //{
 
-            //    newList.Add(new Supplier() { SupplierID = "divShipment" + InsertedID, EditID = InsertedID, Top = 50, Left = 50, Type = 3, Title = title });
-            //    Session["Supplier"] = newList;
+        //    Panel1.Visible = false;
+        //    string title = txtTitleName.Text.Trim();
+        //    txtTitleName.Text = "";
+        //    //ModalPopupExtender1.Hide();
 
 
-            //    int top = 50, left = 50;
-            //    string script = "callready();";
-            //    ScriptManager.RegisterStartupScript(this, this.GetType(),
-            //                  "ServerControlScript", script, true);
+        //    InsertedID = InsertControlData(3, title);
+        //    if (InsertedID != 0)
+        //    {
+        //        UserControls_Shipment shipmentNew = LoadControl("UserControls/Shipment.ascx") as UserControls_Shipment; //load supplier control
+        //        //string id = "divSupplier" + Guid.NewGuid(); // create control id that is unique by giving its id with guid
+        //        //supplierNew.SupplierId = id;
+        //        //shipmentNew.Top = 50;
+        //        //shipmentNew.Left = 50;
+        //        shipmentNew.Title = title;
+        //        shipmentNew.SupplierId = "divShipment" + InsertedID;
+        //        shipmentNew.ProcessObjectId = InsertedID;
+        //       // MainDiv1.Controls.Add(shipmentNew);
+        //        //successfully inserted
 
-            //    StringBuilder sb2 = new StringBuilder();
-            //    string str2 = string.Empty;
-            //    if (!string.IsNullOrEmpty(hdnSupplier.Value))
-            //    {
-            //        // str2 += Convert.ToString(Session["PosSupplier"]);
-            //        str2 += hdnSupplier.Value;
-            //    }
+        //        HtmlGenericControl div1 = new HtmlGenericControl("div"); // create a html div that will contains above table with id
 
-            //    sb2.Append("divShipment" + InsertedID + "@" + top + "~" + left + ",");
-            //    str2 += sb2.ToString();
-            //    Session["PosSupplier"] = str2;
-            //    hdnSupplier.Value = str2;
-            //}
+        //        div1.ID = "divShipment" + InsertedID;  // creating div id that will be unique every time when we add process control
+        //        //div1.Attributes["name"] = "ContentPlaceHolder1_" + id;
+        //        div1.Attributes["name"] = "divShipment" + InsertedID;   // id will maintain by div name
+        //        // div1.Attributes["style"] = "Position:absoulte;width:"+width +"px;height:"+ height+"px;top: " + top + "px; left: " + left + "px;"; // add div style with given postion
+        //        div1.Attributes["style"] = "position: absolute; top:20px; left:20px;  width: 200px!important; height: 200px!important;"; // add div style with given postion                
 
-            if (SelectedType == Convert.ToString(ProcessControl.Supplier))
+        //        div1.Controls.Add(shipmentNew);
+        //        MainDiv1.Controls.Add(div1);
+        //    }
+        //    else
+        //    {
+        //        ////error while saving
+        //    }
+
+        //    newList.Add(new Supplier() { SupplierID = "divShipment" + InsertedID, EditID = InsertedID, Top = 50, Left = 50, Type = 3, Title = title });
+        //    Session["Supplier"] = newList;
+
+
+        //    int top = 50, left = 50;
+        //    string script = "callready();";
+        //    ScriptManager.RegisterStartupScript(this, this.GetType(),
+        //                  "ServerControlScript", script, true);
+
+        //    StringBuilder sb2 = new StringBuilder();
+        //    string str2 = string.Empty;
+        //    if (!string.IsNullOrEmpty(hdnSupplier.Value))
+        //    {
+        //        // str2 += Convert.ToString(Session["PosSupplier"]);
+        //        str2 += hdnSupplier.Value;
+        //    }
+
+        //    sb2.Append("divShipment" + InsertedID + "@" + top + "~" + left + ",");
+        //    str2 += sb2.ToString();
+        //    Session["PosSupplier"] = str2;
+        //    hdnSupplier.Value = str2;
+        //}
+
+        if (SelectedType == Convert.ToString(ProcessControl.Supplier))
         {
             Panel1.Visible = false;
             string title = txtTitleName.Text.Trim();
@@ -1585,7 +1587,7 @@ public partial class Production : System.Web.UI.Page
     /// <param name="type">enum type selected arrow</param>
     /// <param name="title">no title for arrows</param>
     /// <returns></returns>
-    public int InsertControlData(int type, string title, int sourceType=1)
+    public int InsertControlData(int type, string title, int sourceType = 1)
     {
         string src = Request.QueryString["src"];
         int srcType = 1;
@@ -1638,7 +1640,7 @@ public partial class Production : System.Web.UI.Page
         return InsertedID; // return output id
     }
 
-    public int InsertModifiedControlData(string id, int DBID, int type, int XTop, int YLeft, int width, int height, string title, int sourceType=1)
+    public int InsertModifiedControlData(string id, int DBID, int type, int XTop, int YLeft, int width, int height, string title, int sourceType = 1)
     {
         int InsertedID = 0;
         VisualERPDataContext ObjData = new VisualERPDataContext();
@@ -1761,7 +1763,7 @@ public partial class Production : System.Web.UI.Page
 
 
         bool increased = false;
-       
+
         if (!string.IsNullOrEmpty(src) && src == "tgt")
         {
             increased = ProcessData.IncreasNextTargetRowsPosition(ProcessId, nextPositionInventory);
@@ -1857,16 +1859,16 @@ public partial class Production : System.Web.UI.Page
         //ModelPopupInventery.Hide();
     }
 
-    public void InsertInventeryData(int sourceType=1)
+    public void InsertInventeryData(int sourceType = 1)
     {
         tbl_InvantoryTriangle ObjectInventery = new tbl_InvantoryTriangle();
         ObjectInventery.CT = this.CInt32(txtCT.Text.Trim());
         ObjectInventery.Doller = this.CInt32(txtdoller.Text.Trim());
         ObjectInventery.Time = this.CInt32(txttime.Text.Trim());
-        if(sourceType==2)
+        if (sourceType == 2)
             ObjectInventery.ProcessObjID = this.CInt32(ViewState["TargetObjID"]);
         else
-        ObjectInventery.ProcessObjID = this.CInt32(ViewState["ProcessObjID"]);
+            ObjectInventery.ProcessObjID = this.CInt32(ViewState["ProcessObjID"]);
 
         ObjectInventery.CreatedDate = DateTime.Now;
         bool result = false;
@@ -1899,6 +1901,7 @@ public partial class Production : System.Web.UI.Page
 
     public void ParallelProcesObjectWorkView()
     {
+        VisualERPDataContext ObjData = new VisualERPDataContext();
         tbl_ProcessObject ProcessObj = new tbl_ProcessObject();
         ProcessObj.ProcessObjName = txtParallelProcessName.Text;
         TreeView mastertreeview = (TreeView)Master.FindControl("TreeView1");
@@ -1910,15 +1913,18 @@ public partial class Production : System.Web.UI.Page
         ProcessObj.ProcessObjID = this.CInt32(ViewState["ProcessObjID"]);
         if (Session["SelectedProcessObjID"] != null)
             ProcessObj.ParallelProcessObjID = Convert.ToInt32(Session["SelectedProcessObjID"]);
-        ProcessObj.XTop = 20;
-        ProcessObj.YLeft = 20;
+
+        
+
+        ProcessObj.XTop = Convert.ToInt32(ObjData.tbl_ProcessObjects.Where(p => p.ProcessObjID == Convert.ToInt32(Session["SelectedProcessObjID"])).Select(x => x.XTop).FirstOrDefault()) + 380;
+        ProcessObj.YLeft = Convert.ToInt32(ObjData.tbl_ProcessObjects.Where(p => p.ProcessObjID == Convert.ToInt32(Session["SelectedProcessObjID"])).Select(x => x.YLeft).FirstOrDefault());
         ProcessObj.Title = "";
         ProcessObj.Width = 0;
         ProcessObj.Height = 0;
         bool result = false;
         result = ProcessData.SaveParallelProcessObject(ProcessObj);
-        VisualERPDataContext ObjData = new VisualERPDataContext();
-        ObjData.SP_BulkInsertAttribute(this.CInt32(ViewState["ProcessObjID"]), ProcessId,1);
+
+        ObjData.SP_BulkInsertAttribute(this.CInt32(ViewState["ProcessObjID"]), ProcessId, 1);
         if (result == true)
         {
             bool resultFrom = false;
@@ -1986,15 +1992,15 @@ public partial class Production : System.Web.UI.Page
         ProcessObj.YLeft = 20;
         ProcessObj.Title = "";
 
-       
+
         ProcessObj.Width = 0;
         ProcessObj.Height = 0;
-       
+
 
         bool result = false;
         result = TargetData.SaveParallelProcessObject(ProcessObj);
         VisualERPDataContext ObjData = new VisualERPDataContext();
-        ObjData.SP_BulkInsertAttribute(this.CInt32(ViewState["TargetObjID"]), ProcessId,2);
+        ObjData.SP_BulkInsertAttribute(this.CInt32(ViewState["TargetObjID"]), ProcessId, 2);
         if (result == true)
         {
             bool resultFrom = false;
@@ -2072,7 +2078,7 @@ public partial class Production : System.Web.UI.Page
             activities = ProcessData.GetProcessObjActvities(PoID);
         }
 
-       
+
 
         if (activities.Count != 0)
         {
@@ -2110,7 +2116,7 @@ public partial class Production : System.Web.UI.Page
             activities = ProcessData.GetProcessObjActvities(PoID);
         }
 
-         
+
         ddlParallelActivity.Items.Clear();
         ddlParallelActivity.Items.Add(new ListItem("Select", "0"));
         foreach (ProcessData.ProcessDataProperty proData in activities)
@@ -2122,14 +2128,14 @@ public partial class Production : System.Web.UI.Page
     public void FillddlActivitySequence(int PoID)
     {
         List<ProcessData.ProcessDataProperty> activities = ProcessData.GetPObjActivitySequence(PoID);
-        
+
 
         string src = Request.QueryString["src"];
         if (!string.IsNullOrEmpty(src) && src == "tgt")
         {
             activities = ProcessData.GetTObjActivitySequence(PoID);
         }
-            if (activities.Count > 0)
+        if (activities.Count > 0)
         {
             lstAddProcess.Visible = true;
             ddlNexttoActivity.Items.Clear();
@@ -2146,7 +2152,7 @@ public partial class Production : System.Web.UI.Page
     }
 
 
-    
+
 
     public void FillddlInventoryNextTo(int PoID)
     {
@@ -2189,7 +2195,7 @@ public partial class Production : System.Web.UI.Page
         {
             Session["SelectedProcessObjID"] = ddlParallelActivity.SelectedItem.Value;
             activities = ProcessData.GetProcessObjActvitiesToSelect(ProcessId, selectPrObjid);
-        } 
+        }
         if (activities.Count != 0)
         {
             lstRelational.Visible = true;
@@ -2397,8 +2403,8 @@ public partial class Production : System.Web.UI.Page
         {
             sourceType = 2;
         }
-        
-            UserControls_ArrowControl arrowControl = LoadControl("UserControls/ArrowControl.ascx") as UserControls_ArrowControl;
+
+        UserControls_ArrowControl arrowControl = LoadControl("UserControls/ArrowControl.ascx") as UserControls_ArrowControl;
         arrowControl.SourceType = sourceType;
         arrowControl.ControlId = id.Replace("d", "a");
         arrowControl.Type = type;
@@ -2477,8 +2483,8 @@ public partial class Production : System.Web.UI.Page
         {
             increased = ProcessData.IncreasNextTargetRowsPosition(ProcessId, nextPositionProcess);
         }
-        else           
-        increased = ProcessData.IncreasNextRowsPosition(ProcessId, nextPositionProcess);
+        else
+            increased = ProcessData.IncreasNextRowsPosition(ProcessId, nextPositionProcess);
         if (increased == true)
         {
             // position updated successfully
@@ -2581,9 +2587,9 @@ public partial class Production : System.Web.UI.Page
         if (result == true)
         {
             lst.Clear();
-            
+
             LoadallControls();
-             
+
         }
         else
         {
@@ -2626,7 +2632,7 @@ public partial class Production : System.Web.UI.Page
 
 
         VisualERPDataContext ObjData = new VisualERPDataContext();
-        ObjData.SP_BulkInsertAttribute(this.CInt32(ViewState["TargetObjID"]), ProcessId,2);
+        ObjData.SP_BulkInsertAttribute(this.CInt32(ViewState["TargetObjID"]), ProcessId, 2);
         if (result == true)
         {
             lst.Clear();
@@ -2692,7 +2698,7 @@ public partial class Production : System.Web.UI.Page
             if (!string.IsNullOrEmpty(src) && src == "tgt")
             {
                 int pid = TargetData.GetProcessIdByPoid(processobjId);
-              
+
                 int position = ProcessData.GetTPositionByPoid(processobjId);
                 bool decrease = false;
                 decrease = TargetData.DecreaseNextRowsPosition(pid, position);
@@ -2720,7 +2726,7 @@ public partial class Production : System.Web.UI.Page
                 bool result1 = false;
                 result1 = ProcessData.DeleteProcessObjDataByID(processobjId);
             }
-            
+
         }
 
     }
@@ -2767,7 +2773,7 @@ public partial class Production : System.Web.UI.Page
                     {
                         bool resultP = false;
                         resultP = TargetData.DeleteParallelProcessObjDataByID(processobjId);////DeleteTFG is stored procedure in database that will delete selected TFG id from multiple tables
-                                                                                             // do nothing because no position define for parallel process
+                                                                                            // do nothing because no position define for parallel process
                     }
                     else
                     {
@@ -2798,7 +2804,7 @@ public partial class Production : System.Web.UI.Page
                                                                                              // do nothing because no position define for parallel process
                     }
                     else
-                    { 
+                    {
                         int position = ProcessData.GetPositionByPoid(processobjId);
                         bool decrease = false;
                         decrease = ProcessData.DecreaseNextRowsPosition(PId, position);
@@ -2806,20 +2812,20 @@ public partial class Production : System.Web.UI.Page
                         {
                             // position updated successfully
                         }
-                    } 
+                    }
                     bool result = false; bool result1 = false; bool resultSystemIO = false;
 
                     result = ProcessData.DeleteProcessObjDataByID(processobjId);////DeleteTFG is stored procedure in database that will delete selected TFG id from multiple tables           
                     result1 = ProcessData.DeleteAttributedataByPoID(processobjId);
                     resultSystemIO = ProcessData.DeleteSystemIODataByPoID(processobjId);
                 }
-            lblMsg.Text = "This activity has been deleted.";
-            lblMsg.Style.Add("color", "green");
-            divErrorMsg.Style.Add("float", "right");
-            divErrorMsg.Style.Add("min-width", "200px");
-            divErrorMsg.Style.Add("margin-left", "0px");
-            divErrorMsg.Style.Add("margin-right", "460px");            
-            divErrorMsg.Attributes.Add("class", "isa_success");
+                lblMsg.Text = "This activity has been deleted.";
+                lblMsg.Style.Add("color", "green");
+                divErrorMsg.Style.Add("float", "right");
+                divErrorMsg.Style.Add("min-width", "200px");
+                divErrorMsg.Style.Add("margin-left", "0px");
+                divErrorMsg.Style.Add("margin-right", "460px");
+                divErrorMsg.Attributes.Add("class", "isa_success");
             }
         }
     }

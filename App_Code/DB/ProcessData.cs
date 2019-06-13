@@ -667,6 +667,8 @@ public class ProcessData
     }
     public class ProcessDataProperty
     {
+        internal int? parallelId;
+
         public string ProcessName { get; set; }
         public int? ProcessID { get; set; }
         public int? ParentID { get; set; }
@@ -1012,16 +1014,21 @@ public class ProcessData
     {
         VisualERPDataContext Objdata = new VisualERPDataContext();
         //qry will return GetTypeID details according our search query
-        var qry = (from x in Objdata.tbl_ProcessObjects
-                   where x.ProcessID == processID && (x.Type == 0 || x.Type == 1) && x.ParallelProcessObjID != null
-                   select new ProcessDataProperty
-                   {
-                       ProcessObjID = x.ProcessObjID,
-                       Type = x.Type
+        List<ProcessDataProperty> Data = Objdata.tbl_ProcessObjects.Where(x => x.ProcessID == processID && (x.Type == 0 || x.Type == 1) && x.ParallelProcessObjID != null).Select(po => new ProcessDataProperty
+        {
+            ProcessObjID = po.ProcessObjID,
+            Type = po.Type,
+            parallelId=po.ParallelProcessObjID
+        }).ToList();
 
-                   }).Distinct().ToList();
+        foreach (var row in Data)
+        {
+            
+            row.Position = Objdata.tbl_ProcessObjects.Where(p => p.ProcessObjID == row.parallelId).Select(pos => pos.Position).FirstOrDefault();
+        }
+        return Data;
 
-        return qry.ToList();
+
     }
 
     public static List<ProcessDataProperty> GetAllParallelTargetObjId(int processID)

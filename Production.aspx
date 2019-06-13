@@ -66,7 +66,7 @@
                 
 
                 var maxwidth = $("input[id=ContentPlaceHolder1_hdnWidth]").val();
-                $("#ContentPlaceHolder1_MainDiv1").css("width", "100%");
+                $("#ContentPlaceHolder1_MainDiv1").css("width", maxwidth);
 
                 $("#ContentPlaceHolder1_MainDivOuter").css("height", newHeight + "px");
                 var remainCnt = $("#header").height() + $("#footer").height() + 50;

@@ -685,7 +685,7 @@ public partial class MainMaster : System.Web.UI.MasterPage
     }
     public void EditPopupBox_Click(object sender, EventArgs e)
     {
-        if (TreeView1.SelectedNode != null)
+        if (TreeView1.SelectedNode != null)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
         {
             TreeNode Parent = TreeView1.SelectedNode.Parent;
             divEditNodeErrorMsg.Visible = false;

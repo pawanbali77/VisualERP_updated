@@ -348,7 +348,7 @@
         </asp:Panel>
         <div class="footer" id="footer">
             <p>
-                © Copyright GroEngine, LLC 2013. All Rights Reserved</p>
+                © 2013-2019, GroEngine, Inc.  All Rights Reserved</p>
         </div>
     </div>
     </ContentTemplate>
