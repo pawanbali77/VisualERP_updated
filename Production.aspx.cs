@@ -468,7 +468,7 @@ public partial class Production : System.Web.UI.Page
         TblFirst.CellSpacing = 0;
         TblFirst.BorderWidth = 0;
 
-        //TblFirst.Width = Unit.Percentage(100);
+        TblFirst.Width = Unit.Percentage(90);
         TableRow TrFirst = new TableRow();
 
         //lstpoid = ProcessData.GetAllProcessObjId(ProcessId);
@@ -573,7 +573,7 @@ public partial class Production : System.Web.UI.Page
         div1.ID = divProcessID; // creating div id that will be unique every time when we add process control
         div1.Attributes["name"] = "ContentPlaceHolder1_" + divProcessID;
         div1.Attributes["name"] = divProcessID;  // id will maintain by div name
-        div1.Attributes["style"] = "Position:absoulte;width:400px;height:50px;top: " + Top + "px; left: " + Left + "px;"; // add div style with given postion
+        div1.Attributes["style"] = "Position:absoulte;width:100%;height:50px;top: " + Top + "px; left: " + Left + "px;"; // add div style with given postion
         div1.Controls.Add(TblFirst);
         MainDiv1.Controls.Add(div1);
 
@@ -637,7 +637,7 @@ public partial class Production : System.Web.UI.Page
         TblSecond.CellSpacing = 0;
         TblSecond.BorderWidth = 0;
 
-        //TblFirst.Width = Unit.Percentage(100);
+        TblSecond.Width = Unit.Percentage(50);
         TableRow TrSecond = new TableRow();
 
         //lstpoid = ProcessData.GetAllProcessObjId(ProcessId);
@@ -717,7 +717,7 @@ public partial class Production : System.Web.UI.Page
             div2.ID = divProcessID; // creating div id that will be unique every time when we add process control
             div2.Attributes["name"] = "ContentPlaceHolder1_" + divProcessID;
             div2.Attributes["name"] = divProcessID;  // id will maintain by div name
-            div2.Attributes["style"] = "Position:absolute;width:400px;height:50px;top: " + Top + "px; left: " + Left + "px;"; // add div style with given postion
+            div2.Attributes["style"] = "Position:absolute;width:100%;height:50px;top: " + Top + "px; left: " + Left + "px;"; // add div style with given postion
             div2.Controls.Add(TblSecond);
             MainDiv1.Controls.Add(div2);
 
@@ -1077,7 +1077,7 @@ public partial class Production : System.Web.UI.Page
         ScriptManager.RegisterStartupScript(this, this.GetType(),
                       "ServerControlScript", scriptJq, true);
         string src = Request.QueryString["src"];
-       
+
         Session["SelectedNodeValue"] = ProcessId;
         string title = "";
         int top, left, type;
@@ -1914,10 +1914,23 @@ public partial class Production : System.Web.UI.Page
         if (Session["SelectedProcessObjID"] != null)
             ProcessObj.ParallelProcessObjID = Convert.ToInt32(Session["SelectedProcessObjID"]);
 
+        var RootElementPosition = ObjData.tbl_ProcessObjects.Where(p => p.ProcessObjID == Convert.ToInt32(Session["SelectedProcessObjID"])).Select(x => x.Position).FirstOrDefault();
+        int lastYLeft = 0;
+        if(RootElementPosition==1)
+        {
+            lastYLeft = 0;
+        }
+        else
+        {
+            for (int i = 1; i < RootElementPosition; i++)
+            {
+                lastYLeft += 530 + 20;
+            }
+        }
         
 
-        ProcessObj.XTop = Convert.ToInt32(ObjData.tbl_ProcessObjects.Where(p => p.ProcessObjID == Convert.ToInt32(Session["SelectedProcessObjID"])).Select(x => x.XTop).FirstOrDefault()) + 380;
-        ProcessObj.YLeft = Convert.ToInt32(ObjData.tbl_ProcessObjects.Where(p => p.ProcessObjID == Convert.ToInt32(Session["SelectedProcessObjID"])).Select(x => x.YLeft).FirstOrDefault());
+        ProcessObj.XTop = Convert.ToInt32(ObjData.tbl_ProcessObjects.Where(p => p.ProcessObjID == Convert.ToInt32(Session["SelectedProcessObjID"])).Select(x => x.XTop).FirstOrDefault()) + 360;
+        ProcessObj.YLeft = lastYLeft;
         ProcessObj.Title = "";
         ProcessObj.Width = 0;
         ProcessObj.Height = 0;

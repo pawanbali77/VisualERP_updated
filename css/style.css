@@ -151,6 +151,7 @@ img {
     position: fixed;
     top: 48px;
     width: 100%;
+        z-index: 100;
     background: url(../images/heading_bg.png) repeat-x left top;
 }
 
@@ -194,7 +195,7 @@ img {
     width: 100%;
     left: 317px;
     position: fixed;
-    top: 101px;
+    top: 99px;
     z-index: 100;
 }
 
@@ -321,7 +322,7 @@ img {
     margin-right: 0;
     box-shadow: 4px 5px 4px #F3F3F3;
     border: 1px solid #ccc;
-    width:auto; 
+    width:100%; 
 }
 
 .activity_block12 {

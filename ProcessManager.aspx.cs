@@ -578,7 +578,7 @@ public partial class ProcessManager : System.Web.UI.Page
         Table TblFirst = new Table();
         TblFirst.CellPadding = 0;
         TblFirst.CellSpacing = 0;
-        TblFirst.Width = Unit.Percentage(100);
+        TblFirst.Width = Unit.Percentage(90);
         TblFirst.BorderWidth = 0;
         TableRow TrFirst = new TableRow();
         //lstpoid = ProcessData.GetAllProcessObjId(ProcessId);
@@ -676,8 +676,8 @@ public partial class ProcessManager : System.Web.UI.Page
         TblSecond.CellPadding = 0;
         TblSecond.CellSpacing = 0;
         TblSecond.BorderWidth = 0;
-        TblSecond.Width = Unit.Percentage(100);
-        //TblFirst.Width = Unit.Percentage(100);
+        TblSecond.Width = Unit.Percentage(50);
+       
         TableRow TrSecond = new TableRow();
 
         //lstpoid = ProcessData.GetAllProcessObjId(ProcessId);
