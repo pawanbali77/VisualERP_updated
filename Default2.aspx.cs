@@ -12,7 +12,7 @@ public partial class Default2 : System.Web.UI.Page
         hdnProcessId.Value = Request.QueryString["processId"];
         if (!IsPostBack)
             BindGridData();
-    }
+    }   
 
     private void BindGridData()
     {
