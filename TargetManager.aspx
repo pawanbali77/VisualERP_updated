@@ -104,6 +104,9 @@
                                 <a title="Zoom-reset" class="ZommSet"></a></li>
                             <li id="liSummary" runat="server" style="height: 44px; margin-top: 6px;"><a title="Summary functions"
                                 class="SummaryIcon" href="SummaryTable.aspx?src=tgt"></a></li>
+                            <li runat="server" id="li1">
+                                <a runat="server" id="lnkEditHeader" onserverclick="lnkEditHeader_ServerClick" class="DesignBtn" style="font: bold 20px Arial; line-height: 44px !important;">Edit Header</a>
+                            </li>
                         </ul>
                         <asp:HiddenField ID="hdnWidth" runat="server" />
                         <asp:HiddenField ID="hdnheight" runat="server" />

@@ -1437,6 +1437,23 @@ public partial class TargetManager : System.Web.UI.Page
         }
     }
 
+    protected void lnkEditHeader_ServerClick(object sender, EventArgs e)
+    {
+        //int FormType = Convert.ToInt32(ViewState["FormType"]);
+        TreeView mastertreeview = (TreeView)Master.FindControl("TreeView1");
+        if (mastertreeview.SelectedNode != null)
+        {
+            ProcessId = this.CInt32(mastertreeview.SelectedNode.Value);
+        }
+        else if (Session["SelectedNodeValue"] != null)
+        {
+            ProcessId = this.CInt32(Session["SelectedNodeValue"]);
+        }
+        Response.Redirect("~/Default2.aspx?src=process&&processId=" + 0);
+
+
+    }
+
 
 
 
