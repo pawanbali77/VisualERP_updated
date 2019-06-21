@@ -134,8 +134,14 @@ public partial class MyProcess : System.Web.UI.Page
             Session.Add("CompanyID", CompanyID);
             Session.Add("UserID", UserID);
             Session.Add("RoleID", RoleID);
-
-            Response.Redirect("~/Default.aspx");
+            if (RoleID == 3)
+            {
+                Response.Redirect("~/EnterPriseManager.aspx");
+            }
+            else
+            {
+                Response.Redirect("~/Default.aspx");
+            }
         }
         if (e.CommandName == "Delete")
         {
@@ -168,9 +174,9 @@ public partial class MyProcess : System.Web.UI.Page
     {
         Email = Session["Email"].ToString();
         ID = Convert.ToInt32(Session["ID"].ToString());
-        int ParentID = Convert.ToInt32(Session["Parent_id"].ToString());
+        int ParentID = Convert.ToInt32(Session["Parent_id"]) == 0 ? ID : Convert.ToInt32(Session["Parent_id"].ToString());
         int ProcessId = Convert.ToInt32(Session["ProcessId"].ToString());
-        int CompanyId = Convert.ToInt32(Session["CompanyID"].ToString());
+        int CompanyId = Convert.ToInt32(Session["Parent_id"]) == 0 ? ID : Convert.ToInt32(Session["Parent_id"].ToString());
         int UserID = Convert.ToInt32(Session["UserID"].ToString());
 
         Session.Add("ID", ID);

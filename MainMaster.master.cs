@@ -174,6 +174,7 @@ public partial class MainMaster : System.Web.UI.MasterPage
                     {
                         myControlMenu3.Visible = false;
                     }
+                   
                 }
             }
             else

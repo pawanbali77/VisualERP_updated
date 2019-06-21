@@ -48,7 +48,7 @@ public class ControlsData
         {
             return 0;
 
-        }        
+        }
     }
 
     public static List<ProcessObjectData> GetAllProcessControlData(int processID)
@@ -69,8 +69,8 @@ public class ControlsData
                        Title = x.Title,
                        ParallelProcessObjID = x.ParallelProcessObjID,
                        ProcessObjName = x.ProcessObjName,
-                       TypeParallel = x.ParallelProcessObjID ==null?0:1
-                   }).OrderBy(a=>a.TypeParallel).ToList();
+                       TypeParallel = x.ParallelProcessObjID == null ? 0 : 1
+                   }).OrderBy(a => a.TypeParallel).ToList();
 
         return qry.ToList();
     }
@@ -81,7 +81,7 @@ public class ControlsData
         VisualERPDataContext Objdata = new VisualERPDataContext();
         //qry will return GetTypeID details according our search query
         var qry = (from x in Objdata.tbl_ProcessObjects
-                   where x.ProcessID == processID && (x.Type == 0 || x.Type==1)
+                   where x.ProcessID == processID && (x.Type == 0 || x.Type == 1)
                    select new ProcessObjectData
                    {
                        ProcessObjID = x.ProcessObjID,
@@ -122,7 +122,7 @@ public class ControlsData
         //qry will return GetTypeID details according our search query
         var qry = (from x in Objdata.tbl_ProcessObjects
                    orderby x.Type, x.ParallelProcessObjID ascending
-                   where x.ProcessID == processID && x.ParallelProcessObjID == null && (x.Type == 0 || x.Type==1)
+                   where x.ProcessID == processID && x.ParallelProcessObjID == null && (x.Type == 0 || x.Type == 1)
                    select new ProcessObjectData
                    {
                        ProcessObjID = x.ProcessObjID,
@@ -145,7 +145,7 @@ public class ControlsData
         //qry will return GetTypeID details according our search query
         var qry = (from x in Objdata.tbl_ProcessObjects
                    orderby x.Type, x.ParallelProcessObjID ascending
-                   where x.ProcessID == processID && x.ParallelProcessObjID!=null && x.Type==0
+                   where x.ProcessID == processID && x.ParallelProcessObjID != null && x.Type == 0
                    select new ProcessObjectData
                    {
                        ProcessObjID = x.ProcessObjID,
@@ -156,7 +156,7 @@ public class ControlsData
                        Height = x.Height,
                        Title = x.Title,
                        ParallelProcessObjID = x.ParallelProcessObjID,
-                       ProcessObjName = x.ProcessObjName                       
+                       ProcessObjName = x.ProcessObjName
                    }).ToList();
 
         return qry.ToList();
@@ -168,7 +168,7 @@ public class ControlsData
         //qry will return GetTypeID details according our search query
         var qry = (from x in Objdata.tbl_ProcessObjects
                    orderby x.Type, x.ParallelProcessObjID ascending
-                   where x.ProcessID == processID && x.ParallelProcessObjID == null && x.Type != 0 && x.Type !=1
+                   where x.ProcessID == processID && x.ParallelProcessObjID == null && x.Type != 0 && x.Type != 1
                    select new ProcessObjectData
                    {
                        ProcessObjID = x.ProcessObjID,

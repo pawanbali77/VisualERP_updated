@@ -209,4 +209,5 @@
                     </div>
               </ProgressTemplate>
             </asp:UpdateProgress>--%>
+     <script type="text/javascript" src="http://code.jquery.com/jquery-migrate-1.2.1.js"></script>
 </asp:Content>
