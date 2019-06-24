@@ -322,7 +322,7 @@ img {
     margin-right: 0;
     box-shadow: 4px 5px 4px #F3F3F3;
     border: 1px solid #ccc;
-    width:100%; 
+    width:420px; 
 }
 
 .activity_block12 {
@@ -452,7 +452,7 @@ img {
     .th_fieldsi a {
         color: #000000;
         /*font: 18px/40px Arial, Helvetica, sans-serif;*/
-        font: 20px/40px Arial, Helvetica, sans-serif;
+        font: 13px/40px Arial, Helvetica, sans-serif;
         padding: 0;
     }
 
@@ -2826,7 +2826,7 @@ left:0;*/
 
     .th_fieldsiPro a {
         color: #000000;
-        font: 18px/40px Arial, Helvetica, sans-serif;
+        font: 13px/40px Arial, Helvetica, sans-serif;
         padding: 0;
     }
 
@@ -2856,15 +2856,20 @@ left:0;*/
 
 .bottom_containerZ {
     width: 100%;
+        padding-top: 20px;
+        margin-left:20px;
 }
 
 .bottom_containerZ1 {
     float: left;
-    margin: 165px 0 0;
-    width: calc(100% - 370px);
+    margin: 140px 0 0;
+    width: 100%;
     position: relative;
     z-index: 50;
+    overflow-y: scroll;
 }
+
+
 
 td {
     position: relative;
@@ -3449,4 +3454,8 @@ a.ViewErrorLog {
 
 
 
+
+#ContentPlaceHolder1_divProcess9 {
+    top:24px !important; 
+}
 

@@ -31,11 +31,11 @@ public class TypeData
         return qry;
     }
 
-    public static List<tbl_Process> GetSytemCollection()
+    public static List<tbl_Process> GetSytemCollection(int CompanyId, int UserID)
     {
         VisualERPDataContext Objdata = new VisualERPDataContext();
         var qry = (from x in Objdata.tbl_Processes
-                   where x.TypeID==4
+                   where x.TypeID==4 && x.CompanyID == CompanyId && x.UserRegisterID == UserID
                    select x).ToList();
         return qry;
     }

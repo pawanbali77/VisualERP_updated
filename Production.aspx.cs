@@ -573,7 +573,8 @@ public partial class Production : System.Web.UI.Page
         div1.ID = divProcessID; // creating div id that will be unique every time when we add process control
         div1.Attributes["name"] = "ContentPlaceHolder1_" + divProcessID;
         div1.Attributes["name"] = divProcessID;  // id will maintain by div name
-        div1.Attributes["style"] = "Position:absoulte;width:100%;height:50px;top: " + Top + "px; left: " + Left + "px;"; // add div style with given postion
+        //height: 50px;
+        div1.Attributes["style"] = "Position:absoulte;top: " + Top + "px; left: " + Left + "px;"; // add div style with given postion
         div1.Controls.Add(TblFirst);
         MainDiv1.Controls.Add(div1);
 
@@ -637,7 +638,7 @@ public partial class Production : System.Web.UI.Page
         TblSecond.CellSpacing = 0;
         TblSecond.BorderWidth = 0;
 
-        TblSecond.Width = Unit.Percentage(50);
+        //TblSecond.Width = Unit.Percentage(50);
         TableRow TrSecond = new TableRow();
 
         //lstpoid = ProcessData.GetAllProcessObjId(ProcessId);
@@ -717,7 +718,8 @@ public partial class Production : System.Web.UI.Page
             div2.ID = divProcessID; // creating div id that will be unique every time when we add process control
             div2.Attributes["name"] = "ContentPlaceHolder1_" + divProcessID;
             div2.Attributes["name"] = divProcessID;  // id will maintain by div name
-            div2.Attributes["style"] = "Position:absolute;width:100%;height:50px;top: " + Top + "px; left: " + Left + "px;"; // add div style with given postion
+            //height: 50px;
+            div2.Attributes["style"] = "Position:absolute;top: " + Top + "px; left: " + Left + "px;"; // add div style with given postion
             div2.Controls.Add(TblSecond);
             MainDiv1.Controls.Add(div2);
 
@@ -1916,15 +1918,15 @@ public partial class Production : System.Web.UI.Page
 
         var RootElementPosition = ObjData.tbl_ProcessObjects.Where(p => p.ProcessObjID == Convert.ToInt32(Session["SelectedProcessObjID"])).Select(x => x.Position).FirstOrDefault();
         int lastYLeft = 0;
-        if(RootElementPosition==1)
+        if(RootElementPosition==1 || RootElementPosition==null)
         {
-            lastYLeft = 0;
+            lastYLeft = 20;
         }
         else
         {
             for (int i = 1; i < RootElementPosition; i++)
             {
-                lastYLeft += 530 + 20;
+                lastYLeft += 520;
             }
         }
         

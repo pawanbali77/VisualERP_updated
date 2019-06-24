@@ -60,8 +60,23 @@ public partial class EnterPriseMaster : System.Web.UI.MasterPage
         }
         if (!IsPostBack)
         {
-            List<ProcessData.ProcessDataProperty> lstreeData = ProcessData.GetAllProcessID();
+           
+            int CompanyId = 0;
+            int UserID = 0;
+            if (Session["CompanyId"] != null)
+            {
+                CompanyId = Convert.ToInt32(Session["CompanyID"].ToString());
+            }
+            if (Session["UserID"] != null)
+            {
+                UserID = Convert.ToInt32(Session["UserID"].ToString());
+            }
+            //List<ProcessData.ProcessDataProperty> lstreeData = ProcessData.GetAllProcessID();
+            List<ProcessData.ProcessDataProperty> lstreeData = ProcessData.GetAllProcessID_test(Convert.ToInt32(UserID.ToString()), Convert.ToInt32(CompanyId.ToString()));
             TreeView1.Nodes.Clear();
+
+
+
             BindTree(lstreeData, null);
 
             //BindTreeData();
@@ -261,9 +276,19 @@ public partial class EnterPriseMaster : System.Web.UI.MasterPage
     }
     public void FillddlSystem()
     {
+        int CompanyId = 0;
+        int UserID = 0;
+        if (Session["CompanyId"] != null)
+        {
+            CompanyId = Convert.ToInt32(Session["CompanyID"].ToString());
+        }
+        if (Session["UserID"] != null)
+        {
+            UserID = Convert.ToInt32(Session["UserID"].ToString());
+        }
         ddlSystem.Items.Clear();
         ddlSystem.Items.Add(new ListItem("Select", "0"));
-        foreach (tbl_Process typedata in TypeData.GetSytemCollection())
+        foreach (tbl_Process typedata in TypeData.GetSytemCollection(CompanyId,UserID))
         {
             ddlSystem.Items.Add(new ListItem(typedata.ProcessName, typedata.ProcessID.ToString()));
         }

@@ -134,14 +134,14 @@ public partial class MyProcess : System.Web.UI.Page
             Session.Add("CompanyID", CompanyID);
             Session.Add("UserID", UserID);
             Session.Add("RoleID", RoleID);
-            if (RoleID == 3)
-            {
-                Response.Redirect("~/EnterPriseManager.aspx");
-            }
-            else
-            {
+            //if (RoleID == 3)
+            //{
+            //    Response.Redirect("~/EnterPriseManager.aspx");
+            //}
+            //else
+            //{
                 Response.Redirect("~/Default.aspx");
-            }
+            //}
         }
         if (e.CommandName == "Delete")
         {
