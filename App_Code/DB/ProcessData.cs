@@ -1018,12 +1018,12 @@ public class ProcessData
         {
             ProcessObjID = po.ProcessObjID,
             Type = po.Type,
-            parallelId=po.ParallelProcessObjID
+            parallelId = po.ParallelProcessObjID
         }).ToList();
 
         foreach (var row in Data)
         {
-            
+
             row.Position = Objdata.tbl_ProcessObjects.Where(p => p.ProcessObjID == row.parallelId).Select(pos => pos.Position).FirstOrDefault();
         }
         return Data;
@@ -1749,12 +1749,28 @@ public class ProcessData
         //qry will return GetTypeID details according our search query
         var qry = (from x in Objdata.tbl_Reports
                    where x.ProcessObjID.Contains(Convert.ToString(probjid))
-                   select x).FirstOrDefault();
-
-        if (qry != null)
-            return true;
-        else
-            return false;
+                   select x.ProcessObjID).ToList();
+        foreach (var row in qry)
+        {
+            if (!string.IsNullOrEmpty(row) && row.Contains(','))
+            {
+                string[] data = row.Split(',');
+                if (data != null)
+                {
+                    foreach (var obj in data)
+                    {
+                        if (!string.IsNullOrEmpty(obj))
+                        {
+                            if (Convert.ToInt32(obj) == probjid)
+                            {
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return false;
     }
 
     public static string GetReportName(int probjid)
