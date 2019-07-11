@@ -103,7 +103,7 @@
         function SetFocus(id, Controltype) {
 
             if (Controltype == 1) {
-                
+
                 var el = "#" + id.id + "";
                 var nextElement = $(el).closest("td").next("td").find(".itemstyle").find("input");
                 if (nextElement.length > 0) {
@@ -122,7 +122,7 @@
                 }
             }
             else if (Controltype == 2) {
-                
+
                 var el = "#" + id.id + "";
                 var nextElement = $(el).closest("td").next("td").find(".itemstyle").find("input");
                 if (nextElement.length > 0) {
@@ -199,7 +199,10 @@
                                 <asp:LinkButton ID="lnkbtnSaveForm" runat="server" Text="Save Record" CssClass="DesignBtn"
                                     ValidationGroup="addForm" OnClick="lnkbtnSaveForm_Click" Visible="true" />
                             </li>
-
+                            <li style="margin-right: 1px" id="liExporttoExcel" runat="server">
+                                <asp:LinkButton ID="lnkbtnExporttoExcelPesaDesa" runat="server" Text="Export to Excel" CssClass="DesignBtn"
+                                    OnClick="lnkbtnExporttoExcel_Click" Visible="true"  />
+                            </li>
                             <li style="margin-right: 1px">
                                 <asp:LinkButton ID="lnkbtnViewPPESAForm" runat="server" ToolTip="View Process Error Flow" CssClass="ViewPPESA"
                                     OnClick="lnkbtnViewPPESAForm_Click" />
@@ -540,7 +543,7 @@
 
 
 
-            
+
 
         </ContentTemplate>
 

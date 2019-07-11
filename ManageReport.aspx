@@ -90,7 +90,7 @@
                 $("[id*=chkboxExistingReports_Attribute_Attribute] input").removeAttr("checked");
             }
         }
-       
+
 
 
         function SelectallExistingReports_Category_Attribute(chkExistingReports_Category_Attribute) {
@@ -101,8 +101,8 @@
                 $("[id*=chkboxExistingReports_Category_Attribute] input").removeAttr("checked");
             }
         }
-        
-        
+
+
         function SelectallError(chkSelectallError) {
 
             if ($(chkSelectallError).is(":checked")) {
@@ -185,24 +185,13 @@
                 <div class="right_nav">
                     <ul>
                         <li id="liSaveReport" runat="server">
-                            <%--<asp:UpdatePanel ID="updExport" runat="server">
-                        <ContentTemplate>--%>
                             <asp:LinkButton ID="lnkbtnSaveReport" runat="server" Text="Save Report" CssClass="DesignBtn"
                                 OnClick="lnkbtnSaveReport_Click" ValidationGroup="addReport" Visible="false"></asp:LinkButton>
-                            <%--</ContentTemplate>
-                        <Triggers>
-                            <asp:PostBackTrigger ControlID="lnkbtnExporttoExcel" />
-                        </Triggers>
-                    </asp:UpdatePanel>--%>
                         </li>
                         <li id="liExporttoExcel" runat="server">
                             <asp:LinkButton ID="lnkbtnExporttoExcel" runat="server" Text="Export to Excel" CssClass="DesignBtn"
                                 OnClick="lnkbtnExporttoExcel_Click" Visible="false" />
                         </li>
-                        <%--  <li style="line-height: 27px; margin-top: 4px; height: 43px">
-                            <asp:LinkButton ID="lnkbtnList" runat="server" ToolTip="Saved Report" CssClass="iconList1"
-                                OnClick="lnkbtnList_Click"></asp:LinkButton>
-                        </li>--%>
                         <li style="line-height: 27px; margin-top: 4px;">
                             <asp:LinkButton ID="lnkbtnAdd" runat="server" ToolTip="New Report" CssClass="iconAdd1"
                                 OnClick="lnkbtnAdd_Click"></asp:LinkButton>
@@ -244,7 +233,7 @@
                                     <li id="liInventory" runat="server"><span style="background: url(images/report.png) no-repeat left top!important; padding-left: 27px; height: 29px; float: left; margin-left: 10px;"></span>
                                         <asp:LinkButton ID="btnInventoryReport" OnClick="btnTgtInventoryReport_Click" runat="server"
                                             Text="Inventory Report" Style="font: bold 13px/32px Arial,Helvetica,sans-serif; color: #555555; margin-left: 17px;" /></li>
-                                   <%-- <li id="liCustomStandardReport" runat="server"><span style="background: url(images/report.png) no-repeat left top!important; padding-left: 27px; height: 29px; float: left; margin-left: 10px;"></span>
+                                    <%-- <li id="liCustomStandardReport" runat="server"><span style="background: url(images/report.png) no-repeat left top!important; padding-left: 27px; height: 29px; float: left; margin-left: 10px;"></span>
                                         <asp:LinkButton ID="btnCustomStandardReport" OnClick="btnTgtCustomStandardReport_Click" runat="server"
                                             Text="Custom Standard Report" Style="font: bold 13px/32px Arial,Helvetica,sans-serif; color: #555555; margin-left: 17px;" /></li>--%>
                                 </ul>
@@ -442,7 +431,7 @@
                                         </div>
                                     </li>
                                 </ul>
-                                
+
 
                                 <h3 style="font: bold 15px/32px Arial,Helvetica,sans-serif!important" id="Allreports_Category_BOM"
                                     runat="server" visible="false"></h3>
@@ -519,7 +508,7 @@
                                 <ul class="ActivtyNew">
                                     <li>
                                         <div class="fixheight" style="height: 150px; margin-top: 15px; overflow-y: scroll; overflow-x: hidden;">
-                                             <asp:CheckBox ID="chkExistingReports_Attribute_Attribute" Checked="false" Text="Select All" runat="server"
+                                            <asp:CheckBox ID="chkExistingReports_Attribute_Attribute" Checked="false" Text="Select All" runat="server"
                                                 onclick="SelectallExistingReports_Attribute_Attribute(this)" />
                                             <asp:CheckBoxList ID="chkboxExistingReports_Attribute_Attribute" runat="server" Style="margin-left: 10px">
                                             </asp:CheckBoxList>
@@ -543,11 +532,11 @@
                     </asp:GridView>
 
                 </div>
-              
-                   
-            
+
+
+
                 <div style="float: left; margin-left: 330px; margin-top: 50px;">
-                   <span style="color: #40464C; font-size: 14px; font-weight: bold;">Save Report as :</span>
+                    <span style="color: #40464C; font-size: 14px; font-weight: bold;">Save Report as :</span>
                     &nbsp;&nbsp;<asp:TextBox ID="txtCustomStandardColumnName" runat="server" CssClass="AttrTxtFild"
                         Style="width: 200px!important; float: none!important" placeholder="Column Name" />
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator8" runat="server" InitialValue=""
@@ -555,8 +544,7 @@
                         ValidationGroup="addReport" ForeColor="Red" Text="*">
                     </asp:RequiredFieldValidator>
                     <asp:Button ID="btnAddNewColumn" Text="Add new column" runat="server"
-                            CssClass="btnNextNew" OnClick="btnAddNewColumn_Click" style="width: auto;
-    margin: 0;"/>
+                        CssClass="btnNextNew" OnClick="btnAddNewColumn_Click" Style="width: auto; margin: 0;" />
                 </div>
             </asp:Panel>
 

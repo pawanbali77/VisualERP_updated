@@ -22,9 +22,9 @@ public class PPESAnPDESA
     {
         VisualERPDataContext ObjData = new VisualERPDataContext();
         var qry = (from x in ObjData.tbl_PPESAnPDESAs
-                   //join y in ObjData.tbl_ProcessObjects
-                   //on x.ProcessObjectID equals y.ProcessObjID
-                   //where x.ProcessObjectID == poid && x.FormType == formtype
+                       //join y in ObjData.tbl_ProcessObjects
+                       //on x.ProcessObjectID equals y.ProcessObjID
+                       //where x.ProcessObjectID == poid && x.FormType == formtype
                    where x.FormType == formtype && x.ProcessID == processID
                    select new ListPPESAnPDESAData
                    {
@@ -67,8 +67,9 @@ public class PPESAnPDESA
         var qry = (from x in ObjData.tbl_PPESAnPDESAs
                    join y in ObjData.tbl_ProcessObjects
                    on x.ProcessObjectID equals y.ProcessObjID
-                   //where x.ProcessObjectID == poid && x.FormType == formtype
-                   where x.FormType == formtype && x.ProcessObjectID == ProcessObjectID && x.ActionCriticalParameter == true
+                   //where x.ProcessObjectID == poid && x.FormType == formtype && x.ActionCriticalParameter == true
+
+                   where x.FormType == formtype && x.ProcessObjectID == ProcessObjectID 
                    select new ListPPESAnPDESAData
                    {
                        FormID = x.FormID,
@@ -113,9 +114,9 @@ public class PPESAnPDESA
     {
         VisualERPDataContext ObjData = new VisualERPDataContext();
         var qry = (from x in ObjData.tbl_PPESAnPDESAs
-                   //join y in ObjData.tbl_Reports
-                   //on x.ProcessID equals y.ProcessID                  
-                   where x.FormType == formtype && x.ProcessID == processID && x.ActionCriticalParameter == true
+                       //join y in ObjData.tbl_Reports
+                       //on x.ProcessID equals y.ProcessID                 && x.ActionCriticalParameter == true
+                   where x.FormType == formtype && x.ProcessID == processID  
                    select new ListPPESAnPDESAData
                    {
                        FormID = x.FormID,

@@ -718,6 +718,15 @@ public class ProcessData
         return qry.ToList();
     }
 
+    public static List<int> GetProcessObjActvities_ForPESAandDESA(int ProcessId)
+    {
+        VisualERPDataContext Objdata = new VisualERPDataContext();
+        var qry = (from x in Objdata.tbl_ProcessObjects
+                   where x.ProcessID == ProcessId && x.Type == 0
+                   select x.ProcessObjID).ToList();
+        return qry;
+    }
+
     public static List<ProcessDataProperty> GetProcessObjInventories(int ProcessId)
     {
         VisualERPDataContext Objdata = new VisualERPDataContext();

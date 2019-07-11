@@ -54,7 +54,7 @@ public partial class ManageReport : BasePage
             RoleID = Convert.ToInt32(Session["RoleID"].ToString());
         }
 
-        
+
         divErrorMsg.Visible = false;
         string EditId = GetPostBackControlId((Page)sender); // to get postback control id that is clicked
         VisualERPDataContext obj = new VisualERPDataContext();
@@ -67,6 +67,8 @@ public partial class ManageReport : BasePage
 
         ScriptManager.RegisterStartupScript(this, this.GetType(),
                       "ServerControlScript2", "test1();", true);
+        ScriptManager scriptManager = ScriptManager.GetCurrent(this.Page);
+        scriptManager.RegisterPostBackControl(this.lnkbtnExporttoExcel);
 
         pnlActivity.Visible = false;
         pnlInventory.Visible = false; pnlCustomStandardReport.Visible = false;
@@ -106,9 +108,6 @@ public partial class ManageReport : BasePage
         Label lblManager = (Label)Master.FindControl("lblManager");
         lblManager.Text = "Report Manager";
         lblManager.Attributes.Add("class", "Enterprize");
-
-        ScriptManager scriptManager = ScriptManager.GetCurrent(this.Page);
-        scriptManager.RegisterPostBackControl(this.lnkbtnExporttoExcel);
 
         foreach (ListItem item in chkboxActivity.Items)
         {
@@ -333,7 +332,7 @@ public partial class ManageReport : BasePage
 
                 BindActivityCheckboxList(Convert.ToInt32(mastertreeview.SelectedNode.Value)); // bind activity checkbox
                 BindInventoryCheckboxList(Convert.ToInt32(mastertreeview.SelectedNode.Value));
-               
+
                 BindAllExistingReportCheckboxList(Convert.ToInt32(mastertreeview.SelectedNode.Value));
 
             }
@@ -369,7 +368,7 @@ public partial class ManageReport : BasePage
             btnNextToActivity.Visible = false;
         }
         // BindActivityCheckboxList(Convert.ToInt32(mastertreeview.SelectedNode.Value));
-        
+
     }
 
     //it will create child report on multiple level of tree. we are creating dynamic query here which will return activitynode with its actual path in tree
@@ -385,47 +384,24 @@ public partial class ManageReport : BasePage
         //GetChildNodeValues(mastertreeview.Nodes[i]);
         GetChildNodeValues(mastertreeview.SelectedNode); // this is function that will get each child node value after selected node
 
-        //}
-
         for (int i = 0; i < actv.Count; i++)
         {
-            //int ProID = Convert.ToInt32(actv[i]);            
             int ProID = Convert.ToInt32(actv.ElementAt(i).Key);
             string NodeName = Convert.ToString(actv.ElementAt(i).Value);
-            // ' ('+ 'a->'+'ProcessSys1'+'->'+ dbo.tbl_Process.ProcessName +')'
             if (i == 0)
             {
-                // mid = "" + NodeName + "'+'->";
-                // pre = "SELECT tab1.ProcessObjID , ( + tab1.ProcessObjName +  '    (" + NodeName + "'+'->'+ dbo.tbl_Process.ProcessName +')') as ActivityName";               
-                // post = " FROM (SELECT  ProcessObjID, ProcessObjName, ProcessID FROM  dbo.tbl_ProcessObject WHERE (ProcessID = '" + ProID + "') AND (ProcessObjName IS NOT NULL) ";
-                //pre = "SELECT tab1.ProcessObjID ,( +tab1.ActivityName + dbo.tbl_Process.ProcessName) as ActivityName ";
                 pre = "SELECT tab1.ProcessObjID ,( +tab1.ActivityName) as ActivityName ";
                 mid = "FROM (SELECT  ProcessObjID, ( + ProcessObjName +  '    (" + NodeName + "'+')') as ActivityName, ProcessID FROM  dbo.tbl_ProcessObject WHERE (ProcessID = '" + ProID + "') AND (ProcessObjName IS NOT NULL) ";
-                //post = "AS tab1 INNER JOIN dbo.tbl_Process ON tab1.ProcessID = dbo.tbl_Process.ProcessID";
             }
             else
             {
-                //mid = "" + NodeName + "'+'->";
-                // pre = "SELECT tab1.ProcessObjID , ( + tab1.ProcessObjName +  '    (" + mid + "'+'->'+ dbo.tbl_Process.ProcessName +')') as ActivityName";
-                //post += "UNION SELECT  ProcessObjID, ProcessObjName, ProcessID FROM dbo.tbl_ProcessObject WHERE (ProcessID = '" + ProID + "') AND (ProcessObjName IS NOT NULL)";
-                //pre = "";
-                // mid = "";
                 post += "UNION SELECT  ProcessObjID, ( + ProcessObjName +  '    (" + NodeName + "'+')') as ActivityName, ProcessID FROM dbo.tbl_ProcessObject WHERE (ProcessID = '" + ProID + "') AND (ProcessObjName IS NOT NULL)";
             }
-
         }
-        //ViewState["sortBy"] = "CreatedDate";
-        //ViewState["isAsc"] = "1";
-        //BindActivityCheckboxList(ProID);
-
         string query = "" + pre + "" + mid + "" + post + ")" + " AS tab1 INNER JOIN dbo.tbl_Process ON tab1.ProcessID = dbo.tbl_Process.ProcessID";
-
-        //List<ProcessData.ProcessDataProperty> activityNode = obj.ExecuteQuery<ProcessData.ProcessDataProperty>query;
         DataSet ds = GetData(query); // passing runtime query to get dataset of records
         DataTable dt = new DataTable();
         dt = ds.Tables[0];
-        //activityNode.AddRange(dt);
-
         if (dt.Rows.Count > 0)
         {
             pnlActivity.Visible = true;
@@ -2679,6 +2655,9 @@ public partial class ManageReport : BasePage
                     reportid = row.ReportID;
 
                 ESADataR.AddRange(PPESAnPDESA.GetPPESAnPDESAReportData(this.CBool(ViewState["isAsc"]), ViewState["sortBy"].ToString(), ESAtype, ProcessId, reportid));
+                if (ESADataR.Count > 0)
+                    lnkbtnExporttoExcel.Visible = true;
+                liExporttoExcel.Visible = true;
 
                 txtESAReportName.Attributes.Add("readonly", "readonly");
                 txtESAReportName.Text = ESADataR[0].ReportName;
@@ -2691,6 +2670,7 @@ public partial class ManageReport : BasePage
                 pnlESAReport.Visible = true;
                 divESAName.Visible = true;
                 this.IsEdit = true;
+
 
             }
 
@@ -2765,17 +2745,23 @@ public partial class ManageReport : BasePage
         {
             // no relavent data found to this report ID
         }
-        pnlActivity.Visible = false; pnlInventory.Visible = false; pnlCustomStandardReport.Visible = false;
-        pnlAttribute.Visible = false; pnlEror.Visible = false;
+        pnlActivity.Visible = false;
+        pnlInventory.Visible = false;
+        pnlCustomStandardReport.Visible = false;
+        pnlAttribute.Visible = false;
+        pnlEror.Visible = false;
         pnlBomProcess.Visible = false;
         pnlListSavedReport.Visible = false;
         lnkbtnSaveReport.Visible = true;
+        
         if (RoleID == 4)
         {
             lnkbtnSaveReport.Visible = false;
             txtAttributeReportName.Visible = false;
         }
         liSaveReport.Visible = true;
+
+     
     }
 
     /// <summary>
@@ -3332,10 +3318,12 @@ public partial class ManageReport : BasePage
                 }
 
                 List<PPESAnPDESA.ListPPESAnPDESAData> ESAProcessData = new List<PPESAnPDESA.ListPPESAnPDESAData>();
+                TreeView mastertreeview = (TreeView)Master.FindControl("TreeView1");
+                List<int> obj = ProcessData.GetProcessObjActvities_ForPESAandDESA(Convert.ToInt32(mastertreeview.SelectedNode.Value));
                 // var getRecord;
-                if (Session["Activity"] != null)
+                if (obj != null)
                 {
-                    activity = (List<int>)Session["Activity"];
+                    activity = (List<int>)obj;
                     // for multiple activities
 
                     for (int i = 0; i < activity.Count; i++)

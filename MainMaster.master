@@ -408,6 +408,11 @@
             margin-top: -40px;
             color: white;
         }
+
+        input[type="submit"]:disabled {
+            opacity: 0.7;
+            cursor: no-drop;
+        }
     </style>
 
     <asp:ContentPlaceHolder ID="HeadContent" runat="server">
@@ -430,7 +435,7 @@
                     <h1 class="a2">growth engine.</h1>
                 </div>
                 <div id="divEditNodeErrorMsg" runat="server" visible="false" style="font: bold 12px Arial, Helvetica, sans-serif; color: #ffffff; padding: 18px 0px 0px 184px; height: 30px; float: left; width: 30%;">
-                    <asp:Label ID="lblEditNodeMsg" visible="false" runat="server" />
+                    <asp:Label ID="lblEditNodeMsg" Visible="false" runat="server" />
                 </div>
                 <ul id="nav2" runat="server">
                     <li class="Heading"><a href="#" class="whiteArrow">
@@ -556,10 +561,25 @@
                                 </asp:RequiredFieldValidator>
                             </li>
                             <li>
-                                <asp:Button ID="addProcessBtn" ValidationGroup="add" runat="server" CssClass="BlueBtnLe"
+                                <asp:Button Enabled="false" ID="addProcessBtn" ValidationGroup="add" runat="server" CssClass="BlueBtnLe"
                                     Text="Add" OnClick="addProcessBtn_Click" />
                             </li>
                         </ul>
+                        <%--   <script language="javascript" type="text/javascript">
+                            function enableButton() {
+                                var btn1 = document.getElementById('<%= addProcessBtn.ClientID %>')
+                                var ddl1 = document.getElementById('<%= ddlType.ClientID %>')
+
+                                if (ddl1.selectedIndex == ddl1.options.length - 1) {
+                                    btn1.disabled = false;
+                                }
+                                else {
+                                    btn1.disabled = true;
+                                }
+
+
+                            }
+                        </script>--%>
                     </div>
                     <asp:ValidationSummary ID="ValidationSummary1" runat="server" HeaderText="Following error occurs:"
                         ShowMessageBox="true" DisplayMode="BulletList" ShowSummary="false" ValidationGroup="add"

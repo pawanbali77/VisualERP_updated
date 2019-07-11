@@ -644,6 +644,14 @@ public partial class MainMaster : System.Web.UI.MasterPage
     /// <param name="e"></param>
     protected void ddlType_OnSelectedIndexChanged(object sender, EventArgs e)
     {
+        if (ddlType.SelectedIndex != 0)
+        {
+            addProcessBtn.Enabled = true;
+        }
+        else
+        {
+            addProcessBtn.Enabled = false;
+        }
         int type = 0;
         type = this.CInt32(ddlType.SelectedValue);
 

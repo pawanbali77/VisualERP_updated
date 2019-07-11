@@ -9,6 +9,8 @@ using System.Collections;
 using System.Data;
 using System.Web.UI.HtmlControls;
 using System.Reflection;
+using ClosedXML.Excel;
+using System.IO;
 
 public partial class FormManager : BasePage
 {
@@ -33,7 +35,8 @@ public partial class FormManager : BasePage
 
         ScriptManager.RegisterStartupScript(this, this.GetType(),
                       "ServerControlScript1", "hideSuccessMsg();", true);
-
+        ScriptManager scriptManager = ScriptManager.GetCurrent(this.Page);
+        scriptManager.RegisterPostBackControl(this.lnkbtnExporttoExcelPesaDesa);
         //txtFinalRPN1.Attributes.Add("readonly", "readonly");
         //txtIntialRPN1.Attributes.Add("readonly", "readonly");
         divErrorMsg.Visible = false;
@@ -314,6 +317,7 @@ public partial class FormManager : BasePage
             {
                 pnlListPPESA.Visible = false;
                 lnkbtnSaveForm.Visible = false;
+                liExporttoExcel.Visible = false;
                 lblMsg.Visible = true;
                 divErrorMsg.Visible = true;
                 lblMsg.Text = "Error on Deleting data.!";
@@ -324,7 +328,7 @@ public partial class FormManager : BasePage
 
     }
 
-   
+
 
     private bool SavePPESAandPDESA(GridViewRow row)
     {
@@ -435,6 +439,7 @@ public partial class FormManager : BasePage
                     btnAddNewRow.Visible = false;
                 }
                 lnkbtnSaveForm.Visible = false;
+                liExporttoExcel.Visible = false;
             }
             else
             {
@@ -444,15 +449,111 @@ public partial class FormManager : BasePage
                     btnAddNewRow.Visible = false;
                 }
                 lnkbtnSaveForm.Visible = true;
+                liExporttoExcel.Visible = true;
                 if (RoleID == 4)
                 {
                     lnkbtnSaveForm.Visible = false;
+                    liExporttoExcel.Visible = false;
                 }
             }
             pnlListPPESA.Visible = true;
         }
     }
 
+
+
+    protected void lnkbtnExporttoExcel_Click(object sender, EventArgs e)
+    {
+        string excelReportName = string.Empty;
+        DataTable dt = new DataTable("GridView_Data");
+        int formType = 0;
+        if (ViewState["FormType"] != null)
+            formType = Convert.ToInt32(ViewState["FormType"]);
+
+        if (formType == 0 || formType == 1) //Session["CurrentReport"] will have current report type 1 for Machine
+        {
+            int ESAtype = 0;
+            if (formType == Convert.ToInt32(FormType.PPESA))
+            {
+                excelReportName = "Process Capability Scorecard";
+                ESAtype = Convert.ToInt32(FormType.PPESA);
+            }
+            else
+            {
+                excelReportName = "Design Capability Scorecard";
+                ESAtype = Convert.ToInt32(FormType.PDESA);
+            }
+
+            List<PPESAnPDESA.ListPPESAnPDESAData> ESAProcessData = new List<PPESAnPDESA.ListPPESAnPDESAData>();
+            TreeView mastertreeview = (TreeView)Master.FindControl("TreeView1");
+            List<int> obj = ProcessData.GetProcessObjActvities_ForPESAandDESA(Convert.ToInt32(mastertreeview.SelectedNode.Value));
+            // var getRecord;
+            if (obj != null)
+            {
+                activity = (List<int>)obj;
+                // for multiple activities
+
+                for (int i = 0; i < activity.Count; i++)
+                {
+                    int prcobjID = Convert.ToInt32(activity[i].ToString()); //proobjId is selected atctivity id
+                    ViewState["sortBy"] = "FormID";
+                    ViewState["isAsc"] = "1";
+                    ESAProcessData.AddRange(PPESAnPDESA.GetPPESAnPDESADataByPobjID(this.CBool(ViewState["isAsc"]), ViewState["sortBy"].ToString(), ESAtype, prcobjID));
+                }
+            }
+            
+            foreach (TableCell cell in gridPPESA.HeaderRow.Cells)
+            {
+                if (cell.Text != "Insert Row" && cell.Text != "Delete Row")
+                    dt.Columns.Add(cell.Text);
+            }
+            int count = 0;
+            foreach (PPESAnPDESA.ListPPESAnPDESAData prop in ESAProcessData)
+            {
+                DataRow row = dt.NewRow();
+                count += 1;
+                row["S No."] = count;
+                row["Process Object Name"] = prop.ProcessObjectName;
+                row["Product Feature Added"] = prop.ProductFeatureAdded;
+                row["Function of Product Feature"] = prop.FunctionofProductFeature;
+                row["Error Event"] = prop.ErrorEvent;
+                row["Error Event Transfer Function"] = prop.ErrorEventTransferFunction;
+                row["Actions"] = prop.Actions;
+                row["Action Critical Parameter"] = prop.ActionCriticalParameter;
+                row["Conditions"] = prop.Conditions;
+                row["Conditon Critical Parameter"] = prop.ConditonCriticalParameter;
+                row["InitialSeverity"] = prop.InitialSeverity;
+                row["Initial Frequency"] = prop.InitialFrequency;
+                row["Initial Detection"] = prop.InitialDetection;
+                row["Intial RPN"] = prop.IntialRPN;
+                row["Countermeasure"] = prop.Countermeasure;
+                row["Countermeasure Effectiveness"] = prop.CountermeasureEffectiveness;
+                row["Final Severity"] = prop.FinalSeverity;
+                row["Final Frequency"] = prop.FinalFrequency;
+                row["Final Detection"] = prop.FinalDetection;
+                row["Final RPN"] = prop.FinalRPN;
+                dt.Rows.Add(row); // datatable row has been created here 
+            }
+        }
+        using (XLWorkbook wb = new XLWorkbook()) // we will add our datatable in workbook and after we will set it in memory stream to make excel file
+        {
+            wb.Worksheets.Add(dt); // adding datatable in worknook
+
+            Response.Clear();
+            Response.Buffer = true;
+            Response.Charset = "";
+            Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+            //Response.AddHeader("content-disposition", "attachment;filename=Report.xlsx");
+            Response.AddHeader("content-disposition", "attachment;filename=" + excelReportName + "-" + DateTime.Now.ToString("hh-mm-ss") + ".xlsx");
+            using (MemoryStream MyMemoryStream = new MemoryStream())
+            {
+                wb.SaveAs(MyMemoryStream); //save workbook as memorystream
+                MyMemoryStream.WriteTo(Response.OutputStream);
+                Response.Flush();
+                Response.End();
+            }
+        }
+    }
     protected void gridPPESA_Sorting(object sender, GridViewSortEventArgs e)
     {
         if (e.SortExpression == ViewState["sortBy"].ToString())
@@ -859,7 +960,7 @@ public partial class FormManager : BasePage
         }
     }
 
-   
+
 
     private void FillddlNumbers(DropDownList ddl)
     {
@@ -957,8 +1058,8 @@ public partial class FormManager : BasePage
 
     }
 
-    
 
-    
+
+
 
 }

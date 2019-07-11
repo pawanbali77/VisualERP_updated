@@ -19,14 +19,14 @@
     <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js" type="text/javascript"></script>
     <link rel="stylesheet" href="css/style.css" />
 
-     <script language="javascript" type="text/javascript">
+    <script language="javascript" type="text/javascript">
         $(function showpopup() {
             $("#Panel1").dialog();
             $("#Panel1").show();
 
         });
     </script>
-     <script language="javascript" type="text/javascript">
+    <script language="javascript" type="text/javascript">
 
         function unloadPopupBox() {	// TO Unload the Popupbox
             // document.getElementById('popup_box').style.display = "block";
@@ -37,8 +37,8 @@
         }
 
     </script>
-   
-   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js" type="text/javascript"></script>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js" type="text/javascript"></script>
     <script src="http://code.jquery.com/ui/1.8.23/jquery-ui.min.js" type="text/javascript"></script>
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.23/themes/base/jquery-ui.css"
         type="text/css" media="all" />
@@ -51,24 +51,27 @@
     <script type="text/javascript">
         function test() {
             $(document).ready(function () {
-                
+
                 var contentHeight = $(window).height();
                 var newHeight = contentHeight - $("#header").height() - $("#footer").height() - $("#Title").height() - $("#ContentPlaceHolder1_Bpmn").height() - 20; // + "px";
-                
-               
-               
+
+
+
 
                 //$("#ContentPlaceHolder1_MainDiv").css("height", newHeight + "px");
                 var maxheight = $("input[id=ContentPlaceHolder1_hdnheight]").val();//get max height of process from hidden field value
-               
+
                 $("#ContentPlaceHolder1_MainDiv1").css("height", newHeight);
                 $("#ContentPlaceHolder1_hdnNewHeight").val(newHeight);
-                
+
 
                 var maxwidth = $("input[id=ContentPlaceHolder1_hdnWidth]").val();
-                $("#ContentPlaceHolder1_MainDiv1").css("width", maxwidth);
 
+                $("#ContentPlaceHolder1_MainDiv1").css("position", "relative");
+                $("#ContentPlaceHolder1_MainDiv1").css("z-index", "50");
+                $("#ContentPlaceHolder1_MainDiv1").css("overflow-y","auto");
                 $("#ContentPlaceHolder1_MainDivOuter").css("height", newHeight + "px");
+
                 var remainCnt = $("#header").height() + $("#footer").height() + 50;
                 var newHeight1 = contentHeight - remainCnt;
                 $(".TreeView1_0").css("height", newHeight1 + "px");
@@ -89,7 +92,7 @@
 
                 $('div[name ^= aivCArrow]').resizable({
                     stop: function (event, ui) {
-                      
+
                         var resized = $(this);
                         resized.queue(function () {
 
@@ -286,9 +289,9 @@
         }
     </script>
 
-   
 
- 
+
+
     <style type="text/css">
         .chkk {
             border: solid 1px gray;
@@ -319,10 +322,8 @@
                     </div>
                     <div class="right_nav">
                         <ul>
-                              <li onclick="return ZoomIn1();" id="liZoomIn" runat="server" style="cursor: pointer;
-                                margin-top: 3px;"><a title="Zoom-in" class="ZommIn"></a></li>
-                            <li onclick="return ZoomOut1();" id="liZoomOut" runat="server" style="cursor: pointer;
-                                margin-top: 3px;"><a title="Zoom-out" class="ZommOut"></a></li>
+                            <li onclick="return ZoomIn1();" id="liZoomIn" runat="server" style="cursor: pointer; margin-top: 3px;"><a title="Zoom-in" class="ZommIn"></a></li>
+                            <li onclick="return ZoomOut1();" id="liZoomOut" runat="server" style="cursor: pointer; margin-top: 3px;"><a title="Zoom-out" class="ZommOut"></a></li>
                             <li onclick="return Zoomorg1();" id="li5" runat="server" style="height: 50px; cursor: pointer">
                                 <a title="Zoom-reset" class="ZommSet"></a></li>
                             <li runat="server" id="liSavedesign">
@@ -339,7 +340,7 @@
                             <li onclick="return callready();" id="li5" runat="server" style="height: 50px; cursor: pointer">
                                 <a title="Zoom-reset" class="ZommSet"></a></li>--%>
                         </ul>
-                         <asp:HiddenField ID="hdnWidth" runat="server" />
+                        <asp:HiddenField ID="hdnWidth" runat="server" />
                         <asp:HiddenField ID="hdnheight" runat="server" />
                         <asp:HiddenField ID="hdnLastZoom" runat="server" />
                         <asp:HiddenField ID="hdnNewHeight" runat="server" />
@@ -349,7 +350,7 @@
                 <div class="grey_strip" id="controls" runat="server">
                     <div class="filter_strip" id="Bpmn" runat="server">
                         <ul id="nav">
-                            <li class="bdr_none"><a href="#" class="col_grey" style="font: 20px Arial, Helvetica, sans-serif;line-height: 33px;">BPMN icon</a>
+                            <li class="bdr_none"><a href="#" class="col_grey" style="font: 20px Arial, Helvetica, sans-serif; line-height: 33px;">BPMN icon</a>
                                 <ul style="z-index: 2; overflow-y: scroll!important;">
                                     <li id="liProcess" runat="server">
                                         <asp:LinkButton ID="lnkBtnProces" runat="server" OnClick="lnkBtnProces_Click"><span class="NaviMidIcon1"></span>Process</asp:LinkButton></li>
@@ -416,7 +417,7 @@
                     </div>
                     <div class="filter_stripArw" id="Div1" runat="server">
                         <ul id="arw">
-                            <li class="bdr_none"><a href="#" class="col_grey" style="font: 18px Arial, Helvetica, sans-serif;line-height: 38px !important;padding-left: 8px !important;">Draw Arrows</a>
+                            <li class="bdr_none"><a href="#" class="col_grey" style="font: 18px Arial, Helvetica, sans-serif; line-height: 38px !important; padding-left: 8px !important;">Draw Arrows</a>
                                 <ul style="z-index: 2; overflow-y: scroll!important; right: 0px">
                                     <li id="li2" runat="server">
                                         <asp:LinkButton ID="lnkbtnArrow1" runat="server" OnClick="lnkbtnArrow1_Click"><span class="ArrowIcon1"></span>Right to Bottom</asp:LinkButton></li>
@@ -469,10 +470,10 @@
                 <%--  <div class="bottom_container">
                     <div class="Clear">
                     </div>--%>
-                 <div id="MainDivOuter" class="bottom_containerZ1" runat="server" style="zoom: 100%">
-                <div class="bottom_containerZ" id="MainDiv1" runat="server" style="zoom: 100%">
-                </div>
-                     </div>
+                <%--<div id="MainDivOuter" class="bottom_containerZ1" runat="server" style="zoom: 100%">--%>
+                    <div class="bottom_container" id="MainDiv1" runat="server" style="zoom: 100%">
+                    </div>
+              <%--  </div>--%>
                 <%--</div>--%>
             </div>
             <div style="display: none">
@@ -528,7 +529,7 @@
                                             Inventory Name</label>
                                         <asp:TextBox ID="txtInventoryName" runat="server" MaxLength="50" CssClass="AttrTxtFild" TabIndex="1"
                                             Width="245px"></asp:TextBox>
-                                        
+
                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="txtInventoryName" ErrorMessage="Please enter the Inventory name"
                                             InitialValue="" ValidationGroup="addInventery" ForeColor="Red" EnableClientScript="true"
                                             Text="*">
@@ -727,5 +728,5 @@
 
         </ContentTemplate>
     </asp:UpdatePanel>
-      <script type="text/javascript" src="http://code.jquery.com/jquery-migrate-1.2.1.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-migrate-1.2.1.js"></script>
 </asp:Content>
