@@ -216,7 +216,7 @@ public partial class ProcessManager : System.Web.UI.Page
             liSummary.Visible = false;
         }
 
-        typeId = TypeData.GetTypeID(ProcessId);
+        //typeId = TypeData.GetTypeID(ProcessId);
 
         if (typeId == 5)
         {

@@ -17,7 +17,7 @@ public partial class Production : System.Web.UI.Page
     int ProcessId = 0;
     int typeId = 0;
     #endregion
-
+    
     string str2 = string.Empty;
     int Top = 50;
     int Left = 50;
