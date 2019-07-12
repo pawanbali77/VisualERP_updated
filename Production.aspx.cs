@@ -1097,19 +1097,60 @@ public partial class Production : System.Web.UI.Page
                 top = Convert.ToInt32(newList[i].Top.ToString());
                 left = Convert.ToInt32(newList[i].Left.ToString());
 
-                VisualERPDataContext ObjData = new VisualERPDataContext();
-                tbl_ProcessObject controldata = new tbl_ProcessObject();
-                controldata.ProcessObjID = Convert.ToInt32(newList[i].EditID);
-                controldata.XTop = top;
-                controldata.YLeft = left;
-                controldata.Width = 0;
-                controldata.Height = 0;
-                controldata.Type = type;
-                controldata.Title = title;
-
                 int returnid;
 
-                returnid = ControlsData.SaveControlData(controldata);
+                //VisualERPDataContext ObjData = new VisualERPDataContext();
+                //tbl_ProcessObject controldata = new tbl_ProcessObject();
+                //controldata.ProcessObjID = Convert.ToInt32(newList[i].EditID);
+                //controldata.XTop = top;
+                //controldata.YLeft = left;
+                //controldata.Width = 0;
+                //controldata.Height = 0;
+                //controldata.Type = type;
+                //controldata.Title = title;
+
+                //int returnid;
+
+                //returnid = ControlsData.SaveControlData(controldata);
+
+
+
+                if (!string.IsNullOrEmpty(src) && src == "tgt")
+                {
+                    VisualERPDataContext ObjData = new VisualERPDataContext();
+                    tbl_TargetObject controldata = new tbl_TargetObject();
+                    controldata.TargetObjID = Convert.ToInt32(newList[i].EditID);
+                    controldata.XTop = top;
+                    controldata.YLeft = left;
+                    controldata.Width = 0;
+                    controldata.Height = 0;
+                    controldata.Type = type;
+                    controldata.Title = title;
+
+
+                    returnid = TargetControlsData.SaveControlData(controldata);
+                }
+
+                else
+                {
+
+                    VisualERPDataContext ObjData = new VisualERPDataContext();
+                    tbl_ProcessObject controldata = new tbl_ProcessObject();
+                    controldata.ProcessObjID = Convert.ToInt32(newList[i].EditID);
+                    controldata.XTop = top;
+                    controldata.YLeft = left;
+                    controldata.Width = 0;
+                    controldata.Height = 0;
+                    controldata.Type = type;
+                    controldata.Title = title;
+
+                    returnid = ControlsData.SaveControlData(controldata);
+                }
+
+
+
+
+
                 if (returnid != 0)
                 {
                     //successfully inserted
@@ -1748,6 +1789,7 @@ public partial class Production : System.Web.UI.Page
                 if (!string.IsNullOrEmpty(src) && src == "tgt")
                 {
                     prePosition = ProcessData.GetTPositionByPoid(ddlPoid);
+                    //nextPositionInventory = prePosition + 1;
                 }
                 else
 
@@ -2092,10 +2134,21 @@ public partial class Production : System.Web.UI.Page
     {
         List<ProcessData.ProcessDataProperty> activities = ProcessData.GetProcessObjActvities(PoID);
         string src = Request.QueryString["src"];
+        //if (!string.IsNullOrEmpty(src) && src == "tgt")
+        //{
+        //    activities = ProcessData.GetProcessObjActvities(PoID);
+        //}
+
         if (!string.IsNullOrEmpty(src) && src == "tgt")
+        {
+            activities = ProcessData.GetTargetObjActvities(PoID);
+        }
+        else
         {
             activities = ProcessData.GetProcessObjActvities(PoID);
         }
+
+
 
 
 

@@ -29,9 +29,10 @@
         <div class="main_container" id="container">
             <div class="header">
                 <div class="Logo">
-                    <a href="#">
                         <a href="#">
-                            <img src="images/logo4.png" /><img src="images/logo2.png" /></a>
+                            <img alt="" src="images/logo4.png" />
+                            <img alt="" src="images/logo22.png" />
+                        </a>
                 </div>
             </div>
             <div class="form_center">

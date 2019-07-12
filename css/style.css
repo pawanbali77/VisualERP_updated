@@ -931,12 +931,13 @@ img {
 
 .CloseBtnP {
     background: url(../images/close_btn.png) no-repeat;
-    width: 52px;
-    height: 52px;
+    width: 35px;
+    height: 35px;
     float: right;
     position: absolute;
-    right: -30px;
-    top: -30px;
+    right: -13px;
+    top: -14px;
+    background-size: cover;
 }
 
 .AttribMid {
@@ -968,7 +969,7 @@ img {
     .LeftFrm li {
         width: 100%;
         float: left;
-        padding: 20px 0 5px 0;
+        padding: 10px 0 0px 0;
         list-style-type: none;
         display: block;
     }
@@ -978,7 +979,7 @@ img {
             float: left;
             padding: 0 0 4px 0;
             /*font:normal 16px Arial, Helvetica, sans-serif;*/
-            font: normal 20px Arial, Helvetica, sans-serif;
+            font: normal 15px Arial, Helvetica, sans-serif;
             color: #555;
         }
 
@@ -3453,9 +3454,21 @@ a.ViewErrorLog {
         }*/
 
 
-
-
 #ContentPlaceHolder1_divProcess9 {
     top:24px !important; 
 }
 
+
+.chkk td {
+    position:relative; 
+}
+.chkk td label {
+    margin: 0;
+    text-align:left; 
+    padding-left:25px !important; 
+}
+
+.chkk td input {
+    position: absolute;
+    left: 0;
+}

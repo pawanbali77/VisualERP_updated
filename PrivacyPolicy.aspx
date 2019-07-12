@@ -35,8 +35,9 @@
             <div class="header">
                 <div class="Logo">
                     <a href="#">
-                        <a href="#">
-                            <img src="images/logo4.png" /><img src="images/logo2.png" /></a>
+                        <img alt="" src="images/logo4.png" />
+                        <img alt="" src="images/logo22.png" />
+                    </a>
                 </div>
             </div>
             <div class="form_center">
@@ -386,12 +387,14 @@ Express and Discover. PCI-DSS requirements help ensure the secure handling of pa
                             <p>By visiting this page on our website: <a href="http://www.groengine.com/contact-us">http://www.groengine.com/contact-us</a></p>
                         </li>
                     </ul>
-                      <br />  <br />  <br />
+                    <br />
+                    <br />
+                    <br />
                 </div>
             </div>
             <div class="footer">
                 <p>
-                   © 2013-2019, GroEngine, Inc.  All Rights Reserved.
+                    © 2013-2019, GroEngine, Inc.  All Rights Reserved.
                
                 </p>
             </div>

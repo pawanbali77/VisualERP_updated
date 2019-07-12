@@ -127,19 +127,34 @@ public partial class TargetManager : System.Web.UI.Page
             {
                 for (int i = 0; i < listData.Count; i++)
                 {
+                    //int ParallelProcessObjID = 0;////////////////////
+                    //int top = 0; int left = 0; int width = 50; int height = 50; string title = "";
+
+                    //title = listData[i].Title.ToString();
+                    //int type = Convert.ToInt32(listData[i].Type.ToString()); // get control type
+                    //int DBID = Convert.ToInt32(listData[i].ProcessObjID.ToString()); // get control primary key id
+                    //if (listData[i].ParallelProcessObjID != null)
+                    //    ParallelProcessObjID = Convert.ToInt32(listData[i].ParallelProcessObjID.ToString());  // get control parallel id
+                    //divId = GetDivid(type, DBID, ProcessId, ParallelProcessObjID);
+                    //top = Convert.ToInt32(listData[i].XTop.ToString()); // get top position
+                    //left = Convert.ToInt32(listData[i].YLeft.ToString()); // get left position
+                    //width = Convert.ToInt32(listData[i].Width.ToString()); // get width
+                    //height = Convert.ToInt32(listData[i].Height.ToString()); // get height 
+                    //ControlPosition(divId, DBID, top, left, width, height, i, title, type, ParallelProcessObjID); // call function to creae control on last position
+
                     int ParallelProcessObjID = 0;////////////////////
                     int top = 0; int left = 0; int width = 50; int height = 50; string title = "";
-                    title = listData[i].Title.ToString();
+
+                    title = Convert.ToString(listData[i].Title);
                     int type = Convert.ToInt32(listData[i].Type.ToString()); // get control type
                     int DBID = Convert.ToInt32(listData[i].ProcessObjID.ToString()); // get control primary key id
                     if (listData[i].ParallelProcessObjID != null)
                         ParallelProcessObjID = Convert.ToInt32(listData[i].ParallelProcessObjID.ToString());  // get control parallel id
                     divId = GetDivid(type, DBID, ProcessId, ParallelProcessObjID);
-                    top = Convert.ToInt32(listData[i].XTop.ToString()); // get top position
-                    left = Convert.ToInt32(listData[i].YLeft.ToString()); // get left position
-                    width = Convert.ToInt32(listData[i].Width.ToString()); // get width
-                    height = Convert.ToInt32(listData[i].Height.ToString()); // get height 
-
+                    top = listData[i].XTop != null ? Convert.ToInt32(listData[i].XTop) : 0;  // get top position
+                    left = listData[i].YLeft != null ? Convert.ToInt32(listData[i].YLeft) : 0; // get left position
+                    width = listData[i].Width != null ? Convert.ToInt32(listData[i].Width) : 0; // get width
+                    height = listData[i].Height != null ? Convert.ToInt32(listData[i].Height) : 0; // get height 
                     ControlPosition(divId, DBID, top, left, width, height, i, title, type, ParallelProcessObjID); // call function to creae control on last position
 
                 }
@@ -651,6 +666,7 @@ public partial class TargetManager : System.Web.UI.Page
             div1.ID = divProcessID; // creating div id that will be unique every time when we add process control
             div1.Attributes["name"] = "ContentPlaceHolder1_" + divProcessID;
             div1.Attributes["name"] = divProcessID;  // id will maintain by div name
+            div1.Attributes["style"] = "Position:relative;width:400px;height:350px;top: " + Top + "px; left: " + Left + "px;";
             //div1.Attributes["style"] = "Position:relative;width:400px;height:350px;top: " + Top + "px; left: " + Left + "px;"; // add div style with given postion
             div1.Controls.Add(TblFirst);
 
@@ -739,7 +755,8 @@ public partial class TargetManager : System.Web.UI.Page
             div2.ID = divProcessID; // creating div id that will be unique every time when we add process control
             div2.Attributes["name"] = "ContentPlaceHolder1_" + divProcessID;
             div2.Attributes["name"] = divProcessID;  // id will maintain by div name
-            div2.Attributes["style"] = "Position:absolute;width:" + width + "px;height:" + height + "px;top: " + Top + "px; left: " + Left + "px;"; // add div style with given postion
+            div2.Attributes["style"] = "Position:absolute;width:100%;height:" + height + "px;top: " + Top + "px; left: " + Left + "px;";
+            // div2.Attributes["style"] = "Position:absolute;width:" + width + "px;height:" + height + "px;top: " + Top + "px; left: " + Left + "px;"; // add div style with given postion
             div2.Controls.Add(TblSecond);
             MainDiv.Controls.Add(div2);
 
@@ -1056,6 +1073,7 @@ public partial class TargetManager : System.Web.UI.Page
             div1.Attributes["name"] = id;  // id will maintain by div name
             // div1.Attributes["style"] = "Position:absoulte;width:"+width +"px;height:"+ height+"px;top: " + top + "px; left: " + left + "px;"; // add div style with given postion
             //div1.Attributes["style"] = "position: absolute!important;width:50px;height:50px;top: " + top + "px; left: " + left + "px;"; // add div style with given postion                
+            div1.Attributes["style"] = "position: absolute!important;width:50px;height:50px;top: " + top + "px; left: " + left + "px;"; // add div style with given postion                
 
             div1.Controls.Add(imageControl);
             MainDiv.Controls.Add(div1);
@@ -1088,8 +1106,10 @@ public partial class TargetManager : System.Web.UI.Page
             div1.ID = id; // creating div id that will be unique every time when we add process control
             //div1.Attributes["name"] = "ContentPlaceHolder1_" + id;
             div1.Attributes["name"] = id;  // id will maintain by div name
-            // div1.Attributes["style"] = "Position:absoulte;width:"+width +"px;height:"+ height+"px;top: " + top + "px; left: " + left + "px;"; // add div style with given postion
-           // div1.Attributes["style"] = "position: absolute!important;width:50px;height:50px;top: " + top + "px; left: " + left + "px;"; // add div style with given postion                
+                                           // div1.Attributes["style"] = "Position:absoulte;width:"+width +"px;height:"+ height+"px;top: " + top + "px; left: " + left + "px;"; // add div style with given postion
+                                           // div1.Attributes["style"] = "position: absolute!important;width:50px;height:50px;top: " + top + "px; left: " + left + "px;"; // add div style with given postion                
+            div1.Attributes["style"] = "position: absolute!important;width:50px;height:50px;top: " + top + "px; left: " + left + "px;"; // add div style with given postion                
+
 
             div1.Controls.Add(arrowControl);
             MainDiv.Controls.Add(div1);

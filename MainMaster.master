@@ -432,7 +432,7 @@
 
                     <h1 class="a1">Welcome to the</h1>
                     <asp:Image ID="Img_upload" runat="server" CssClass="img_upd" />
-                    <h1 class="a2">growth engine.</h1>
+                    <h1 class="a2">GroEngine.</h1>
                 </div>
                 <div id="divEditNodeErrorMsg" runat="server" visible="false" style="font: bold 12px Arial, Helvetica, sans-serif; color: #ffffff; padding: 18px 0px 0px 184px; height: 30px; float: left; width: 30%;">
                     <asp:Label ID="lblEditNodeMsg" Visible="false" runat="server" />
@@ -528,8 +528,7 @@
                     <div id="LeftAtProcess">
                         <ul class="LeftFrm">
                             <li>
-                                <label>
-                                    Node Name</label>
+                                <label>Node Name<span style="float:none;color: red;">*</span></label>
                                 <asp:TextBox ID="txtNodeName" runat="server" CssClass="AttrTxtFild" TabIndex="1"
                                     Width="245px"></asp:TextBox>
                                 <asp:RequiredFieldValidator ID="req1" runat="server" ControlToValidate="txtNodeName"

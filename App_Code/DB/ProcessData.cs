@@ -842,12 +842,12 @@ public class ProcessData
     public static List<ProcessDataProperty> GetTargetObjActvitiesToSelect(int ProcessId, int selectedPOid)
     {
         VisualERPDataContext Objdata = new VisualERPDataContext();
-        var qry = (from x in Objdata.tbl_ProcessObjects
-                   where x.ProcessID == ProcessId && x.Type == 0 && x.ProcessObjID != selectedPOid
+        var qry = (from x in Objdata.tbl_TargetObjects
+                   where x.TargetID == ProcessId && x.Type == 0 && x.TargetObjID != selectedPOid
                    select new ProcessDataProperty
                    {
-                       ProcessObjID = x.ProcessObjID,
-                       ProcessObjectName = x.ProcessObjName
+                       ProcessObjID = x.TargetObjID,
+                       ProcessObjectName = x.TargetObjName
                    }).ToList();
         return qry.ToList();
     }

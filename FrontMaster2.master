@@ -50,7 +50,7 @@
                     <%--    <img src="images/logo2.png" /></a>--%>
                     <h1 class="a1">Welcome to the</h1>
                     <asp:Image ID="Img_upload" runat="server" CssClass="img_upd" />
-                    <h1 class="a2">growth engine.</h1>
+                    <h1 class="a2">GroEngine.</h1>
                 </div>
 
                 <ul id="nav2" runat="server">
