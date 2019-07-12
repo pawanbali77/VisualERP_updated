@@ -705,6 +705,7 @@ public partial class TargetManager : System.Web.UI.Page
         TblSecond.CellSpacing = 0;
         TblSecond.BorderWidth = 0;
 
+        TblSecond.Width = Unit.Percentage(50);
         //TblFirst.Width = Unit.Percentage(100);
         TableRow TrSecond = new TableRow();
 
@@ -729,6 +730,8 @@ public partial class TargetManager : System.Web.UI.Page
              
                 if (i == 0)
                 {
+                    UserControl ucDownArrow = LoadControl("UserControls/AerrowDownUC.ascx") as UserControl;
+                    Plst.Add(ucDownArrow);
                     Plst.Add(xx);
                 }
             }
@@ -743,12 +746,11 @@ public partial class TargetManager : System.Web.UI.Page
             foreach (UserControl uc in Plst)
             {
                 TableCell td = new TableCell();
+                TableRow trForEachRow = new TableRow();
                 td.Controls.Add(uc);
-                TrSecond.Controls.Add(td);
+                trForEachRow.Controls.Add(td);
+                TblSecond.Controls.Add(trForEachRow);
             }
-
-            TblSecond.Controls.Add(TrSecond);
-
 
             HtmlGenericControl div2 = new HtmlGenericControl("div"); // create a html div that will contains above table with id
 
